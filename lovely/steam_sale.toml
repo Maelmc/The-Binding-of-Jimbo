@@ -1,0 +1,13 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Cost reduction
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100))"
+position = 'at'
+match_indent = true
+payload = '''self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5 - (G.GAME.steam_sale or 0))*(100-G.GAME.discount_percent)/100))'''

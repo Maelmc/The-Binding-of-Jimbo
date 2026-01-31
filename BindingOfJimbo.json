@@ -1,0 +1,20 @@
+{
+	"id": "TheBindingOfJimbo",
+	"name": "The Binding of Jimbo",
+	"author": ["Maelmc"],
+	"description": "Binding of Isaac inspired mod",
+	"prefix": "tboj",
+	"main_file": "main.lua",
+	"priority": 0,
+	"badge_colour": "E3C6C5",
+	"badge_text_colour": "FFFFFF",
+  "display_name": "The Binding of Jimbo",
+	"version": "1.0",
+	"dependencies": [
+		"Steamodded (>=1.0.0~BETA-1224a)",
+    "Lovely (>=0.8)"
+	],
+  "conflicts": [],
+	"provides": [],
+	"dump_loc": false 
+}

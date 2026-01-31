@@ -1,0 +1,158 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Create the area
+[[patches]]
+[patches.regex]
+target = 'game.lua'
+pattern = 'self\.jokers = CardArea'
+position = 'before'
+payload = '''self.actives = CardArea(
+  0, CAI.consumeable_H + 0.3,
+  CAI.consumeable_W * 0.7,
+  CAI.consumeable_H, 
+  {card_limit = 1, type = 'joker', highlight_limit = 1}
+)
+'''
+match_indent = true
+times = 1
+
+# Position it
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = 'G.deck.T.y = G.TILE_H - G.deck.T.h'
+position = 'after'
+payload = '''
+
+G.actives.T.x = G.deck.T.x
+G.actives.T.y = G.deck.T.y - G.deck.T.h * 2.25
+'''
+match_indent = true
+times = 1
+
+# Emplace the card when bought
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = 'if c1.ability.consumeable then'
+position = 'at'
+payload = '''if c1.config.center.set == "tboj_active" then
+  G.actives:emplace(c1)
+elseif c1.ability.consumeable then
+'''
+match_indent = true
+times = 1
+
+# Make them appear in the shop
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "local polled_rate = pseudorandom(pseudoseed('cdt'..G.GAME.round_resets.ante))*total_rate"
+position = 'before'
+payload = '''total_rate = total_rate + G.GAME.tboj_active_rate'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = 'for _, v in ipairs(rates) do'
+position = 'before'
+payload = '''table.insert(rates, { type = "tboj_active", val = G.GAME.tboj_active_rate  })'''
+match_indent = true
+times = 1
+
+# Sell and use buttons
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = "if self.ability.consumeable or self.ability.set == 'Joker' or (self.area and self.area == G.pack_cards) then"
+position = 'at'
+payload = '''if self.ability.consumeable or self.ability.set == 'Joker' or (self.area and self.area == G.pack_cards)
+or self.ability.set == "tboj_active"
+then'''
+match_indent = true
+times = 1
+
+# Align the buttons
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''((self.area == G.jokers) or (self.area == G.consumeables)) and "cr" or'''
+position = 'after'
+payload = '''(self.area == G.actives) and "cr" or'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''((self.area == G.jokers) or (self.area == G.consumeables)) and {x=x_off - 0.4,y=0} or'''
+position = 'after'
+payload = '''(self.area == G.actives) and {x=x_off - 0.4,y=0} or'''
+match_indent = true
+times = 1
+
+# Keep on use
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = 'if card.ability.consumeable and not select_to then'
+position = 'before'
+payload = '''if card.ability.set == "tboj_active" then
+  local obj = card.config.center
+  if obj.keep_on_use and type(obj.keep_on_use) == 'function' then
+    nc = obj:keep_on_use(card)
+  end
+end
+'''
+match_indent = true
+times = 1
+
+# Use effect
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = 'elseif card.ability.consumeable then'
+position = 'before'
+payload = '''elseif card.ability.set == "tboj_active" then
+  if nc then
+    if area then area:remove_from_highlighted(card) end
+    play_sound('cardSlide2', nil, 0.3)
+    dont_dissolve = true
+  end
+  discover_card(card.config.center)
+  if not nc then draw_card(G.hand, G.play, 1, 'up', true, card, nil, mute) end
+  delay(0.2)
+  e.config.ref_table:use_active(area)
+'''
+match_indent = true
+times = 1
+
+# Calculate the area
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "-- TARGET: add your own CardAreas for joker evaluation"
+position = "after"
+payload = '''
+if G.actives and G.actives.cards then
+    t[#t+1] = G.actives
+end
+'''
+match_indent = true
+
+# DebugPlus area copy
+[[patches]]
+[patches.pattern]
+target = '=[lovely debugplus.core "debugplus/core.lua"]'
+pattern = "elseif _card.ability.consumeable then"
+position = "before"
+payload = '''
+elseif _card.ability.set == "tboj_active" then
+  _area = G.actives
+'''
+match_indent = true

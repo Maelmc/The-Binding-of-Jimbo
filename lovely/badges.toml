@@ -1,0 +1,31 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Familiar badges
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "if AUT.badges then"
+position = 'before'
+match_indent = true
+payload = '''
+if obj and obj.familiar then
+  badges[#badges+1] = create_badge(localize("tboj_familiar"), G.C.TBOJ.FAMILIAR, G.C.WHITE, 1.2 )
+end
+if obj and obj.fly then
+  badges[#badges+1] = create_badge(localize("tboj_fly"), G.C.TBOJ.FLY, G.C.WHITE, 1.2 )
+end
+'''
+
+# Active rarity badges
+#[[patches]]
+#[patches.pattern]
+#target = 'functions/UI_definitions.lua'
+#pattern = "if AUT.card_type == 'Joker' or (AUT.badges and AUT.badges.force_rarity) then card_type = SMODS.Rarity:get_rarity_badge(card.config.center.rarity) end"
+#position = 'after'
+#match_indent = true
+#payload = '''
+#if AUT.card_type == 'tboj_active' then card_type = SMODS.Rarity:get_rarity_badge(card.config.center.rarity) end
+#'''

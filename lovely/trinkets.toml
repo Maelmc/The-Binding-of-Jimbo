@@ -1,0 +1,119 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 1
+
+# Create the area
+[[patches]]
+[patches.regex]
+target = 'game.lua'
+pattern = 'self\.jokers = CardArea'
+position = 'before'
+payload = '''self.trinkets = CardArea(
+  0, CAI.consumeable_H + 0.3,
+  CAI.consumeable_W * 0.7,
+  CAI.consumeable_H, 
+  {card_limit = 1, type = 'joker', highlight_limit = 1}
+)
+'''
+match_indent = true
+times = 1
+
+# Position it
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = 'G.deck.T.y = G.TILE_H - G.deck.T.h'
+position = 'after'
+payload = '''
+
+G.trinkets.T.x = G.deck.T.x
+G.trinkets.T.y = G.deck.T.y - G.deck.T.h * 1.125
+'''
+match_indent = true
+times = 1
+
+# Emplace the card when bought
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = 'elseif c1.ability.consumeable then'
+position = 'before'
+payload = '''elseif c1.ability.set == "tboj_trinket" then
+  G.trinkets:emplace(c1)
+'''
+match_indent = true
+times = 1
+
+# Make them appear in the shop
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "local polled_rate = pseudorandom(pseudoseed('cdt'..G.GAME.round_resets.ante))*total_rate"
+position = 'before'
+payload = '''total_rate = total_rate + G.GAME.tboj_trinket_rate'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = 'for _, v in ipairs(rates) do'
+position = 'before'
+payload = '''table.insert(rates, { type = "tboj_trinket", val = G.GAME.tboj_trinket_rate  })'''
+match_indent = true
+times = 1
+
+# Sell button
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''or self.ability.set == "tboj_active"'''
+position = 'after'
+payload = '''or self.ability.set == "tboj_trinket"'''
+match_indent = true
+times = 1
+
+# Align the buttons
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''((self.area == G.jokers) or (self.area == G.consumeables)) and "cr" or'''
+position = 'after'
+payload = '''(self.area == G.trinkets) and "cr" or'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''((self.area == G.jokers) or (self.area == G.consumeables)) and {x=x_off - 0.4,y=0} or'''
+position = 'after'
+payload = '''(self.area == G.trinkets) and {x=x_off - 0.4,y=0} or'''
+match_indent = true
+times = 1
+
+# Calculate the area
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "-- TARGET: add your own CardAreas for joker evaluation"
+position = "after"
+payload = '''
+if G.trinkets and G.trinkets.cards then
+    t[#t+1] = G.trinkets
+end
+'''
+match_indent = true
+
+# DebugPlus area copy
+[[patches]]
+[patches.pattern]
+target = '=[lovely debugplus.core "debugplus/core.lua"]'
+pattern = "elseif _card.ability.consumeable then"
+position = "before"
+payload = '''
+elseif _card.ability.set == "tboj_trinket" then
+  _area = G.trinkets
+'''
+match_indent = true
