@@ -9,7 +9,7 @@ TBOJ.Active {
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.mult}}
   end,
   calculate = function(self, card, context)
-    TBOJ.charge_active(self,card,context)
+    TBOJ.eor_charge(card,context)
   end,
   can_use = function(self, card)
     return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.hand and #G.hand.highlighted > 0

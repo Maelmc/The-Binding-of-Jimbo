@@ -73,12 +73,23 @@ function TBOJ.leftmost_or_selected()
     return G.jokers.highlighted[1] or G.jokers.cards[1]
 end
 
-function TBOJ.charge_active(self,card,context)
+function TBOJ.eor_charge(card,context)
   if context.end_of_round then
+    TBOJ.charge_active(card,1)
+  end
+end
+
+function TBOJ.charge_active(card,amount)
+  local charged = false
+  for _ = 1, amount do
     if next(SMODS.find_card("j_tboj_the_battery")) and card.ability.extra.curr_charge <  card.ability.extra.max_charge * 2 or
     card.ability.extra.curr_charge <  card.ability.extra.max_charge then
+      charged = true
       card.ability.extra.curr_charge = card.ability.extra.curr_charge + 1
-    end
+    else break end
+  end
+  if charged then 
+    SMODS.calculate_effect({message = localize('tboj_charged_ex')}, card)
   end
 end
 

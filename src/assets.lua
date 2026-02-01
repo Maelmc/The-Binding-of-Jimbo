@@ -60,4 +60,5 @@ G.C.TBOJ = {
   FAMILIAR = HEX("E70000"),
   FLY = HEX("777777"),
   POOP = HEX("875D5A"),
+  LOOT = HEX("C3D5D5"),
 }

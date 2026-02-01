@@ -1,5 +1,4 @@
 SMODS.Consumable {
-  name = "spindown_dice",
   key = "spindown_dice",
   set = "Spectral",
   pos = { x = 0, y = 0 },

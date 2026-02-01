@@ -143,7 +143,7 @@ TBOJ.Active {
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
   end,
   calculate = function(self, card, context)
-    TBOJ.charge_active(self,card,context)
+    TBOJ.eor_charge(card,context)
   end,
   can_use = function(self, card)
     return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
@@ -219,7 +219,7 @@ TBOJ.Active {
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
   end,
   calculate = function(self, card, context)
-    TBOJ.charge_active(self,card,context)
+    TBOJ.eor_charge(card,context)
   end,
   can_use = function(self, card)
     return card.ability.extra.curr_charge >= card.ability.extra.max_charge and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit

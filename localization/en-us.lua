@@ -242,6 +242,23 @@ return {
         }
       },
     },
+    Loot = {
+      c_tboj_bomb = {
+        name = "Bomb",
+        text = {
+          "{C:white,X:red}X#1#{} on the next hand",
+          "then {C:red}self-destructs{} when used",
+          "{C:inactive}(#2#!)"
+        }
+      },
+      c_tboj_lil_battery = {
+        name = "Lil' Battery",
+        text = {
+          "Fully charges",
+          "selected {C:attention}Active"
+        }
+      },
+    },
     Spectral = {
       c_tboj_spindown_dice = {
             name = "Spindown Dice",
@@ -377,6 +394,9 @@ return {
       tboj_familiar = "Familiar",
       tboj_fly = "Fly",
       tboj_saved_by = "Saved by",
+      tboj_fused = "Fused",
+      tboj_not_fused = "Not fused",
+      tboj_charged_ex = "Charged!",
     },
     labels = {
 
