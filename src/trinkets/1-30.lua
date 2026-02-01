@@ -15,12 +15,35 @@ TBOJ.Trinket {
       }
     end
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end
 }
 
 -- Petrified Poop
+TBOJ.Trinket {
+  key = "petrified_poop",
+  pos = { x = 1, y = 0 },
+  cost = 5,
+  config = {extra = {money = 3}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.m_tboj_poop
+    return {vars = {card.ability.extra.money}}
+  end,
+  enhancement_gate = "m_tboj_poop",
+  calculate = function(self, card, context)
+    if context.remove_playing_cards then
+      local poop = 0
+      for _, removed_card in ipairs(context.removed) do
+        if SMODS.has_enhancement(removed_card,"m_tboj_poop") then poop = poop + 1 end
+      end
+      if poop > 0 then
+        return {
+          dollars = TBOJ.ease_money(card.ability.extra.money * poop, true),
+          card = card
+        }
+      end
+      end
+  end,
+}
+
 -- AAA Battery
 -- Broken Remote
 -- Purple Heart
@@ -66,9 +89,6 @@ TBOJ.Trinket {
       }
     end
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end
 }
 
 -- Wiggle Worm
@@ -87,9 +107,6 @@ TBOJ.Trinket {
       }
     end
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end
 }
 
 -- Ring Worm
@@ -109,9 +126,6 @@ TBOJ.Trinket {
       }
     end
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end
 }
 
 -- Store Credit
@@ -121,6 +135,7 @@ TBOJ.Trinket {
   cost = 6,
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = { key = 'tag_coupon', set = 'Tag' }
     return {vars = {card.ability.extra.money}}
   end,
   calculate = function(self, card, context)
@@ -136,9 +151,6 @@ TBOJ.Trinket {
       return nil, true -- This is for Joker retrigger purposes
     end
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end
 }
 
 -- Callus
@@ -149,6 +161,8 @@ TBOJ.Trinket {
   cost = 5,
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_lucky
     return {vars = {}}
   end,
   calculate = function(self, card, context)
@@ -158,9 +172,6 @@ TBOJ.Trinket {
       end
     end
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end
 }
 
 -- Mom's Toenail
@@ -189,9 +200,6 @@ TBOJ.Trinket {
       }
     end
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end
 }
 
 -- Whip Worm

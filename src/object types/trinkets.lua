@@ -14,6 +14,9 @@ TBOJ.Trinket = SMODS.Center:extend {
   required_params = {
     "key"
   },
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end
 }
 
 G.C.SECONDARY_SET.tboj_trinket = HEX("B741B6")

@@ -5,11 +5,11 @@
 TBOJ.Active {
   key = "book_of_belial",
   pos = { x = 3, y = 2 },
-  rarity = "Common",
+  --rarity = "Common",
   cost = 5,
   config = {extra = {max_highlighted = 1, mult = 4, max_charge = 1, curr_charge = 1}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.mult}}
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.mult, card.ability.extra.max_highlighted}}
   end,
   calculate = function(self, card, context)
     TBOJ.charge_active(self,card,context)
@@ -33,6 +33,37 @@ TBOJ.Active {
 
 -- The Necronomicon
 -- The Poop
+TBOJ.Active {
+  key = "the_poop",
+  pos = { x = 5, y = 2 },
+  --rarity = "Common",
+  cost = 3,
+  config = {extra = {max_highlighted = 1, max_charge = 1, curr_charge = 1}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_tboj_poop
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.max_highlighted}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.charge_active(self,card,context)
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+  end,
+  use = function(self, card, area, copier)
+    TBOJ.juice_flip(card)
+    for i = 1, #G.hand.highlighted do
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() G.hand.highlighted[i]:set_ability("m_tboj_poop");return true end }))
+    end 
+    TBOJ.juice_flip(card, true)
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end
+}
+
 -- Mr. Boom
 -- Tammy's Head
 -- Mom's Bra

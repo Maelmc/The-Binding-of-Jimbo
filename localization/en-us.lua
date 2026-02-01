@@ -2,7 +2,7 @@ return {
   descriptions = {
     tboj_active = {
       active_tboj_book_of_belial = {
-        name = "Book of Belial",
+        name = "The Book of Belial",
         text = {
           {
             "#1#/#2# {C:attention}charge",
@@ -11,7 +11,22 @@ return {
           },
           {
             "Add {C:mult}+#3#{} Mult to",
-            "a selected card"
+            "#4# selected card"
+          }
+        }
+      },
+      active_tboj_the_poop = {
+        name = "The Poop",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Enhance #3# selected",
+            "card into a",
+            "{C:attention}Poop Card"
           }
         }
       },
@@ -26,6 +41,7 @@ return {
           {
             "{C:attention}Reroll{} all {C:attention}Jokers",
             "and {C:attention}Actives{} in the shop",
+            "into ones of the same {C:attention}rarity"
           }
         }
       },
@@ -201,6 +217,30 @@ return {
           "scoring card"
         }
       },
+      j_tboj_e_coli = {
+        name = "E. Coli",
+        text = {
+          "All played {C:attention}face{} cards",
+          "become {C:attention}Poop{} cards",
+          "when scored"
+        }
+      },
+      j_tboj_bozo = {
+        name = "Bozo",
+        text = {
+          "If first hand of round is",
+          "a single {C:attention}Poop{} cards,",
+          "add {C:dark_edition}Polychrome{} to it"
+        }
+      },
+      j_tboj_hallowed_ground = {
+        name = "Hallowed Ground",
+        text = {
+          "Played {C:attention}Poop{} cards",
+          "give {C:white,X:red}X#1#{} Mult",
+          "when scored"
+        }
+      },
     },
     Spectral = {
       c_tboj_spindown_dice = {
@@ -231,6 +271,14 @@ return {
         text = {
           "Earn {C:money}$#1#{} when",
           "playing a hand"
+        }
+      },
+      trinket_tboj_petrified_poop = {
+        name = "Petrified Poop",
+        text = {
+          "Earn {C:money}$#1#{} when",
+          "a {C:attention}Poop{} card",
+          "is destroyed"
         }
       },
       trinket_tboj_pulse_worm = {
@@ -323,6 +371,7 @@ return {
     dictionary = {
       k_tboj_active = "Active",
       k_tboj_trinket = "Trinket",
+      k_poop = "Poop",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",

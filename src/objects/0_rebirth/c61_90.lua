@@ -133,10 +133,13 @@ SMODS.Joker {
 TBOJ.Active {
   key = "my_little_unicorn",
   pos = { x = 1, y = 5 },
-  rarity = "Rare",
+  --rarity = "Rare",
   cost = 8,
   config = {extra = {max_highlighted = 1, max_charge = 3, curr_charge = 3}},
   loc_vars = function(self, info_queue, card)
+    if not card.edition or (card.edition and not card.edition.polychrome) then
+      info_queue[#info_queue+1] = G.P_CENTERS.e_polychrome
+    end
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
   end,
   calculate = function(self, card, context)
@@ -209,7 +212,7 @@ SMODS.Joker {
 TBOJ.Active {
   key = "deck_of_cards",
   pos = { x = 9, y = 5 },
-  rarity = "Uncommon",
+  --rarity = "Uncommon",
   cost = 6,
   config = {extra = {max_charge = 1, curr_charge = 1}},
   loc_vars = function(self, info_queue, card)

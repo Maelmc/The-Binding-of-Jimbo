@@ -2,7 +2,7 @@
 TBOJ.Active {
   key = "dull_razor",
   pos = { x = 5, y = 32 },
-  rarity = "Uncommon",
+  --rarity = "Uncommon",
   cost = 5,
   config = {extra = {max_charge = 2, curr_charge = 2}},
   loc_vars = function(self, info_queue, card)

@@ -9,7 +9,7 @@ SMODS.ObjectType {
 }
 
 TBOJ.Active = SMODS.Center:extend {
-  rarity = "Common",
+  --rarity = "Common",
   unlocked = true,
   discovered = true,
   pos = {x = 0, y = 0},
@@ -21,7 +21,6 @@ TBOJ.Active = SMODS.Center:extend {
     "key"
   },
   inject = function(self)
-    print(self.key)
     G.P_CENTERS[self.key] = self
     if not self.omit then SMODS.insert_pool(G.P_CENTER_POOLS[self.set], self) end
     for k, v in pairs(SMODS.ObjectTypes) do
@@ -116,16 +115,15 @@ function Card:use_active(area, copier)
     if self.debuff then return nil end
 
     if self.ability.extra.max_highlighted then
-        update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
+      update_hand_text({immediate = true, nopulse = true, delay = 0}, {mult = 0, chips = 0, level = '', handname = ''})
     end
 
     local obj = self.config.center
     if obj.use and type(obj.use) == 'function' then
-        obj:use(self, area, copier)
-        if self.ability.extra.curr_charge then
-          self.ability.extra.curr_charge = self.ability.extra.curr_charge - self.ability.extra.max_charge
-        end
-        return
+      obj:use(self, area, copier)
+      if self.ability.extra.curr_charge then
+        self.ability.extra.curr_charge = self.ability.extra.curr_charge - self.ability.extra.max_charge
+      end
     end
 
     SMODS.calculate_context({using_active = true, active = self})

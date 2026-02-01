@@ -19,9 +19,6 @@ TBOJ.Trinket {
       }
     end
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end
 }
 
 -- Rusted Key
@@ -47,7 +44,4 @@ TBOJ.Trinket {
       }
     end
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end
 }

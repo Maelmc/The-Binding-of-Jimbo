@@ -9,9 +9,6 @@ TBOJ.Trinket {
   end,
   calculate = function(self, card, context)
   end,
-  in_pool = function(self)
-    return TBOJ.in_pool(self)
-  end,
   add_to_deck = function(self, card, from_debuff)
     G.GAME.tboj_active_rate = 0
   end,

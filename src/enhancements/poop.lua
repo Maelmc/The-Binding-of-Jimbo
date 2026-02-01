@@ -1,4 +1,3 @@
---[[
 SMODS.Enhancement {
   key = "poop",
   atlas = "enhancements",
@@ -9,4 +8,3 @@ SMODS.Enhancement {
   end,
   in_pool = function(self, args) return true end,
 }
-]]

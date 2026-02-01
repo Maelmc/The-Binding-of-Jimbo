@@ -82,10 +82,19 @@ function TBOJ.charge_active(self,card,context)
   end
 end
 
-function TBOJ.get_random_key(set,seed)
+function TBOJ.get_random_key(args)
+  local set = args.set
+  local seed = args.seed
+  local banned_rarities = args.banned_rarities
+  local target_rarity = args.target_rarity
   local candidates = {}
   for _, v in pairs(G.P_CENTERS) do
-    if v.set and v.set == set and (not (type(v.in_pool) == 'function') or v:in_pool()) and not G.GAME.banned_keys[v.key] and not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key))) and not SMODS.showman(v.key)) then
+    if v.set and v.set == set
+    and (not (type(v.in_pool) == 'function') or v:in_pool())
+    and not G.GAME.banned_keys[v.key]
+    and (not target_rarity or v.rarity == target_rarity)
+    and (not banned_rarities or not table.contains(banned_rarities,v.rarity))
+    and not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key))) and not SMODS.showman(v.key)) then
       if v.enhancement_gate then
         if G.playing_cards then
           for kk, vv in pairs(G.playing_cards) do
@@ -136,6 +145,29 @@ function TBOJ.juice_flip_hand(card, second)
         percent = base_percent - (i-0.999)/(#G.hand.cards-0.998)*0.3
       end
       G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound(sound, percent, extra);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))
+  end
+  delay(0.2)
+end
+
+function TBOJ.juice_flip(card, second)
+  local sound = 'card1'
+  local base_percent = 1.15
+  local extra = nil
+  if second then sound = 'tarot2' end
+  if second then base_percent = 0.85 end
+  if second then extra = .6 end
+  G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+      play_sound('tarot1')
+      card:juice_up(0.3, 0.5)
+      return true end }))
+  for i=1, #G.hand.highlighted do
+      local percent = nil
+      if second then
+        percent = base_percent + (i-0.999)/(#G.hand.highlighted-0.998)*0.3
+      else
+        percent = base_percent - (i-0.999)/(#G.hand.highlighted-0.998)*0.3
+      end
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound(sound, percent, extra);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true      end }))
   end
   delay(0.2)
 end

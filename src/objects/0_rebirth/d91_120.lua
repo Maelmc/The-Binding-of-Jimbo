@@ -16,7 +16,7 @@
 TBOJ.Active {
   key = "the_d6",
   pos = { x = 14, y = 6 },
-  rarity = "Common",
+  --rarity = "Common",
   cost = 6,
   config = {extra = {max_charge = 1, curr_charge = 1}},
   loc_vars = function(self, info_queue, card)
@@ -32,7 +32,7 @@ TBOJ.Active {
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do
       if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
-        TBOJ.reroll(v,TBOJ.get_random_key(v.ability.set,"d6" .. G.GAME.round_resets.ante))
+        TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarity = v.config.center.rarity}))
       end
     end
     SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
