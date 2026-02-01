@@ -74,7 +74,7 @@ function TBOJ.leftmost_or_selected()
 end
 
 function TBOJ.eor_charge(card,context)
-  if context.end_of_round then
+  if context.end_of_round and context.cardarea == G.actives then
     TBOJ.charge_active(card,1)
   end
 end

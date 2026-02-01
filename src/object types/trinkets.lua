@@ -5,7 +5,7 @@ SMODS.ObjectType {
 
 TBOJ.Trinket = SMODS.Center:extend {
   unlocked = true,
-  discovered = true,
+  discovered = false,
   pos = {x = 0, y = 0},
   cost = 4,
   set = "tboj_trinket",

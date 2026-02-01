@@ -14,6 +14,8 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     card.ability.fused = true
+    local eval = function(card) return card.ability.extra.fused and not G.RESET_JIGGLES end
+    juice_card_until(card, eval, true)
   end,
   calculate = function (self, card, context)
     if context.scoring_hand and context.joker_main then
@@ -50,6 +52,10 @@ SMODS.Consumable {
     return G.actives and G.actives.highlighted and #G.actives.highlighted == 1
   end,
   use = function(self, card, area, copier)
-    TBOJ.charge_active(G.actives.highlighted[1],G.actives.highlighted[1].ability.extra.max_charge)
+    if G.actives.highlighted[1].ability.extra.battery_charge then
+      TBOJ.charge_active(G.actives.highlighted[1],G.actives.highlighted[1].ability.extra.battery_charge)
+    else
+      TBOJ.charge_active(G.actives.highlighted[1],G.actives.highlighted[1].ability.extra.max_charge)
+    end
   end,
 }

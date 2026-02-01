@@ -6,7 +6,7 @@ TBOJ.Active {
   cost = 5,
   config = {extra = {max_charge = 2, curr_charge = 2}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.mult}}
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
   end,
   calculate = function(self, card, context)
     TBOJ.eor_charge(card,context)

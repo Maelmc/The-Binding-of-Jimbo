@@ -74,6 +74,20 @@ return {
           }
         }
       },
+      active_tboj_smelter = {
+        name = "Smelter",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Add {C:dark_edition}Negative{} to",
+            "a selected {C:attention}Trinket"
+          }
+        }
+      },
       active_tboj_dull_razor = {
         name = "Dull Razor",
         text = {
@@ -87,7 +101,23 @@ return {
             "selected playing cards",
           }
         }
-      }
+      },
+      active_tboj_larynx = {
+        name = "Larynx",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must have at least 1 charge to use",
+            "Recharges at end of round",
+            "{s:0.8}Charged by #3# when using {C:attention,s:0.8}Lil' Battery"
+          },
+          {
+            "{C:white,X:mult}X#4#{} Mult for each",
+            "charge when used",
+            "{C:inactive}(Currently {C:white,X:mult}X#5#{C:inactive} Mult and #6#)"
+          }
+        }
+      },
     },
     Back = {
       b_tboj_isaac = {
@@ -215,6 +245,13 @@ return {
           "{C:white,X:red}X1{} Mult, plus",
           "{C:white,X:red}X#1#{} for each",
           "scoring card"
+        }
+      },
+      j_tboj_sacred_heart = {
+        name = "Sacred Heart",
+        text = {
+          "{C:attention}Unscored cards{}",
+          "give {C:mult}+#1#{} and {C:white,X:mult}X#2#{} Mult"
         }
       },
       j_tboj_e_coli = {
@@ -397,7 +434,9 @@ return {
       tboj_fused = "Fused",
       tboj_not_fused = "Not fused",
       tboj_charged_ex = "Charged!",
-    },
+      tboj_active = "Active",
+      tboj_inactive = "Inactive",
+    },  
     labels = {
 
     },

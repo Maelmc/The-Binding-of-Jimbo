@@ -11,7 +11,7 @@ SMODS.ObjectType {
 TBOJ.Active = SMODS.Center:extend {
   --rarity = "Common",
   unlocked = true,
-  discovered = true,
+  discovered = false,
   pos = {x = 0, y = 0},
   cost = 4,
   set = "tboj_active",
@@ -121,7 +121,7 @@ function Card:use_active(area, copier)
     local obj = self.config.center
     if obj.use and type(obj.use) == 'function' then
       obj:use(self, area, copier)
-      if self.ability.extra.curr_charge then
+      if not obj.manual_deplete_charges and self.ability.extra.curr_charge then
         self.ability.extra.curr_charge = self.ability.extra.curr_charge - self.ability.extra.max_charge
       end
     end
