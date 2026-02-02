@@ -1,0 +1,9 @@
+-- Expansion Pack
+-- Beth's Essence
+-- The Twins
+-- Adoption Paper
+-- Cricket Leg
+-- Apollyon's Best Friend
+-- Broken Glasses
+-- Ice Cube
+-- Sigil of Baphomet

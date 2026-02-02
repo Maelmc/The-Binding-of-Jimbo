@@ -270,6 +270,15 @@ return {
           "add {C:dark_edition}Polychrome{} to it"
         }
       },
+      j_tboj_schoolbag = {
+        name = "Schoolbag",
+        text = {
+          "{C:attention}+#1#{} active slot",
+          "Destroy a random non-{C:dark_edition}Negative{}",
+          "{C:attention}Active{} when sold or destroyed",
+          "if you have more than the limit"
+        }
+      },
       j_tboj_hallowed_ground = {
         name = "Hallowed Ground",
         text = {
@@ -401,6 +410,13 @@ return {
         text = {
           "{C:attention}Actives{} no longer",
           "appear in the shop"
+        }
+      },
+      trinket_tboj_m = {
+        name = "'M",
+        text = {
+          "Using an {C:attention}Active",
+          "{C:attention}rerolls{} it"
         }
       },
     },
