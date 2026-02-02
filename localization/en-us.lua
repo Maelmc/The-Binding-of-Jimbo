@@ -185,7 +185,8 @@ return {
         text = {
           "Adds {C:attention}#1#{} to all {C:attention}listed",
           "{C:green,E:1,S:1.1}probabilities",
-          "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}2 in 6{C:inactive})",
+          "{C:attention}Pills{} cannot reduce",
+          "a poker hand's {C:attention}level"
         } 
       },
       j_tboj_steven = {
@@ -292,7 +293,7 @@ return {
       c_tboj_bomb = {
         name = "Bomb",
         text = {
-          "{C:white,X:red}X#1#{} on the next hand",
+          "{C:white,X:red}X#1#{} Mult on the next hand",
           "then {C:red}self-destructs{} when used",
           "{C:inactive}(#2#!)"
         }
@@ -302,6 +303,15 @@ return {
         text = {
           "Fully charges",
           "selected {C:attention}Active"
+        }
+      },
+      c_tboj_pill = {
+        name = "Pill",
+        text = {
+          "Increases a random {C:attention}poker",
+          "{C:attention}hand{}'s level by {C:attention}#3#",
+          "{C:green}#1# in #2#{} chance to",
+          "decrease it instead"
         }
       },
     },
@@ -427,9 +437,9 @@ return {
       tboj_reroll = {
         name = "Reroll",
         text = {
-            "{C:attetion}Transform{} into a",
+            "{C:attention}Transform{} into a",
             "different card of",
-            "the same set"
+            "the same {C:attention}set"
         }
     },
     }

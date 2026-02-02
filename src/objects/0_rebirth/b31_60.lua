@@ -79,6 +79,7 @@ SMODS.Joker {
   pos = {x = 0, y = 3},
   config = {extra = {plus_odds = 1}},
   loc_vars = function(self, info_queue, center)
+    info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_pill
     return {vars = {center.ability.extra.plus_odds}}
   end,
   rarity = 2, 
@@ -86,9 +87,13 @@ SMODS.Joker {
   atlas = "jokers",
   blueprint_compat = false,
   calculate = function(self, card, context)
+    if context.fix_probability and not context.blueprint and context.identifier == "tboj_pill" then
+      return {
+        numerator = 0,
+      }
+    end
     if context.mod_probability and not context.blueprint then
-      return 
-      {
+      return {
         numerator = context.numerator + card.ability.extra.plus_odds
       }
     end

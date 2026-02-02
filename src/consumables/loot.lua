@@ -5,21 +5,21 @@ SMODS.Consumable {
   atlas = "consumables",
   cost = 4,
   unlocked = true,
-  config = {Xmult = 2},
+  config = { extra = { Xmult = 2 } },
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.Xmult, card.ability.fused and localize("tboj_fused") or localize("tboj_not_fused")}}
+    return {vars = {card.ability.extra.Xmult, card.ability.extra.fused and localize("tboj_fused") or localize("tboj_not_fused")}}
   end,
   can_use = function(self, card)
-    return not card.ability.fused
+    return not card.ability.extra.fused
   end,
   use = function(self, card, area, copier)
-    card.ability.fused = true
+    card.ability.extra.fused = true
     local eval = function(card) return card.ability.extra.fused and not G.RESET_JIGGLES end
     juice_card_until(card, eval, true)
   end,
   calculate = function (self, card, context)
     if context.scoring_hand and context.joker_main then
-      if card.ability.fused then
+      if card.ability.extra.fused then
         G.E_MANAGER:add_event(Event({
           func = function()
             card:start_dissolve()
@@ -27,7 +27,7 @@ SMODS.Consumable {
           end
         }))
         return {
-          xmult = card.ability.Xmult
+          xmult = card.ability.extra.Xmult
         }
       end
     end
@@ -44,7 +44,7 @@ SMODS.Consumable {
   atlas = "consumables",
   cost = 4,
   unlocked = true,
-  config = {Xmult = 2},
+  config = {},
   loc_vars = function(self, info_queue, card)
     return {vars = {}}
   end,
@@ -56,6 +56,37 @@ SMODS.Consumable {
       TBOJ.charge_active(G.actives.highlighted[1],G.actives.highlighted[1].ability.extra.battery_charge)
     else
       TBOJ.charge_active(G.actives.highlighted[1],G.actives.highlighted[1].ability.extra.max_charge)
+    end
+  end,
+}
+
+SMODS.Consumable {
+  key = "pill",
+  set = "Loot",
+  pos = { x = 3, y = 0 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  config = { extra = {num = 1, den = 3, increase = 2}},
+  loc_vars = function(self, info_queue, card)
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_pill")
+    return {vars = {num, den, card.ability.extra.increase}}
+  end,
+  can_use = function(self, card)
+    return true
+  end,
+  use = function(self, card, area, copier)
+    local _poker_hands = {}
+    for k, v in pairs(G.GAME.hands) do
+      if v.visible then
+        _poker_hands[#_poker_hands+1] = k
+      end
+    end
+    local hand = pseudorandom_element(_poker_hands, "tboj_pill")
+    if SMODS.pseudorandom_probability(card, "tboj_pill", card.ability.extra.num, card.ability.extra.den, "tboj_pill") then
+      SMODS.smart_level_up_hand(card, hand, false, -card.ability.extra.increase)
+    else
+      SMODS.smart_level_up_hand(card, hand, false, card.ability.extra.increase)
     end
   end,
 }
