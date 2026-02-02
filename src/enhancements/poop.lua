@@ -3,7 +3,7 @@ SMODS.Enhancement {
   atlas = "enhancements",
   pos = { x = 0, y = 0 },
   config = {},
-  loc_vars = function(self, info_queue, center)
+  loc_vars = function(self, info_queue, card)
     return {vars = {}}
   end,
   in_pool = function(self, args) return true end,

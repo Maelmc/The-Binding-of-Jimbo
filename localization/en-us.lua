@@ -137,6 +137,13 @@ return {
           "{C:inactive}Does nothing",
         },
       },
+      m_tboj_laser = {
+        name = "Laser Card",
+        text = {
+          "Balance {C:attention}#1#%{} of {C:chips}Chips",
+          "and {C:mult}Mult{} when scored"
+        },
+      },
     },
     Joker = {
       j_tboj_the_inner_eye = {
@@ -452,6 +459,7 @@ return {
       k_tboj_active = "Active",
       k_tboj_trinket = "Trinket",
       k_poop = "Poop",
+      k_laser = "Laser",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",
@@ -472,8 +480,8 @@ return {
     quips = {
         
     },
-    v_dictionary = {
-        
+    v_dictionary = {  
+      tboj_percent = "#1#%",
     },
     v_text = {
         
