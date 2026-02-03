@@ -74,3 +74,9 @@ SMODS.Scoring_Parameter({
     update_hand_text({ delay = 0 }, { mult = self.current })
   end
 })
+
+SMODS.current_mod.set_debuff = function(card)
+   if (G.GAME and G.GAME.blind and G.GAME.blind.name == "bl_tboj_siren" and not G.GAME.blind.disabled) and card.config and card.config.center and card.config.center.familiar then return true end
+   return false
+end
+

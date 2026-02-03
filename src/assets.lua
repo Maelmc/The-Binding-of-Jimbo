@@ -55,6 +55,15 @@ SMODS.Atlas({
   py = 95
 })
 
+SMODS.Atlas({
+    key = "boss_blinds",
+    atlas_table = "ANIMATION_ATLAS",
+    path = "boss_blinds.png",
+    px = 34,
+    py = 34,
+    frames = 21,
+})
+
 -- Colors
 G.C.TBOJ = {
   FAMILIAR = HEX("E70000"),

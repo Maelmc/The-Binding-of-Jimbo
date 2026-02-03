@@ -128,7 +128,13 @@ return {
       },
     },
     Blind = {
-      
+      bl_tboj_siren = {
+        name = "The Siren",
+        text = {
+          "Familiar Jokers",
+          "are debuffed"
+        }, 
+      },
     },
     Enhanced = {
       m_tboj_poop = {
