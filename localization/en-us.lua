@@ -253,6 +253,14 @@ return {
           "then {C:red}self-destructs"
         }
       },
+      j_tboj_robo_baby = {
+        name = "Robo-Baby",
+        text = {
+          "When round begins,",
+          "add a random {C:attention}Laser Card",
+          "to your hand",
+        }
+      },
       j_tboj_a_lump_of_coal = {
         name = "A Lump of Coal",
         text = {
