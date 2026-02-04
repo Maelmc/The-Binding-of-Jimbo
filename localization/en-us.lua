@@ -261,6 +261,14 @@ return {
           "to your hand",
         }
       },
+      j_tboj_the_halo = {
+        name = "The Halo",
+        text = {
+          "{C:chips}+#1#{} Chips, {C:mult}+#2#{} Mult",
+          "Earn {C:money}$#3#{} at",
+          "end of round"
+        }
+      },
       j_tboj_a_lump_of_coal = {
         name = "A Lump of Coal",
         text = {
@@ -462,7 +470,16 @@ return {
             "different card of",
             "the same {C:attention}set"
         }
-    },
+      },
+      undiscovered_loot = {
+          name = "Not Discovered",
+          text = {
+              "Purchase or use",
+              "this card in an",
+              "unseeded run to",
+              "learn what it does"
+          }
+      },
     }
   },
   misc = {

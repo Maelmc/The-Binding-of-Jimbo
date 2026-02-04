@@ -10,3 +10,10 @@ SMODS.ConsumableType {
   shop_rate = 4,
   default = "c_tboj_bomb"
 }
+
+SMODS.UndiscoveredSprite {
+  key = 'Loot',
+  atlas = 'undiscovered',
+  pos = { x = 0, y = 0 },
+  overlay_pos = { x = 1, y = 0},
+}

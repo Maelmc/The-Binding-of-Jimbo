@@ -56,12 +56,19 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({
-    key = "boss_blinds",
-    atlas_table = "ANIMATION_ATLAS",
-    path = "boss_blinds.png",
-    px = 34,
-    py = 34,
-    frames = 21,
+  key = "boss_blinds",
+  atlas_table = "ANIMATION_ATLAS",
+  path = "boss_blinds.png",
+  px = 34,
+  py = 34,
+  frames = 21,
+})
+
+SMODS.Atlas({
+  key = "undiscovered",
+  path = "undiscovered.png",
+  px = 71,
+  py = 95
 })
 
 -- Colors
