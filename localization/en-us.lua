@@ -208,7 +208,7 @@ return {
         }
       },
       j_tboj_a_dollar = {
-        name = "A dollar",
+        name = "A Dollar",
         text = {
           "Sell this card to",
           "earn {C:money}$#1#"
