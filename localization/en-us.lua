@@ -447,7 +447,7 @@ return {
         }
       },
       trinket_tboj_flat_worm = {
-        name = "Pulse Worm",
+        name = "Flat Worm",
         text = {
           "Retrigger {C:attention}third{} played",
           "card used in scoring",
