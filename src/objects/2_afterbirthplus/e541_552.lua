@@ -12,7 +12,9 @@ SMODS.Joker {
   rarity = 3,
   cost = 8,
   atlas = "jokers",
-  blueprint_compat = false,
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
   enhancement_gate = "m_tboj_poop",
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then

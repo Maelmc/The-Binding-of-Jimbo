@@ -15,6 +15,8 @@ SMODS.Joker {
   rarity = 1,
   cost = 6,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = false,
   enhancement_gate = "m_tboj_poop",
   calculate = function(self, card, context)

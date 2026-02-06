@@ -10,8 +10,8 @@ return {
             "Recharges at end of round"
           },
           {
-            "Add {C:mult}+#3#{} Mult to",
-            "{C:attention}#4#{} selected card"
+            "Add {C:mult}+#3#{} permanent Mult",
+            "to {C:attention}#4#{} selected card"
           }
         }
       },
@@ -300,6 +300,14 @@ return {
           "to your hand",
         }
       },
+      j_tboj_the_relic = {
+        name = "The Relic",
+        text = {
+          "Create a {C:attention}Soul Heart",
+          "at end of round",
+          "{C:inactive}(Must have room)"
+        },
+      },
       j_tboj_the_halo = {
         name = "The Halo",
         text = {
@@ -364,6 +372,15 @@ return {
           "when scored"
         }
       },
+      j_tboj_soul_locket = {
+        name = "Soul Locket",
+        text = {
+          "This Joker randomly gains",
+          "{C:chips}+#1#{} Chips or {C:mult}+#2#{} Mult when",
+          "using a {C:attention}Soul Heart",
+          "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips and {C:mult}+#4#{C:inactive} Mult)"
+        }
+      },
     },
     Loot = {
       c_tboj_bomb = {
@@ -388,6 +405,13 @@ return {
           "{C:attention}hand{}'s level by {C:attention}#3#",
           "{C:green}#1# in #2#{} chance to",
           "decrease it instead"
+        }
+      },
+      c_tboj_soul_heart = {
+        name = "Soul Heart",
+        text = {
+          "Add {C:chips}+#1#{} permanent Chips",
+          "to {C:attention}#2#{} selected card"
         }
       },
     },
@@ -548,6 +572,7 @@ return {
       tboj_charged_ex = "Charged!",
       tboj_active = "Active",
       tboj_inactive = "Inactive",
+      tboj_plus_loot = "+1 Loot",
     },  
     labels = {
 

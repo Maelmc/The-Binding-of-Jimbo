@@ -18,9 +18,11 @@ TBOJ.Active {
     return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
   end,
   use = function(self, card, area, copier)
-    local target = G.hand.highlighted[1]
-    target.ability.perma_mult = (target.ability.perma_mult or 0) + card.ability.extra.mult
-    SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, target)
+    for i = 1, math.min(#G.hand.highlighted, card.ability.extra.max_highlighted) do
+      local target = G.hand.highlighted[i]
+      target.ability.perma_mult = (target.ability.perma_mult or 0) + card.ability.extra.mult
+      SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, target)
+    end
     card:juice_up(0.3, 0.5)
   end,
   keep_on_use = function(self, card)
@@ -125,6 +127,8 @@ SMODS.Joker {
   rarity = 2, 
   cost = 4,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = false,
   calculate = function(self, card, context)
     if context.fix_probability and not context.blueprint and context.identifier == "tboj_pill" then
@@ -157,6 +161,8 @@ SMODS.Joker {
   rarity = 1,
   cost = 4,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.joker_main then
@@ -187,6 +193,8 @@ SMODS.Joker {
   rarity = 1,
   cost = 5,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then

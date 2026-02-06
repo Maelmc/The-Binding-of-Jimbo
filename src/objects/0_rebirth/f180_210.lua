@@ -11,6 +11,8 @@ SMODS.Joker {
   rarity = 4,
   cost = 20,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.cardarea == "unscored" and context.individual then

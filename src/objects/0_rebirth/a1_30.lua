@@ -10,6 +10,8 @@ SMODS.Joker {
   rarity = 3,
   cost = 8,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = false,
   calculate = function(self, card, context)
   end,
@@ -40,6 +42,8 @@ SMODS.Joker {
   rarity = 3,
   cost = 8,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.cardarea == "unscored" and context.individual then
@@ -65,6 +69,8 @@ SMODS.Joker {
   rarity = 3,
   cost = 8,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.joker_main then
@@ -92,6 +98,8 @@ SMODS.Joker {
   rarity = 1,
   cost = 4,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.joker_main and #context.full_hand <= card.ability.extra.card_limit then
@@ -118,6 +126,8 @@ SMODS.Joker {
   rarity = 1,
   cost = 3,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.joker_main then
@@ -150,6 +160,8 @@ SMODS.Joker {
   rarity = 2,
   cost = 6,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.selling_self and not context.blueprint then
@@ -180,6 +192,8 @@ SMODS.Joker {
   rarity = 3,
   cost = 1,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.selling_self then
@@ -203,6 +217,8 @@ SMODS.Joker {
   rarity = 1,
   cost = 5,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.selling_self then

@@ -11,6 +11,7 @@ SMODS.Joker {
   cost = 5,
   atlas = "jokers",
   perishable_compat = false,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.joker_main then
@@ -19,7 +20,7 @@ SMODS.Joker {
       }
     end
 
-    if context.end_of_round and not context.blueprint then
+    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
       return {
         message = localize('k_upgrade_ex'),
@@ -43,6 +44,8 @@ SMODS.Joker {
   rarity = 2,
   cost = 6,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = false,
   calculate = function(self, card, context)
   end,
@@ -62,6 +65,8 @@ SMODS.Joker {
   rarity = 3,
   cost = 8,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
   end,
@@ -105,6 +110,8 @@ SMODS.Joker {
   rarity = 1,
   cost = 3,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.joker_main then
@@ -132,6 +139,8 @@ SMODS.Joker {
   rarity = 2,
   cost = 7,
   atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.scoring_hand and context.joker_main then
@@ -215,7 +224,9 @@ SMODS.Joker {
   rarity = 2,
   cost = 6,
   atlas = "jokers",
-  blueprint_compat = true,
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = false,
   calculate = function(self, card, context)
     if context.end_of_round and context.game_over and context.main_eval then
       if G.GAME.chips / G.GAME.blind.chips >= 0.75 then -- See note about Talisman compatibility on the wiki
