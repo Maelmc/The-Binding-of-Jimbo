@@ -170,7 +170,63 @@ SMODS.Joker {
 -- Raw Liver
 -- Skeleton Key
 -- A Dollar
+SMODS.Joker {
+  key = "a_dollar",
+  pos = {x = 2, y = 1},
+  config = {extra = {money = 100}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = { card.ability.extra.money }}
+  end,
+  rarity = 3,
+  cost = 1,
+  atlas = "jokers",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.selling_self then
+      TBOJ.ease_money(card.ability.extra.money)
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end
+}
+
 -- Boom!
+SMODS.Joker {
+  key = "boom",
+  pos = {x = 3, y = 1},
+  config = {extra = {bombs= 10}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_bomb
+    return {vars = { card.ability.extra.bombs }}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.selling_self then
+      for _ = 1, card.ability.extra.bombs do
+        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+          G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+          G.E_MANAGER:add_event(Event({
+            func = (function()
+              G.GAME.consumeable_buffer = 0
+              play_sound('timpani')
+              SMODS.add_card({ set = 'Loot', key = "c_tboj_bomb" })
+              card:juice_up(0.3, 0.5)
+              return true
+            end)
+          }))
+        end
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end
+}
+
 -- Transcendence
 -- The Compass
 -- Lunch

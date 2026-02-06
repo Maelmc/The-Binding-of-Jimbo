@@ -11,7 +11,7 @@ return {
           },
           {
             "Add {C:mult}+#3#{} Mult to",
-            "#4# selected card"
+            "{C:attention}#4#{} selected card"
           }
         }
       },
@@ -24,9 +24,23 @@ return {
             "Recharges at end of round"
           },
           {
-            "Enhance #3# selected",
+            "Enhance {C:attention}#3#{} selected",
             "card into a",
             "{C:attention}Poop Card"
+          }
+        }
+      },
+      active_tboj_mr_boom = {
+        name = "Mr. Boom",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "{C:white,X:mult}X#3#{} Mult on the next hand",
+            "{C:inactive}(#4#)"
           }
         }
       },
@@ -193,6 +207,21 @@ return {
           "{C:attention}in hand{} to {C:hearts}Hearts"
         }
       },
+      j_tboj_a_dollar = {
+        name = "A dollar",
+        text = {
+          "Sell this card to",
+          "earn {C:money}$#1#"
+        }
+      },
+      j_tboj_boom = {
+        name = "Boom!",
+        text = {
+          "Sell this card to",
+          "create {C:attention}#1# Bombs",
+          "{C:inactive}(Must have room)"
+        }
+      },
       j_tboj_lucky_foot = {
         name = "Lucky Foot",
         text = {
@@ -244,6 +273,16 @@ return {
           "{C:mult}+#1#{} Mult"
         }
       },
+      j_tboj_chocolate_milk = {
+        name = "Chocolate Milk",
+        text = {
+          "Gains {C:white,X:mult}X#1#{} Mult when a",
+          "hand is played",
+          "Only scores when this is your",
+          "{C:attention}rightmost{} Joker, then {C:attention}resets",
+          "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+        }
+      },
       j_tboj_dead_cat = {
         name = "Dead Cat",
         text = {
@@ -290,6 +329,14 @@ return {
           "All played {C:attention}face{} cards",
           "become {C:attention}Poop{} cards",
           "when scored"
+        }
+      },
+      j_tboj_proptosis = {
+        name = "Proptosis",
+        text = {
+          "Played cards give {C:white,X:mult}X#1#{} Mult",
+          "divided by their {C:attention}position",
+          "in {C:attention}played hand{} when scored"
         }
       },
       j_tboj_bozo = {

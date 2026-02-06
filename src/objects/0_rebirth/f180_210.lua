@@ -23,5 +23,6 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  angel = true
 }

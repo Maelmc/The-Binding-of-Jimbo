@@ -69,7 +69,11 @@ SMODS.Joker {
   end,
   calc_dollar_bonus = function(self, card)
     return TBOJ.ease_money(card.ability.extra.money, true)
-	end
+	end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  angel = true
 }
 
 -- Mom's Bottle of Pills

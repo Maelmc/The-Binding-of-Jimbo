@@ -122,6 +122,46 @@ SMODS.Joker {
 
 -- Technology
 -- Chocolate Milk
+SMODS.Joker {
+  key = "chocolate_milk",
+  pos = {x = 8, y = 4},
+  config = {extra = {Xmult = 1, Xmult_mod = 0.5}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult }}
+  end,
+  rarity = 2,
+  cost = 7,
+  atlas = "jokers",
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.scoring_hand and context.joker_main then
+      if G.jokers.cards[#G.jokers.cards] == card then
+        return {
+          xmult = card.ability.extra.Xmult
+        }
+      end
+    end
+
+    if context.after and context.cardarea == G.jokers and not context.blueprint then
+      if G.jokers.cards[#G.jokers.cards] == card then
+        card.ability.extra.Xmult = 1
+        return {
+          message = localize('k_reset'),
+          colour = G.C.RED
+        }
+      else
+        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+        return {
+          message = localize('k_upgrade_ex')
+        }
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end
+}
+
 -- Growth Hormones
 -- Mini Mush
 -- Rosary
@@ -203,6 +243,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  devil = true
 }
 
 -- Lord of the Pit
