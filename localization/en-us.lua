@@ -343,7 +343,7 @@ return {
         name = "Bozo",
         text = {
           "If first hand of round is",
-          "a single {C:attention}Poop{} cards,",
+          "a single {C:attention}Poop{} card,",
           "add {C:dark_edition}Polychrome{} to it"
         }
       },
