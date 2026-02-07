@@ -175,6 +175,57 @@ SMODS.Joker {
 -- Mini Mush
 -- Rosary
 -- Cube of Meat
+SMODS.Joker {
+  key = "cube_of_meat",
+  pos = {x = 12, y = 4},
+  config = {extra = {mult = 4, mult2 = 15, Xmult = 2, Xmult2 = 4, stage = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult, card.ability.extra.mult2, card.ability.extra.Xmult, card.ability.extra.Xmult2, card.ability.extra.stage}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = false,
+  eternal_compat = false,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.scoring_hand and context.joker_main then
+      if card.ability.extra.stage == 1 then
+        return {
+          mult = card.ability.extra.mult
+        }
+      elseif card.ability.extra.stage == 2 then
+        return {
+          mult = card.ability.extra.mult2
+        }
+      elseif card.ability.extra.stage == 3 then
+        return {
+          xmult = card.ability.extra.Xmult
+        }
+      elseif card.ability.extra.stage == 4 then
+        return {
+          xmult = card.ability.extra.Xmult2
+        }
+      end
+    end
+  end,
+  add_to_deck = function(self, card, from_debuff)
+    if not from_debuff then
+      for _, v in ipairs(G.jokers.cards) do
+        if v.config.center.key == "j_tboj_cube_of_meat" and v ~= card and v.ability.extra.stage < 4 then
+          v.ability.extra.stage = v.ability.extra.stage + 1
+          SMODS.destroy_cards(card,true)
+          SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, v)
+          return
+        end
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return true, {allow_duplicates = true}
+  end
+}
+
 -- A Quarter
 -- PHD
 -- X-Ray Vision
@@ -236,7 +287,7 @@ SMODS.Joker {
             G.hand_text_area.game_chips:juice_up()
             play_sound('tarot1')
             if card.ability.extra.remaining == 1 then
-              card:start_dissolve()
+              SMODS.destroy_cards(card,true)
             else
               card.ability.extra.remaining = card.ability.extra.remaining - 1
             end

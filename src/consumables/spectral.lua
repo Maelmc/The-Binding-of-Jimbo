@@ -15,7 +15,7 @@ SMODS.Consumable {
   use = function(self, card, area, copier)
     local target = TBOJ.leftmost_or_selected()
     if target.config.center.key == "j_joker" or target.config.center.key == "j_tboj_the_sad_onion" then
-      target:start_dissolve({ G.C.RED }, nil, 1.6)
+      SMODS.destroy_cards(target,true)
       return
     end
     for k, v in ipairs(G.P_CENTER_POOLS.Joker) do

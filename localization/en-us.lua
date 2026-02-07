@@ -283,6 +283,22 @@ return {
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
       },
+      j_tboj_cube_of_meat = {
+        name = "Cube of Meat",
+        text = {
+            {
+            "{C:mult}+#1#{}, {C:mult}+#2#{}, {C:white,X:mult}X#3#{} or {C:white,X:mult}X#4#{} Mult",
+            "depending on this Joker's stage",
+            "{C:inactive}(Currently {C:attention}Stage #5#{C:inactive})"
+          },
+          {
+            "Buying another {C:attention}Cube of Meat{}",
+            "increases the stage of {C:attention}leftmost",
+            "{C:attention}Cube of Meat{} instead",
+            "{C:inactive}(Can appear multiple times in shop)"
+          },
+        }
+      },
       j_tboj_dead_cat = {
         name = "Dead Cat",
         text = {
@@ -319,9 +335,8 @@ return {
       j_tboj_a_lump_of_coal = {
         name = "A Lump of Coal",
         text = {
-          "{C:white,X:red}X1{} Mult, plus",
-          "{C:white,X:red}X#1#{} for each",
-          "scoring card"
+          "{C:white,X:red}X1{} Mult, plus {C:white,X:red}X#1#{}",
+          "for each scoring card"
         }
       },
       j_tboj_sacred_heart = {

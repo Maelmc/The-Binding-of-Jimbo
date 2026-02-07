@@ -22,7 +22,7 @@ SMODS.Consumable {
       if card.ability.extra.fused then
         G.E_MANAGER:add_event(Event({
           func = function()
-            card:start_dissolve()
+            SMODS.destroy_cards(card,true)
             return true
           end
         }))
