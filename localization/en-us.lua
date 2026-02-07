@@ -1,7 +1,7 @@
 return {
   descriptions = {
     tboj_active = {
-      active_tboj_book_of_belial = {
+      active_tboj_the_book_of_belial = {
         name = "The Book of Belial",
         text = {
           {
@@ -44,21 +44,6 @@ return {
           }
         }
       },
-      active_tboj_the_d6 = {
-        name = "The D6",
-        text = {
-          {
-            "#1#/#2# {C:attention}charge",
-            "Must be fully charged to use",
-            "Recharges at end of round"
-          },
-          {
-            "{C:attention}Reroll{} all {C:attention}Jokers",
-            "and {C:attention}Actives{} in the shop",
-            "into ones of the same {C:attention}rarity"
-          }
-        }
-      },
       active_tboj_my_little_unicorn = {
         name = "My Little Unicorn",
         text = {
@@ -77,7 +62,7 @@ return {
         name = "Deck of Cards",
         text = {
           {
-            "#1#/#2# {C:attention}charges",
+            "#1#/#2# {C:attention}charge",
             "Must be fully charged to use",
             "Recharges at end of round"
           },
@@ -85,6 +70,36 @@ return {
             "Create a random",
             "{C:tarot}Tarot{} card",
             "{C:inactive}(Must have room)"
+          }
+        }
+      },
+      active_tboj_the_book_of_sin = {
+        name = "The Book of Sin",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Create a random",
+            "{C:tboj_loot}Loot{} card",
+            "{C:inactive}(Must have room)"
+          }
+        }
+      },
+      active_tboj_the_d6 = {
+        name = "The D6",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "{C:attention}Reroll{} all {C:attention}Jokers",
+            "and {C:attention}Actives{} in the shop",
+            "into ones of the same {C:attention}rarity"
           }
         }
       },
@@ -129,6 +144,20 @@ return {
             "{C:white,X:mult}X#4#{} Mult for each",
             "charge when used",
             "{C:inactive}(Currently {C:white,X:mult}X#5#{C:inactive} Mult and #6#)"
+          }
+        }
+      },
+      active_tboj_lemegeton = {
+        name = "Lemegeton",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Create a random {C:dark_edition}Negative{}",
+            "and {C:attention}Perishable{} Joker",
           }
         }
       },

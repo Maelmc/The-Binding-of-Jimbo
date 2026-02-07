@@ -45,6 +45,43 @@ SMODS.Joker {
 
 -- Little C.H.A.D.
 -- The Book of Sin
+TBOJ.Active {
+  key = "the_book_of_sin",
+  pos = { x = 6, y = 6 },
+  cost = 6,
+  config = {extra = {max_charge = 1, curr_charge = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        play_sound('timpani')
+        local _card = SMODS.add_card({ set = 'Loot' })
+        SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, _card)
+        card:juice_up(0.3, 0.5)
+        return true
+      end
+    }))
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  devil = true,
+  book = true,
+}
+
 -- The Relic
 SMODS.Joker {
   key = "the_relic",

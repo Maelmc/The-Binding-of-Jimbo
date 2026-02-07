@@ -3,7 +3,7 @@
 -- The Bible
 -- The Book of Belial
 TBOJ.Active {
-  key = "book_of_belial",
+  key = "the_book_of_belial",
   pos = { x = 3, y = 2 },
   --rarity = "Common",
   cost = 5,
@@ -31,7 +31,8 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  devil = true
+  devil = true,
+  book = true,
 }
 
 -- The Necronomicon

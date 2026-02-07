@@ -223,7 +223,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return true, {allow_duplicates = true}
-  end
+  end,
+  familiar = true,
 }
 
 -- A Quarter

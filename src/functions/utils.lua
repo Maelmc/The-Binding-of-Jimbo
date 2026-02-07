@@ -123,7 +123,7 @@ function TBOJ.get_random_key(args)
   if #candidates > 0 then
     return pseudorandom_element(candidates, pseudoseed(seed))
   elseif set == "Joker" then return "j_joker"
-  elseif set == "tboj_active" then return "active_tboj_book_of_belial"
+  elseif set == "tboj_active" then return "active_tboj_the_book_of_belial"
   elseif set == "tboj_trinket" then return "trinket_tboj_swallowed_penny"
   end
 end

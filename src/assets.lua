@@ -77,4 +77,15 @@ G.C.TBOJ = {
   FLY = HEX("777777"),
   POOP = HEX("875D5A"),
   LOOT = HEX("C3D5D5"),
+  LOOT_DARK = HEX("95ACAD"),
 }
+
+local lc = loc_colour
+function loc_colour(_c, _default)
+  if not G.ARGS.LOC_COLOURS then
+    lc()
+  end
+  G.ARGS.LOC_COLOURS["tboj_loot"] = HEX("95ACAD")
+  return lc(_c, _default)
+end
+loc_colour()
