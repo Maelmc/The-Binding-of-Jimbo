@@ -25,8 +25,7 @@ return {
           },
           {
             "Enhance {C:attention}#3#{} selected",
-            "card into a",
-            "{C:attention}Poop Card"
+            "card into a {C:attention}Poop Card"
           }
         }
       },
@@ -67,8 +66,7 @@ return {
             "Recharges at end of round"
           },
           {
-            "Create a random",
-            "{C:tarot}Tarot{} card",
+            "Create a random {C:tarot}Tarot{} card",
             "{C:inactive}(Must have room)"
           }
         }
@@ -82,8 +80,7 @@ return {
             "Recharges at end of round"
           },
           {
-            "Create a random",
-            "{C:tboj_loot}Loot{} card",
+            "Create a random {C:tboj_loot}Loot{} card",
             "{C:inactive}(Must have room)"
           }
         }
@@ -141,9 +138,26 @@ return {
             "{s:0.8}Charged by #3# when using {C:attention,s:0.8}Lil' Battery"
           },
           {
-            "{C:white,X:mult}X#4#{} Mult for each",
-            "charge when used",
+            "{C:white,X:mult}X#4#{} Mult for each charge when used",
             "{C:inactive}(Currently {C:white,X:mult}X#5#{C:inactive} Mult and #6#)"
+          }
+        }
+      },
+      active_tboj_genesis = {
+        name = "Genesis",
+        text = {
+          {
+            "Must have at least",
+            "{C:attention}1{} Joker to use",
+            "Cannot use during a",
+            "{C:attention}Blind{} or a {C:attention}Booster Pack"
+          },
+          {
+            "{C:attention}Destroy{} all your Jokers",
+            "and create a {C:attention}Buffoon Tag",
+            "for each Joker destroyed,",
+            "then {C:red}self-destructs",
+            "{C:inactive}(Bypasses {C:attention}Eternal{C:inactive})"
           }
         }
       },
@@ -411,9 +425,8 @@ return {
       j_tboj_hallowed_ground = {
         name = "Hallowed Ground",
         text = {
-          "Played {C:attention}Poop{} cards",
-          "give {C:white,X:red}X#1#{} Mult",
-          "when scored"
+          "Played {C:attention}Poop{} cards give",
+          "{C:white,X:red}X#1#{} Mult when scored"
         }
       },
       j_tboj_soul_locket = {
