@@ -397,6 +397,13 @@ return {
           "when scored"
         }
       },
+      j_tboj_20_20 = {
+        name = "20/20",
+        text = {
+          "Retrigger all played cards",
+          "{C:attention}#1#{} additionnal time"
+        }
+      },
       j_tboj_proptosis = {
         name = "Proptosis",
         text = {
