@@ -405,6 +405,15 @@ return {
           "in {C:attention}played hand{} when scored"
         }
       },
+      j_tboj_lusty_blood = {
+        name = "Lusty Blood",
+        text = {
+          "This Joker gains {X:mult,C:white}X#1#{} Mult",
+          "for each playing card {C:attention}destroyed{},",
+          "resets when {C:attention}Boss Blind{} is defeated",
+          "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
+        },
+      },
       j_tboj_bozo = {
         name = "Bozo",
         text = {

@@ -122,7 +122,8 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  angel = true
+  angel = true,
+  familiar = true,
 }
 
 -- Little Gish
