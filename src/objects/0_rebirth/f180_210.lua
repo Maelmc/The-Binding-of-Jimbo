@@ -4,9 +4,9 @@
 SMODS.Joker {
   key = "sacred_heart",
   pos = {x = 2, y = 12},
-  config = {extra = {mult_mod = 4, Xmult_multi = 3}},
+  config = {extra = {Xmult_multi = 3}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.mult_mod, card.ability.extra.Xmult_multi}}
+    return {vars = {card.ability.extra.Xmult_multi}}
   end,
   rarity = 4,
   cost = 20,
@@ -18,7 +18,6 @@ SMODS.Joker {
     if context.cardarea == "unscored" and context.individual then
       return {
         colour = G.C.MULT,
-        mult = card.ability.extra.mult_mod,
         Xmult = card.ability.extra.Xmult_multi
       }
     end

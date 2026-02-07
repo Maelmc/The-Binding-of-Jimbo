@@ -386,7 +386,7 @@ return {
         name = "Sacred Heart",
         text = {
           "{C:attention}Unscored cards{}",
-          "give {C:mult}+#1#{} and {C:white,X:mult}X#2#{} Mult"
+          "give {C:white,X:mult}X#1#{} Mult"
         }
       },
       j_tboj_e_coli = {
@@ -600,6 +600,13 @@ return {
         text = {
           "Using an {C:attention}Active",
           "{C:attention}rerolls{} it"
+        }
+      },
+      trinket_tboj_brain_worm = {
+        name = "Brain Worm",
+        text = {
+          "Retrigger {C:attention}unscored{} cards",
+          "{C:attention}#1#{} additionnal time"
         }
       },
     },

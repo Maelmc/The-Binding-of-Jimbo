@@ -9,7 +9,7 @@
 	"badge_colour": "E3C6C5",
 	"badge_text_colour": "FFFFFF",
   "display_name": "The Binding of Jimbo",
-	"version": "1.0.1-0008e",
+	"version": "1.0.1-0008f",
 	"dependencies": [
 		"Steamodded (>=1.0.0~BETA-1224a)",
     "Lovely (>=0.8)"

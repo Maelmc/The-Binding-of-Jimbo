@@ -15,3 +15,26 @@ TBOJ.Trinket {
     end
   end,
 }
+
+-- Teardrop Charm
+-- Apple of Sodom
+-- Forgotten Lullaby
+-- Beth's Faith
+-- Old Capacitor
+-- Brain Worm
+TBOJ.Trinket {
+  key = "brain_worm",
+  pos = { x = 8, y = 9 },
+  cost = 6,
+  config = {extra = {repetitions = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.repetitions}}
+  end,
+  calculate = function(self, card, context)
+    if context.repetition and context.cardarea == "unscored" then
+      return {
+        repetitions = card.ability.extra.repetitions
+      }
+    end
+  end,
+}
