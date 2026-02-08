@@ -44,9 +44,9 @@ SMODS.Consumable {
   atlas = "consumables",
   cost = 4,
   unlocked = true,
-  config = {},
+  config = {extra = {charge = 6}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {}}
+    return {vars = {card.ability.extra.charge}}
   end,
   can_use = function(self, card)
     return G.actives and G.actives.highlighted and #G.actives.highlighted == 1
@@ -55,7 +55,7 @@ SMODS.Consumable {
     if G.actives.highlighted[1].ability.extra.battery_charge then
       TBOJ.charge_active(G.actives.highlighted[1],G.actives.highlighted[1].ability.extra.battery_charge)
     else
-      TBOJ.charge_active(G.actives.highlighted[1],G.actives.highlighted[1].ability.extra.max_charge)
+      TBOJ.charge_active(G.actives.highlighted[1],card.ability.extra.charge)
     end
   end,
 }

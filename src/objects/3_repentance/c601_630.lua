@@ -3,10 +3,10 @@ TBOJ.Active {
   key = "larynx",
   pos = { x = 10, y = 40 },
   cost = 6,
-  config = {extra = {max_charge = 12, curr_charge = 1, battery_charge = 3, Xmult_mod = 1, active = false}},
+  config = {extra = {max_charge = 12, curr_charge = 1, Xmult_mod = 1, active = false}},
   loc_vars = function(self, info_queue, card)
     return {vars = {
-      card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.battery_charge,
+      card.ability.extra.curr_charge, card.ability.extra.max_charge,
       card.ability.extra.Xmult_mod, card.ability.extra.Xmult_mod * card.ability.extra.curr_charge,
       card.ability.extra.active and localize("tboj_active") or localize("tboj_inactive")
     }}

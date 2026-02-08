@@ -135,11 +135,10 @@ return {
             "#1#/#2# {C:attention}charges",
             "Must have at least 1 charge to use",
             "Recharges at end of round",
-            "{s:0.8}Charged by #3# when using {C:attention,s:0.8}Lil' Battery"
           },
           {
-            "{C:white,X:mult}X#4#{} Mult for each charge when used",
-            "{C:inactive}(Currently {C:white,X:mult}X#5#{C:inactive} Mult and #6#)"
+            "{C:white,X:mult}X#3#{} Mult for each charge when used",
+            "{C:inactive}(Currently {C:white,X:mult}X#4#{C:inactive} Mult and #5#)"
           }
         }
       },
@@ -467,8 +466,8 @@ return {
       c_tboj_lil_battery = {
         name = "Lil' Battery",
         text = {
-          "Fully charges",
-          "selected {C:attention}Active"
+          "Add up to {C:attention}#1# charges",
+          "to a selected {C:attention}Active"
         }
       },
       c_tboj_pill = {
