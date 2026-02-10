@@ -341,6 +341,29 @@ return {
           },
         }
       },
+      j_tboj_a_quarter = {
+        name = "A Quarter",
+        text = {
+          "Sell this card to",
+          "earn {C:money}$#1#"
+        }
+      },
+      j_tboj_the_mark = {
+        name = "The Mark",
+        text = {
+          "Each played {C:attention}6{} gives",
+          "{C:mult}+#1#{} Mult when scored",
+          "If played hand is exactly",
+          "{C:attention}three 6s{}, they each give",
+          "{C:mult}+#2#{} Mult when scored instead"
+        }
+      },
+      j_tboj_the_pact = {
+        name = "The Pact",
+        text = {
+          "{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult"
+        }
+      },
       j_tboj_dead_cat = {
         name = "Dead Cat",
         text = {
@@ -374,6 +397,31 @@ return {
           "end of round"
         }
       },
+      j_tboj_money_equal_power = {
+        name = "Money = Power",
+        text = {
+          "{X:mult,C:white}X#1#{} Mult for",
+          "every {C:money}$#2#{} you have",
+          "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
+        }
+      },
+      j_tboj_ouija_board = {
+        name = "Ouija Board",
+        text = {
+          "If first hand of round is",
+          "a single {C:attention}card with a rank{}, destroy",
+          "it and create a {C:spectral}Spectral{} card",
+          "Only works once per rank",
+          "{C:inactive}(Must have room)",
+        }
+      },
+      j_tboj_whore_of_babylon = {
+        name = "Whore of Babylon",
+        text = {
+          "{C:red}+#1#{} Mult on {C:attention}final",
+          "{C:attention}hand{} of round",
+        }
+      },
       j_tboj_a_lump_of_coal = {
         name = "A Lump of Coal",
         text = {
@@ -396,6 +444,14 @@ return {
           "when scored"
         }
       },
+      j_tboj_contract_from_below = {
+        name = "Contract From Below",
+        text = {
+          "Earn {C:money}${} equal to {C:attention}double",
+          "the Blind's reward at end of round",
+          "{C:green}#1# in #2#{} chance to {C:attention}lose it{} instead",
+        }
+      },
       j_tboj_20_20 = {
         name = "20/20",
         text = {
@@ -410,6 +466,15 @@ return {
           "divided by their {C:attention}position",
           "in {C:attention}played hand{} when scored"
         }
+      },
+      j_tboj_betrayal = {
+        name = "Betrayal",
+        text = {
+          "Destroy the {C:attention}first card",
+          "in {C:attention}first{} hand of round that",
+          "has less {C:attention}total{} {C:chips}Chips{} than the",
+          "next card in {C:attention}poker hand",
+        },
       },
       j_tboj_lusty_blood = {
         name = "Lusty Blood",
@@ -428,6 +493,17 @@ return {
           "add {C:dark_edition}Polychrome{} to it"
         }
       },
+      j_tboj_death_list = {
+        name = "Death's List",
+        text = {
+          "Create a random {C:tboj_loot}Loot",
+          "and this Joker gains {C:chips}+#1#{} Chips",
+          "if winning hand contains",
+          "a scoring {C:attention}#2#{},",
+          "rank changes every round",
+          "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
+        }
+      },
       j_tboj_schoolbag = {
         name = "Schoolbag",
         text = {
@@ -442,6 +518,17 @@ return {
         text = {
           "Played {C:attention}Poop{} cards give",
           "{C:white,X:red}X#1#{} Mult when scored"
+        }
+      },
+      j_tboj_blood_oath = {
+        name = "Blood Oath",
+        text = {
+          "When {C:attention}Blind{} is selected,",
+          "lose all {C:blue}Hands{} but one",
+          "and this Joker gains",
+          "{C:white,X:mult}X#1#{} Mult per hand lost",
+          "Resets at end of round",
+          "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
       },
       j_tboj_soul_locket = {
@@ -630,6 +717,17 @@ return {
               "learn what it does"
           }
       },
+      used_ranks = {
+          name = "Used ranks",
+          text = {
+              "#1#, #2#, #3#,",
+              "#4#, #5#, #6#",
+              "#7#, #8#, #9#",
+              "#10#, #11#, #12#",
+              "#13#, #14#"
+
+          }
+      },
     }
   },
   misc = {
@@ -652,6 +750,7 @@ return {
       tboj_active = "Active",
       tboj_inactive = "Inactive",
       tboj_plus_loot = "+1 Loot",
+      tboj_betrayal_ex = "Betrayal!",
     },  
     labels = {
 

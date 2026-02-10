@@ -234,3 +234,23 @@ function TBOJ.balance_percent(card, percent)
     loc_vars = { percent }, colour =  {0.8, 0.45, 0.85, 1} 
   }
 end
+
+function TBOJ.id_to_value(id)
+  if id == 11 then return "Jack"
+  elseif id == 12 then return "Queen"
+  elseif id == 13 then return "King"
+  elseif id == 14 then return "Ace"
+  else return tostring(id)
+  end
+end
+
+function TBOJ.total_chips(card)
+  local total_chips = (card.ability.bonus) + (card.ability.perma_bonus or 0)
+  if card.ability.effect ~= 'Stone Card' and not card.config.center.replace_base_card then
+    total_chips = total_chips + (card.base.nominal)
+  end
+  if card.edition then
+    total_chips = total_chips + (card.edition.chips or 0)
+  end
+  return total_chips
+end

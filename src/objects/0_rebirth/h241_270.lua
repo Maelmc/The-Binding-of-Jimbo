@@ -1,4 +1,33 @@
 -- Contract From Below
+SMODS.Joker {
+  key = "contract_from_below",
+  pos = {x = 0, y = 16},
+  config = {extra = {num = 1, den = 3}},
+  loc_vars = function(self, info_queue, card)
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_pill")
+    return {vars = {num, den}}
+  end,
+  rarity = 1,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+  end,
+  calc_dollar_bonus = function(self, card)
+    local _m = G.GAME.blind.dollars * 2
+    if SMODS.pseudorandom_probability(card, "tboj_contract_from_below", card.ability.extra.num, card.ability.extra.den, "tboj_contract_from_below") then
+      _m = -G.GAME.blind.dollars
+    end
+    return _m
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true,
+}
+
 -- Infamy
 -- Trinity Shield
 -- Tech .5

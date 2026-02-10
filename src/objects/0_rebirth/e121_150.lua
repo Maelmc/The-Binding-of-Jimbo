@@ -1,3 +1,33 @@
+-- 121
+-- Whore of Babylon
+SMODS.Joker {
+  key = "whore_of_babylon",
+  pos = {x = 1, y = 8},
+  config = {extra = {mult = 25}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main and G.GAME.current_round.hands_left == 0 then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true
+}
+
+-- many
+
 -- A Lump of Coal
 SMODS.Joker {
   key = "a_lump_of_coal",

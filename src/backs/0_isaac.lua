@@ -1,5 +1,4 @@
 SMODS.Back {
-	name = "isaac",
 	key = "isaac",
   unlocked = true,
   discovered = true,

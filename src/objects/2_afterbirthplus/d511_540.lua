@@ -56,6 +56,65 @@ SMODS.Joker {
 -- Angelic Prism
 -- Pop!
 -- Death's List
+SMODS.Joker {
+  key = "death_list",
+  pos = {x = 4, y = 35 },
+  config = {extra = {chips = 0, chips_mod = 20, contained = false}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips_mod, localize((G.GAME.current_round.tboj_death_list_card or {}).rank or 'Ace', 'ranks'), card.ability.extra.chips}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        chips = card.ability.extra.chips,
+      }
+    end
+
+    if context.setting_blind and not context.blueprint then
+      card.ability.extra.contained = false
+    end
+
+    if context.individual and not context.end_of_round and context.cardarea == G.play then
+      card.ability.extra.contained = false
+      for _, v in pairs (context.scoring_hand) do
+        if v:get_id() == G.GAME.current_round.tboj_death_list_card.id then card.ability.extra.contained = true break end
+      end
+    end
+
+    if context.end_of_round and context.game_over == false and context.main_eval and card.ability.extra.contained then
+      if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.4,
+          func = function()
+            G.GAME.consumeable_buffer = 0
+            play_sound('timpani')
+            SMODS.add_card({ set = "Loot", key_append = "tboj_death_list" })
+            SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
+            return true
+          end
+        }))
+      end
+      card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+      return {
+        message = localize('k_upgrade_ex'),
+        colour = G.C.CHIPS
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true,
+}
+
 -- Haemolacria
 -- Lachryphagy
 -- Trisagion

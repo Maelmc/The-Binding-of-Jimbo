@@ -60,14 +60,15 @@ TBOJ.Active {
     return card.ability.extra.curr_charge >= card.ability.extra.max_charge and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
   end,
   use = function(self, card, area, copier)
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
     G.E_MANAGER:add_event(Event({
       trigger = 'after',
       delay = 0.4,
       func = function()
+        G.GAME.consumeable_buffer = 0
         play_sound('timpani')
-        local _card = SMODS.add_card({ set = 'Loot' })
-        SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, _card)
-        card:juice_up(0.3, 0.5)
+        SMODS.add_card({ set = 'Loot', key_append = "tboj_the_book_of_sin" })
+        SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
         return true
       end
     }))
@@ -194,3 +195,111 @@ TBOJ.Active {
     return TBOJ.in_pool(self)
   end
 }
+
+-- 106
+-- 107
+-- 108
+-- Money = Power
+SMODS.Joker {
+  key = "money_equal_power",
+  pos = {x = 3, y = 7},
+  config = {extra = {Xmult = 0.03, money_threshold = 2}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult, card.ability.extra.money_threshold, 1 + card.ability.extra.Xmult*math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.money_threshold)}}
+  end,
+  rarity = 2,
+  cost = 7,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.cardarea == G.jokers and context.scoring_hand then
+      if context.joker_main then
+        local Xmult = 1 + card.ability.extra.Xmult*math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.money_threshold)
+        local can_score = nil
+        if (SMODS.Mods["Talisman"] or {}).can_load then
+          can_score = to_big(Xmult) > to_big(1)
+        else
+          can_score = Xmult > 1
+        end
+        if can_score then
+          return {
+            message = localize{type = 'variable', key = 'a_xmult', vars = {Xmult}}, 
+            colour = G.C.MULT,
+            Xmult_mod = Xmult
+          }
+        end
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true
+}
+
+-- 110
+-- 111
+-- 112
+-- Demon Baby
+-- Mom's Knife
+-- Ouija Board
+SMODS.Joker {
+  key = "ouija_board",
+  pos = {x = 9, y = 7},
+  config = {extra = {used_ranks = {}}},
+  loc_vars = function(self, info_queue, card)
+    local _ranks = {}
+    for _, v in ipairs(card.ability.extra.used_ranks) do
+      table.insert(_ranks, localize(TBOJ.id_to_value(v), "ranks"))
+    end
+    info_queue[#info_queue + 1] = {set = 'Other', key = "used_ranks", vars = _ranks}
+    return {vars = {}}
+  end,
+  rarity = 3,
+  cost = 8,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.destroy_card and not context.blueprint then
+      if #context.full_hand == 1 and context.destroy_card == context.full_hand[1] and (not SMODS.has_no_rank(context.full_hand[1])) and (not table.contains(card.ability.extra.used_ranks, context.full_hand[1]:get_id())) and G.GAME.current_round.hands_played == 0 then
+        table.insert(card.ability.extra.used_ranks, context.full_hand[1]:get_id())
+        table.sort(card.ability.extra.used_ranks, function(a, b) return a < b end)
+        if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+          G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+          G.E_MANAGER:add_event(Event({
+            func = (function()
+              SMODS.add_card {
+                set = 'Spectral',
+                key_append = 'tboj_ouija_board' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
+              }
+              G.GAME.consumeable_buffer = 0
+              return true
+            end)
+          }))
+          return {
+            message = localize('k_plus_spectral'),
+            colour = G.C.SECONDARY_SET.Spectral,
+            remove = true
+          }
+        end
+        return {
+          remove = true
+        }
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true
+}
+
+-- 116
+-- 117
+-- Brimstone
+-- 119
+-- 120

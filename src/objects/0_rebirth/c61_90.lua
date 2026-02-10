@@ -228,6 +228,30 @@ SMODS.Joker {
 }
 
 -- A Quarter
+SMODS.Joker {
+  key = "a_quarter",
+  pos = {x = 14, y = 4},
+  config = {extra = {money = 25}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = { card.ability.extra.money }}
+  end,
+  rarity = 2,
+  cost = 1,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.selling_self then
+      TBOJ.ease_money(card.ability.extra.money)
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true
+}
+
 -- PHD
 -- X-Ray Vision
 -- My Little Unicorn
@@ -264,7 +288,73 @@ TBOJ.Active {
 
 -- Book of Revelations
 -- The Mark
+SMODS.Joker {
+  key = "the_mark",
+  pos = {x = 3, y = 5},
+  config = {extra = {mult = 6, mult2 = 18}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = { card.ability.extra.mult, card.ability.extra.mult2 }}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and not context.end_of_round and context.cardarea == G.play then
+      if #context.full_hand == 3 then
+        local all_six = true
+        for _, v in pairs (context.full_hand) do
+          if v:get_id() ~= 6 then all_six = false break end
+        end
+        if all_six then
+          return {
+            mult = card.ability.extra.mult2,
+          }
+        end
+      end
+      if context.other_card:get_id() == 6 then
+        return {
+          mult = card.ability.extra.mult,
+        }
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true
+}
+
 -- The Pact
+SMODS.Joker {
+  key = "the_pact",
+  pos = {x = 4, y = 5},
+  config = {extra = {chips = 100, mult = 20}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips, card.ability.extra.mult}}
+  end,
+  rarity = 3,
+  cost = 8,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        chips = card.ability.extra.chips,
+        mult = card.ability.extra.mult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true
+}
+
 -- Dead Cat
 SMODS.Joker {
   key = "dead_cat",
@@ -329,13 +419,15 @@ TBOJ.Active {
     return card.ability.extra.curr_charge >= card.ability.extra.max_charge and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
   end,
   use = function(self, card, area, copier)
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
     G.E_MANAGER:add_event(Event({
       trigger = 'after',
       delay = 0.4,
       func = function()
+        G.GAME.consumeable_buffer = 0
         play_sound('timpani')
-        SMODS.add_card({ set = 'Tarot' })
-        card:juice_up(0.3, 0.5)
+        SMODS.add_card({ set = 'Tarot', key_append = "tboj_deck_of_cards" })
+        SMODS.calculate_effect({message = localize('k_plus_tarot'), colour = G.C.PURPLE}, card)
         return true
       end
     }))
