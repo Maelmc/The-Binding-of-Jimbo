@@ -21,11 +21,11 @@ SMODS.Joker {
     end
 
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-      card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
-      return {
-        message = localize('k_upgrade_ex'),
-        colour = G.C.MULT
-      }
+      SMODS.scale_card(card, {
+        ref_value = 'mult',
+        scalar_value = 'mult_mod',
+        message_colour = G.C.MULT,
+      })
     end
   end,
   in_pool = function (self, args)
@@ -159,10 +159,11 @@ SMODS.Joker {
           colour = G.C.RED
         }
       else
-        card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
-        return {
-          message = localize('k_upgrade_ex')
-        }
+        SMODS.scale_card(card, {
+          ref_value = 'Xmult',
+          scalar_value = 'Xmult_mod',
+          message_colour = G.C.MULT,
+        })
       end
     end
   end,

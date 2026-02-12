@@ -52,8 +52,15 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.remove_playing_cards and not context.blueprint then
-      card.ability.extra.Xmult = card.ability.extra.Xmult + #context.removed * card.ability.extra.Xmult_mod
-      return { message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } } }
+      SMODS.scale_card(card, {
+        ref_value = 'Xmult',
+        scalar_value = 'Xmult_mod',
+        operation = function(ref_table, ref_value, initial, change)
+          ref_table[ref_value] = initial + #context.removed*change
+        end,
+        message_key = 'a_xmult',
+        message_colour = G.C.XMULT
+      })
     end
 
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then

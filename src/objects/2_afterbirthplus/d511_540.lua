@@ -102,11 +102,11 @@ SMODS.Joker {
           end
         }))
       end
-      card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
-      return {
-        message = localize('k_upgrade_ex'),
-        colour = G.C.CHIPS
-      }
+      SMODS.scale_card(card, {
+        ref_value = 'chips',
+        scalar_value = 'chips_mod',
+        message_colour = G.C.CHIPS,
+      })
     end
   end,
   in_pool = function (self, args)

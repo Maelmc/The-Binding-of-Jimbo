@@ -17,14 +17,18 @@ SMODS.Joker {
     if context.using_consumeable and context.consumeable and context.consumeable.config.center.key == "c_tboj_soul_heart" and not context.blueprint then
       local rand = pseudorandom("tboj_soul_locket") > 0.5 and "MULT" or "CHIPS"
       if rand == "MULT" then
-        card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod
+        SMODS.scale_card(card, {
+          ref_value = 'mult',
+          scalar_value = 'mult_mod',
+          message_colour = G.C.MULT,
+        })
       else
-        card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+        SMODS.scale_card(card, {
+          ref_value = 'chips',
+          scalar_value = 'chips_mod',
+          message_colour = G.C.CHIPS,
+        })
       end
-      return {
-        message = localize('k_upgrade_ex'),
-        colour = G.C[rand]
-      }
     end
 
     if context.joker_main then

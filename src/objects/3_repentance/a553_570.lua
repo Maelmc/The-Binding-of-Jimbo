@@ -13,7 +13,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.before and card.ability.extra.chips > 0 and G.GAME.current_round.hands_played > 0 then
+    if context.before and not context.blueprint and card.ability.extra.chips > 0 and G.GAME.current_round.hands_played > 0 then
       card.ability.extra.chips = 0
       return {
         message = localize('k_reset'),
@@ -28,11 +28,11 @@ SMODS.Joker {
     end
 
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint and G.GAME.current_round.hands_played == 1 then
-      card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
-      return {
-        message = localize('k_upgrade_ex'),
-        colour = G.C.BLUE
-      }
+      SMODS.scale_card(card, {
+        ref_value = 'chips',
+        scalar_value = 'chips_mod',
+        message_colour = G.C.CHIPS,
+      })
     end
   end,
   in_pool = function (self, args)
@@ -76,8 +76,15 @@ SMODS.Joker {
         func = function()
           local _hands = G.GAME.current_round.hands_left-1
           ease_hands_played(-_hands,true)
-          card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod * _hands
-          SMODS.calculate_effect( { message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } } }, card)
+          SMODS.scale_card(card, {
+            ref_value = 'Xmult',
+            scalar_value = 'Xmult_mod',
+            operation = function(ref_table, ref_value, initial, change)
+              ref_table[ref_value] = initial + _hands*change
+            end,
+            message_key = 'a_xmult',
+            message_colour = G.C.XMULT
+          })
           return true
         end
       }))
