@@ -1,3 +1,32 @@
+-- Stop Watch
+SMODS.Joker {
+  key = "stop_watch", 
+  pos = {x = 7, y = 15},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, center)
+    return {vars = {}}
+  end,
+  rarity = 3, 
+  cost = 8,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+
+  end,
+  calc_scaling = function(self, card, scaling_card, initial, scalar_value, args)
+    return {
+        override_scalar_value = {value = scalar_value * 2}
+    }
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end
+}
+
+-- Tiny Planet
+-- Infestation 2
 -- E. Coli
 SMODS.Joker {
   key = "e_coli", 

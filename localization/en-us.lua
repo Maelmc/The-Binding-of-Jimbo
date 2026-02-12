@@ -436,6 +436,12 @@ return {
           "give {C:white,X:mult}X#1#{} Mult"
         }
       },
+      j_tboj_stop_watch = {
+        name = "Stop Watch",
+        text = {
+          "{C:attention}Doubles{} scaling values"
+        }
+      },
       j_tboj_e_coli = {
         name = "E. Coli",
         text = {
