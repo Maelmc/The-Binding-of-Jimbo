@@ -476,6 +476,15 @@ return {
           "next card in {C:attention}poker hand",
         },
       },
+      j_tboj_paschal_candle = {
+        name = "Paschal Candle",
+        text = {
+          "This Joker gains {C:chips}+#1#{} Chips",
+          "per consecutive {C:attention}Blind",
+          "defeated in a {C:attention}single hand",
+          "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+        },
+      },
       j_tboj_lusty_blood = {
         name = "Lusty Blood",
         text = {

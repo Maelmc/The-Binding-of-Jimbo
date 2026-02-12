@@ -1,3 +1,47 @@
+-- Paschal Candle
+SMODS.Joker {
+  key = "paschal_candle",
+  pos = {x = 11, y = 37 },
+  config = {extra = {chips = 0, chips_mod = 30}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = false,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.before and card.ability.extra.chips > 0 and G.GAME.current_round.hands_played > 0 then
+      card.ability.extra.chips = 0
+      return {
+        message = localize('k_reset'),
+        colour = G.C.BLUE
+      }
+    end
+
+    if context.joker_main then
+      return {
+        chips = card.ability.extra.chips,
+      }
+    end
+
+    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint and G.GAME.current_round.hands_played == 1 then
+      card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chips_mod
+      return {
+        message = localize('k_upgrade_ex'),
+        colour = G.C.BLUE
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  angel = true,
+}
+
+-- 568
 -- Blood Oath
 SMODS.Joker {
   key = "blood_oath",
