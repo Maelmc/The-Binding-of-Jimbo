@@ -183,7 +183,7 @@ TBOJ.Active {
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do
       if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
-        TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarity = v.config.center.rarity}))
+        TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
       end
     end
     SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)

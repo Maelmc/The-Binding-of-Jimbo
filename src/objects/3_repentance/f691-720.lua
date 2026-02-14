@@ -1,3 +1,39 @@
+-- Sacred Orb
+SMODS.Joker {
+  key = "sacred_orb",
+  pos = { x = 0, y = 46 },
+  config = {extra = {num = 1, den = 3}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_reroll'}
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_sacred_orb")
+    return {vars = {num, den}}
+  end,
+  rarity = 3,
+  cost = 8,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.modify_shop_card then
+      if context.card.config and context.card.config.center then
+        if context.card.config.center.rarity == 1 or context.card.config.center.rarity == "Common" then
+          TBOJ.reroll(context.card, TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}}), true)
+        end
+
+        if (context.card.config.center.rarity == 2 or context.card.config.center.rarity == "Uncommon") and SMODS.pseudorandom_probability(card, "tboj_sacred_orb", card.ability.extra.num, card.ability.extra.den, "tboj_sacred_orb") then
+          TBOJ.reroll(context.card, TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}}), true)
+        end
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  angel = true
+}
+
+-- many
 -- Lemegeton
 TBOJ.Active {
   key = "lemegeton",

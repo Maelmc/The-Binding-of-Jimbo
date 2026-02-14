@@ -574,6 +574,16 @@ return {
           "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips and {C:mult}+#4#{C:inactive} Mult)"
         }
       },
+      j_tboj_sacred_orb = {
+        name = "Sacred Orb",
+        text = {
+          "{C:blue}Common{} Jokers cannot",
+          "appear in the shop",
+          "{C:green}Uncommon{} Jokers in the shop",
+          "have a {C:green}#1# in #2#{} chance",
+          "to be {C:attention}rerolled"
+        }
+      },
     },
     Loot = {
       c_tboj_bomb = {

@@ -29,7 +29,7 @@ function TBOJ.ease_money(amt, calc_only)
 end
 
 -- Stolen from Pokermon
-function TBOJ.reroll(card, to_key)
+function TBOJ.reroll(card, to_key, silent)
   local new_card = G.P_CENTERS[to_key]
   if not new_card then return end
   if card.config.center == new_card then return end
@@ -53,18 +53,20 @@ function TBOJ.reroll(card, to_key)
     card.children.floating_sprite = nil
   end
 
-  if not card.edition then
-    card:juice_up()
-    play_sound('generic1')
-  else
-    card:juice_up(1, 0.5)
-    if card.edition.foil then play_sound('foil1', 1.2, 0.4) end
-    if card.edition.holo then play_sound('holo1', 1.2*1.58, 0.4) end
-    if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
-    if card.edition.negative then play_sound('negative', 1.5, 0.4) end
-    if card.edition.poke_shiny then
-      play_sound('poke_e_shiny', 1, 0.2)
-      G.P_CENTERS.e_poke_shiny.on_load(card)
+  if not silent then
+    if not card.edition then
+      card:juice_up()
+      play_sound('generic1')
+    else
+      card:juice_up(1, 0.5)
+      if card.edition.foil then play_sound('foil1', 1.2, 0.4) end
+      if card.edition.holo then play_sound('holo1', 1.2*1.58, 0.4) end
+      if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
+      if card.edition.negative then play_sound('negative', 1.5, 0.4) end
+      if card.edition.poke_shiny then
+        play_sound('poke_e_shiny', 1, 0.2)
+        G.P_CENTERS.e_poke_shiny.on_load(card)
+      end
     end
   end
 end
@@ -97,14 +99,27 @@ function TBOJ.get_random_key(args)
   local set = args.set
   local seed = args.seed
   local banned_rarities = args.banned_rarities
-  local target_rarity = args.target_rarity
+  local target_rarities = args.target_rarities
+  local _rarity
+  if target_rarities then
+    while true do
+      _rarity = SMODS.poll_rarity(set, seed)
+      if table.contains(target_rarities, _rarity) then break end
+    end
+  elseif banned_rarities then
+    while true do
+      _rarity = SMODS.poll_rarity(set, seed)
+      if not table.contains(banned_rarities, _rarity) then break end
+    end
+  else
+    _rarity = "any"
+  end
   local candidates = {}
   for _, v in pairs(G.P_CENTERS) do
     if v.set and v.set == set
     and (not (type(v.in_pool) == 'function') or v:in_pool())
     and not G.GAME.banned_keys[v.key]
-    and (not target_rarity or v.rarity == target_rarity)
-    and (not banned_rarities or not table.contains(banned_rarities,v.rarity))
+    and (_rarity == "any" or v.rarity == _rarity)
     and not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key))) and not SMODS.showman(v.key)) then
       if v.enhancement_gate then
         if G.playing_cards then
