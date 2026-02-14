@@ -511,12 +511,13 @@ return {
       j_tboj_death_list = {
         name = "Death's List",
         text = {
-          "Create a random {C:tboj_loot}Loot",
+          "Create a random {C:tboj_loot}Loot{} card",
           "and this Joker gains {C:chips}+#1#{} Chips",
           "if winning hand contains",
           "a scoring {C:attention}#2#{},",
           "rank changes every round",
-          "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
+          "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)",
+          "{C:inactive}(Must have room)"
         }
       },
       j_tboj_schoolbag = {
@@ -541,8 +542,8 @@ return {
           "When {C:attention}Blind{} is selected,",
           "lose all {C:blue}Hands{} but one",
           "and this Joker gains",
-          "{C:white,X:mult}X#1#{} Mult per hand lost",
-          "Resets at end of round",
+          "{C:white,X:mult}X#1#{} Mult per hand lost,",
+          "resets at end of round",
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
       },
