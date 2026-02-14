@@ -473,6 +473,24 @@ return {
           "in {C:attention}played hand{} when scored"
         }
       },
+      j_tboj_the_mind = {
+        name = "The Mind",
+        text = {
+          "{C:attention}+#1#{} hand size"
+        }
+      },
+      j_tboj_the_body = {
+        name = "The Body",
+        text = {
+          "{C:red}+#1#{} discards"
+        }
+      },
+      j_tboj_the_soul = {
+        name = "The Soul",
+        text = {
+          "{C:blue}+#1#{} hands"
+        }
+      },
       j_tboj_betrayal = {
         name = "Betrayal",
         text = {
