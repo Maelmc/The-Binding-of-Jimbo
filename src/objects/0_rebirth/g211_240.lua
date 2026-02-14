@@ -67,5 +67,6 @@ SMODS.Joker {
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
-  end
+  end,
+  poop = true,
 }

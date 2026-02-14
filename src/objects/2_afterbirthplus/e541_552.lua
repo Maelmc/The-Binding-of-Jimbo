@@ -32,4 +32,5 @@ SMODS.Joker {
     return TBOJ.in_pool(self, args)
   end,
   angel = true,
+  poop = true,
 }
