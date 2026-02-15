@@ -518,6 +518,14 @@ return {
           "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
         },
       },
+      j_tboj_shard_of_glass = {
+        name = "Shard of Glass",
+        text = {
+          "When a {C:attention}Glass Card{}",
+          "is destroyed, destroy",
+          "cards {C:attention}adjacent{} to it"
+        }
+      },
       j_tboj_bozo = {
         name = "Bozo",
         text = {
