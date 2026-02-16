@@ -20,8 +20,14 @@ SMODS.Consumable {
     end
     for k, v in ipairs(G.P_CENTER_POOLS.Joker) do
       if v.key == target.config.center.key then
-        local prev = G.P_CENTER_POOLS.Joker[k-1].key
-        TBOJ.reroll(target,prev)
+        for l = k-1, 0, -1 do
+          local prev = G.P_CENTER_POOLS.Joker[l]
+          if not prev.no_collection then
+            TBOJ.reroll(target,prev.key)
+            return
+          end
+        end
+        return -- only if somehow there's no previous joker? more of a failsafe than anything
       end
     end
   end
