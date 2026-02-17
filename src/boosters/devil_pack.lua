@@ -33,12 +33,12 @@ SMODS.Booster {
   end,
   particles = function(self)
     G.booster_pack_stars = Particles(1, 1, 0,0, {
-      timer = 0.07,
-      scale = 0.1,
+      timer = 0.015,
+      scale = 0.2,
       initialize = true,
-      lifespan = 15,
-      speed = 0.1,
-      padding = -4,
+      lifespan = 1,
+      speed = 1.1,
+      padding = -1,
       attach = G.ROOM_ATTACH,
       colours = G.C.TBOJ.DEVIL_PARTICLE,
       fill = true
