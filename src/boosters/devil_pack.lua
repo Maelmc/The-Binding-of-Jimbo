@@ -6,7 +6,7 @@ SMODS.Booster {
 	config = { extra = 4, choose = 1 },
 	cost = 4,
 	order = 1,
-	weight = 1,
+	weight = 0.5,
   draw_hand = false,
   unlocked = true,
   discovered = false,
@@ -25,7 +25,7 @@ SMODS.Booster {
     end
   end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.config.center.config.choose, card.ability.extra - 1, 1 } }
+		return { vars = { card.ability.choose + (G.GAME.modifiers.booster_choice_mod or 0), card.ability.extra - 1, 1 } }
 	end,
 	group_key = "k_tboj_devil_pack",
   ease_background_colour = function(self)
