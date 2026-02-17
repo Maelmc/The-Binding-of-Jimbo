@@ -71,6 +71,13 @@ SMODS.Atlas({
   py = 95
 })
 
+SMODS.Atlas({
+    key = "boosters",
+    path = "boosters.png",
+    px = 71,
+    py = 95
+})
+
 -- Colors
 G.C.TBOJ = {
   FAMILIAR = HEX("E70000"),
@@ -78,6 +85,10 @@ G.C.TBOJ = {
   POOP = HEX("875D5A"),
   LOOT = HEX("C3D5D5"),
   LOOT_DARK = HEX("95ACAD"),
+  DEVIL = HEX("434343"),
+  DEVIL_PARTICLE = {HEX("540903"), HEX("3A0812"), HEX("71031B")},
+  ANGEL = HEX("2B5167"),
+  ANGEL_PARTICLE = {HEX("B9BF19"), HEX("A73213"), HEX("A71313")},
 }
 
 local lc = loc_colour

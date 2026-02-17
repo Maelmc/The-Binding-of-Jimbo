@@ -100,38 +100,55 @@ function TBOJ.get_random_key(args)
   local seed = args.seed
   local banned_rarities = args.banned_rarities
   local target_rarities = args.target_rarities
-  local _rarity
-  if target_rarities then
-    while true do
-      _rarity = SMODS.poll_rarity(set, seed)
-      if table.contains(target_rarities, _rarity) then break end
+  local tags = args.tags and (type(args.tags) ~= "table" and {args.tags} or args.tags) or {}
+  local _rarity = nil
+  if set == "Joker" then
+    if target_rarities then
+      if (table.contains(target_rarities, "Legendary") or table.contains(target_rarities, 4)) and (#target_rarities == 1 or pseudorandom('soul_'..seed) > 0.997) then
+        _rarity = 4
+      else
+        while true do
+          _rarity = SMODS.poll_rarity(set, "rarity"..seed)
+          if table.contains(target_rarities, _rarity) then break end
+        end
+      end
+    elseif banned_rarities then
+      while true do
+        _rarity = SMODS.poll_rarity(set, "rarity"..seed)
+        if not table.contains(banned_rarities, _rarity) then break end
+      end
+    else
+      _rarity = SMODS.poll_rarity(set, "rarity"..seed)
     end
-  elseif banned_rarities then
-    while true do
-      _rarity = SMODS.poll_rarity(set, seed)
-      if not table.contains(banned_rarities, _rarity) then break end
-    end
-  else
-    _rarity = "any"
   end
+
   local candidates = {}
   for _, v in pairs(G.P_CENTERS) do
     if v.set and v.set == set
     and (not (type(v.in_pool) == 'function') or v:in_pool())
     and not G.GAME.banned_keys[v.key]
-    and (_rarity == "any" or v.rarity == _rarity)
+    and (not _rarity or v.rarity == _rarity)
     and not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key))) and not SMODS.showman(v.key)) then
-      if v.enhancement_gate then
-        if G.playing_cards then
-          for kk, vv in pairs(G.playing_cards) do
-            if SMODS.has_enhancement(vv, v.enhancement_gate) then
-              table.insert(candidates, v.key)
-              break
+      local all_tags = true
+      for _, _tag in pairs(tags) do
+        if not v[_tag] then
+          all_tags = false
+          break
+        end
+      end
+      if all_tags then
+        if v.enhancement_gate then
+          if G.playing_cards then
+            for kk, vv in pairs(G.playing_cards) do
+              if SMODS.has_enhancement(vv, v.enhancement_gate) then
+                table.insert(candidates, v.key)
+                break
+              end
             end
           end
+        else
+          table.insert(candidates, v.key)
         end
-      else
-        table.insert(candidates, v.key)
       end
     end
   end

@@ -780,6 +780,14 @@ return {
 
           }
       },
+      p_tboj_devil_pack_1 = {
+        name = "Devil Pack",
+        text = {
+          "Choose {C:attention}#1#{} from among",
+          "{C:attention}#2#{} devil {C:attention}Joker{} cards and",
+          "{C:attention}#3#{} devil {C:attention}Active{} card",
+        },
+      },
     }
   },
   misc = {
@@ -791,6 +799,7 @@ return {
       k_tboj_trinket = "Trinket",
       k_poop = "Poop",
       k_laser = "Laser",
+      k_tboj_devil_pack = "Devil Pack",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",
