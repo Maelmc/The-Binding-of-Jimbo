@@ -89,6 +89,7 @@ G.C.TBOJ = {
   DEVIL_PARTICLE = {HEX("540903"), HEX("3A0812"), HEX("71031B")},
   ANGEL = HEX("2B5167"),
   ANGEL_PARTICLE = {HEX("B9BF19"), HEX("A73213"), HEX("A71313")},
+  MOD_COLOR = HEX("E3C6C5"),
 }
 
 local lc = loc_colour

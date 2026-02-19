@@ -301,5 +301,31 @@ SMODS.Joker {
 -- 116
 -- 117
 -- Brimstone
+SMODS.Joker {
+  key = "brimstone",
+  pos = {x = 12, y = 7},
+  config = {extra = {Xmult_mod = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult_mod}}
+  end,
+  rarity = 4,
+  cost = 20,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        Xmult = card.ability.extra.Xmult_mod * #context.scoring_hand,
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true
+}
+
 -- 119
 -- 120

@@ -415,6 +415,13 @@ return {
           "{C:inactive}(Must have room)",
         }
       },
+      j_tboj_brimstone = {
+        name = "Brimstone",
+        text = {
+          "{C:white,X:mult}X#1#{} for each",
+          "scoring card"
+        }
+      },
       j_tboj_whore_of_babylon = {
         name = "Whore of Babylon",
         text = {
@@ -792,7 +799,7 @@ return {
   },
   misc = {
     challenge_names = {
-      
+      c_tboj_daily_run = "Daily Run",
     },
     dictionary = {
       k_tboj_active = "Active",
@@ -826,7 +833,8 @@ return {
       tboj_percent = "#1#%",
     },
     v_text = {
-        
+        ch_c_tboj_daily_run = {"Play a random seed every day"},
+        ch_c_tboj_daily_run2 = {"Resets at midnight UTC"}
     },
   }
   
