@@ -12,6 +12,6 @@ position = 'after'
 match_indent = true
 payload = '''
 if args.challenge and args.challenge.rules and args.challenge.rules.custom and args.challenge.rules.custom[1].id == "tboj_daily_run" then
-  self.GAME.pseudorandom.seed = tostring(os.date("!%d%m%Y"))
+  self.GAME.pseudorandom.seed = "tboj_"..tostring(os.date("!%d%m%Y"))
 end
 '''
