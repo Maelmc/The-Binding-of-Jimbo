@@ -77,8 +77,8 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     local _poker_hands = {}
-    for k, v in pairs(G.GAME.hands) do
-      if SMODS.is_poker_hand_visible(v) then
+    for k, _ in pairs(G.GAME.hands) do
+      if SMODS.is_poker_hand_visible(k) then
         _poker_hands[#_poker_hands+1] = k
       end
     end
