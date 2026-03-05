@@ -1,7 +1,7 @@
 -- Mongo Baby
 SMODS.Joker {
   key = "mongo_baby",
-  pos = {x = 6, y = 22},
+  pos = {x = 6, y = 21},
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
     if card.area and card.area == G.jokers then
@@ -51,5 +51,6 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  familiar = true,
 }
