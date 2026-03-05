@@ -1,0 +1,63 @@
+SMODS.current_mod.custom_collection_tabs = function()
+  local trinket_tally = 0
+  for _, v in pairs(G.P_CENTER_POOLS.tboj_trinket) do
+    if v.discovered or G.PROFILES[G.SETTINGS.profile].all_unlocked then
+      trinket_tally = trinket_tally + 1
+    end
+  end
+
+  local active_tally = 0
+  for _, v in pairs(G.P_CENTER_POOLS.tboj_active) do
+    if v.discovered or G.PROFILES[G.SETTINGS.profile].all_unlocked then
+      active_tally = active_tally + 1
+    end
+  end
+
+  return {
+    UIBox_button {
+      button = 'your_collection_tboj_active',
+      id = 'your_collection_tboj_active',
+      label = { localize('k_tboj_actives') },
+      count = {
+        tally = active_tally,
+        of = #G.P_CENTER_POOLS.tboj_active
+      },
+      minw = 5
+    },
+
+    UIBox_button {
+      button = 'your_collection_tboj_trinket',
+      id = 'your_collection_tboj_trinket',
+      label = { localize('k_tboj_trinkets') },
+      count = {
+        tally = trinket_tally,
+        of = #G.P_CENTER_POOLS.tboj_trinket
+      },
+      minw = 5
+    },
+  }
+end
+
+function G.FUNCS.your_collection_tboj_trinket()
+  G.SETTINGS.paused = true
+  G.FUNCS.overlay_menu {
+    definition = SMODS.card_collection_UIBox(G.P_CENTER_POOLS.tboj_trinket, { 5, 5 }, {
+      snap_back = true,
+      infotip = nil, --localize('k_BakeryCharmInfo'),
+      hide_single_page = true,
+      collapse_single_page = true,
+    })
+  }
+end
+
+function G.FUNCS.your_collection_tboj_active()
+  G.SETTINGS.paused = true
+  G.FUNCS.overlay_menu {
+    definition = SMODS.card_collection_UIBox(G.P_CENTER_POOLS.tboj_active, { 5, 5 }, {
+      snap_back = true,
+      infotip = nil, --localize('k_BakeryCharmInfo'),
+      hide_single_page = true,
+      collapse_single_page = true,
+    })
+  }
+end

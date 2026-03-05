@@ -820,7 +820,9 @@ return {
     },
     dictionary = {
       k_tboj_active = "Active",
+      k_tboj_actives = "Actives",
       k_tboj_trinket = "Trinket",
+      k_tboj_trinkets = "Trinkets",
       k_poop = "Poop",
       k_laser = "Laser",
       k_tboj_devil_pack = "Devil Pack",

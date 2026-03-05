@@ -25,5 +25,6 @@ load_directory("src/enhancements")
 load_directory("src/objects")
 load_directory("src/stakes")
 load_directory("src/trinkets")
+load_directory("src/ui")
 
 print("END OF TBOJ")
