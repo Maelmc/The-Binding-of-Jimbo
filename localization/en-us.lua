@@ -480,6 +480,13 @@ return {
           "in {C:attention}played hand{} when scored"
         }
       },
+      j_tboj_mongo_baby = {
+        name = "Mongo Baby",
+        text = {
+          "Copies ability of",
+          "{C:attention}Familiar Joker{} to the right"
+        }
+      },
       j_tboj_the_mind = {
         name = "The Mind",
         text = {
@@ -496,6 +503,16 @@ return {
         name = "The Soul",
         text = {
           "{C:blue}+#1#{} hands"
+        }
+      },
+      j_tboj_seraphim = {
+        name = "Seraphim",
+        text = {
+          "When hand is played, add",
+          "a temporary {C:attention}unscoring copy",
+          "of the {C:attention}first{} card in played hand",
+          "to the played hand,",
+          "it gives {C:white,X:mult}X#1#{} Mult"
         }
       },
       j_tboj_betrayal = {

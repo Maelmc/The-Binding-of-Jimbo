@@ -2,7 +2,7 @@
 SMODS.Joker {
   key = "mongo_baby",
   pos = {x = 6, y = 22},
-  config = {extra = {Xmult_multi = 3}},
+  config = {extra = {}},
   loc_vars = function(self, info_queue, card)
     if card.area and card.area == G.jokers then
       local other_joker
@@ -28,7 +28,7 @@ SMODS.Joker {
         }
       }
       return { main_end = main_end }
-  end
+    end
   end,
   rarity = 3,
   cost = 10,

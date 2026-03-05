@@ -11,7 +11,7 @@
   "display_name": "The Binding of Jimbo",
 	"version": "1.0.1-0014f",
 	"dependencies": [
-		"Steamodded (>=1.0.0~BETA-1224a)",
+		"Steamodded (>=1.0.0~BETA-1503a)",
     "Lovely (>=0.8)"
 	],
   "conflicts": [],
