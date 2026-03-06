@@ -13,7 +13,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.before then
+    if context.pre_splash then
       local _card = copy_card(G.play.cards[1])
       _card.seraphim_target = true
       _card.states.visible = false
@@ -34,7 +34,7 @@ SMODS.Joker {
       playing_card_joker_effects(_card)
     end
 
-    if context.cardarea == "unscored" and context.individual and context.other_card.seraphim_target then
+    if context.individual and context.other_card.seraphim_target then
       return {
         colour = G.C.MULT,
         Xmult = card.ability.extra.Xmult_multi
