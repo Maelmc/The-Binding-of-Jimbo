@@ -618,6 +618,7 @@ return {
       },
     },
     Loot = {
+      -- STANDARD LOOT
       c_tboj_bomb = {
         name = "Bomb",
         text = {
@@ -647,6 +648,16 @@ return {
         text = {
           "Add {C:chips}+#1#{} permanent Chips",
           "to {C:attention}#2#{} selected card"
+        }
+      },
+
+      -- RUNES
+      c_tboj_jera = {
+        name = "Jera",
+        text = {
+          "Create the last {C:tboj_loot}Loot{} card",
+          "used during this run",
+          "{C:tboj_loot,s:0.8}Jera{} excluded"
         }
       },
     },

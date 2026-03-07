@@ -24,3 +24,25 @@ G.FUNCS.can_select_card = function(e)
   end
   return csc(e)
 end
+
+local scu = set_consumeable_usage
+function set_consumeable_usage(card)
+  if card.config.center_key and card.ability.consumeable then
+    if card.config.center.set == 'Loot' then 
+      G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+          G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+              G.GAME.last_tboj_loot = card.config.center_key
+                return true
+            end
+          }))
+            return true
+        end
+      }))
+    end
+  end
+  return scu(card)
+end
