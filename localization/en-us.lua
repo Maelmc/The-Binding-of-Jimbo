@@ -660,6 +660,15 @@ return {
           "{C:tboj_loot,s:0.8}Jera{} excluded"
         }
       },
+      c_tboj_dagaz = {
+        name = "Dagaz",
+        text = {
+          "Removes {C:attention}Eternal{}, {C:attention}Perishable",
+          "and {C:attention}Rental{} from",
+          "leftmost or selected Joker",
+          "and {C:attention}un-debuff{} it"
+        }
+      },
     },
     Spectral = {
       c_tboj_spindown_dice = {
@@ -849,6 +858,7 @@ return {
       tboj_inactive = "Inactive",
       tboj_plus_loot = "+1 Loot",
       tboj_betrayal_ex = "Betrayal!",
+      tboj_purified_ex = "Purified!",
     },  
     labels = {
 

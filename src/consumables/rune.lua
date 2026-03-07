@@ -56,3 +56,55 @@ SMODS.Consumable {
   end,
   rune = true,
 }
+
+SMODS.Consumable {
+  key = "dagaz",
+  set = "Loot",
+  pos = { x = 6, y = 0 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  config = { extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {}
+  end,
+  can_use = function(self, card)
+    local target = TBOJ.leftmost_or_selected()
+    if not target or not target.ability then return false end
+    local ab = target.ability
+    if ab.perishable or ab.rental or ab.eternal or target.debuff then return true end
+  end,
+  use = function(self, card, area, copier)
+    local target = TBOJ.leftmost_or_selected()
+    if target.ability and target.ability.set == "Joker" then
+      local ab = target.ability
+      if ab.perishable or ab.rental or ab.eternal or target.debuff then
+        G.E_MANAGER:add_event(Event({
+          func = (function()
+            ab.perishable = false
+            ab.perish_tally = nil
+            ab.eternal = false
+            ab.rental = false
+            target:set_debuff(false)
+            card_eval_status_text(target, 'extra', nil, nil, nil, {message = localize("tboj_purified_ex")})
+            return true
+          end)
+        }))
+      end
+    end
+  end,
+  rune = true,
+  in_pool = function(self)
+    local ok = false
+    for i = 1, #G.jokers.cards do
+      if G.jokers.cards[i].ability and G.jokers.cards[i].ability.set == "Joker" then
+        local ab = G.jokers.cards[i].ability
+        if ab.perishable or ab.rental or ab.eternal then
+          ok = true
+          break
+        end
+      end
+    end
+    return ok
+  end
+}
