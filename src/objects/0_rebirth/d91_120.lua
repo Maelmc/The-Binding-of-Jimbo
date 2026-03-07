@@ -178,7 +178,7 @@ TBOJ.Active {
     TBOJ.eor_charge(card,context)
   end,
   can_use = function(self, card)
-    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.shop_jokers
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.shop_jokers and G.shop_jokers.cards
   end,
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do

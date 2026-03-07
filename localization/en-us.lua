@@ -669,6 +669,14 @@ return {
           "and {C:attention}un-debuff{} it"
         }
       },
+      c_tboj_perthro = {
+        name = "Perthro",
+        text = {
+          "{C:attention}Reroll{} all {C:attention}Jokers",
+          "and {C:attention}Actives{} in the shop",
+          "into ones of the same {C:attention}rarity"
+        }
+      },
     },
     Spectral = {
       c_tboj_spindown_dice = {

@@ -108,3 +108,28 @@ SMODS.Consumable {
     return ok
   end
 }
+
+SMODS.Consumable {
+  key = "perthro",
+  set = "Loot",
+  pos = { x = 7, y = 0 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  config = { extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {}
+  end,
+  can_use = function(self, card)
+    return G.shop_jokers and G.shop_jokers.cards
+  end,
+  use = function(self, card, area, copier)
+    for _, v in pairs(G.shop_jokers.cards) do
+      if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
+        TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
+      end
+    end
+    SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
+  end,
+  rune = true,
+}
