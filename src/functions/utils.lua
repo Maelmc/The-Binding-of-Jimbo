@@ -54,11 +54,7 @@ function TBOJ.reroll(card, to_key, silent)
   end
 
   if not silent then
-    if not card.edition then
-      card:juice_up()
-      play_sound('generic1')
-    else
-      card:juice_up(1, 0.5)
+    if card.edition then
       if card.edition.foil then play_sound('foil1', 1.2, 0.4) end
       if card.edition.holo then play_sound('holo1', 1.2*1.58, 0.4) end
       if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
@@ -68,6 +64,7 @@ function TBOJ.reroll(card, to_key, silent)
         G.P_CENTERS.e_poke_shiny.on_load(card)
       end
     end
+    SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
   end
 end
 
@@ -157,7 +154,8 @@ function TBOJ.get_random_key(args)
     end
   end
   if #candidates > 0 then
-    return pseudorandom_element(candidates, pseudoseed(seed))
+    local elem, _ = pseudorandom_element(candidates, pseudoseed(seed))
+    return elem
   elseif set == "Joker" then return "j_joker"
   elseif set == "tboj_active" then return "active_tboj_the_book_of_belial"
   elseif set == "tboj_trinket" then return "trinket_tboj_swallowed_penny"

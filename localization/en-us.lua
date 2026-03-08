@@ -509,6 +509,14 @@ return {
           "{C:attention}#1#{} additionnal time"
         }
       },
+      j_tboj_missing_no = {
+        name = "Missing No.",
+        text = {
+          "{C:attention}Reroll{} all Jokers",
+          "at end of round",
+          "{s:0.8}Cannot reroll {C:attention,s:0.8}Missing No."
+        }
+      },
       j_tboj_proptosis = {
         name = "Proptosis",
         text = {

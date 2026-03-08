@@ -66,7 +66,7 @@ SMODS.Joker {
   rarity = 1,
   cost = 5,
   atlas = "jokers",
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
@@ -76,7 +76,7 @@ SMODS.Joker {
       }
     end
 
-    if context.end_of_round and context.game_over == false and context.main_eval then
+    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       local contained = false
       for _, v in pairs (context.scoring_hand) do
         if v:get_id() == G.GAME.current_round.tboj_death_list_card.id then contained = true break end

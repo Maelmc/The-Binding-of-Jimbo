@@ -129,7 +129,6 @@ SMODS.Consumable {
         TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
       end
     end
-    SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
   end,
   rune = true,
 }

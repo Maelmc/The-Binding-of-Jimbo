@@ -70,6 +70,34 @@ SMODS.Joker {
 -- Hot Bombs
 -- Fire Mind
 -- Missing No.
+SMODS.Joker {
+  key = "missing_no",
+  pos = {x = 2, y = 17},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_reroll'}
+    return {vars = {}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+      for k, v in ipairs(G.jokers.cards) do
+        if v.config.center.key ~= "j_tboj_missing_no" then
+          TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "tboj_missing_no" .. G.GAME.round_resets.ante}))
+        end
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end
+}
+
 -- Dark Matter
 -- Black Candle
 -- Proptosis
