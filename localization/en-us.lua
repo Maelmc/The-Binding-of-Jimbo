@@ -716,11 +716,10 @@ return {
       c_tboj_spindown_dice = {
             name = "Spindown Dice",
             text = {
-                "{C:attention}Reroll{} selected Joker",
-                "to the previous one",
+                "{C:attention}Reroll{} leftmost or selected",
+                "{C:attention}Joker{} to the previous one",
                 "in {C:attention}collection{} order",
-                "{C:inactive}Destroys {C:attention}Joker",
-                "{C:inactive}and {C:attention}The Sad Onion",
+                "{C:inactive,s:0.8}Destroys {C:attention,s:0.8}Joker {C:inactive,s:0.8}and {C:attention,s:0.8}The Sad Onion",
             }
         }
     },

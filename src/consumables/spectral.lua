@@ -10,7 +10,8 @@ SMODS.Consumable {
     return {vars = {}}
   end,
   can_use = function(self, card)
-    return TBOJ.leftmost_or_selected_joker()
+    local target = TBOJ.leftmost_or_selected_joker()
+    return target and target.config and target.config.center and target.config.center.key
   end,
   use = function(self, card, area, copier)
     local target = TBOJ.leftmost_or_selected_joker()
