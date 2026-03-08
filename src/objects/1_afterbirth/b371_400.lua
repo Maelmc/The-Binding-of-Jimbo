@@ -1,3 +1,31 @@
+-- Holy Light
+SMODS.Joker {
+  key = "holy_light",
+  pos = {x = 13, y = 24},
+  config = {extra = {Xmult_multi = 2, num = 1, den = 5}},
+  loc_vars = function(self, info_queue, card)
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_holy_light")
+    return {vars = {num, den, card.ability.extra.Xmult_multi}}
+  end,
+  rarity = 2,
+  cost = 7,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and SMODS.pseudorandom_probability(card, "tboj_holy_light", card.ability.extra.num, card.ability.extra.den, "tboj_holy_light") then
+      return {
+        xmult = card.ability.extra.Xmult_multi
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  angel = true,
+}
+
 -- Seraphim
 SMODS.Joker {
   key = "seraphim",

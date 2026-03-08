@@ -441,7 +441,7 @@ return {
         text = {
           "Add {C:attention}#1# charge",
           "to leftmost {C:attention}Active",
-          "on final hand of round"
+          "on {C:attention}final hand{} of round"
         }
       },
       j_tboj_sacred_heart = {
@@ -512,6 +512,14 @@ return {
         text = {
           "{C:blue}+#1#{} hands"
         }
+      },
+      j_tboj_holy_light = {
+        name = "Holy Light",
+        text = {
+          "{C:green}#1# in #2#{} chance for",
+          "played cards to give",
+          "{X:mult,C:white} X#3# {} Mult when scored",
+        },
       },
       j_tboj_seraphim = {
         name = "Seraphim",
