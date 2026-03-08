@@ -49,13 +49,15 @@ SMODS.Consumable {
     return {vars = {card.ability.extra.charge}}
   end,
   can_use = function(self, card)
-    return G.actives and G.actives.highlighted and #G.actives.highlighted == 1
+    local target = TBOJ.leftmost_or_selected_active()
+    return target and target.ability.extra.curr_charge
   end,
   use = function(self, card, area, copier)
-    if G.actives.highlighted[1].ability.extra.battery_charge then
-      TBOJ.charge_active(G.actives.highlighted[1],G.actives.highlighted[1].ability.extra.battery_charge)
+    local target = TBOJ.leftmost_or_selected_active()
+    if target.ability.extra.battery_charge then
+      TBOJ.charge_active(target,target.ability.extra.battery_charge)
     else
-      TBOJ.charge_active(G.actives.highlighted[1],card.ability.extra.charge)
+      TBOJ.charge_active(target,card.ability.extra.charge)
     end
   end,
 }

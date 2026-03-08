@@ -436,6 +436,14 @@ return {
           "for each scoring card"
         }
       },
+      j_tboj_habit = {
+        name = "Habit",
+        text = {
+          "Add {C:attention}#1# charge",
+          "to leftmost {C:attention}Active",
+          "on final hand of round"
+        }
+      },
       j_tboj_sacred_heart = {
         name = "Sacred Heart",
         text = {
@@ -631,7 +639,8 @@ return {
         name = "Lil' Battery",
         text = {
           "Add up to {C:attention}#1# charges",
-          "to a selected {C:attention}Active"
+          "to leftmost or",
+          "selected {C:attention}Active"
         }
       },
       c_tboj_pill = {

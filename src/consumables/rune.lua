@@ -69,13 +69,13 @@ SMODS.Consumable {
     return {}
   end,
   can_use = function(self, card)
-    local target = TBOJ.leftmost_or_selected()
+    local target = TBOJ.leftmost_or_selected_joker()
     if not target or not target.ability then return false end
     local ab = target.ability
     if ab.perishable or ab.rental or ab.eternal or target.debuff then return true end
   end,
   use = function(self, card, area, copier)
-    local target = TBOJ.leftmost_or_selected()
+    local target = TBOJ.leftmost_or_selected_joker()
     if target.ability and target.ability.set == "Joker" then
       local ab = target.ability
       if ab.perishable or ab.rental or ab.eternal or target.debuff then

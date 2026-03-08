@@ -71,8 +71,12 @@ function TBOJ.reroll(card, to_key, silent)
   end
 end
 
-function TBOJ.leftmost_or_selected()
-    return G.jokers.highlighted[1] or G.jokers.cards[1]
+function TBOJ.leftmost_or_selected_joker()
+  return G.jokers.highlighted[1] or G.jokers.cards[1]
+end
+
+function TBOJ.leftmost_or_selected_active()
+  return G.actives.highlighted[1] or G.actives.cards[1]
 end
 
 function TBOJ.eor_charge(card,context)

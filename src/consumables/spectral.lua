@@ -10,10 +10,10 @@ SMODS.Consumable {
     return {vars = {}}
   end,
   can_use = function(self, card)
-    return TBOJ.leftmost_or_selected()
+    return TBOJ.leftmost_or_selected_joker()
   end,
   use = function(self, card, area, copier)
-    local target = TBOJ.leftmost_or_selected()
+    local target = TBOJ.leftmost_or_selected_joker()
     if target.config.center.key == "j_joker" or target.config.center.key == "j_tboj_the_sad_onion" then
       SMODS.destroy_cards(target,true)
       return
