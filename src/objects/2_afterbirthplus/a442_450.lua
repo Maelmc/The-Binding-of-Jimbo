@@ -67,7 +67,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = false,
   calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.play then
+    if context.individual and context.other_card and context.cardarea == G.play then
       card.ability.extra.scored = card.ability.extra.scored + 1
       if card.ability.extra.scored == card.ability.extra.to_score + 1 then
         card.ability.extra.scored = 0

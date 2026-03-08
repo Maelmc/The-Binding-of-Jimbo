@@ -57,6 +57,20 @@ return {
           }
         }
       },
+      active_tboj_book_of_revelations = {
+        name = "Book of Revelations",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Create a {C:attention}Soul Heart",
+            "{C:inactive}(Must have room)"
+          }
+        }
+      },
       active_tboj_deck_of_cards = {
         name = "Deck of Cards",
         text = {

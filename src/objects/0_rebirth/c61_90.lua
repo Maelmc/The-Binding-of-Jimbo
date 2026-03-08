@@ -286,6 +286,47 @@ TBOJ.Active {
 }
 
 -- Book of Revelations
+TBOJ.Active {
+  key = "book_of_revelations",
+  pos = { x = 2, y = 5 },
+  cost = 5,
+  config = {extra = {max_charge = 1, curr_charge = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+  end,
+  use = function(self, card, area, copier)
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+        G.E_MANAGER:add_event(Event({
+          func = (function()
+            G.E_MANAGER:add_event(Event({
+              func = (function()
+                play_sound('timpani')
+                SMODS.add_card({ set = 'Loot', key = "c_tboj_soul_heart" })
+                card:juice_up(0.3, 0.5)
+                G.GAME.consumeable_buffer = 0
+                return true
+              end)
+            }))
+            SMODS.calculate_effect({ message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT }, card)
+            return true
+          end)
+        }))
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  angel = true
+}
+
 -- The Mark
 SMODS.Joker {
   key = "the_mark",
