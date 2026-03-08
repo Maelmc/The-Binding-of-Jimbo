@@ -208,6 +208,14 @@ return {
       },
     },
     Joker = {
+      j_tboj_the_sad_onion = {
+        name = "The Sad Onion",
+        text = {
+          "This Joker gains {C:chips}+#1#{} Chips",
+          "when playing a hand",
+          "{C:inactive}(Currently {C:chips}#2#{C:inactive} Chips)",
+        },
+      },
       j_tboj_the_inner_eye = {
         name = "The Inner Eye",
         text = {
@@ -564,6 +572,15 @@ return {
           "When a {C:attention}Glass Card{}",
           "is destroyed, destroy",
           "cards {C:attention}adjacent{} to it"
+        }
+      },
+      j_tboj_eye_of_greed = {
+        name = "Eye of Greed",
+        text = {
+          "After scoring {C:attention}#1#{} {C:inactive}[#2#]",
+          "cards, spend {C:money}$#3#{} to",
+          "add a {C:attention}Gold Seal{} to",
+          "the next scoring card"
         }
       },
       j_tboj_bozo = {

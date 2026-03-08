@@ -99,7 +99,6 @@ SMODS.Joker {
         SMODS.scale_card(card, {
           ref_value = 'chips',
           scalar_value = 'chips_mod',
-          message_colour = G.C.CHIPS,
         })
       end
     end

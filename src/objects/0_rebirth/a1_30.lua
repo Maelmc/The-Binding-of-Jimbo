@@ -1,4 +1,36 @@
 -- The Sad Onion
+SMODS.Joker {
+  key = "the_sad_onion",
+  pos = {x = 0, y = 0},
+  config = {extra = {chips = 0, chips_mod = 3}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = false,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.before and not context.blueprint then
+      SMODS.scale_card(card, {
+        ref_value = 'chips',
+        scalar_value = 'chips_mod',
+      })
+    end
+
+    if context.joker_main then
+      return {
+        chips = card.ability.extra.chips
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end
+}
+
 -- The Inner Eye
 SMODS.Joker {
   key = "the_inner_eye",

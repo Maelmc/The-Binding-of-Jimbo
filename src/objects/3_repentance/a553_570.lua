@@ -31,7 +31,6 @@ SMODS.Joker {
       SMODS.scale_card(card, {
         ref_value = 'chips',
         scalar_value = 'chips_mod',
-        message_colour = G.C.CHIPS,
       })
     end
   end,
@@ -83,7 +82,6 @@ SMODS.Joker {
               ref_table[ref_value] = initial + _hands*change
             end,
             message_key = 'a_xmult',
-            message_colour = G.C.XMULT
           })
           return true
         end

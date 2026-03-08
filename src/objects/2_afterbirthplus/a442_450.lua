@@ -18,7 +18,7 @@ SMODS.Joker {
   perishable_compat = true,
   eternal_compat = true,
   blueprint_compat = true,
-  enhancement_gate = "m_tboj_poop",
+  enhancement_gate = "m_glass",
   calculate = function(self, card, context)
     if context.remove_playing_cards then
       local to_destroy = {}
@@ -53,3 +53,42 @@ SMODS.Joker {
 
 -- Metal Plate
 -- Eye of Greed
+SMODS.Joker {
+  key = "eye_of_greed",
+  pos = {x = 14, y = 29 },
+  config = {extra = {scored = 0, to_score = 20, money_minus = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.to_score, card.ability.extra.scored, card.ability.extra.money_minus}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      card.ability.extra.scored = card.ability.extra.scored + 1
+      if card.ability.extra.scored == card.ability.extra.to_score + 1 then
+        card.ability.extra.scored = 0
+        context.other_card:set_seal("Gold")
+
+        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - card.ability.extra.money_minus
+        G.E_MANAGER:add_event(Event({
+          func = function()
+              G.GAME.dollar_buffer = 0
+              return true
+          end
+        }))
+    
+        return {
+          dollars = -card.ability.extra.money_minus,
+          card = card
+        }
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+}

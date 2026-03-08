@@ -59,7 +59,6 @@ SMODS.Joker {
           ref_table[ref_value] = initial + #context.removed*change
         end,
         message_key = 'a_xmult',
-        message_colour = G.C.XMULT
       })
     end
 

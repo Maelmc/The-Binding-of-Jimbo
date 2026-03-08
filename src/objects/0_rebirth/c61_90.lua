@@ -24,7 +24,6 @@ SMODS.Joker {
       SMODS.scale_card(card, {
         ref_value = 'mult',
         scalar_value = 'mult_mod',
-        message_colour = G.C.MULT,
       })
     end
   end,
@@ -162,7 +161,6 @@ SMODS.Joker {
         SMODS.scale_card(card, {
           ref_value = 'Xmult',
           scalar_value = 'Xmult_mod',
-          message_colour = G.C.MULT,
         })
       end
     end
