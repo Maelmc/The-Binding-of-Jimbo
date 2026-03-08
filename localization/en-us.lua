@@ -370,6 +370,13 @@ return {
           "earn {C:money}$#1#"
         }
       },
+      j_tboj_x_ray_vision = {
+        name = "X-Ray Vision",
+        text = {
+          "All cards are",
+          "drawn {C:attention}face up"
+        }
+      },
       j_tboj_the_mark = {
         name = "The Mark",
         text = {

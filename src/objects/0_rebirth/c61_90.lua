@@ -253,6 +253,30 @@ SMODS.Joker {
 
 -- PHD
 -- X-Ray Vision
+SMODS.Joker {
+  key = "x_ray_vision",
+  pos = {x = 0, y = 5},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.stay_flipped and context.to_area == G.hand then
+      return {
+          prevent_stay_flipped = true
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+}
+
 -- My Little Unicorn
 TBOJ.Active {
   key = "my_little_unicorn",
