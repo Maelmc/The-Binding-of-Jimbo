@@ -779,6 +779,13 @@ return {
           "is destroyed"
         }
       },
+      trinket_tboj_purple_heart = {
+        name = "Purple Heart",
+        text = {
+          "{C:white,X:attention}X#1#{} Blind requirement",
+          "{C:white,X:attention}X#2#{} end of round payout",
+        }
+      },
       trinket_tboj_pulse_worm = {
         name = "Pulse Worm",
         text = {
@@ -830,6 +837,12 @@ return {
         name = "Curved Horn",
         text = {
           "{C:white,X:mult}X#1#{} Mult"
+        }
+      },
+      trinket_tboj_goat_hoof = {
+        name = "Goat Hoof",
+        text = {
+          "{C:attention}+#1#{} hand size"
         }
       },
       trinket_tboj_lucky_toe = {
@@ -929,6 +942,7 @@ return {
       tboj_plus_loot = "+1 Loot",
       tboj_betrayal_ex = "Betrayal!",
       tboj_purified_ex = "Purified!",
+      tboj_champion_ex = "Champion!",
     },  
     labels = {
 

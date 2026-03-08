@@ -47,6 +47,25 @@ TBOJ.Trinket {
 -- AAA Battery
 -- Broken Remote
 -- Purple Heart
+TBOJ.Trinket {
+  key = "purple_heart",
+  pos = { x = 4, y = 0 },
+  cost = 4,
+  config = {extra = {blind_buff = 1.5}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.blind_buff, 1.5}}
+  end,
+  calculate = function(self, card, context)
+    if context.setting_blind and context.blind and not context.blueprint then
+      G.GAME.blind.chips = G.GAME.blind.chips * card.ability.extra.blind_buff
+      G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+      return {
+        message = localize('tboj_champion_ex')
+      }
+    end
+  end,
+}
+
 -- Broken Magnet
 -- Rosary Bead
 -- Cartridge

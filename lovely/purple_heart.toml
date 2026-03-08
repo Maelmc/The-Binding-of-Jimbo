@@ -1,0 +1,19 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# x1.5 payout
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "if total_cashout_rows > 7 then"
+position = "before"
+payload = '''
+local phearts = SMODS.find_card("trinket_tboj_purple_heart")
+for i = 1, #phearts do
+  add_round_eval_row({bonus = true, name='joker_pheart'..i, pitch = pitch, dollars = math.floor(dollars/2), card = phearts[i]})
+  dollars = dollars + math.floor(dollars/2)
+end
+'''
+match_indent = true
