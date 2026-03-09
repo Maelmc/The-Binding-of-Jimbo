@@ -517,6 +517,14 @@ return {
           "{s:0.8}Cannot reroll {C:attention,s:0.8}Missing No."
         }
       },
+      j_tboj_black_candle = {
+        name = "Black Candle",
+        text = {
+          "Jokers in the shop",
+          "cannot be {C:attention}Eternal{},",
+          "{C:attention}Perishable{} or {C:attention}Rental"
+        }
+      },
       j_tboj_proptosis = {
         name = "Proptosis",
         text = {

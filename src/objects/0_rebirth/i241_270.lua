@@ -100,6 +100,32 @@ SMODS.Joker {
 
 -- Dark Matter
 -- Black Candle
+SMODS.Joker {
+  key = "black_candle",
+  pos = {x = 4, y = 17},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 3,
+  cost = 8,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.modify_shop_card and context.card.ability then
+      context.card.ability.perishable = false
+      context.card.ability.perishable = nil
+      context.card.ability.eternal = false
+      context.card.ability.rental = false
+    end
+  end,
+  in_pool = function (self, args)
+    return (G.GAME.modifiers.enable_eternals_in_shop or G.GAME.modifiers.enable_perishables_in_shop or G.GAME.modifiers.enable_rentals_in_shop) and TBOJ.in_pool(self, args)
+  end
+}
+
 -- Proptosis
 SMODS.Joker {
   key = "proptosis",
