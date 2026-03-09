@@ -41,6 +41,9 @@ TBOJ.Active {
   cost = 8,
   config = {extra = {max_charge = 3, curr_charge = 3}},
   loc_vars = function(self, info_queue, card)
+    if not card.edition or (card.edition and not card.edition.negative) then
+      info_queue[#info_queue+1] = G.P_CENTERS.e_negative
+    end
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
   end,
   calculate = function(self, card, context)

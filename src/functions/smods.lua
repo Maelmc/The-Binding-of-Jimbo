@@ -114,4 +114,4 @@ SMODS.Booster:take_ownership_by_kind('Buffoon', {
     end
     return {set = "Joker", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "buf"}
   end,
-})
+}, true)

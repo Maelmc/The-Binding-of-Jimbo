@@ -316,6 +316,7 @@ TBOJ.Active {
   cost = 5,
   config = {extra = {max_charge = 1, curr_charge = 1}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_soul_heart
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
   end,
   calculate = function(self, card, context)
