@@ -16,7 +16,7 @@ SMODS.Booster {
       return SMODS.create_card { set = "tboj_active", area = G.pack_cards, skip_materialize = true, key = _k }
     else
       if pseudorandom('soul_devil'..G.GAME.round_resets.ante) > 0.997 then
-        local _k = TBOJ.get_random_key{set = "Joker", tags = "angel", target_rarities = {4}, seed = "devil_pack"}
+        local _k = TBOJ.get_random_key{set = "Joker", tags = "devil", target_rarities = {4}, seed = "devil_pack"}
         return SMODS.create_card { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
       else
         local _k = TBOJ.get_random_key{set = "Joker", tags = "devil", seed = "devil_pack"}

@@ -99,3 +99,19 @@ function SMODS.current_mod.reset_game_globals(run_start)
   reset_death_list_card()
 end
 
+SMODS.Booster:take_ownership_by_kind('Buffoon', {
+  create_card = function(self, card, i)
+    if i == 1 and next(SMODS.find_card("j_tboj_pentagram")) then
+      local _k
+      local rand = pseudorandom("tboj_pentagram")
+      print(rand)
+      if rand < 0.5 then
+        _k = TBOJ.get_random_key{set = "Joker", tags = "angel", seed = "tboj_pentagram"}
+      else
+        _k = TBOJ.get_random_key{set = "Joker", tags = "devil", seed = "tboj_pentagram"}
+      end
+      return { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
+    end
+    return {set = "Joker", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "buf"}
+  end,
+})

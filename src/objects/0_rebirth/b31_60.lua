@@ -179,6 +179,27 @@ SMODS.Joker {
 }
 
 -- Pentagram
+SMODS.Joker {
+  key = "pentagram",
+  pos = {x = 5, y = 3},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 2,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true
+}
+
 -- Dr. Fetus
 -- Magneto
 -- Treasure Map

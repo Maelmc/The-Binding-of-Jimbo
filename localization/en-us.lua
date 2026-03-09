@@ -301,6 +301,13 @@ return {
           "{C:mult}+#1#{} Mult"
         }
       },
+      j_tboj_pentagram = {
+        name = "Pentagram",
+        text = {
+          "{C:attention}Buffon Packs{} contain a",
+          "random {C:attention}Angel{} or {C:attention}Devil{} Joker"
+        }
+      },
       j_tboj_distant_admiration = {
         name = "Distant Admiration",
         text = {
