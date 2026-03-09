@@ -915,6 +915,14 @@ return {
           "appear in the shop"
         }
       },
+      trinket_tboj_myosotis = {
+        name = "Myosotis",
+        text = {
+          "Creates a copy of a random",
+          "{C:attention}consumable{} in the shop",
+          "at the end of the {C:attention}shop"
+        }
+      },
       trinket_tboj_m = {
         name = "'M",
         text = {
@@ -998,6 +1006,7 @@ return {
       tboj_betrayal_ex = "Betrayal!",
       tboj_purified_ex = "Purified!",
       tboj_champion_ex = "Champion!",
+      tboj_forget_me_not_dot = "Forget me not...",
     },  
     labels = {
 
