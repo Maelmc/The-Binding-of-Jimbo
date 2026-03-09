@@ -164,4 +164,32 @@ SMODS.Joker {
 -- Robo-Baby 2.0
 -- Rotten Baby
 -- Headless Baby
+SMODS.Joker {
+  key = "headless_baby",
+  pos = {x = 13, y = 17},
+  config = {extra = {mult = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.hand and not context.end_of_round and (not context.other_card:is_face()) then
+      context.other_card.ability.perma_mult = (context.other_card.ability.perma_mult or 0) + card.ability.extra.mult
+      return {
+        message = localize('k_upgrade_ex')
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  familiar = true,
+  devil = true
+}
+
 -- Leech

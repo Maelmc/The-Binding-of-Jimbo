@@ -1,0 +1,56 @@
+-- Meat Cleaver
+TBOJ.Active {
+  key = "meat_cleaver",
+  pos = { x = 0, y = 42 },
+  cost = 5,
+  config = {extra = {max_charge = 3, curr_charge = 3, max_highlighted = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {
+      card.ability.extra.curr_charge, card.ability.extra.max_charge,
+      card.ability.extra.max_highlighted,
+    }}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    if card.ability.extra.curr_charge >= card.ability.extra.max_charge
+    and G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted then
+      for i = 1, #G.hand.highlighted do
+        if SMODS.has_no_rank(G.hand.highlighted[i]) then return false end
+      end
+      return true
+    end
+  end,
+  use = function(self, card, area, copier)
+    local new_cards = {}
+    for i = 1, #G.hand.highlighted do
+      for j = 1, 2 do
+        local _card = copy_card(G.hand.highlighted[i])
+        local target_rank
+        if _card:get_id() <= 13 and _card:get_id() >= 11 then target_rank = 5
+        elseif _card:get_id() == 14 then target_rank = 5.5
+        elseif _card:get_id() <= 10 and _card:get_id() >= 2 then target_rank = _card:get_id()/2 end
+        if j == 1 then target_rank = math.ceil(target_rank) else target_rank = math.floor(target_rank) end
+        if target_rank == 1 then target_rank = "Ace" end
+        if target_rank then
+          SMODS.change_base(_card, nil, tostring(target_rank))
+          G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+          _card:add_to_deck()
+          G.deck.config.card_limit = G.deck.config.card_limit + 1
+          G.hand:emplace(_card)
+          _card:start_materialize()
+          new_cards[#new_cards + 1] = _card
+        end
+      end
+      SMODS.destroy_cards(G.hand.highlighted[i])
+    end
+    SMODS.calculate_context({ playing_card_added = true, cards = new_cards })
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end
+}

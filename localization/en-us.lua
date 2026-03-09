@@ -174,6 +174,23 @@ return {
           }
         }
       },
+      active_tboj_meat_cleaver = {
+        name = "Meat Cleaver",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Destroy {C:attention}#3#{} selected card",
+            "to create {C:attention}2{} identical",
+            "cards with {C:attention}half{} its rank",
+            "{C:attention,s:0.8}Kings{s:0.8}, {C:attention,s:0.8}Queens{s:0.8} and {C:attention,s:0.8}Jacks{s:0.8} count as {C:attention,s:0.8}10",
+            "{C:attention,s:0.8}Aces{s:0.8} count as {C:attention,s:0.8}11"
+          }
+        }
+      },
       active_tboj_lemegeton = {
         name = "Lemegeton",
         text = {
@@ -548,6 +565,14 @@ return {
           "in {C:attention}played hand{} when scored"
         }
       },
+      j_tboj_headless_baby = {
+        name = "Headless Baby",
+        text = {
+          "Each non-{C:attention}face{} card held",
+          "in hand gains {C:mult}+#1#{} permanent",
+          "Mult when hand is played"
+        }
+      },
       j_tboj_mongo_baby = {
         name = "Mongo Baby",
         text = {
@@ -616,6 +641,13 @@ return {
           "for each playing card {C:attention}destroyed{},",
           "resets when {C:attention}Boss Blind{} is defeated",
           "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
+        },
+      },
+      j_tboj_crown_of_light = {
+        name = "Crown of Light",
+        text = {
+          "Cards give {X:mult,C:white}X#1#{} Mult on",
+          "{C:attention}first{} hand of round"
         },
       },
       j_tboj_shard_of_glass = {

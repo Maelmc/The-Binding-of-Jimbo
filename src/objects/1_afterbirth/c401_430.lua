@@ -83,3 +83,38 @@ SMODS.Joker {
   end,
   devil = true,
 }
+
+-- Cambion Conception
+-- Immaculate Conception
+-- More Options
+-- Crown of Light
+SMODS.Joker {
+  key = "crown_of_light",
+  pos = {x = 9, y = 27},
+  config = {extra = {Xmult_multi = 2}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult_multi}}
+  end,
+  rarity = 4,
+  cost = 20,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.first_hand_drawn and not context.blueprint then
+      local eval = function() return G.GAME.current_round.hands_played == 0 and not G.RESET_JIGGLES end
+      juice_card_until(card, eval, true)
+    end
+
+    if context.individual and context.cardarea == G.play and G.GAME.current_round.hands_played == 0 then
+      return {
+        xmult = card.ability.extra.Xmult_multi
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  angel = true,
+}
