@@ -138,3 +138,26 @@ elseif _card.ability.set == "tboj_active" then
   _area = G.actives
 '''
 match_indent = true
+
+# Using a reusable active in the shop doesn't drop the shop ui
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.shop.alignment.offset.y = G.ROOM.T.y + 29"
+position = "before"
+payload = '''
+if card.ability.set == "tboj_active" and not nc then
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.shop.alignment.offset.y = G.ROOM.T.y + 29"
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+times = 1

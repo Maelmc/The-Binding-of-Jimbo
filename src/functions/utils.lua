@@ -127,6 +127,8 @@ function TBOJ.get_random_key(args)
   for _, v in pairs(G.P_CENTERS) do
     if v.set and v.set == set
     and (not (type(v.in_pool) == 'function') or v:in_pool())
+    and (not (v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag]))
+    and ((not v.yes_pool_flag) or G.GAME.pool_flags[v.yes_pool_flag])
     and not G.GAME.banned_keys[v.key]
     and (not _rarity or v.rarity == _rarity)
     and not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key))) and not SMODS.showman(v.key)) then

@@ -114,6 +114,22 @@ return {
           }
         }
       },
+      active_tboj_void = {
+        name = "Void",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "{C:attention}Destroy{} all cards in the {C:attention}shop{} and",
+            "upgrade a random {C:attention}poker hand{}",
+            "for each card destroyed this way",
+            "The destroyed cards cannot appear again"
+          }
+        }
+      },
       active_tboj_smelter = {
         name = "Smelter",
         text = {
