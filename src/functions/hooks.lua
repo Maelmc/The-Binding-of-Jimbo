@@ -46,3 +46,18 @@ function set_consumeable_usage(card)
   end
   return scu(card)
 end
+
+local click = Card.click
+function Card:click()
+  if (not self.highlighted) and self.config and self.config.center and self.config.center.key == "j_tboj_breakfast" and self.area == G.jokers then
+    if G.hand and #G.hand.cards > 0 then
+      SMODS.draw_cards(1)
+      self.ability.extra.to_draw = self.ability.extra.to_draw - 1
+      if self.ability.extra.to_draw <= 0 then
+        SMODS.destroy_cards(self, nil, nil, true)
+        SMODS.calculate_effect({message = localize('k_eaten_ex'), colour = G.C.FILTER}, self)
+      end
+    end
+  end
+  return click(self)
+end

@@ -281,6 +281,26 @@ SMODS.Joker {
 -- Dinner
 -- Dessert
 -- Breakfast
+SMODS.Joker {
+  key = "breakfast",
+  pos = {x = 9, y = 1},
+  config = {extra = {to_draw = 5}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.to_draw}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end
+}
+
 -- Rotten Meat
 -- Wooden Spoon
 -- The Belt

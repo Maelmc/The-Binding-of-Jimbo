@@ -286,6 +286,14 @@ return {
           "{C:inactive}(Must have room)"
         }
       },
+      j_tboj_breakfast = {
+        name = "Breakfast",
+        text = {
+          "Click on this Joker",
+          "to {C:attention}draw{} a card",
+          "{C:inactive}(Remaining to draw: {C:attention}#1#{C:inactive})"
+        }
+      },
       j_tboj_lucky_foot = {
         name = "Lucky Foot",
         text = {
