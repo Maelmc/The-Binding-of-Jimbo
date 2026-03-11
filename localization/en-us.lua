@@ -938,6 +938,14 @@ return {
           "each give {C:white,X:mult}X#1#{} Mult"
         }
       },
+      trinket_tboj_crow_heart = {
+        name = "Crow Heart",
+        text = {
+          "When {C:attention}playing a hand{},",
+          "if you have any discard left,",
+          "{C:blue}+#1#{} hand and {C:red}-#2#{} discard"
+        }
+      },
       trinket_tboj_myosotis = {
         name = "Myosotis",
         text = {
@@ -1030,6 +1038,7 @@ return {
       tboj_purified_ex = "Purified!",
       tboj_champion_ex = "Champion!",
       tboj_forget_me_not_dot = "Forget me not...",
+      tboj_drain = "Drain",
     },  
     labels = {
 
