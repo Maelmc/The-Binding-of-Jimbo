@@ -925,10 +925,17 @@ return {
         }
       },
       trinket_tboj_no = {
-        name = "No!",
+        name = "NO!",
         text = {
           "{C:attention}Actives{} no longer",
           "appear in the shop"
+        }
+      },
+      trinket_tboj_child_leash = {
+        name = "Child Leash",
+        text = {
+          "{C:attention}Familiar{} Jokers",
+          "each give {C:white,X:mult}X#1#{} Mult"
         }
       },
       trinket_tboj_myosotis = {
