@@ -946,6 +946,14 @@ return {
           "{C:blue}+#1#{} hand and {C:red}-#2#{} discard"
         }
       },
+      trinket_tboj_broken_padlock = {
+        name = "Broken Padlock",
+        text = {
+          "Using a {C:attention}Bomb{} during",
+          "the shop {C:attention}destroys{} it and makes",
+          "a random Booster Pack {C:attention}free"
+        }
+      },
       trinket_tboj_myosotis = {
         name = "Myosotis",
         text = {
@@ -1039,6 +1047,7 @@ return {
       tboj_champion_ex = "Champion!",
       tboj_forget_me_not_dot = "Forget me not...",
       tboj_drain = "Drain",
+      tboj_opened_ex = "Opened!",
     },  
     labels = {
 

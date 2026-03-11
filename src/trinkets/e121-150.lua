@@ -1,3 +1,31 @@
+-- Broken Padlock
+TBOJ.Trinket {
+  key = "broken_padlock",
+  pos = { x = 0, y = 9 },
+  cost = 4,
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_bomb
+    return {vars = {}}
+  end,
+  calculate = function(self, card, context)
+    if context.using_consumeable and context.consumeable and context.consumeable.config.center.key == "c_tboj_bomb" then
+      if G.GAME.tboj_in_shop and G.shop_booster and G.shop_booster.cards then
+        local pack, _ = pseudorandom_element(G.shop_booster.cards,"tboj_broken_padlock")
+        G.E_MANAGER:add_event(Event({
+          func = function()
+            pack.ability.couponed = true
+            pack:set_cost()
+            return true
+          end
+        }))
+        SMODS.calculate_effect({ message = localize('tboj_opened_ex') }, pack)
+        SMODS.destroy_cards(context.consumeable)
+      end
+    end
+  end,
+}
+
 -- Myosotis
 TBOJ.Trinket {
   key = "myosotis",
