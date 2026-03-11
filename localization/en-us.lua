@@ -924,6 +924,14 @@ return {
           "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}2 in 6{C:inactive})",
         }
       },
+      trinket_tboj_golden_horse_shoe = {
+        name = "Golden Horse Shoe",
+        text = {
+          "{C:green}#1# in #2#{} chance to add",
+          "a random {C:attention}Joker{} to the shop",
+          "when {C:attention}entering{} or {C:attention}rerolling{} the shop"
+        }
+      },
       trinket_tboj_no = {
         name = "NO!",
         text = {
@@ -943,14 +951,14 @@ return {
         text = {
           "When {C:attention}playing a hand{},",
           "if you have any discard left,",
-          "{C:blue}+#1#{} hand and {C:red}-#2#{} discard"
+          "gain {C:blue}+#1#{} hand and {C:red}-#2#{} discard"
         }
       },
       trinket_tboj_broken_padlock = {
         name = "Broken Padlock",
         text = {
-          "Using a {C:attention}Bomb{} during",
-          "the shop {C:attention}destroys{} it and makes",
+          "Using a {C:attention}Bomb{} during the",
+          "shop {C:attention}destroys{} it and makes",
           "a random Booster Pack {C:attention}free"
         }
       },
@@ -1048,6 +1056,7 @@ return {
       tboj_forget_me_not_dot = "Forget me not...",
       tboj_drain = "Drain",
       tboj_opened_ex = "Opened!",
+      tboj_lucky_ex = "Lucky!",
     },  
     labels = {
 

@@ -291,3 +291,27 @@ function TBOJ.total_chips(card)
   end
   return total_chips
 end
+
+-- Taken from Pokermon
+function TBOJ.add_to_shop(card,text)
+  if G.GAME.shop.joker_max == 1 then
+    G.shop_jokers.config.card_limit = G.GAME.shop.joker_max + 1
+    G.shop_jokers.T.w = math.min((G.GAME.shop.joker_max + 1)*1.02*G.CARD_W,4.08*G.CARD_W)
+    G.shop:recalculate()
+  end
+  card.states.visible = false
+  G.shop_jokers:emplace(card)
+  card:start_materialize()
+  card:set_cost()
+  create_shop_card_ui(card)
+  
+  if (SMODS.Mods["Talisman"] or {}).can_load then
+    if Talisman.config_file.disable_anims then 
+      card.states.visible = true
+    end
+  end
+  card:juice_up()
+  if text then
+    SMODS.calculate_effect({message = text}, card)
+  end
+end
