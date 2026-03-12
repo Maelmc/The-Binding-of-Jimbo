@@ -238,6 +238,13 @@ return {
           "are debuffed"
         }, 
       },
+      bl_tboj_monstro = {
+        name = "Monstro",
+        text = {
+          "Debuff 14",
+          "random cards"
+        }, 
+      },
     },
     Enhanced = {
       m_tboj_poop = {
