@@ -831,10 +831,25 @@ return {
         }
     },
     Stake={
+        stake_tboj_corpse_stake = {
+          name = "Corpse Stake",
+          text = {
+            "Starting from Ante 4, {C:white,X:attention}X2{} Blind size",
+            "{s:0.8}Applies all previous Stakes",
+          },
+        },
         stake_tboj_void_stake = {
           name = "Void Stake",
           text = {
-            "{X:gray,C:attention}+1{} Ante win requirement"
+            "{X:gray,C:attention}+1{} Ante win requirement",
+            "{s:0.8}Applies all previous Stakes",
+          },
+        },
+        stake_tboj_home_stake = {
+          name = "Home Stake",
+          text = {
+            "{X:gray,C:attention}+1{} Ante win requirement",
+            "{s:0.8}Applies all previous Stakes",
           },
         },
     },
@@ -860,7 +875,7 @@ return {
       trinket_tboj_purple_heart = {
         name = "Purple Heart",
         text = {
-          "{C:white,X:attention}X#1#{} Blind requirement",
+          "{C:white,X:attention}X#1#{} Blind size",
           "{C:white,X:attention}X#2#{} end of round payout",
         }
       },
@@ -1030,6 +1045,30 @@ return {
           "Choose {C:attention}#1#{} from among",
           "{C:attention}#2#{} devil {C:attention}Joker{} cards and",
           "{C:attention}#3#{} devil {C:attention}Active{} card",
+        },
+      },
+      tboj_corpse_stake_sticker = {
+        name = "Corpse Sticker",
+        text = {
+          "Used this {C:attention}Joker{}",
+          "to win on {C:attention}Corpse{}",
+          "{C:attention}Stake{} difficulty",
+        },
+      },
+      tboj_void_stake_sticker = {
+        name = "Void Sticker",
+        text = {
+          "Used this {C:attention}Joker{}",
+          "to win on {C:attention}Void{}",
+          "{C:attention}Stake{} difficulty",
+        },
+      },
+      tboj_home_stake_sticker = {
+        name = "Home Sticker",
+        text = {
+          "Used this {C:attention}Joker{}",
+          "to win on {C:attention}Home{}",
+          "{C:attention}Stake{} difficulty",
         },
       },
     }

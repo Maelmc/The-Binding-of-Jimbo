@@ -1,7 +1,7 @@
 SMODS.Stake { 
     key = 'void_stake',
-    applied_stakes = {'gold'},
-    above_stake = 'gold',
+    applied_stakes = {'tboj_corpse_stake'},
+    above_stake = 'tboj_corpse_stake',
     prefix_config = {
       above_stake = {mod = false},
       applied_stakes = {mod = false}

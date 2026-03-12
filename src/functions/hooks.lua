@@ -61,3 +61,17 @@ function Card:click()
   end
   return click(self)
 end
+
+local gba = get_blind_amount
+function get_blind_amount(ante)
+  local amount = gba(ante)
+  if ante >= 4 and G.GAME and G.GAME.applied_stakes then
+    for _, v in pairs(G.GAME.applied_stakes) do
+      if G.P_CENTER_POOLS.Stake[v].key == "stake_tboj_corpse_stake" then
+        amount = amount * 2
+        break
+      end
+    end
+  end
+  return amount
+end
