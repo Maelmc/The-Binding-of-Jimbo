@@ -10,7 +10,7 @@ TBOJ.Trinket {
   end,
   calculate = function(self, card, context)
     if context.using_consumeable and context.consumeable and context.consumeable.config.center.key == "c_tboj_bomb" then
-      if G.GAME.tboj_in_shop and G.shop_booster and G.shop_booster.cards then
+      if G.TAROT_INTERRUPT == G.STATES.SHOP and G.shop_booster and G.shop_booster.cards then
         local pack, _ = pseudorandom_element(G.shop_booster.cards,"tboj_broken_padlock")
         if pack then
           G.E_MANAGER:add_event(Event({
