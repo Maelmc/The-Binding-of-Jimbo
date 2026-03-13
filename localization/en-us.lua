@@ -535,6 +535,15 @@ return {
           "give {C:white,X:mult}X#1#{} Mult"
         }
       },
+      j_tboj_monstro_lung = {
+        name = "Monstro's Lung",
+        text = {
+          "Randomly add {C:attention}#1#{} to {C:attention}#2#{}",
+          "cards to your {C:attention}played hand",
+          "before determining the {C:attention}poker hand{},",
+          "then {C:attention}destroy{} them after scoring"
+        }
+      },
       j_tboj_stop_watch = {
         name = "Stop Watch",
         text = {

@@ -59,7 +59,7 @@ SMODS.Joker {
           return true
         end
       }))
-      playing_card_joker_effects(_card)
+      SMODS.calculate_context({playing_card_added = true, cards = {_card}})
     end
 
     if context.individual and context.other_card.seraphim_target then

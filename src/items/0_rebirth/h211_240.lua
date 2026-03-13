@@ -1,3 +1,61 @@
+-- Monstro's Lung
+SMODS.Joker {
+  key = "monstro_lung",
+  pos = {x = 4, y = 15},
+  config = {extra = {min = 2, max = 7}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.min, card.ability.extra.max}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.determine_hand then
+      local cards_added = {}
+      local to_add = pseudorandom('tboj_montro_lung', card.ability.extra.min, card.ability.extra.max)
+      for _ = 1, to_add do
+        local _card = SMODS.create_card {
+          set = "Base",
+          seal = SMODS.poll_seal({ mod = 10 }),
+          edition = SMODS.poll_edition { key = "tboj_montro_lung" .. G.GAME.round_resets.ante, mod = 2, no_negative = true },
+          area = G.play
+        }
+        _card.monstro_target = true
+        _card.states.visible = false
+        _card:add_to_deck()
+        G.deck.config.card_limit = G.deck.config.card_limit + 1
+        G.play:emplace(_card)
+        G.E_MANAGER:add_event(Event({
+          func = function()
+            _card:start_materialize()
+            if context.blueprint_card then
+              context.blueprint_card:juice_up()
+            else
+              card:juice_up()
+            end
+            return true
+          end
+        }))
+        table.insert(cards_added,_card)
+      end
+      SMODS.calculate_context({playing_card_added = true, cards = cards_added})
+    end
+
+    if context.destroy_card and not context.blueprint then
+      if context.destroy_card.monstro_target then return {remove = true} end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  familiar = true,
+}
+
+-- Abaddon
+-- Ball of Tar
 -- Stop Watch
 SMODS.Joker {
   key = "stop_watch", 
