@@ -20,7 +20,7 @@ SMODS.Joker {
         local _card = SMODS.create_card {
           set = "Base",
           seal = SMODS.poll_seal({ mod = 10 }),
-          edition = SMODS.poll_edition { key = "tboj_montro_lung" .. G.GAME.round_resets.ante, mod = 2, no_negative = true },
+          edition = SMODS.poll_edition { key = "tboj_montro_lung", mod = 2, no_negative = true },
           area = G.play
         }
         _card.monstro_target = true
