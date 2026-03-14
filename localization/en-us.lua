@@ -261,7 +261,14 @@ return {
         },
       },
     },
-    Joker = {
+    Joker = {    
+      j_tboj_dream_catcher = {
+        name = "Dream Catcher",
+        text = {
+          "The next {C:attention}Boss Blind{} is {C:attention}#1#",
+          "{s:0.8}Prediction might change based on your actions",
+        },
+      },
       j_tboj_the_sad_onion = {
         name = "The Sad Onion",
         text = {
@@ -1112,6 +1119,8 @@ return {
       tboj_drain = "Drain",
       tboj_opened_ex = "Opened!",
       tboj_lucky_ex = "Lucky!",
+      tboj_unknown = "Unknown",
+      tboj_acquire_to_reveal = "Acquire to reveal",
     },  
     labels = {
 

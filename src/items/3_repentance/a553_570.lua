@@ -1,3 +1,38 @@
+-- Dream Catcher
+SMODS.Joker {
+  key = "dream_catcher",
+  pos = {x = 10, y = 37},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    if not G.playing_cards then
+      --print("not in game")
+      return {vars = {localize("tboj_unknown")}}
+    end
+    if G.jokers and not table.contains(G.jokers.cards,card) then
+      --print("not owned")
+      return {vars = {localize("tboj_acquire_to_reveal")}}
+    end
+    local blind = TBOJ.predict_next_boss()
+    if blind then
+      return {vars = {localize{type ='name_text', key = blind, set = 'Blind'}}}
+    else
+      --print("cant find blind")
+      return {vars = {localize("tboj_unknown")}}
+    end
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end
+}
+
 -- Paschal Candle
 SMODS.Joker {
   key = "paschal_candle",
