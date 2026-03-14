@@ -241,8 +241,8 @@ return {
       bl_tboj_monstro = {
         name = "Monstro",
         text = {
-          "Debuff 14",
-          "random cards"
+          "14 random cards",
+          "are debuffed"
         }, 
       },
     },
@@ -554,7 +554,7 @@ return {
       j_tboj_stop_watch = {
         name = "Stop Watch",
         text = {
-          "{C:attention}Doubles{} scaling values"
+          "{C:attention}Doubles{} Joker scaling values"
         }
       },
       j_tboj_e_coli = {
