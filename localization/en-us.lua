@@ -10,7 +10,7 @@ return {
             "Recharges at end of round"
           },
           {
-            "Add {C:mult}+#3#{} permanent Mult",
+            "Permanently add {C:mult}+#3#{} Mult",
             "to {C:attention}#4#{} selected card"
           }
         }
@@ -608,7 +608,7 @@ return {
         name = "Headless Baby",
         text = {
           "Each non-{C:attention}face{} card held",
-          "in hand gains {C:mult}+#1#{} permanent",
+          "in hand permanently gains {C:mult}+#1#",
           "Mult when hand is played"
         }
       },
@@ -813,7 +813,7 @@ return {
       c_tboj_soul_heart = {
         name = "Soul Heart",
         text = {
-          "Add {C:chips}+#1#{} permanent Chips",
+          "Permanently add {C:chips}+#1#{} Chips",
           "to {C:attention}#2#{} selected card"
         }
       },
