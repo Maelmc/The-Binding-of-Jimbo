@@ -112,6 +112,58 @@ SMODS.Joker {
 -- Haemolacria
 -- Lachryphagy
 -- Trisagion
+SMODS.Joker {
+  key = "trisagion",
+  pos = {x = 7, y = 35},
+  config = {extra = {mult = 3, chips = 30, money = 3}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = { card.ability.extra.mult, card.ability.extra.chips, card.ability.extra.money }}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and not context.end_of_round and context.cardarea == G.play then
+      if #context.full_hand == 3 then
+        local all_three = true
+        for _, v in pairs (context.full_hand) do
+          if v:get_id() ~= 3 then all_three = false break end
+        end
+        if all_three then
+          return {
+            mult = card.ability.extra.mult,
+            chips = card.ability.extra.chips,
+            dollars = card.ability.extra.money
+          }
+        end
+      end
+      if context.other_card:get_id() == 3 then
+        local which = pseudorandom('tboj_trisagion', 1, 3)
+        if which == 1 then
+          return {
+            mult = card.ability.extra.mult,
+          }
+        elseif which == 2 then
+          return {
+            chips = card.ability.extra.chips,
+          }
+        else
+          return {
+            dollars = card.ability.extra.money,
+          }
+        end
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  angel = true
+}
+
 -- Schoolbag
 SMODS.Joker {
   key = "schoolbag", 

@@ -726,6 +726,16 @@ return {
           "{C:inactive}(Must have room)"
         }
       },
+      j_tboj_trisagion = {
+        name = "Trisagion",
+        text = {
+          "Each played {C:attention}3{} gives {C:mult}+#1#{} Mult,",
+          "{C:chips}+#2#{} Chips or {C:money}$#3#{} when scored",
+          "If played hand is exactly",
+          "{C:attention}three 3s{}, they each give",
+          "{C:attention}all three{} when scored instead"
+        }
+      },
       j_tboj_schoolbag = {
         name = "Schoolbag",
         text = {

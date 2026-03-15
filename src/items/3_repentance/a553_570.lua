@@ -4,11 +4,11 @@ SMODS.Joker {
   pos = {x = 10, y = 37},
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
-    if not G.playing_cards then
+    if not G.jokers then
       --print("not in game")
       return {vars = {localize("tboj_unknown")}}
     end
-    if G.jokers and not table.contains(G.jokers.cards,card) then
+    if not table.contains(G.jokers.cards,card) then
       --print("not owned")
       return {vars = {localize("tboj_acquire_to_reveal")}}
     end
