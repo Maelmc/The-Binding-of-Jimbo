@@ -66,6 +66,10 @@ function TBOJ.reroll(card, to_key, silent)
     end
     SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
   end
+
+  if card.area == G.shop_jokers or card.area == G.shop_booster or card.area == G.shop_vouchers then
+    create_shop_card_ui(card)
+  end
 end
 
 function TBOJ.leftmost_or_selected_joker()
