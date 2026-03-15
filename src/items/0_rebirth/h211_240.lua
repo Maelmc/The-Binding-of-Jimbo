@@ -51,10 +51,42 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true,
 }
 
 -- Abaddon
+SMODS.Joker {
+  key = "abaddon",
+  pos = {x = 5, y = 15},
+  config = {extra = {Xmult = 0.25}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult, 1 + card.ability.extra.Xmult * (G.GAME and G.GAME.current_round.discards_left or 3)}}
+  end,
+  rarity = 3,
+  cost = 8,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        xmult = 1 + card.ability.extra.Xmult * G.GAME.current_round.discards_left
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  add_to_deck = function(self, card, from_debuff)
+    local diff = G.GAME.round_resets.hands - 1
+    G.GAME.round_resets.hands = 1
+    ease_hands_played(-diff)
+    G.GAME.round_resets.discards = G.GAME.round_resets.discards + diff*2
+    ease_discard(diff*2)
+  end,
+  devil  = true,
+}
+
 -- Ball of Tar
 -- Stop Watch
 SMODS.Joker {
