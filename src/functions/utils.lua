@@ -1,22 +1,22 @@
 function TBOJ.in_pool(self, args)
-    if next(find_joker("Showman")) then
-        return true
-    end
-
-    if next(SMODS.find_card(self.key)) then
-        return false
-    end
-
-    if self.enhancement_gate and G.playing_cards then
-        for _, v in pairs(G.playing_cards) do
-            if v.config.center.key == self.enhancement_gate then
-                return true
-            end
-        end
-        return false
-    end
-
+  if SMODS.showman(self.key) then
     return true
+  end
+
+  if next(SMODS.find_card(self.key)) then
+    return false
+  end
+
+  if self.enhancement_gate and G.playing_cards then
+    for _, v in pairs(G.playing_cards) do
+      if v.config.center.key == self.enhancement_gate then
+        return true
+      end
+    end
+    return false
+  end
+
+  return true
 end
 
 function TBOJ.ease_money(amt, calc_only)
@@ -53,6 +53,10 @@ function TBOJ.reroll(card, to_key, silent)
     card.children.floating_sprite = nil
   end
 
+  if card.area == G.shop_jokers or card.area == G.shop_booster or card.area == G.shop_vouchers then
+    create_shop_card_ui(card)
+  end
+
   if not silent then
     if card.edition then
       if card.edition.foil then play_sound('foil1', 1.2, 0.4) end
@@ -65,10 +69,6 @@ function TBOJ.reroll(card, to_key, silent)
       end
     end
     SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
-  end
-
-  if card.area == G.shop_jokers or card.area == G.shop_booster or card.area == G.shop_vouchers then
-    create_shop_card_ui(card)
   end
 end
 
@@ -186,17 +186,18 @@ function TBOJ.juice_flip_hand(card, second)
   if second then base_percent = 0.85 end
   if second then extra = .6 end
   G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-      play_sound('tarot1')
-      card:juice_up(0.3, 0.5)
-      return true end }))
+    play_sound('tarot1')
+    card:juice_up(0.3, 0.5)
+    return true end })
+  )
   for i=1, #G.hand.cards do
-      local percent = nil
-      if second then
-        percent = base_percent + (i-0.999)/(#G.hand.cards-0.998)*0.3
-      else
-        percent = base_percent - (i-0.999)/(#G.hand.cards-0.998)*0.3
-      end
-      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound(sound, percent, extra);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))
+    local percent = nil
+    if second then
+      percent = base_percent + (i-0.999)/(#G.hand.cards-0.998)*0.3
+    else
+      percent = base_percent - (i-0.999)/(#G.hand.cards-0.998)*0.3
+    end
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound(sound, percent, extra);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))
   end
   delay(0.2)
 end
@@ -209,17 +210,18 @@ function TBOJ.juice_flip(card, second)
   if second then base_percent = 0.85 end
   if second then extra = .6 end
   G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-      play_sound('tarot1')
-      card:juice_up(0.3, 0.5)
-      return true end }))
+    play_sound('tarot1')
+    card:juice_up(0.3, 0.5)
+    return true end })
+  )
   for i=1, #G.hand.highlighted do
-      local percent = nil
-      if second then
-        percent = base_percent + (i-0.999)/(#G.hand.highlighted-0.998)*0.3
-      else
-        percent = base_percent - (i-0.999)/(#G.hand.highlighted-0.998)*0.3
-      end
-      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound(sound, percent, extra);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true      end }))
+    local percent = nil
+    if second then
+      percent = base_percent + (i-0.999)/(#G.hand.highlighted-0.998)*0.3
+    else
+      percent = base_percent - (i-0.999)/(#G.hand.highlighted-0.998)*0.3
+    end
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound(sound, percent, extra);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true      end }))
   end
   delay(0.2)
 end
@@ -250,8 +252,8 @@ function TBOJ.balance_percent(card, percent)
         blocking = false,
         delay =  0.8,
         func = (function() 
-            ease_colour(G.C.UI_CHIPS, G.C.BLUE, 0.8)
-            ease_colour(G.C.UI_MULT, G.C.RED, 0.8)
+          ease_colour(G.C.UI_CHIPS, G.C.BLUE, 0.8)
+          ease_colour(G.C.UI_MULT, G.C.RED, 0.8)
           return true
         end)
       }))
