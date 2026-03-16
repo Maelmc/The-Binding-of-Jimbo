@@ -32,4 +32,5 @@ SMODS.Blind {
       v.tboj_monstro = nil
     end
   end,
+  tboj_artist = "Maelmc"
 }

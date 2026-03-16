@@ -1140,6 +1140,10 @@ return {
       tboj_lucky_ex = "Lucky!",
       tboj_unknown = "Unknown",
       tboj_acquire_to_reveal = "Acquire to reveal",
+
+      tboj_and = "and",
+      tboj_credits_artist = "Artist: ",
+      tboj_credits_designer = "Designer: ",
     },  
     labels = {
 

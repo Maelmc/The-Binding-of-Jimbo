@@ -13,4 +13,5 @@ SMODS.Blind {
   end,
   defeat = function(self)
   end,
+  tboj_artist = "Maelmc"
 }
