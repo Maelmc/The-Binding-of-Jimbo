@@ -10,11 +10,13 @@ Both [Lovely](https://github.com/ethangreen-dev/lovely-injector) (use latest rel
 
 **Installation**
 
-1. Download the zip file with the contents of the repository. (Code -> Download Zip)\
-2. Create a folder named The Binding of Jimbo inside your mods folder.
+1. Download the zip file with the contents of the repository (Code -> Download Zip)
+2. Create a folder named The Binding of Jimbo inside your mods folder
 3. Extract the zip file into the mods folder. Make sure that there is a single folder between the mods folder and the contents. (i.e. it should go Mods\The Binding of Jimbo\contents and not Mods\The Binding of Jimbo\The Binding of Jimbo\contents or Mods\contents, where contents are the inner files)
-4. Make sure the files are directly under the The Binding of Jimbo folder in your mods folder and not under the zip file folder.
-   (In other words, unzip the file and then copy and paste BindingOfJimbo.json, main.lua, the folders etc to be under the The Binding of Jimbo folder in the mods folder) 
+4. Make sure the files are directly under the The Binding of Jimbo folder in your mods folder and not under the zip file folder
+   (In other words, unzip the file and then copy and paste BindingOfJimbo.json, main.lua, the folders etc to be under the The Binding of Jimbo folder in the Mods folder)
+
+<img width="487" height="305" alt="tboj folder" src="https://github.com/user-attachments/assets/84de6e50-8949-4495-b7e2-d2f27775c162" />
 
 **Sprites**
 
