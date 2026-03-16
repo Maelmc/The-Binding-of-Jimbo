@@ -127,6 +127,7 @@ SMODS.Joker {
     return TBOJ.in_pool(self, args)
   end,
   devil = true,
+  familiar = true,
 }
 
 -- 570
