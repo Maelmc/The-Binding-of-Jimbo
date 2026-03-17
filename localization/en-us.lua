@@ -538,9 +538,9 @@ return {
       j_tboj_holy_water = {
         name = "Holy Water",
         text = {
-          "{C:green}#1# in #2#{} chance for each card",
-          "{C:attention}held in hand{} to permanently gain",
-          "{C:chips}+#3#{} Chips when hand is played"
+          "Each card {C:attention}held in hand{}",
+          "permanently gains {C:chips}+#1#{} Chips",
+          "when hand is played"
         }
       },
       j_tboj_sacred_heart = {
