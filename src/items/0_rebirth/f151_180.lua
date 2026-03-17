@@ -32,3 +32,34 @@ SMODS.Joker {
   end,
   angel = true,
 }
+
+-- Many
+-- Holy Water
+SMODS.Joker {
+  key = "holy_water",
+  pos = {x = 12, y = 11},
+  config = {extra = {num = 1, den = 2, chips = 3}},
+  loc_vars = function(self, info_queue, card)
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_pill")
+    return {vars = {num, den, card.ability.extra.chips}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.hand and not context.end_of_round and SMODS.pseudorandom_probability(card, "tboj_holy_water", card.ability.extra.num, card.ability.extra.den, "tboj_holy_water") then
+      context.other_card.ability.perma_bonus = (context.other_card.ability.perma_bonus or 0) + card.ability.extra.chips
+      return {
+        message = localize('k_upgrade_ex')
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  familiar = true,
+  angel = true
+}

@@ -535,6 +535,14 @@ return {
           "on {C:attention}final hand{} of round"
         }
       },
+      j_tboj_holy_water = {
+        name = "Holy Water",
+        text = {
+          "{C:green}#1# in #2#{} chance for each card",
+          "{C:attention}held in hand{} to permanently gain",
+          "{C:chips}+#3#{} Chips when hand is played"
+        }
+      },
       j_tboj_sacred_heart = {
         name = "Sacred Heart",
         text = {
@@ -617,8 +625,8 @@ return {
         name = "Headless Baby",
         text = {
           "Each non-{C:attention}face{} card held",
-          "in hand permanently gains {C:mult}+#1#",
-          "Mult when hand is played"
+          "in hand permanently gains",
+          "{C:mult}+#1#{} Mult when hand is played"
         }
       },
       j_tboj_mongo_baby = {
