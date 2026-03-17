@@ -158,6 +158,21 @@ return {
           }
         }
       },
+      active_tboj_eden_soul = {
+        name = "Eden's Soul",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round",
+          },
+          {
+            "Create a random {C:green}Uncommon{} and",
+            "{C:red}Rare{} Joker, then {C:red}self-destructs",
+            "{C:inactive}(Must have room)"
+          }
+        }
+      },
       active_tboj_larynx = {
         name = "Larynx",
         text = {
