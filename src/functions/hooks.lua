@@ -62,7 +62,7 @@ function Card:click()
   return click(self)
 end
 
-local gba = get_blind_amount
+--[[local gba = get_blind_amount
 function get_blind_amount(ante)
   local amount = gba(ante)
   if ante >= 4 and G.GAME and G.GAME.applied_stakes then
@@ -74,4 +74,4 @@ function get_blind_amount(ante)
     end
   end
   return amount
-end
+end]]

@@ -1,0 +1,15 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Fix ante scaling formula
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "local amount = math.floor(a*(b + (b*0.75*c)^d)^c)"
+position = "at"
+payload = '''
+local amount = math.floor(a*(b + (0.75*c)^d)^c)
+'''
+match_indent = true

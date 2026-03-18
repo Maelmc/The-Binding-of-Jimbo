@@ -892,7 +892,8 @@ return {
         stake_tboj_corpse_stake = {
           name = "Corpse Stake",
           text = {
-            "Starting from Ante 4, {C:white,X:attention}X2{} Blind size",
+            "Required score scales",
+            "faster for each {C:attention}Ante",
             "{s:0.8}Applies all previous Stakes",
           },
         },
