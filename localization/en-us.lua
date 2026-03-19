@@ -276,14 +276,7 @@ return {
         },
       },
     },
-    Joker = {    
-      j_tboj_dream_catcher = {
-        name = "Dream Catcher",
-        text = {
-          "The next {C:attention}Boss Blind{} is {C:attention}#1#",
-          "{s:0.8}Prediction might change based on your actions",
-        },
-      },
+    Joker = {
       j_tboj_the_sad_onion = {
         name = "The Sad Onion",
         text = {
@@ -701,6 +694,13 @@ return {
           "in {C:attention}first{} hand of round that",
           "has less {C:attention}total{} {C:chips}Chips{} than the",
           "next card in {C:attention}poker hand",
+        },
+      },  
+      j_tboj_dream_catcher = {
+        name = "Dream Catcher",
+        text = {
+          "The next {C:attention}Boss Blind{} is {C:attention}#1#",
+          "{s:0.8}Prediction might change based on your actions",
         },
       },
       j_tboj_paschal_candle = {
