@@ -703,15 +703,6 @@ return {
           "{s:0.8}Prediction might change based on your actions",
         },
       },
-      j_tboj_paschal_candle = {
-        name = "Paschal Candle",
-        text = {
-          "This Joker gains {C:chips}+#1#{} Chips",
-          "per consecutive {C:attention}Blind",
-          "defeated in a {C:attention}single hand",
-          "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
-        },
-      },
       j_tboj_lusty_blood = {
         name = "Lusty Blood",
         text = {
@@ -790,6 +781,15 @@ return {
           "Played {C:attention}Poop{} cards give",
           "{C:white,X:red}X#1#{} Mult when scored"
         }
+      },
+      j_tboj_paschal_candle = {
+        name = "Paschal Candle",
+        text = {
+          "This Joker gains {C:chips}+#1#{} Chips",
+          "per consecutive {C:attention}Blind",
+          "defeated in a {C:attention}single hand",
+          "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+        },
       },
       j_tboj_blood_oath = {
         name = "Blood Oath",
