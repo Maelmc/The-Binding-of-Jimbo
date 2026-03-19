@@ -319,6 +319,13 @@ return {
           "{C:attention}#2#{} cards or less"
         }
       },
+      j_tboj_blood_of_the_martyr = {
+        name = "Blood of the Martyr",
+        text = {
+          "Scoring cards with additionnal",
+          "{C:mult}Mult{} give {C:attention}double{} the {C:mult}Mult",
+        },
+      },
       j_tboj_brother_bobby = {
         name = "Brother Bobby",
         text = {
@@ -1046,9 +1053,10 @@ return {
       trinket_tboj_myosotis = {
         name = "Myosotis",
         text = {
-          "Creates a copy of a random",
+          "Create a copy of a random",
           "{C:attention}consumable{} in the shop",
-          "at the end of the {C:attention}shop"
+          "at the end of the {C:attention}shop",
+          "{C:inactive}(Must have room)"
         }
       },
       trinket_tboj_m = {

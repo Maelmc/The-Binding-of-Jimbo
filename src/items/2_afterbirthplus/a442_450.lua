@@ -10,6 +10,7 @@ SMODS.Joker {
   pos = {x = 12, y = 29 },
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_glass
     return {vars = {}}
   end,
   rarity = 1,
@@ -58,6 +59,7 @@ SMODS.Joker {
   pos = {x = 14, y = 29 },
   config = {extra = {scored = 0, to_score = 20, money_minus = 1}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_SEALS.Gold
     return {vars = {card.ability.extra.to_score, card.ability.extra.scored, card.ability.extra.money_minus}}
   end,
   rarity = 1,

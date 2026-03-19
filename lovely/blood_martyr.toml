@@ -1,0 +1,13 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# The whole effect
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''-- TARGET: main scoring on played cards'''
+position = "after"
+payload = '''if ret.playing_card.mult then ret.playing_card.mult = (next(SMODS.find_card('j_tboj_blood_of_the_martyr')) and ret.playing_card.mult * 2) or ret.playing_card.mult end'''
+match_indent = true

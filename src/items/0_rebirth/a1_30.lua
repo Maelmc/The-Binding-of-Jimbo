@@ -147,6 +147,28 @@ SMODS.Joker {
 }
 
 -- Blood of the Martyr
+SMODS.Joker {
+  key = "blood_of_the_martyr",
+  atlas = "jokers",
+  pos = {x = 6, y = 0},
+  perishable_compat = true,
+  blueprint_compat = false,
+  eternal_compat = true,
+  rarity = 1,
+  cost = 4,
+  config = { extra = { } },
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_mult
+    return { vars = {} }
+  end,
+  calculate = function(self, card, context)
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  angel = true,
+}
+
 -- Brother Bobby
 SMODS.Joker {
   key = "brother_bobby",
