@@ -374,7 +374,7 @@ return {
       j_tboj_pentagram = {
         name = "Pentagram",
         text = {
-          "{C:attention}Buffon Packs{} contain a",
+          "{C:attention}Buffoon Packs{} contain a",
           "random {C:attention}Angel{} or {C:attention}Devil{} Joker"
         }
       },
