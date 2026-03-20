@@ -260,6 +260,14 @@ return {
           "are debuffed"
         }, 
       },
+      bl_tboj_bloat = {
+        name = "The Bloat",
+        text = {
+          "Playing or discarding",
+          "costs an additional",
+          "hand or discard"
+        }, 
+      },
     },
     Enhanced = {
       m_tboj_poop = {

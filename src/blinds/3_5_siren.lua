@@ -9,9 +9,5 @@ SMODS.Blind {
   discovered = false,
   debuff = { },
   config = {disabled = false},
-  set_blind = function(self)
-  end,
-  defeat = function(self)
-  end,
   tboj_artist = "Maelmc"
 }
