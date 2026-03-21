@@ -899,6 +899,12 @@ return {
           "into ones of the same {C:attention}rarity"
         }
       },
+      c_tboj_algiz = {
+        name = "Algiz",
+        text = {
+          "{C:blue}+#1#{} hand this round"
+        }
+      },
     },
     Spectral = {
       c_tboj_spindown_dice = {

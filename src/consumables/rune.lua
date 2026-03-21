@@ -132,3 +132,23 @@ SMODS.Consumable {
   end,
   rune = true,
 }
+
+SMODS.Consumable {
+  key = "algiz",
+  set = "Loot",
+  pos = { x = 9, y = 0 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  config = { extra = {hands = 1 }},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.hands}}
+  end,
+  can_use = function(self, card)
+    return G.STATE == G.STATES.SELECTING_HAND
+  end,
+  use = function(self, card, area, copier)
+    ease_hands_played(card.ability.extra.hands)
+  end,
+  rune = true,
+}
