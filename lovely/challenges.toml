@@ -1,0 +1,54 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Daily Run: Set the seed
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+pattern = '''self.GAME.pseudorandom.seed = args.seed or (not (G.SETTINGS.tutorial_complete or G.SETTINGS.tutorial_progress.completed_parts['big_blind']) and "TUTORIAL") or generate_starting_seed()'''
+position = 'after'
+match_indent = true
+payload = '''
+if args.challenge and args.challenge.rules and args.challenge.rules.custom and args.challenge.rules.custom[1].id == "tboj_daily_run" then
+  self.GAME.pseudorandom.seed = "tboj_"..tostring(os.date("!%d%m%Y"))
+end
+'''
+
+# Dagaz banned from all challenges
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = "self.GAME.round_resets.hands = self.GAME.starting_params.hands"
+position = "before"
+match_indent = true
+payload = '''
+if args.challenge then
+  G.GAME.banned_keys["c_tboj_dagaz"] = true
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = "if challenge.restrictions then"
+position = "before"
+match_indent = true
+payload = '''
+if challenge.restrictions then
+  challenge.restrictions.banned_cards = challenge.restrictions.banned_cards or {}
+  local inside = false
+  for _, v in pairs(challenge.restrictions.banned_cards) do
+    if v.id and v.id == "c_tboj_dagaz" then
+      inside = true
+      break
+    end
+  end
+  if not inside then
+    challenge.restrictions.banned_cards[#challenge.restrictions.banned_cards+1] = {id = "c_tboj_dagaz"}
+  end
+else
+  challenge.restrictions = {banned_cards = {{id = "c_tboj_dagaz"}}}
+end
+'''
