@@ -723,8 +723,9 @@ return {
       j_tboj_crown_of_light = {
         name = "Crown of Light",
         text = {
-          "Cards give {X:mult,C:white}X#1#{} Mult on",
-          "{C:attention}first{} hand of round"
+          "Played cards give",
+          "{X:mult,C:white}X#1#{} Mult when scored",
+          "on {C:attention}first{} hand of round"
         },
       },
       j_tboj_shard_of_glass = {
