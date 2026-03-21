@@ -116,3 +116,27 @@ SMODS.Consumable {
     card:juice_up(0.3, 0.5)
   end,
 }
+
+SMODS.Consumable {
+  key = "black_heart",
+  set = "Loot",
+  pos = { x = 8, y = 0 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  config = { extra = {max_highlighted = 1, mult= 2}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult, card.ability.extra.max_highlighted}}
+  end,
+  can_use = function(self, card)
+    return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+  end,
+  use = function(self, card, area, copier)
+    for i = 1, math.min(#G.hand.highlighted, card.ability.extra.max_highlighted) do
+      local target = G.hand.highlighted[i]
+      target.ability.perma_mult = (target.ability.perma_mult or 0) + card.ability.extra.mult
+      SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, target)
+    end
+    card:juice_up(0.3, 0.5)
+  end,
+}

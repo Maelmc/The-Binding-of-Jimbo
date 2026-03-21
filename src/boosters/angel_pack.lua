@@ -1,8 +1,8 @@
 SMODS.Booster {
-  key = "devil_pack_1",
+  key = "angel_pack_1",
 	kind = "Deal",
 	atlas = "boosters",
-	pos = { x = 0, y = 0 },
+	pos = { x = 1, y = 0 },
 	config = { extra = 4, choose = 1 },
 	cost = 6,
 	order = 1,
@@ -12,14 +12,14 @@ SMODS.Booster {
   discovered = false,
 	create_card = function(self, card, i)
     if i == 1 then -- first card is an active
-      local _k = TBOJ.get_random_key{set = "tboj_active", tags = "devil", seed = "devil_pack"}
+      local _k = TBOJ.get_random_key{set = "tboj_active", tags = "angel", seed = "angel_pack"}
       return SMODS.create_card { set = "tboj_active", area = G.pack_cards, skip_materialize = true, key = _k }
     else
-      if pseudorandom('soul_devil'..G.GAME.round_resets.ante) > 0.997 then
-        local _k = TBOJ.get_random_key{set = "Joker", tags = "devil", target_rarities = {4}, seed = "devil_pack"}
+      if pseudorandom('soul_angel'..G.GAME.round_resets.ante) > 0.997 then
+        local _k = TBOJ.get_random_key{set = "Joker", tags = "angel", target_rarities = {4}, seed = "angel_pack"}
         return SMODS.create_card { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
       else
-        local _k = TBOJ.get_random_key{set = "Joker", tags = "devil", seed = "devil_pack"}
+        local _k = TBOJ.get_random_key{set = "Joker", tags = "angel", seed = "angel_pack"}
         return SMODS.create_card { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
       end
     end
@@ -27,9 +27,9 @@ SMODS.Booster {
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.choose + (G.GAME.modifiers.booster_choice_mod or 0), card.ability.extra - 1, 1 } }
 	end,
-	group_key = "k_tboj_devil_pack",
+	group_key = "k_tboj_angel_pack",
   ease_background_colour = function(self)
-    ease_background_colour{new_colour = G.C.TBOJ.DEVIL, contrast = 3}
+    ease_background_colour{new_colour = G.C.TBOJ.ANGEL, contrast = 3}
   end,
   particles = function(self)
     G.booster_pack_stars = Particles(1, 1, 0,0, {
@@ -40,7 +40,7 @@ SMODS.Booster {
       speed = 1.1,
       padding = -1,
       attach = G.ROOM_ATTACH,
-      colours = G.C.TBOJ.DEVIL_PARTICLE,
+      colours = G.C.TBOJ.ANGEL_PARTICLE,
       fill = true
     })
 	end,

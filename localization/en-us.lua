@@ -851,8 +851,8 @@ return {
       c_tboj_pill = {
         name = "Pill",
         text = {
-          "Increases a random {C:attention}poker",
-          "{C:attention}hand{}'s level by {C:attention}#3#",
+          "Increases a random",
+          "{C:attention}poker hand{}'s level by {C:attention}#3#",
           "{C:green}#1# in #2#{} chance to",
           "decrease it instead"
         }
@@ -861,6 +861,13 @@ return {
         name = "Soul Heart",
         text = {
           "Permanently add {C:chips}+#1#{} Chips",
+          "to {C:attention}#2#{} selected card"
+        }
+      },
+      c_tboj_black_heart = {
+        name = "Black Heart",
+        text = {
+          "Permanently add {C:mult}+#1#{} Mult",
           "to {C:attention}#2#{} selected card"
         }
       },
@@ -1122,6 +1129,14 @@ return {
           "{C:attention}#3#{} devil {C:attention}Active{} card",
         },
       },
+      p_tboj_angel_pack_1 = {
+        name = "Angel Pack",
+        text = {
+          "Choose {C:attention}#1#{} from among",
+          "{C:attention}#2#{} angel {C:attention}Joker{} cards and",
+          "{C:attention}#3#{} angel {C:attention}Active{} card",
+        },
+      },
       tboj_corpse_stake_sticker = {
         name = "Corpse Sticker",
         text = {
@@ -1160,6 +1175,7 @@ return {
       k_poop = "Poop",
       k_laser = "Laser",
       k_tboj_devil_pack = "Devil Pack",
+      k_tboj_angel_pack = "Angel Pack",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",
