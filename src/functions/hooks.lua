@@ -75,3 +75,9 @@ function get_blind_amount(ante)
   end
   return amount
 end]]
+
+local gnb = get_new_boss
+function get_new_boss()
+  if G.GAME.modifiers.tboj_aprils_fool then return "bl_tboj_bloat" end
+  return gnb()
+end

@@ -333,15 +333,20 @@ function TBOJ.predict_seed(key)
 end
 
 function TBOJ.predict_next_boss()
+  if G.GAME.modifiers.tboj_aprils_fool then return "bl_tboj_bloat" end
   local real_ante = G.GAME.round_resets.ante
   G.GAME.round_resets.ante = G.GAME.round_resets.ante + 1
   G.GAME.perscribed_bosses = G.GAME.perscribed_bosses or {
   }
   if G.GAME.perscribed_bosses and G.GAME.perscribed_bosses[G.GAME.round_resets.ante] then 
     local ret_boss = G.GAME.perscribed_bosses[G.GAME.round_resets.ante]
+    G.GAME.round_resets.ante = real_ante
     return ret_boss
   end
-  if G.FORCE_BOSS then return G.FORCE_BOSS end
+  if G.FORCE_BOSS then
+    G.GAME.round_resets.ante = real_ante
+    return G.FORCE_BOSS
+  end
   
   local eligible_bosses = {}
   for k, v in pairs(G.P_BLINDS) do

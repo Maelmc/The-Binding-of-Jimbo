@@ -1163,6 +1163,7 @@ return {
   misc = {
     challenge_names = {
       c_tboj_daily_run = "Daily Run",
+      c_tboj_aprils_fool = "April's Fool",
     },
     dictionary = {
       k_tboj_active = "Active",
@@ -1212,7 +1213,8 @@ return {
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},
-        ch_c_tboj_daily_run2 = {"Resets at {C:attention}"..tostring(os.date("%I:%M %p", 0))}
+        ch_c_tboj_daily_run2 = {"Resets at {C:attention}"..tostring(os.date("%I:%M %p", 0))},
+        ch_c_tboj_aprils_fool = {""},
     },
   }
   
