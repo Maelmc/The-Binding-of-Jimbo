@@ -249,9 +249,17 @@ SMODS.Joker {
   pos = {x = 9, y = 7},
   config = {extra = {used_ranks = {}}},
   loc_vars = function(self, info_queue, card)
-    local _ranks = {}
-    for _, v in ipairs(card.ability.extra.used_ranks) do
-      table.insert(_ranks, localize(TBOJ.id_to_value(v), "ranks"))
+    local _ranks = {'','',''}
+    for i, v in ipairs(card.ability.extra.used_ranks) do
+      local end_string = card.ability.extra.used_ranks[i+1] and ',' or ''
+      end_string = end_string..(card.ability.extra.used_ranks[i+1] and math.fmod(i,5) ~= 0 and ' ' or '')
+      if i <= 5 then
+        _ranks[1] = _ranks[1]..localize(TBOJ.id_to_value(v), "ranks")..end_string
+      elseif i <= 10 then
+        _ranks[2] = _ranks[2]..localize(TBOJ.id_to_value(v), "ranks")..end_string
+      else
+        _ranks[3] = _ranks[3]..localize(TBOJ.id_to_value(v), "ranks")..end_string
+      end
     end
     info_queue[#info_queue + 1] = {set = 'Other', key = "used_ranks", vars = _ranks}
     return {vars = {}}
