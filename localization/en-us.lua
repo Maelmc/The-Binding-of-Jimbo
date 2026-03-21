@@ -317,7 +317,7 @@ return {
         text = {
           "{C:chips}+#1#{} Chips if",
           "played hand contains",
-          "{C:attention}#2#{} cards or less"
+          "{C:attention}#2#{} or fewer cards"
         }
       },
       j_tboj_blood_of_the_martyr = {
