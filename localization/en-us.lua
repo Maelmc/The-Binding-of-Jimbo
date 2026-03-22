@@ -118,7 +118,7 @@ return {
         name = "Box of Spiders",
         text = {
           {
-            "#1#/#2# {C:attention}charge",
+            "#1#/#2# {C:attention}charges",
             "Must be fully charged to use",
             "Recharges at end of round"
           },
