@@ -114,6 +114,33 @@ return {
           }
         }
       },
+      active_tboj_box_of_spiders = {
+        name = "Box of Spiders",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Create {C:attention}#3#{} to {C:attention}#4# Blue Spiders"
+          }
+        }
+      },
+      active_tboj_jar_of_flies = {
+        name = "Jar of Flies",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must have at least 1 charge to use",
+            "Recharges at end of round",
+          },
+          {
+            "Create a {C:attention}Pretty Fly",
+            "for each charge when used"
+          }
+        }
+      },
       active_tboj_void = {
         name = "Void",
         text = {
@@ -331,6 +358,13 @@ return {
         name = "Brother Bobby",
         text = {
           "{C:chips}+#1#{} Chips"
+        }
+      },
+      j_tboj_halo_of_flies = {
+        name = "Halo of Flies",
+        text = {
+          "Sell this card to",
+          "create {C:attention}#1# Pretty Flies",
         }
       },
       j_tboj_heart = {
@@ -1096,6 +1130,24 @@ return {
         }
       },
     },
+    tboj_spiderfly = {
+      spiderfly_tboj_pretty_fly = {
+        name = "Pretty Fly",
+        text = {
+          "{C:chips}+#1#{} Chips on",
+          "the next hand",
+          "{s:0.8}Only {C:attention,s:0.8}1 Pretty Fly{s:0.8} per hand"
+        }
+      },
+      spiderfly_tboj_blue_spider = {
+        name = "Blue Spider",
+        text = {
+          "{C:white,X:red}X#1#{} Mult on",
+          "the next hand",
+          "{s:0.8}Only {C:attention,s:0.8}1 Blue Spider{s:0.8} per hand"
+        }
+      },
+    },
     Voucher = {
         
     },
@@ -1181,6 +1233,7 @@ return {
       k_laser = "Laser",
       k_tboj_devil_pack = "Devil Pack",
       k_tboj_angel_pack = "Angel Pack",
+      k_tboj_spiderfly = "Fly/Spider",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",
@@ -1201,6 +1254,8 @@ return {
       tboj_lucky_ex = "Lucky!",
       tboj_unknown = "Unknown",
       tboj_acquire_to_reveal = "Acquire to reveal",
+      tboj_spiders_ex = "Spiders!",
+      tboj_flies_ex = "Flies!",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

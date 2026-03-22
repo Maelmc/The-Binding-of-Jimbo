@@ -1,0 +1,109 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 2
+
+# Create the areas
+[[patches]]
+[patches.regex]
+target = 'game.lua'
+pattern = 'self\.jokers = CardArea'
+position = 'before'
+payload = '''self.spiders = CardArea(
+  0, CAI.consumeable_H + 0.3,
+  CAI.joker_W * 0.3,
+  CAI.joker_H * 0.2, 
+  {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR}
+)
+self.spiders.config.align_buttons = true
+--self.spiders.states.visible = false
+
+self.flies = CardArea(
+  0, CAI.consumeable_H + 0.3,
+  CAI.joker_W * 0.3,
+  CAI.joker_H * 0.2, 
+  {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR}
+)
+self.flies.config.align_buttons = true
+--self.flies.states.visible = false
+'''
+match_indent = true
+times = 1
+
+# Prevent highlighting
+[[patches]]
+[patches.regex]
+target = 'cardarea.lua'
+pattern = '--if self.config.highlighted_limit <= #self.highlighted then return end'
+position = 'before'
+payload = '''
+if self.config.highlighted_limit <= #self.highlighted then return end
+'''
+match_indent = true
+times = 1
+
+# Position it
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = 'G.deck.T.y = G.TILE_H - G.deck.T.h'
+position = 'after'
+payload = '''
+
+G.flies.T.x = G.consumeables.T.x - 4.9*G.CARD_W*0.4
+G.flies.T.y = G.consumeables.T.y + G.consumeables.T.h + 0.1
+
+G.spiders.T.x = G.flies.T.x + G.flies.T.w + 0.1
+G.spiders.T.y = G.flies.T.y
+'''
+match_indent = true
+times = 1
+
+# Emplace the card when bought
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = 'elseif c1.ability.consumeable then'
+position = 'at'
+payload = '''elseif c1.config.center.set == "tboj_spiderfly" then
+  if c1.config.center.key == "spiderfly_tboj_blue_spider" then
+    G.spiders:emplace(c1)
+  else
+    G.flies:emplace(c1)
+  end
+elseif c1.ability.consumeable then
+'''
+match_indent = true
+times = 1
+
+# Calculate the area
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = "-- TARGET: add your own CardAreas for joker evaluation"
+position = "after"
+payload = '''
+if G.flies and G.flies.cards then
+  t[#t+1] = G.flies
+end
+if G.spiders and G.spiders.cards then
+  t[#t+1] = G.spiders
+end
+'''
+match_indent = true
+
+# DebugPlus area copy
+[[patches]]
+[patches.pattern]
+target = '=[lovely debugplus.core "debugplus/core.lua"]'
+pattern = "elseif _card.ability.consumeable then"
+position = "before"
+payload = '''
+elseif _card.ability.set == "tboj_spiderfly" then
+  if _card.config.center.key == "spiderfly_tboj_blue_spider" then
+    _area = G.spiders
+  else
+    _area = G.flies
+  end
+'''
+match_indent = true

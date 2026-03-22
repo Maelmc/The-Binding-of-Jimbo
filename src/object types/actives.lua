@@ -129,7 +129,7 @@ function Card:use_active(area, copier)
     if obj.use and type(obj.use) == 'function' then
       obj:use(self, area, copier)
       if not obj.manual_deplete_charges and self.ability.extra.curr_charge then
-        self.ability.extra.curr_charge = self.ability.extra.curr_charge - self.ability.extra.max_charge
+        self.ability.extra.curr_charge = self.ability.extra.curr_charge - math.min(self.ability.extra.max_charge, self.ability.extra.curr_charge)
       end
     end
 

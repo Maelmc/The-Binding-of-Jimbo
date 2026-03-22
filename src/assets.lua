@@ -78,6 +78,13 @@ SMODS.Atlas({
     py = 95
 })
 
+SMODS.Atlas({
+    key = "spiderfly",
+    path = "spiderfly.png",
+    px = 44,
+    py = 24
+})
+
 -- Colors
 G.C.TBOJ = {
   FAMILIAR = HEX("E70000"),

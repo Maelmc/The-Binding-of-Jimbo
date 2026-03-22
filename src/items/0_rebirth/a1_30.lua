@@ -199,6 +199,40 @@ SMODS.Joker {
 
 -- Skatole
 -- Halo of Flies
+SMODS.Joker {
+  key = "halo_of_flies",
+  pos = {x = 9, y = 0},
+  config = {extra = {flies = 2}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.spiderfly_tboj_pretty_fly
+    return {vars = {card.ability.extra.flies}}
+  end,
+  rarity = 1,
+  cost = 2,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.selling_self and not context.blueprint then
+      for _ = 1, card.ability.extra.flies do
+      local _card = SMODS.create_card {
+        set = "tboj_spiderfly",
+        key = "spiderfly_tboj_pretty_fly",
+        area = G.flies
+      }
+      _card:add_to_deck()
+      G.flies:emplace(_card)
+    end
+    SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, card)
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  fly = true,
+}
+
 -- 1up!
 -- Magic Mushroom
 -- The Virus

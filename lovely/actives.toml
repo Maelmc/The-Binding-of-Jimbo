@@ -1,7 +1,7 @@
 [manifest]
 version = "1.0.0"
 dump_lua = true
-priority = 0
+priority = 1
 
 # Create the area
 [[patches]]
@@ -38,9 +38,9 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
-pattern = 'if c1.ability.consumeable then'
+pattern = 'elseif c1.ability.consumeable then'
 position = 'at'
-payload = '''if c1.config.center.set == "tboj_active" then
+payload = '''elseif c1.config.center.set == "tboj_active" then
   G.actives:emplace(c1)
 elseif c1.ability.consumeable then
 '''
@@ -70,10 +70,9 @@ times = 1
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = "if self.ability.consumeable or self.ability.set == 'Joker' or (self.area and self.area == G.pack_cards) then"
-position = 'at'
-payload = '''if self.ability.consumeable or self.ability.set == 'Joker' or (self.area and self.area == G.pack_cards)
-or self.ability.set == "tboj_active"
+pattern = '''or self.ability.set == "tboj_trinket"'''
+position = 'after'
+payload = '''or self.ability.set == "tboj_active"
 then'''
 match_indent = true
 times = 1
