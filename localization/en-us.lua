@@ -779,6 +779,14 @@ return {
           "the next scoring card"
         }
       },
+      j_tboj_parasitoid = {
+        name = "Parasitoid",
+        text = {
+          "When a played card scores,",
+          "{C:green}#1# in #2#{} to create a {C:attention}Pretty Fly",
+          "and {C:green}#1# in #2#{} to create a {C:attention}Blue Spider",
+        }
+      },
       j_tboj_bozo = {
         name = "Bozo",
         text = {

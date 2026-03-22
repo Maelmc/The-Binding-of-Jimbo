@@ -42,14 +42,10 @@ TBOJ.Spiderfly {
     end
   end,
   add_to_deck = function(self, card, from_debuff)
-    G.E_MANAGER:add_event(Event({func = function()
-      G.flies:change_size(1)
-    return true end }))
+    G.flies:change_size(1)
   end,
   remove_from_deck = function(self, card, from_debuff)
-    G.E_MANAGER:add_event(Event({func = function()
-      G.flies:change_size(-1)
-    return true end }))
+    G.flies:change_size(-1)
   end,
   fly = true,
 }
@@ -76,14 +72,10 @@ TBOJ.Spiderfly {
     end
   end,
   add_to_deck = function(self, card, from_debuff)
-    G.E_MANAGER:add_event(Event({func = function()
-      G.spiders:change_size(1)
-    return true end }))
+    G.spiders:change_size(1)
   end,
   remove_from_deck = function(self, card, from_debuff)
-    G.E_MANAGER:add_event(Event({func = function()
-      G.spiders:change_size(-1)
-    return true end }))
+    G.spiders:change_size(-1)
   end,
   spider = true,
 }
