@@ -12,20 +12,18 @@ position = 'before'
 payload = '''self.spiders = CardArea(
   0, CAI.consumeable_H + 0.3,
   CAI.joker_W * 0.3,
-  CAI.joker_H * 0.2, 
+  0.1, 
   {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR}
 )
 self.spiders.config.align_buttons = true
---self.spiders.states.visible = false
 
 self.flies = CardArea(
   0, CAI.consumeable_H + 0.3,
   CAI.joker_W * 0.3,
-  CAI.joker_H * 0.2, 
+  0.1, 
   {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR}
 )
 self.flies.config.align_buttons = true
---self.flies.states.visible = false
 '''
 match_indent = true
 times = 1
@@ -51,7 +49,7 @@ position = 'after'
 payload = '''
 
 G.flies.T.x = G.consumeables.T.x - 4.9*G.CARD_W*0.4
-G.flies.T.y = G.consumeables.T.y + G.consumeables.T.h + 0.1
+G.flies.T.y = G.consumeables.T.y + G.consumeables.T.h + 0.35
 
 G.spiders.T.x = G.flies.T.x + G.flies.T.w + 0.1
 G.spiders.T.y = G.flies.T.y
