@@ -48,6 +48,7 @@ TBOJ.Spiderfly {
     G.flies:change_size(-1)
   end,
   fly = true,
+  tboj_designer = "Thor's Girdle"
 }
 
 TBOJ.Spiderfly {
@@ -78,6 +79,7 @@ TBOJ.Spiderfly {
     G.spiders:change_size(-1)
   end,
   spider = true,
+  tboj_designer = "Thor's Girdle"
 }
 
 G.C.SECONDARY_SET.tboj_spiderfly = HEX("1B13A0")
