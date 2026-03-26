@@ -54,3 +54,45 @@ TBOJ.Active {
     return TBOJ.in_pool(self)
   end
 }
+
+-- Brimstone Bombs
+-- 4.5 Volt
+-- Fruity Plum
+SMODS.Joker {
+  key = "fruity_plum",
+  pos = {x = 3, y = 43},
+  config = {extra = {chips_mod = 2, chips = 0}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips_mod, localize(G.GAME.tboj_fruity_plum_suit or "Spades",'suits_singular'), card.ability.extra.chips,
+            colours = {G.C.SUITS[G.GAME.tboj_fruity_plum_suit or "Spades"]},}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = false,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and context.other_card:is_suit(G.GAME.tboj_fruity_plum_suit) and not context.blueprint then
+      SMODS.scale_card(card, {
+        ref_value = 'chips',
+        scalar_value = 'chips_mod',
+      })
+      return nil, true
+    end
+
+    if context.joker_main then
+      return {
+          chips = card.ability.extra.chips
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  familiar = true,
+  fly = true,
+}
+
+-- Plum Flute
+-- Star of Bethlehem

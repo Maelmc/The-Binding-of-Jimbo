@@ -25,6 +25,7 @@ SMODS.Joker {
         ref_value = 'mult',
         scalar_value = 'mult_mod',
       })
+      return nil, true
     end
   end,
   in_pool = function (self, args)

@@ -853,6 +853,15 @@ return {
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
       },
+      j_tboj_fruity_plum = {
+          name = "Fruity Plum",
+          text = {
+            "This Joker gains {C:chips}+#1#{} Chips",
+            "when each played {V:1}#2#{} is scored,",
+            "suit changes after every hand played",
+            "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
+          } 
+      },
       j_tboj_soul_locket = {
         name = "Soul Locket",
         text = {

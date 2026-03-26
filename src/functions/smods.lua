@@ -96,8 +96,22 @@ local function reset_death_list_card()
   end
 end
 
+function TBOJ.reset_fruity_plum_card()
+  local valid_suits = {}
+  for _, v in pairs(SMODS.Suits) do
+    if v.key ~= G.GAME.tboj_fruity_plum_suit then valid_suits[#valid_suits + 1] = v end
+  end
+  if valid_suits[1] then 
+    local suit = pseudorandom_element(valid_suits, pseudoseed('tboj_fruity_plum'..G.GAME.round_resets.ante))
+    G.GAME.tboj_fruity_plum_suit = suit.key
+  end
+end
+
 function SMODS.current_mod.reset_game_globals(run_start)
   reset_death_list_card()
+  if run_start then
+    TBOJ.reset_fruity_plum_card()
+  end
 end
 
 SMODS.Booster:take_ownership_by_kind('Buffoon', {
