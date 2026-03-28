@@ -92,6 +92,7 @@ SMODS.Joker {
   end,
   familiar = true,
   fly = true,
+  tboj_artist = {"Grumpy Egg", "Maelmc"}
 }
 
 -- Plum Flute

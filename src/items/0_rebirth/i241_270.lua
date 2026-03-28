@@ -153,7 +153,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  tboj_artist = "Maelmc",
 }
 
 -- Missing Page 2
