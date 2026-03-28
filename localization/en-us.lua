@@ -651,7 +651,8 @@ return {
         name = "20/20",
         text = {
           "Retrigger all played cards",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additionnal time",
+          "{X:mult,C:white}X#2#{} Mult per card retriggered"
         }
       },
       j_tboj_missing_no = {

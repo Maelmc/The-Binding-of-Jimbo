@@ -35,9 +35,9 @@ SMODS.Joker {
 SMODS.Joker {
   key = "20_20",
   pos = {x = 4, y = 16},
-  config = {extra = {repetitions = 1}},
+  config = {extra = {repetitions = 1, times = 0, Xmult_neg = 0.9}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.repetitions}}
+    return {vars = {card.ability.extra.repetitions, card.ability.extra.Xmult_neg}}
   end,
   rarity = 3,
   cost = 8,
@@ -47,9 +47,20 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.repetition and context.cardarea == G.play then
+      card.ability.extra.times = card.ability.extra.times + 1
       return {
         repetitions = card.ability.extra.repetitions
       }
+    end
+
+    if context.joker_main and card.ability.extra.times > 0 then
+      return {
+        Xmult = card.ability.extra.Xmult_neg ^ card.ability.extra.times
+      }
+    end
+
+    if context.after then
+      card.ability.extra.times = 0
     end
   end,
   in_pool = function (self, args)
@@ -173,7 +184,7 @@ SMODS.Joker {
     return {vars = {card.ability.extra.mult}}
   end,
   rarity = 1,
-  cost = 4,
+  cost = 6,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,

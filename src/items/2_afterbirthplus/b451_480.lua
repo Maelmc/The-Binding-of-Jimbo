@@ -113,8 +113,8 @@ TBOJ.Active {
 TBOJ.Active {
   key = "smelter",
   pos = { x = 13, y = 31 },
-  cost = 8,
-  config = {extra = {max_charge = 5, curr_charge = 5}},
+  cost = 10,
+  config = {extra = {max_charge = 6, curr_charge = 6}},
   loc_vars = function(self, info_queue, card)
     if not card.edition or (card.edition and not card.edition.negative) then
       info_queue[#info_queue+1] = G.P_CENTERS.e_negative

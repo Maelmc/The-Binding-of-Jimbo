@@ -127,7 +127,7 @@ SMODS.Joker {
     return {vars = {}}
   end,
   rarity = 2, 
-  cost = 6,
+  cost = 5,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
