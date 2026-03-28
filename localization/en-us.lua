@@ -827,6 +827,13 @@ return {
           "if you have more than the limit"
         }
       },
+      j_tboj_flat_stone = {
+        name = "Flat Stone",
+        text = {
+          "Inverts {C:attention}scored{}",
+          "and {C:attention}unscored{} cards"
+        }
+      },
       j_tboj_hallowed_ground = {
         name = "Hallowed Ground",
         text = {
