@@ -727,6 +727,13 @@ return {
           "{X:mult,C:white} X#3# {} Mult when scored",
         },
       },
+      j_tboj_number_two = {
+        name = "Number Two",
+        text = {
+          "Create a {C:dark_edition}Negative{} fused {C:attention}Bomb",
+          "every {C:attention}#1# {C:inactive}[#2#]{} scored {C:attention}Poop{} card"
+        },
+      },
       j_tboj_seraphim = {
         name = "Seraphim",
         text = {
@@ -1288,6 +1295,7 @@ return {
       tboj_acquire_to_reveal = "Acquire to reveal",
       tboj_spiders_ex = "Spiders!",
       tboj_flies_ex = "Flies!",
+      tboj_oops_dot = "Oops...",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

@@ -224,8 +224,17 @@ SMODS.Joker {
           key = "spiderfly_tboj_pretty_fly",
           area = G.flies
         }
+        _card.states.visible = nil
         _card:add_to_deck()
         G.flies:emplace(_card)
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.1,
+          func = function() 
+            _card:start_materialize()
+            return true 
+          end 
+        }))
         SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, card)
       end
     end
