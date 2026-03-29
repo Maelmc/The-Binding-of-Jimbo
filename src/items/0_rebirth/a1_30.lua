@@ -198,6 +198,44 @@ SMODS.Joker {
 }
 
 -- Skatole
+SMODS.Joker {
+  key = "skatole",
+  pos = {x = 8, y = 0},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.m_tboj_poop
+    info_queue[#info_queue + 1] = G.P_CENTERS.spiderfly_tboj_pretty_fly
+    return {vars = {}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  enhancement_gate = "m_tboj_poop",
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      if not context.end_of_round and not context.before
+      and not context.after and not context.other_card.debuff
+      and SMODS.has_enhancement(context.other_card, "m_tboj_poop") then
+        local _card = SMODS.create_card {
+          set = "tboj_spiderfly",
+          key = "spiderfly_tboj_pretty_fly",
+          area = G.flies
+        }
+        _card:add_to_deck()
+        G.flies:emplace(_card)
+        SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, card)
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  poop = true,
+}
+
 -- Halo of Flies
 SMODS.Joker {
   key = "halo_of_flies",
@@ -216,15 +254,15 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.selling_self and not context.blueprint then
       for _ = 1, card.ability.extra.flies do
-      local _card = SMODS.create_card {
-        set = "tboj_spiderfly",
-        key = "spiderfly_tboj_pretty_fly",
-        area = G.flies
-      }
-      _card:add_to_deck()
-      G.flies:emplace(_card)
-    end
-    SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, card)
+        local _card = SMODS.create_card {
+          set = "tboj_spiderfly",
+          key = "spiderfly_tboj_pretty_fly",
+          area = G.flies
+        }
+        _card:add_to_deck()
+        G.flies:emplace(_card)
+      end
+      SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, card)
     end
   end,
   in_pool = function (self, args)

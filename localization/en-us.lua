@@ -360,6 +360,13 @@ return {
           "{C:chips}+#1#{} Chips"
         }
       },
+      j_tboj_skatole = {
+        name = "Skatole",
+        text = {
+          "Played {C:attention}Poop{} cards create",
+          "a {C:attention}Pretty Fly{} when scored",
+        }
+      },
       j_tboj_halo_of_flies = {
         name = "Halo of Flies",
         text = {
