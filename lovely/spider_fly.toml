@@ -35,7 +35,7 @@ target = 'cardarea.lua'
 pattern = '--if self.config.highlighted_limit <= #self.highlighted then return end'
 position = 'before'
 payload = '''
-if self.config.highlighted_limit <= #self.highlighted then return end
+if self == G.spiders or self == G.flies then return end
 '''
 match_indent = true
 times = 1
