@@ -29,7 +29,7 @@ TBOJ.Spiderfly {
     return {vars = {card.ability.extra.chips}}
   end,
   calculate = function(self, card, context)
-    if context.joker_main and G.flies.cards[#G.flies.cards] == card then
+    if context.joker_main then
       G.E_MANAGER:add_event(Event({
         func = function()
           SMODS.destroy_cards(card,true)
@@ -60,7 +60,7 @@ TBOJ.Spiderfly {
     return {vars = {card.ability.extra.Xmult}}
   end,
   calculate = function(self, card, context)
-    if context.joker_main and G.spiders.cards[#G.spiders.cards] == card then
+    if context.joker_main then
       G.E_MANAGER:add_event(Event({
         func = function()
           SMODS.destroy_cards(card,true)

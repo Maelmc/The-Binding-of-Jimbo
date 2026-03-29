@@ -20,31 +20,42 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
       if SMODS.pseudorandom_probability(card, "tboj_parasitoid", card.ability.extra.num, card.ability.extra.den, "tboj_parasitoid") then
-        G.E_MANAGER:add_event(Event({func = function()
-          local _card = SMODS.create_card {
-            set = "tboj_spiderfly",
-            key = "spiderfly_tboj_pretty_fly",
-            area = G.flies
-          }
-          _card:add_to_deck()
-          G.flies:emplace(_card)
-          card:juice_up()
-          return true end
+        local _card = SMODS.create_card {
+          set = "tboj_spiderfly",
+          key = "spiderfly_tboj_pretty_fly",
+          area = G.flies
+        }
+        _card.states.visible = nil
+        _card:add_to_deck()
+        G.flies:emplace(_card)
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.1,
+          func = function() 
+            _card:start_materialize()
+            return true 
+          end 
         }))
         SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, context.other_card)
       end
 
       if SMODS.pseudorandom_probability(card, "tboj_parasitoid", card.ability.extra.num, card.ability.extra.den, "tboj_parasitoid") then
-        G.E_MANAGER:add_event(Event({func = function()
-          local _card = SMODS.create_card {
+        local _card = SMODS.create_card {
             set = "tboj_spiderfly",
             key = "spiderfly_tboj_blue_spider",
             area = G.spiders
           }
-          _card:add_to_deck()
-          G.spiders:emplace(_card)
-          card:juice_up()
-          return true end
+        _card.states.visible = nil
+        _card:add_to_deck()
+        G.spiders:emplace(_card)
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.1,
+          func = function() 
+            _card:start_materialize()
+            card:juice_up()
+            return true 
+          end 
         }))
         SMODS.calculate_effect({message = localize('tboj_spiders_ex'),}, context.other_card)
       end

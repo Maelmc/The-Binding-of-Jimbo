@@ -1173,17 +1173,15 @@ return {
       spiderfly_tboj_pretty_fly = {
         name = "Pretty Fly",
         text = {
-          "{C:chips}+#1#{} Chips on",
-          "the next hand",
-          "{s:0.8}Only {C:attention,s:0.8}1 Pretty Fly{s:0.8} per hand"
+          "{C:chips}+#1#{} Chips then",
+          "{C:red}self-destructs",
         }
       },
       spiderfly_tboj_blue_spider = {
         name = "Blue Spider",
         text = {
-          "{C:white,X:red}X#1#{} Mult on",
-          "the next hand",
-          "{s:0.8}Only {C:attention,s:0.8}1 Blue Spider{s:0.8} per hand"
+          "{C:white,X:red}X#1#{} Mult then",
+          "{C:red}self-destructs",
         }
       },
     },

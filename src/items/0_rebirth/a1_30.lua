@@ -232,10 +232,11 @@ SMODS.Joker {
           delay = 0.1,
           func = function() 
             _card:start_materialize()
+            card:juice_up()
             return true 
           end 
         }))
-        SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, card)
+        SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, context.other_card)
       end
     end
   end,
