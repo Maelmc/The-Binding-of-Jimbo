@@ -1254,6 +1254,24 @@ return {
           "{C:attention}Stake{} difficulty",
         },
       },
+      undiscovered_tboj_active={
+          name="Not Discovered",
+          text={
+              "Purchase or use",
+              "this card in an",
+              "unseeded run to",
+              "learn what it does",
+          },
+      },
+      undiscovered_tboj_trinket={
+          name="Not Discovered",
+          text={
+              "Purchase or use",
+              "this card in an",
+              "unseeded run to",
+              "learn what it does",
+          },
+      },
     }
   },
   misc = {

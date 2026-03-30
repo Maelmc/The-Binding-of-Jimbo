@@ -21,9 +21,9 @@ TBOJ.Trinket = SMODS.Center:extend {
 
 SMODS.UndiscoveredSprite {
   key = 'tboj_trinket',
-  atlas = 'undiscovered',
+  atlas = 'tboj_undiscovered',
   pos = { x = 2, y = 0 },
-  overlay_pos = { x = 4, y = 0},
+  overlay_pos = { x = 4, y = 0 },
 }
 
 G.C.SECONDARY_SET.tboj_trinket = HEX("B741B6")
