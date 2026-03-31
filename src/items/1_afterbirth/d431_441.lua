@@ -5,7 +5,7 @@
 TBOJ.Active {
   key = "jar_of_flies",
   pos = { x = 13, y = 28 },
-  cost = 5,
+  cost = 4,
   config = {extra = {max_charge = 20, curr_charge = 0}},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.spiderfly_tboj_pretty_fly

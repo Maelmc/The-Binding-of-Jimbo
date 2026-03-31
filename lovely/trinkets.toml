@@ -101,3 +101,28 @@ elseif _card.ability.set == "tboj_trinket" then
   _area = G.trinkets
 '''
 match_indent = true
+
+# Undiscovered sprite
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "elseif _center.set == 'Joker' or _center.consumeable or _center.set == 'Voucher' then"
+position = "before"
+payload = '''
+elseif not self.params.bypass_discovery_center and _center.set == 'tboj_trinket' and not _center.discovered then
+  local atlas = SMODS.get_atlas("tboj_undiscovered")
+  local pos = { x = 2, y = 0 }
+  self.children.center = SMODS.create_sprite(self.T.x, self.T.y, self.T.w, self.T.h, atlas, pos)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''if not self.bypass_lock and self.config.center.unlocked ~= false and'''
+position = 'before'
+payload = '''if not self.bypass_lock and self.config.center.unlocked ~= false and (self.ability.set == 'tboj_trinket') and
+not self.config.center.discovered and ((self.area ~= G.trinkets and self.area) or not self.area) then
+  card_type = 'Undiscovered'
+end'''
+match_indent = true

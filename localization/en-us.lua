@@ -360,6 +360,13 @@ return {
           "{C:chips}+#1#{} Chips"
         }
       },
+      j_tboj_skatole = {
+        name = "Skatole",
+        text = {
+          "Played {C:attention}Poop{} cards create",
+          "a {C:attention}Pretty Fly{} when scored",
+        }
+      },
       j_tboj_halo_of_flies = {
         name = "Halo of Flies",
         text = {
@@ -651,7 +658,8 @@ return {
         name = "20/20",
         text = {
           "Retrigger all played cards",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additionnal time",
+          "{X:mult,C:white}X#2#{} Mult per card retriggered"
         }
       },
       j_tboj_missing_no = {
@@ -717,6 +725,13 @@ return {
           "{C:green}#1# in #2#{} chance for",
           "played cards to give",
           "{X:mult,C:white} X#3# {} Mult when scored",
+        },
+      },
+      j_tboj_number_two = {
+        name = "Number Two",
+        text = {
+          "Create a {C:dark_edition}Negative{} fused {C:attention}Bomb",
+          "every {C:attention}#1# {C:inactive}[#2#]{} scored {C:attention}Poop{} card"
         },
       },
       j_tboj_seraphim = {
@@ -826,6 +841,13 @@ return {
           "if you have more than the limit"
         }
       },
+      j_tboj_flat_stone = {
+        name = "Flat Stone",
+        text = {
+          "Inverts {C:attention}scored{}",
+          "and {C:attention}unscored{} cards"
+        }
+      },
       j_tboj_hallowed_ground = {
         name = "Hallowed Ground",
         text = {
@@ -879,6 +901,20 @@ return {
           "{C:green}Uncommon{} Jokers in the shop",
           "have a {C:green}#1# in #2#{} chance",
           "to be {C:attention}rerolled"
+        }
+      },
+      j_tboj_ibs = {
+        name = "IBS",
+        text = {
+          "Held {C:attention}Poop{} cards trigger one of",
+          "the following effects when scored:",
+          "- Create a {C:attention}Pretty Fly",
+          "- {C:mult}+#1#{} Mult",
+          "- Turn adjacent cards into {C:attention}Poop{} cards",
+          "- Change suit to {C:spades}Spades",
+          "- {C:white,X:mult}X#2#{} Mult",
+          "- Turn into a {C:attention}Stone{} card",
+          "- {C:white,X:mult}X#3#{} Mult then {C:red}self-destructs"
         }
       },
     },
@@ -1151,17 +1187,15 @@ return {
       spiderfly_tboj_pretty_fly = {
         name = "Pretty Fly",
         text = {
-          "{C:chips}+#1#{} Chips on",
-          "the next hand",
-          "{s:0.8}Only {C:attention,s:0.8}1 Pretty Fly{s:0.8} per hand"
+          "{C:chips}+#1#{} Chips then",
+          "{C:red}self-destructs",
         }
       },
       spiderfly_tboj_blue_spider = {
         name = "Blue Spider",
         text = {
-          "{C:white,X:red}X#1#{} Mult on",
-          "the next hand",
-          "{s:0.8}Only {C:attention,s:0.8}1 Blue Spider{s:0.8} per hand"
+          "{C:white,X:red}X#1#{} Mult then",
+          "{C:red}self-destructs",
         }
       },
     },
@@ -1234,6 +1268,24 @@ return {
           "{C:attention}Stake{} difficulty",
         },
       },
+      undiscovered_tboj_active={
+          name="Not Discovered",
+          text={
+              "Purchase or use",
+              "this card in an",
+              "unseeded run to",
+              "learn what it does",
+          },
+      },
+      undiscovered_tboj_trinket={
+          name="Not Discovered",
+          text={
+              "Purchase or use",
+              "this card in an",
+              "unseeded run to",
+              "learn what it does",
+          },
+      },
     }
   },
   misc = {
@@ -1273,6 +1325,14 @@ return {
       tboj_acquire_to_reveal = "Acquire to reveal",
       tboj_spiders_ex = "Spiders!",
       tboj_flies_ex = "Flies!",
+      tboj_oops_dot = "Oops...",
+      tboj_corn = "Corn",
+      tboj_flaming = "Flaming",
+      tboj_stinky = "Stinky",
+      tboj_black = "Black",
+      tboj_white = "White",
+      tboj_stone = "Stone",
+      tboj_bomb = "Bomb",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
@@ -1293,7 +1353,7 @@ return {
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},
         ch_c_tboj_daily_run2 = {"Resets at {C:attention}"..tostring(os.date("%I:%M %p", 0))},
-        ch_c_tboj_aprils_fool = {""},
+        ch_c_tboj_aprils_fool = {"{C:inactive}None :)"},
     },
   }
   

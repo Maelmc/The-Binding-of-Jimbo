@@ -120,7 +120,7 @@ SMODS.Joker {
     return {vars = { card.ability.extra.mult, card.ability.extra.chips, card.ability.extra.money }}
   end,
   rarity = 1,
-  cost = 4,
+  cost = 5,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
@@ -203,5 +203,39 @@ SMODS.Joker {
 
       return true end
     }))
+  end,
+}
+
+-- Marbles
+-- Mystery Egg
+-- Flat Stone
+SMODS.Joker {
+  key = "flat_stone",
+  pos = {x = 14, y = 35},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 1,
+  cost = 3,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.modify_scoring_hand and not context.blueprint then
+      if table.contains(context.scoring_hand, context.other_card) then
+        return {
+          remove_from_hand = true
+        }
+      else
+        return {
+          add_to_hand = true
+        }
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
   end,
 }

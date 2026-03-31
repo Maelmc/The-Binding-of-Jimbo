@@ -138,14 +138,15 @@ elseif _card.ability.set == "tboj_active" then
 '''
 match_indent = true
 
-# Using a reusable active in the shop doesn't drop the shop ui
+# Using a reusable active in the shop or a pack doesn't drop the shop/pack ui
+# shop
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
 pattern = "G.shop.alignment.offset.y = G.ROOM.T.y + 29"
 position = "before"
 payload = '''
-if card.ability.set == "tboj_active" and not nc then
+if card.ability.set ~= "tboj_active" or (card.ability.set == "tboj_active" and not nc) then
 '''
 match_indent = true
 times = 1
@@ -160,3 +161,73 @@ end
 '''
 match_indent = true
 times = 1
+
+# pack
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.booster_pack.alignment.offset.y = G.ROOM.T.y + 29"
+position = "before"
+payload = '''
+if card.ability.set ~= "tboj_active" or (card.ability.set == "tboj_active" and not nc) then
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.booster_pack.alignment.offset.y = G.ROOM.T.y + 29"
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.booster_pack.alignment.offset.y = G.booster_pack.alignment.offset.py"
+position = "before"
+payload = '''
+if G.booster_pack.alignment.offset.py then 
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.booster_pack.alignment.offset.py = nil"
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+times = 1
+
+# Undiscovered sprite
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+pattern = "elseif _center.set == 'Joker' or _center.consumeable or _center.set == 'Voucher' then"
+position = "before"
+payload = '''
+elseif not self.params.bypass_discovery_center and _center.set == 'tboj_active' and not _center.discovered then
+  local atlas = SMODS.get_atlas("tboj_undiscovered")
+  local pos = { x = 3, y = 0 }
+  self.children.center = SMODS.create_sprite(self.T.x, self.T.y, self.T.w, self.T.h, atlas, pos)
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''if not self.bypass_lock and self.config.center.unlocked ~= false and'''
+position = 'before'
+payload = '''if not self.bypass_lock and self.config.center.unlocked ~= false and (self.ability.set == 'tboj_active') and
+not self.config.center.discovered and ((self.area ~= G.actives and self.area) or not self.area) then
+  card_type = 'Undiscovered'
+end'''
+match_indent = true

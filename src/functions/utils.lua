@@ -178,18 +178,53 @@ function table.contains(table, element)
   return false
 end
 
-function TBOJ.juice_flip_hand(card, second)
+function TBOJ.juice_flip_cards(cards,source, second)
+  if not cards[1] then
+    if Object.is(cards, Card) then
+      cards = {cards}
+    else
+      return
+    end
+  end
   local sound = 'card1'
   local base_percent = 1.15
   local extra = nil
   if second then sound = 'tarot2' end
   if second then base_percent = 0.85 end
   if second then extra = .6 end
-  G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-    play_sound('tarot1')
-    card:juice_up(0.3, 0.5)
-    return true end })
-  )
+  if source then
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+      play_sound('tarot1')
+      source:juice_up(0.3, 0.5)
+      return true end })
+    )
+  end
+  for i=1, #cards do
+    local percent = nil
+    if second then
+      percent = base_percent + (i-0.999)/(#cards-0.998)*0.3
+    else
+      percent = base_percent - (i-0.999)/(#cards-0.998)*0.3
+    end
+    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() cards[i]:flip();play_sound(sound, percent, extra);cards[i]:juice_up(0.3, 0.3);return true end }))
+  end
+  delay(0.2)
+end
+
+function TBOJ.juice_flip_hand(source, second)
+  local sound = 'card1'
+  local base_percent = 1.15
+  local extra = nil
+  if second then sound = 'tarot2' end
+  if second then base_percent = 0.85 end
+  if second then extra = .6 end
+  if source then
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+      play_sound('tarot1')
+      source:juice_up(0.3, 0.5)
+      return true end })
+    )
+  end
   for i=1, #G.hand.cards do
     local percent = nil
     if second then
@@ -202,18 +237,20 @@ function TBOJ.juice_flip_hand(card, second)
   delay(0.2)
 end
 
-function TBOJ.juice_flip(card, second)
+function TBOJ.juice_flip_highlighted(source, second)
   local sound = 'card1'
   local base_percent = 1.15
   local extra = nil
   if second then sound = 'tarot2' end
   if second then base_percent = 0.85 end
   if second then extra = .6 end
-  G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
-    play_sound('tarot1')
-    card:juice_up(0.3, 0.5)
-    return true end })
-  )
+  if source then
+    G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+      play_sound('tarot1')
+      source:juice_up(0.3, 0.5)
+      return true end })
+    )
+  end
   for i=1, #G.hand.highlighted do
     local percent = nil
     if second then

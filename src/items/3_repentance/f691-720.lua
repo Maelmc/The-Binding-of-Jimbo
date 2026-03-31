@@ -73,3 +73,180 @@ TBOJ.Active {
   devil = true,
   book = true,
 }
+
+-- Spindown Dice = Spectral
+-- Hypercoagulation
+-- IBS
+SMODS.Joker {
+  key = "ibs",
+  pos = { x = 4, y = 48 },
+  config = {extra = {mult_mod = 10, Xmult_multi = 1.5, Xmult_multi2 = 2}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_tboj_poop
+    info_queue[#info_queue + 1] = G.P_CENTERS.spiderfly_tboj_pretty_fly
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_stone
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.Xmult_multi, card.ability.extra.Xmult_multi2}}
+  end,
+  rarity = 1,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  enhancement_gate = "m_tboj_poop",
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.hand and not context.end_of_round and SMODS.has_enhancement(context.other_card, "m_tboj_poop") then
+      local _rand = pseudorandom("tboj_ibs",1,7)
+      print(_rand)
+      if _rand == 1 then -- Corn Poop: Pretty Fly
+        local _card = SMODS.create_card {
+          set = "tboj_spiderfly",
+          key = "spiderfly_tboj_pretty_fly",
+          area = G.flies
+        }
+        _card.states.visible = nil
+        _card:add_to_deck()
+        G.flies:emplace(_card)
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.1,
+          func = function() 
+            _card:start_materialize()
+            return true 
+          end 
+        }))
+        return {
+          message = localize('tboj_corn'),
+          card = context.other_card
+        }
+
+      elseif _rand == 2 then -- Flaming Poop: Mult
+        return {
+          message = localize('tboj_flaming'),
+          mult = card.ability.extra.mult_mod
+        }
+
+      elseif _rand == 3 then -- Stinky Poop: Adjacent to poop
+        local to_change = {}
+        for i, v in ipairs(G.hand.cards) do
+          if v == context.other_card then
+            if G.hand.cards[i-1] then
+              table.insert(to_change, G.hand.cards[i-1])
+            end
+            if G.hand.cards[i+1] then
+              table.insert(to_change, G.hand.cards[i+1])
+            end
+            break
+          end
+        end
+        TBOJ.juice_flip_cards(to_change)
+        for _, v in ipairs(to_change) do
+          G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.1,
+          func = function() 
+            v:set_ability("m_tboj_poop")
+            return true 
+          end 
+          }))
+        end
+        TBOJ.juice_flip_cards(to_change)
+        return {
+          message = localize('tboj_stinky'),
+        }
+
+      elseif _rand == 4 then -- Black Poop: Change to Spades
+        TBOJ.juice_flip_cards({context.other_card})
+        local _c = context.other_card
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.1,
+          func = function() 
+            SMODS.change_base(_c,"Spades",nil)
+            return true 
+          end 
+        }))
+        TBOJ.juice_flip_cards({context.other_card})
+        return {
+          message = localize('tboj_black'),
+        }
+
+      elseif _rand == 5 then -- White Poop: Xmult
+        return {
+          message = localize('tboj_white'),
+          Xmult = card.ability.extra.Xmult_multi
+        }
+
+      elseif _rand == 6 then -- Stone Poop: Turn to Stone
+        TBOJ.juice_flip_cards({context.other_card})
+        local _c = context.other_card
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.1,
+          func = function() 
+            _c:set_ability("m_stone")
+            return true 
+          end 
+        }))
+        TBOJ.juice_flip_cards({context.other_card})
+        return {
+          message = localize('tboj_stone'),
+        }
+
+      else -- Bomb: boom
+        local _c = context.other_card
+        G.E_MANAGER:add_event(Event({
+          func = function()
+            SMODS.destroy_cards(_c,true)
+            return true
+          end
+        }))
+        return {
+          message = localize('tboj_bomb'),
+          Xmult = card.ability.extra.Xmult_multi2
+        }
+      end
+
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  generate_ui = function(self, info_queue, card, desc_nodes, specific_vars, full_UI_table) -- Taken from Pokermon's fossil ui
+    if not full_UI_table.name then
+      full_UI_table.name = localize({ type = "name", set = self.set, key = self.key, nodes = full_UI_table.name })
+    end
+    -- get descriptions
+    local vars = self:loc_vars(info_queue, card).vars
+    local count = #desc_nodes + 1
+    localize{type = 'descriptions', key = self.key, set = self.set, nodes = desc_nodes, vars = vars}
+    -- set count to the first line with a colon
+    while count <= #desc_nodes and not(desc_nodes[count][1] and desc_nodes[count][1].config.text and string.find(desc_nodes[count][1].config.text,"-")) do
+      count = count + 1
+    end
+
+    local to_replace = {}
+    while #desc_nodes >= count do
+      local new_node = {n=G.UIT.R, config={align = "tl", scale = 1.0, colour = G.C.UI.TEXT_LIGHT}, nodes = {}}
+      local nodes = desc_nodes[count]
+      table.remove(desc_nodes, count)
+
+      if not (nodes[1] and nodes[1].config.text and string.find(nodes[1].config.text,"-")) then
+        local last_nodes = to_replace[#to_replace].nodes
+        table.insert(nodes, 1, {n=G.UIT.C, config={align = "m", colour = G.C.WHITE, r = 0.05, padding = 0.03, res = 0.15, maxh = 0.2}, nodes={
+          {n=G.UIT.T, config={text = "99 ", colour = G.C.WHITE, scale = last_nodes[1].nodes[1].config.scale}},
+        }})
+        local text_extract = string.match(last_nodes[1].config.text,"%s*-%s*")
+        table.insert(nodes, 2, {n=G.UIT.T, config={text = text_extract, colour = G.C.WHITE, scale = last_nodes[1].config.scale, maxh = 0.2}})
+      end
+      new_node.nodes = nodes
+      table.insert(to_replace, new_node)
+    end
+
+    desc_nodes[#desc_nodes+1] = {{n=G.UIT.C, config = {align = "tl", scale = 1.0, colour = G.C.UI.TEXT_LIGHT, padding = 0.05}, nodes = to_replace}}
+  end,
+  poop = true,
+}
+
+-- Hemoptysis
+-- Ghost Bombs

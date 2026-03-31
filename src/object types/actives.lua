@@ -34,10 +34,10 @@ TBOJ.Active = SMODS.Center:extend {
 }
 
 SMODS.UndiscoveredSprite {
-  key = 'tboj_active',
-  atlas = 'undiscovered',
+  key = "tboj_active",
+  atlas = "tboj_undiscovered",
   pos = { x = 3, y = 0 },
-  overlay_pos = { x = 4, y = 0},
+  overlay_pos = {x = 4, y = 0 },
 }
 
 G.C.SECONDARY_SET.tboj_active = HEX("FFD800")

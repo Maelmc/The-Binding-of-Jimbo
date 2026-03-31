@@ -1,3 +1,5 @@
+-- Charged Baby
+-- Dead Eye
 -- Holy Light
 SMODS.Joker {
   key = "holy_light",
@@ -25,7 +27,62 @@ SMODS.Joker {
   end,
   angel = true,
 }
+-- Host Hat
+-- Restock
+-- Bursting Sack
+-- Number Two
+SMODS.Joker {
+  key = "number_two",
+  pos = {x = 2, y = 25},
+  config = {extra = {every = 2, current = 0}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.m_tboj_poop
+    info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_bomb
+    return {vars = {card.ability.extra.every, card.ability.extra.current}}
+  end,
+  rarity = 2,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  enhancement_gate = "m_tboj_poop",
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      if not context.end_of_round and not context.before
+      and not context.after and not context.other_card.debuff
+      and SMODS.has_enhancement(context.other_card, "m_tboj_poop") then
+        card.ability.extra.current = card.ability.extra.current + 1
+        if card.ability.extra.current == card.ability.extra.every then
+          card.ability.extra.current = 0
+          local _card = SMODS.add_card({ set = 'Loot', key = "c_tboj_bomb", edition = 'e_negative' })
+          _card.states.visible = nil
+          _card.ability.extra.fused = true
+          G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.1,
+            func = function() 
+              _card:start_materialize()
+              card:juice_up()
+              return true 
+            end 
+          }))
+          SMODS.calculate_effect({message = localize('tboj_oops_dot'),}, context.other_card)
+        end
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  poop = true,
+}
 
+-- Pupula Duplex
+-- Pay To Play
+
+-- Key Bum
+-- Rune Bag
 -- Seraphim
 SMODS.Joker {
   key = "seraphim",
@@ -79,3 +136,45 @@ SMODS.Joker {
   familiar = true,
   angel = true,
 }
+
+-- Betrayal
+-- Betrayal
+SMODS.Joker {
+  key = "betrayal",
+  pos = {x = 0, y = 26},
+  config = {extra = {triggered = false}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.destroy_card and not context.blueprint and not card.ability.extra.triggered and G.GAME.current_round.hands_played == 0 then
+      local pos = 1
+      for k, v in ipairs(context.scoring_hand) do
+        if v == context.destroy_card then pos = k break end
+      end
+      
+      if context.scoring_hand[pos+1] and TBOJ.total_chips(context.destroy_card) < TBOJ.total_chips(context.scoring_hand[pos+1]) then
+        card.ability.extra.triggered = true
+        return {
+          remove = true,
+          message = localize("tboj_betrayal_ex")
+        }
+      end
+    end
+
+    if context.setting_blind and not context.blueprint then card.ability.extra.triggered = false end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  devil = true,
+}
+
+-- Zodiac
+-- Serpent's Kiss

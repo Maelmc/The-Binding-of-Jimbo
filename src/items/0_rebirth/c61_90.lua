@@ -132,7 +132,7 @@ SMODS.Joker {
 SMODS.Joker {
   key = "chocolate_milk",
   pos = {x = 8, y = 4},
-  config = {extra = {Xmult = 1, Xmult_mod = 0.5}},
+  config = {extra = {Xmult = 1, Xmult_mod = 0.4}},
   loc_vars = function(self, info_queue, card)
     return {vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult }}
   end,
@@ -183,7 +183,7 @@ SMODS.Joker {
     return {vars = {card.ability.extra.mult, card.ability.extra.mult2, card.ability.extra.Xmult, card.ability.extra.Xmult2, card.ability.extra.stage}}
   end,
   rarity = 1,
-  cost = 5,
+  cost = 4,
   atlas = "jokers",
   perishable_compat = false,
   eternal_compat = false,
