@@ -138,14 +138,15 @@ elseif _card.ability.set == "tboj_active" then
 '''
 match_indent = true
 
-# Using a reusable active in the shop doesn't drop the shop ui
+# Using a reusable active in the shop or a pack doesn't drop the shop/pack ui
+# shop
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
 pattern = "G.shop.alignment.offset.y = G.ROOM.T.y + 29"
 position = "before"
 payload = '''
-if card.ability.set == "tboj_active" and not nc then
+if card.ability.set ~= "tboj_active" or (card.ability.set == "tboj_active" and not nc) then
 '''
 match_indent = true
 times = 1
@@ -154,6 +155,51 @@ times = 1
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
 pattern = "G.shop.alignment.offset.y = G.ROOM.T.y + 29"
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+times = 1
+
+# pack
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.booster_pack.alignment.offset.y = G.ROOM.T.y + 29"
+position = "before"
+payload = '''
+if card.ability.set ~= "tboj_active" or (card.ability.set == "tboj_active" and not nc) then
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.booster_pack.alignment.offset.y = G.ROOM.T.y + 29"
+position = "after"
+payload = '''
+end
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.booster_pack.alignment.offset.y = G.booster_pack.alignment.offset.py"
+position = "before"
+payload = '''
+if G.booster_pack.alignment.offset.py then 
+'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+pattern = "G.booster_pack.alignment.offset.py = nil"
 position = "after"
 payload = '''
 end

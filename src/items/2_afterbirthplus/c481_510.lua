@@ -48,7 +48,6 @@ TBOJ.Active {
         for i = 1, jokers_to_create do
           local rarity
           if i == 1 then rarity = "Uncommon" else rarity = "Rare" end
-          print(rarity)
           SMODS.add_card {
             set = 'Joker',
             rarity = rarity,
