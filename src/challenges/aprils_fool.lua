@@ -1,4 +1,4 @@
---[[SMODS.Challenge {
+SMODS.Challenge {
   key = "aprils_fool",
   rules = {
     custom = {
@@ -6,4 +6,4 @@
     },
   },
   button_colour = G.C.TBOJ.MOD_COLOR,
-}]]
+}
