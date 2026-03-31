@@ -903,6 +903,20 @@ return {
           "to be {C:attention}rerolled"
         }
       },
+      j_tboj_ibs = {
+        name = "IBS",
+        text = {
+          "Held {C:attention}Poop{} cards trigger one of",
+          "the following effects when scored:",
+          "- Create a {C:attention}Pretty Fly",
+          "- {C:mult}+#1#{} Mult",
+          "- Turn adjacent cards into {C:attention}Poop{} cards",
+          "- Change suit to {C:spades}Spades",
+          "- {C:white,X:mult}X#2#{} Mult",
+          "- Turn into a {C:attention}Stone{} card",
+          "- {C:white,X:mult}X#3#{} Mult then {C:red}self-destructs"
+        }
+      },
     },
     Loot = {
       -- STANDARD LOOT
@@ -1312,6 +1326,13 @@ return {
       tboj_spiders_ex = "Spiders!",
       tboj_flies_ex = "Flies!",
       tboj_oops_dot = "Oops...",
+      tboj_corn = "Corn",
+      tboj_flaming = "Flaming",
+      tboj_stinky = "Stinky",
+      tboj_black = "Black",
+      tboj_white = "White",
+      tboj_stone = "Stone",
+      tboj_bomb = "Bomb",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

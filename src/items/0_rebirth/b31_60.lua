@@ -54,11 +54,11 @@ TBOJ.Active {
     return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
   end,
   use = function(self, card, area, copier)
-    TBOJ.juice_flip(card)
+    TBOJ.juice_flip_highlighted(card)
     for i = 1, #G.hand.highlighted do
       G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() G.hand.highlighted[i]:set_ability("m_tboj_poop");return true end }))
     end 
-    TBOJ.juice_flip(card, true)
+    TBOJ.juice_flip_highlighted(card, true)
   end,
   keep_on_use = function(self, card)
     return true
