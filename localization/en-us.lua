@@ -1353,7 +1353,7 @@ return {
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},
         ch_c_tboj_daily_run2 = {"Resets at {C:attention}"..tostring(os.date("%I:%M %p", 0))},
-        ch_c_tboj_aprils_fool = {""},
+        ch_c_tboj_aprils_fool = {"{C:inactive}None :)"},
     },
   }
   
