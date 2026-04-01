@@ -890,6 +890,7 @@ return {
           "This Joker randomly gains",
           "{C:chips}+#1#{} Chips or {C:mult}+#2#{} Mult when",
           "using a {C:attention}Soul Heart",
+          "or a {C:attention}Black Heart",
           "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips and {C:mult}+#4#{C:inactive} Mult)"
         }
       },

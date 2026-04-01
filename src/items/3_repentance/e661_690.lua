@@ -5,6 +5,7 @@ SMODS.Joker {
   config = {extra = {chips = 0, mult = 0, chips_mod = 20, mult_mod = 3}},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_soul_heart
+    info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_black_heart
     return {vars = {card.ability.extra.chips_mod, card.ability.extra.mult_mod, card.ability.extra.chips, card.ability.extra.mult}}
   end,
   rarity = 1,
@@ -14,7 +15,9 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.using_consumeable and context.consumeable and context.consumeable.config.center.key == "c_tboj_soul_heart" and not context.blueprint then
+    if context.using_consumeable and context.consumeable
+    and (context.consumeable.config.center.key == "c_tboj_soul_heart" or context.consumeable.config.center.key == "c_tboj_black_heart")
+    and not context.blueprint then
       local rand = pseudorandom("tboj_soul_locket") > 0.5 and "MULT" or "CHIPS"
       if rand == "MULT" then
         SMODS.scale_card(card, {
