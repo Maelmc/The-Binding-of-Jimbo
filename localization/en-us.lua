@@ -1323,7 +1323,7 @@ return {
       tboj_opened_ex = "Opened!",
       tboj_lucky_ex = "Lucky!",
       tboj_unknown = "Unknown",
-      tboj_acquire_to_reveal = "Acquire to reveal",
+      tboj_acquire_to_reveal = "[Acquire to reveal]",
       tboj_spiders_ex = "Spiders!",
       tboj_flies_ex = "Flies!",
       tboj_oops_dot = "Oops...",
