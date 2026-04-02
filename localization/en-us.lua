@@ -756,8 +756,10 @@ return {
       j_tboj_dream_catcher = {
         name = "Dream Catcher",
         text = {
-          "The next {C:attention}Boss Blind{} is {C:attention}#1#",
-          "{s:0.8}Prediction might change based on your actions",
+          "The next Ante's",
+          "{C:attention}Boss Blind{} is {C:attention}#1#",
+          "{s:0.8}Prediction might change",
+          "{s:0.8}based on your actions",
         },
       },
       j_tboj_lusty_blood = {
