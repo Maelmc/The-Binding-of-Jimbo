@@ -40,7 +40,7 @@ SMODS.Joker {
           return nil, true -- This is for Joker retrigger purposes
       end
   end,
-  familiar = true,
+  attributes = {"tboj_familiar"}
 }
 
 -- Little C.H.A.D.
@@ -79,8 +79,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  devil = true,
-  book = true,
+  attributes = {"tboj_book", "tboj_devil"}
 }
 
 -- The Relic
@@ -123,8 +122,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  angel = true,
-  familiar = true,
+  attributes = {"tboj_angel", "tboj_familiar"}
 }
 
 -- Little Gish
@@ -157,7 +155,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
 
 -- Mom's Bottle of Pills
@@ -235,7 +233,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true
+  attributes = {"tboj_devil"}
 }
 
 -- 110
@@ -302,7 +300,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true
+  attributes = {"tboj_devil"}
 }
 
 -- 116
@@ -331,7 +329,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true
+  attributes = {"tboj_devil"}
 }
 
 -- 119

@@ -90,8 +90,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true,
-  fly = true,
+  attributes = {"tboj_familiar", "tboj_fly"},
   tboj_artist = {"Grumpy Egg", "Maelmc"}
 }
 

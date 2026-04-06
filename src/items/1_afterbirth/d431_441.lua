@@ -35,5 +35,5 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  fly = true,
+  attributes = {"tboj_fly"}
 }

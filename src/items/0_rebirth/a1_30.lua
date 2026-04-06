@@ -166,7 +166,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  angel = true,
+  attributes = {"tboj_angel"}
 }
 
 -- Brother Bobby
@@ -194,7 +194,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true
+  attributes = {"tboj_familiar"}
 }
 
 -- Skatole
@@ -243,7 +243,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  poop = true,
+  attributes = {"tboj_poop"},
 }
 
 -- Halo of Flies
@@ -278,7 +278,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  fly = true,
+  attributes = {"tboj_fly"}
 }
 
 -- 1up!
@@ -402,7 +402,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"food"}
 }
 
 -- Rotten Meat

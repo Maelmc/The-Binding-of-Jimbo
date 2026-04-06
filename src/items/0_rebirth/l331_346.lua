@@ -20,7 +20,7 @@ SMODS.Joker {
   remove_from_deck = function(self, card, from_debuff)
     G.hand:change_size(-card.ability.extra.h_size)
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
 
 -- The Body
@@ -45,7 +45,7 @@ SMODS.Joker {
     G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.d_size
     ease_discard(-card.ability.extra.d_size)
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
 
 -- The Soul
@@ -75,7 +75,7 @@ SMODS.Joker {
       ease_hands_played(-to_decrease)
     end
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
 
 -- Dead Onion

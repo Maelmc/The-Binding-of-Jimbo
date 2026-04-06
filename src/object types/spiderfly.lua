@@ -47,7 +47,7 @@ TBOJ.Spiderfly {
   remove_from_deck = function(self, card, from_debuff)
     G.flies:change_size(-1)
   end,
-  fly = true,
+  attributes = {"tboj_fly"},
   tboj_designer = "Thor's Girdle"
 }
 

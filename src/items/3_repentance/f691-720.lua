@@ -30,7 +30,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
 
 -- many
@@ -70,8 +70,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  devil = true,
-  book = true,
+  attributes = {"tboj_book", "tboj_devil"}
 }
 
 -- Spindown Dice = Spectral
@@ -245,7 +244,7 @@ SMODS.Joker {
 
     desc_nodes[#desc_nodes+1] = {{n=G.UIT.C, config = {align = "tl", scale = 1.0, colour = G.C.UI.TEXT_LIGHT, padding = 0.05}, nodes = to_replace}}
   end,
-  poop = true,
+  attributes = {"tboj_poop"},
 }
 
 -- Hemoptysis

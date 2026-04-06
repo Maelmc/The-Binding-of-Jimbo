@@ -124,7 +124,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true
+  attributes = {"tboj_familiar"}
 }
 
 -- Technology
@@ -224,7 +224,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return true, {allow_duplicates = true}
   end,
-  familiar = true,
+  attributes = {"tboj_familiar"}
 }
 
 -- A Quarter
@@ -249,7 +249,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true
+  attributes = {"tboj_devil"}
 }
 
 -- PHD
@@ -350,7 +350,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  angel = true
+  attributes = {"tboj_angel", "tboj_book"}
 }
 
 -- The Mark
@@ -390,7 +390,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true
+  attributes = {"tboj_devil"}
 }
 
 -- The Pact
@@ -418,7 +418,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true
+  attributes = {"tboj_devil"}
 }
 
 -- Dead Cat
@@ -462,7 +462,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true
+  attributes = {"tboj_devil"}
 }
 
 -- Lord of the Pit

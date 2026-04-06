@@ -47,7 +47,7 @@ TBOJ.Trinket {
     return {vars = {card.ability.extra.Xmult_multi}}
   end,
   calculate = function(self, card, context)
-    if context.other_joker and (context.other_joker.config.center.familiar) then
+    if context.other_joker and context.other_joker:has_attribute("tboj_familiar") then
       return {
         xmult = card.ability.extra.Xmult_multi
       }

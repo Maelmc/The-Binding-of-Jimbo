@@ -25,7 +25,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  angel = true,
+  attributes = {"tboj_angel"}
 }
 -- Host Hat
 -- Restock
@@ -75,7 +75,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  poop = true,
+  attributes = {"tboj_poop"},
 }
 
 -- Pupula Duplex
@@ -133,8 +133,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true,
-  angel = true,
+  attributes = {"tboj_angel", "tboj_familiar"}
 }
 
 -- Betrayal
@@ -173,7 +172,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true,
+  attributes = {"tboj_devil"}
 }
 
 -- Zodiac

@@ -31,8 +31,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  devil = true,
-  book = true,
+  attributes = {"tboj_book", "tboj_devil"}
 }
 
 -- The Necronomicon
@@ -66,7 +65,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  poop = true,
+  attributes = {"tboj_poop"},
 }
 
 -- Mr. Boom
@@ -197,7 +196,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true
+  attributes = {"tboj_devil"}
 }
 
 -- Dr. Fetus
@@ -233,8 +232,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true,
-  fly = true,
+  attributes = {"tboj_familiar", "tboj_fly"}
 }
 
 -- Book of Shadows

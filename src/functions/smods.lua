@@ -121,9 +121,9 @@ SMODS.Booster:take_ownership_by_kind('Buffoon', {
       local rand = pseudorandom("tboj_pentagram")
       print(rand)
       if rand < 0.5 then
-        _k = TBOJ.get_random_key{set = "Joker", tags = "angel", seed = "tboj_pentagram"}
+        _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", seed = "tboj_pentagram"}
       else
-        _k = TBOJ.get_random_key{set = "Joker", tags = "devil", seed = "tboj_pentagram"}
+        _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", seed = "tboj_pentagram"}
       end
       return { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
     end

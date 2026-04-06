@@ -3,37 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 0
 
-# Create the area
-[[patches]]
-[patches.regex]
-target = 'game.lua'
-pattern = 'self\.jokers = CardArea'
-position = 'before'
-payload = '''self.trinkets = CardArea(
-  0, CAI.consumeable_H + 0.3,
-  CAI.consumeable_W * 0.7,
-  CAI.consumeable_H, 
-  {card_limit = 1, type = 'joker', highlight_limit = 1}
-)
-self.trinkets.config.align_buttons = true
-'''
-match_indent = true
-times = 1
-
-# Position it
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = 'G.deck.T.y = G.TILE_H - G.deck.T.h'
-position = 'after'
-payload = '''
-
-G.trinkets.T.x = G.deck.T.x
-G.trinkets.T.y = G.deck.T.y - G.deck.T.h * 1.125
-'''
-match_indent = true
-times = 1
-
 # Emplace the card when bought
 [[patches]]
 [patches.pattern]

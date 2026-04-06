@@ -158,5 +158,5 @@ SMODS.Joker {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  poop = true,
+  attributes = {"tboj_poop"},
 }
