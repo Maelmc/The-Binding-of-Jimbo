@@ -833,6 +833,15 @@ return {
           "and {C:green}#1# in #2#{} to create a {C:attention}Blue Spider",
         }
       },
+      j_tboj_greed_gullet = {
+        name = "Greed's Gullet",
+        text = {
+          "When {C:attention}Blind{} is selected",
+          "gain {C:blue}+1{} Hand for each",
+          "{C:money}$#1#{} you have",
+          "{C:inactive}(Max of #2# Hands at {C:money}$#3#{C:inactive})"
+        }
+      },
       j_tboj_bozo = {
         name = "Bozo",
         text = {
