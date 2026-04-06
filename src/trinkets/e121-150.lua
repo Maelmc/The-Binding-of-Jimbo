@@ -90,7 +90,7 @@ TBOJ.Trinket {
 TBOJ.Trinket {
   key = "brain_worm",
   pos = { x = 8, y = 9 },
-  cost = 6,
+  cost = 4,
   config = {extra = {repetitions = 1}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.repetitions}}

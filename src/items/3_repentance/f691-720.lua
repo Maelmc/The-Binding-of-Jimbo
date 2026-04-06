@@ -39,7 +39,7 @@ TBOJ.Active {
   key = "lemegeton",
   pos = { x = 6, y = 47 },
   cost = 8,
-  config = {extra = {max_charge = 3, curr_charge = 3}},
+  config = {extra = {max_charge = 6, curr_charge = 6}},
   loc_vars = function(self, info_queue, card)
     if not card.edition or (card.edition and not card.edition.negative) then
       info_queue[#info_queue+1] = G.P_CENTERS.e_negative
