@@ -100,7 +100,7 @@ SMODS.Joker {
   cost = 4,
   atlas = "jokers",
   blueprint_compat = false,
-  eternal_compat = true,
+  eternal_compat = false,
   perishable_compat = true,
   calculate = function(self, card, context)
     if context.mod_probability and not context.blueprint then
@@ -111,7 +111,7 @@ SMODS.Joker {
 
     if context.pseudorandom_result and context.result then
       if card.ability.extra.num - card.ability.extra.num_mod <= 0 then
-        SMODS.destroy_cards(card, nil, nil, true)
+        SMODS.destroy_cards(card, true, nil, true)
         return {
           message = localize("k_eaten_ex"),
           colour = G.C.GREEN

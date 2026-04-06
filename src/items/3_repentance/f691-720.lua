@@ -33,7 +33,50 @@ SMODS.Joker {
   attributes = {"tboj_angel"}
 }
 
--- many
+-- Dark Arts
+-- Abyss
+-- Supper
+SMODS.Joker {
+  key = "supper",
+  pos = { x = 1, y = 47 },
+  config = { extra = { money = 6, m_minus = 1 } },
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.money, card.ability.extra.m_minus } }
+  end,
+  rarity = 1,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = false,
+  calc_dollar_bonus = function(self, card)
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        if card.ability.extra.money - card.ability.extra.m_minus <= 0 then
+          SMODS.destroy_cards(card, true, nil, true)
+          SMODS.calculate_effect({message = localize("k_eaten_ex"), colour = G.C.MONEY}, card)
+        else
+          card.ability.extra.money = card.ability.extra.money - card.ability.extra.m_minus
+          SMODS.calculate_effect({message = localize({
+            type = "variable",
+            key = "tboj_minus_money_var",
+            vars = { 1 }
+          }), colour = G.C.MONEY}, card)
+        end
+        return true
+      end
+    }))
+
+    return card.ability.extra.money
+  end,
+  attributes = {"food"}
+}
+
+-- Suplex
+-- Bag of Crafting
+-- Flip
 -- Lemegeton
 TBOJ.Active {
   key = "lemegeton",

@@ -961,6 +961,15 @@ return {
           "to be {C:attention}rerolled"
         }
       },
+      j_tboj_supper = {
+        name = "Supper",
+        text = {
+          "Earn {C:money}$#1#{} at",
+          "end of round,",
+          "loses {C:money}$#2#{} per",
+          "round played"
+        },
+      },
       j_tboj_ibs = {
         name = "IBS",
         text = {
@@ -1408,7 +1417,8 @@ return {
     v_dictionary = {  
       tboj_percent = "#1#%",
       tboj_plus_hand_size_var = "+#1# Hand Size",
-      tboj_minus_luck_var = "-#1# Luck"
+      tboj_minus_luck_var = "-#1# Luck",
+      tboj_minus_money_var = "-$#1#"
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},
