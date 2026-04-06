@@ -397,6 +397,13 @@ return {
           "{C:inactive}(Must have room)"
         }
       },
+      j_tboj_transcendence = {
+        name = "Transcendence",
+        text = {
+          "Destroy last {C:attention}#1#{} drawn",
+          "cards at end of round"
+        }
+      },
       j_tboj_breakfast = {
         name = "Breakfast",
         text = {
