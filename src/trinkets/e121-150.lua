@@ -102,4 +102,5 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"tboj_worm"}
 }
