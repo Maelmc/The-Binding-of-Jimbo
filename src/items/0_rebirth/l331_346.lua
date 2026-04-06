@@ -89,3 +89,43 @@ SMODS.Joker {
 -- Match Book
 -- Synthoil
 -- A Snack
+SMODS.Joker {
+  key = "a_snack",
+  pos = {x = 0, y = 23},
+  config = {extra = {num = 4, num_mod = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.num, card.ability.extra.num_mod}}
+  end,
+  rarity = 2,
+  cost = 4,
+  atlas = "jokers",
+  blueprint_compat = false,
+  eternal_compat = true,
+  perishable_compat = true,
+  calculate = function(self, card, context)
+    if context.mod_probability and not context.blueprint then
+      return {
+        numerator = context.numerator + card.ability.extra.num
+      }
+    end
+
+    if context.pseudorandom_result and context.result then
+      if card.ability.extra.num - card.ability.extra.num_mod <= 0 then
+        SMODS.destroy_cards(card, nil, nil, true)
+        return {
+          message = localize("k_eaten_ex"),
+          colour = G.C.GREEN
+        }
+      else
+        card.ability.extra.num = card.ability.extra.num - card.ability.extra.num_mod
+        SMODS.calculate_effect({message = localize({
+          type = "variable",
+          key = "tboj_minus_luck_var",
+          vars = { 1 }
+        }), colour = G.C.GREEN}, card)
+        return nil, true
+      end
+    end
+  end,
+  attributes = {"food"}
+}

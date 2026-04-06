@@ -748,6 +748,14 @@ return {
           "{C:blue}+#1#{} hands"
         }
       },
+      j_tboj_a_snack = {
+        name = "A Snack",
+        text = {
+          "Adds {C:attention}#1#{} to all {C:attention}listed",
+          "{C:green,E:1,S:1.1}probabilities{}, {C:attention}-#2#{} when",
+          "a probability succeeds"
+        } 
+      },
       j_tboj_holy_light = {
         name = "Holy Light",
         text = {
@@ -914,6 +922,15 @@ return {
           "resets at end of round",
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
+      },
+      j_tboj_revelation = {
+        name = "Revelation",
+        text = {
+          "This Joker gains {X:mult,C:white}X#1#{} Mult",
+          "for each card {C:attention}drawn{},",
+          "resets at end of round",
+          "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+        },
       },
       j_tboj_fruity_plum = {
           name = "Fruity Plum",
@@ -1391,6 +1408,7 @@ return {
     v_dictionary = {  
       tboj_percent = "#1#%",
       tboj_plus_hand_size_var = "+#1# Hand Size",
+      tboj_minus_luck_var = "-#1# Luck"
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},
