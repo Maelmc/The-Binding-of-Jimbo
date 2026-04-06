@@ -1,6 +1,20 @@
 return {
   descriptions = {
     tboj_active = {
+      active_tboj_the_bible = {
+        name = "The Bible",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "{C:attention}+#3#{} hand size",
+            "this round"
+          }
+        }
+      },
       active_tboj_the_book_of_belial = {
         name = "The Book of Belial",
         text = {
@@ -1359,6 +1373,7 @@ return {
     },
     v_dictionary = {  
       tboj_percent = "#1#%",
+      tboj_plus_hand_size_var = "+#1# Hand Size",
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},

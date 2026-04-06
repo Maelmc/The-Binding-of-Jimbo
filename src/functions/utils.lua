@@ -169,7 +169,7 @@ function TBOJ.get_random_key(args)
     local elem, _ = pseudorandom_element(candidates, pseudoseed(seed))
     return elem
   elseif set == "Joker" then return "j_tboj_breakfast"
-  elseif set == "tboj_active" then return "active_tboj_the_book_of_belial"
+  elseif set == "tboj_active" then return "active_tboj_the_d6"
   elseif set == "tboj_trinket" then return "trinket_tboj_swallowed_penny"
   elseif SMODS.ObjectTypes[set] and SMODS.ObjectTypes[set].default and G.P_CENTERS[SMODS.ObjectTypes[set].default] then return SMODS.ObjectTypes[set].default
   end
