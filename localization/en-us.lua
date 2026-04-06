@@ -635,6 +635,14 @@ return {
           "give {C:white,X:mult}X#1#{} Mult"
         }
       },
+      j_tboj_dead_dove = {
+        name = "Dead Dove",
+        text = {
+          "Create a {C:spectral}Spectral{} card",
+          "every {C:attention}#1# {C:inactive}[#2#]{} card drawn",
+          "during a {C:attention}Blind"
+        }
+      },
       j_tboj_monstro_lung = {
         name = "Monstro's Lung",
         text = {
