@@ -1,6 +1,20 @@
 return {
   descriptions = {
     tboj_active = {
+      active_tboj_the_bible = {
+        name = "The Bible",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "{C:attention}+#3#{} hand size",
+            "this round"
+          }
+        }
+      },
       active_tboj_the_book_of_belial = {
         name = "The Book of Belial",
         text = {
@@ -397,6 +411,13 @@ return {
           "{C:inactive}(Must have room)"
         }
       },
+      j_tboj_transcendence = {
+        name = "Transcendence",
+        text = {
+          "Destroy last {C:attention}#1#{} drawn",
+          "cards at end of round"
+        }
+      },
       j_tboj_breakfast = {
         name = "Breakfast",
         text = {
@@ -614,6 +635,14 @@ return {
           "give {C:white,X:mult}X#1#{} Mult"
         }
       },
+      j_tboj_dead_dove = {
+        name = "Dead Dove",
+        text = {
+          "Create a {C:spectral}Spectral{} card",
+          "every {C:attention}#1# {C:inactive}[#2#]{} card drawn",
+          "during a {C:attention}Blind"
+        }
+      },
       j_tboj_monstro_lung = {
         name = "Monstro's Lung",
         text = {
@@ -719,6 +748,14 @@ return {
           "{C:blue}+#1#{} hands"
         }
       },
+      j_tboj_a_snack = {
+        name = "A Snack",
+        text = {
+          "Adds {C:attention}#1#{} to all {C:attention}listed",
+          "{C:green,E:1,S:1.1}probabilities{}, {C:attention}-#2#{} when",
+          "a probability succeeds"
+        } 
+      },
       j_tboj_holy_light = {
         name = "Holy Light",
         text = {
@@ -756,8 +793,10 @@ return {
       j_tboj_dream_catcher = {
         name = "Dream Catcher",
         text = {
-          "The next {C:attention}Boss Blind{} is {C:attention}#1#",
-          "{s:0.8}Prediction might change based on your actions",
+          "The next Ante's",
+          "{C:attention}Boss Blind{} is {C:attention}#1#",
+          "{s:0.8}Prediction might change",
+          "{s:0.8}based on your actions",
         },
       },
       j_tboj_lusty_blood = {
@@ -800,6 +839,15 @@ return {
           "When a played card scores,",
           "{C:green}#1# in #2#{} to create a {C:attention}Pretty Fly",
           "and {C:green}#1# in #2#{} to create a {C:attention}Blue Spider",
+        }
+      },
+      j_tboj_greed_gullet = {
+        name = "Greed's Gullet",
+        text = {
+          "When {C:attention}Blind{} is selected",
+          "gain {C:blue}+1{} Hand for each",
+          "{C:money}$#1#{} you have",
+          "{C:inactive}(Max of #2# Hands at {C:money}$#3#{C:inactive})"
         }
       },
       j_tboj_bozo = {
@@ -875,6 +923,15 @@ return {
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
       },
+      j_tboj_revelation = {
+        name = "Revelation",
+        text = {
+          "This Joker gains {X:mult,C:white}X#1#{} Mult",
+          "for each card {C:attention}drawn{},",
+          "resets at end of round",
+          "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+        },
+      },
       j_tboj_fruity_plum = {
           name = "Fruity Plum",
           text = {
@@ -890,6 +947,7 @@ return {
           "This Joker randomly gains",
           "{C:chips}+#1#{} Chips or {C:mult}+#2#{} Mult when",
           "using a {C:attention}Soul Heart",
+          "or a {C:attention}Black Heart",
           "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips and {C:mult}+#4#{C:inactive} Mult)"
         }
       },
@@ -902,6 +960,15 @@ return {
           "have a {C:green}#1# in #2#{} chance",
           "to be {C:attention}rerolled"
         }
+      },
+      j_tboj_supper = {
+        name = "Supper",
+        text = {
+          "Earn {C:money}$#1#{} at",
+          "end of round,",
+          "loses {C:money}$#2#{} per",
+          "round played"
+        },
       },
       j_tboj_ibs = {
         name = "IBS",
@@ -1322,7 +1389,7 @@ return {
       tboj_opened_ex = "Opened!",
       tboj_lucky_ex = "Lucky!",
       tboj_unknown = "Unknown",
-      tboj_acquire_to_reveal = "Acquire to reveal",
+      tboj_acquire_to_reveal = "[Acquire to reveal]",
       tboj_spiders_ex = "Spiders!",
       tboj_flies_ex = "Flies!",
       tboj_oops_dot = "Oops...",
@@ -1349,6 +1416,9 @@ return {
     },
     v_dictionary = {  
       tboj_percent = "#1#%",
+      tboj_plus_hand_size_var = "+#1# Hand Size",
+      tboj_minus_luck_var = "-#1# Luck",
+      tboj_minus_money_var = "-$#1#"
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},

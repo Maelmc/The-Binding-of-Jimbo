@@ -66,8 +66,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  spider = true,
-  fly = true
+  attributes = {"tboj_fly", "tboj_spider"}
 }
 
 -- Eye of Belial
@@ -115,8 +114,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  devil = true,
-  angel = true,
+  attributes = {"tboj_angel", "tboj_devil"}
 }
 
 -- Pause

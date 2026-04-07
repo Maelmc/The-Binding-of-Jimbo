@@ -7,7 +7,7 @@ SMODS.Joker {
     if card.area and card.area == G.jokers then
       local other_joker
       for i = 1, #G.jokers.cards do
-        if G.jokers.cards[i] == card and G.jokers.cards[i + 1] and G.jokers.cards[i + 1].config.center.familiar then
+        if G.jokers.cards[i] == card and G.jokers.cards[i + 1] and G.jokers.cards[i + 1]:has_attribute("tboj_familiar") then
           other_joker = G.jokers.cards[i + 1]
         end
       end
@@ -39,7 +39,7 @@ SMODS.Joker {
   calculate = function(self, card, context)
     local other_joker = nil
     for i = 1, #G.jokers.cards do
-      if G.jokers.cards[i] == card and G.jokers.cards[i + 1] and G.jokers.cards[i + 1].config.center.familiar then
+      if G.jokers.cards[i] == card and G.jokers.cards[i + 1] and G.jokers.cards[i + 1]:has_attribute("tboj_familiar") then
         other_joker = G.jokers.cards[i + 1] 
       end
     end
@@ -52,5 +52,5 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true,
+  attributes = {"tboj_familiar"}
 }

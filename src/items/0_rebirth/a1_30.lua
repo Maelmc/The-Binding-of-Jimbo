@@ -166,7 +166,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  angel = true,
+  attributes = {"tboj_angel"}
 }
 
 -- Brother Bobby
@@ -194,7 +194,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true
+  attributes = {"tboj_familiar"}
 }
 
 -- Skatole
@@ -243,7 +243,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  poop = true,
+  attributes = {"tboj_poop"},
 }
 
 -- Halo of Flies
@@ -278,7 +278,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  fly = true,
+  attributes = {"tboj_fly"}
 }
 
 -- 1up!
@@ -380,6 +380,65 @@ SMODS.Joker {
 }
 
 -- Transcendence
+SMODS.Joker {
+  key = "transcendence",
+  pos = {x = 4, y = 1},
+  config = {extra = {last = 2, curr_id = 0}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = { card.ability.extra.last }}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.setting_blind then
+      card.ability.extra.curr_id = 0
+      for _, v in pairs(G.playing_cards) do
+        v.tboj_transcendence = nil
+      end
+    end
+
+    if context.hand_drawn  then
+      for _, v in ipairs(context.hand_drawn) do
+        v.tboj_transcendence = card.ability.extra.curr_id
+        card.ability.extra.curr_id = card.ability.extra.curr_id + 1
+      end
+    end
+
+    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+      for _ = 1, card.ability.extra.last do
+        local target
+        local curr_max = -1
+        for _, v in pairs(G.playing_cards) do
+          if not v.getting_sliced and v.tboj_transcendence and v.tboj_transcendence > curr_max then
+            curr_max = v.tboj_transcendence
+            target = v
+          end
+        end
+        if target then
+          SMODS.destroy_cards(target)
+        end
+      end
+      card.ability.extra.curr_id = 0
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  remove_from_deck = function (self, card, from_debuff)
+    if not from_debuff then
+      if #SMODS.find_card("j_tboj_transcendence") == 1 then
+        for _, v in pairs(G.playing_cards) do
+          v.tboj_transcendence = nil
+        end
+      end
+    end
+  end
+}
+
 -- The Compass
 -- Lunch
 -- Dinner
@@ -402,7 +461,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"food"}
 }
 
 -- Rotten Meat

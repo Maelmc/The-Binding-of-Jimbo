@@ -62,5 +62,47 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
+
+-- Eucharist
+-- Sack of Sacks
+-- Greed's Gullet
+SMODS.Joker {
+  key = "greed_gullet",
+  pos = {x = 5, y = 33},
+  config = {extra = {every = 100, max = 10}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.every, card.ability.extra.max, card.ability.extra.every * card.ability.extra.max}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.setting_blind then
+      local bp = context.blueprint_card
+      G.E_MANAGER:add_event(Event({
+        func = function()
+          local hands = math.min(card.ability.extra.max,math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.every))
+          if hands >= 1 then
+            ease_hands_played(hands)
+            SMODS.calculate_effect(
+              { message = localize { type = 'variable', key = 'a_hands', vars = { hands } } },
+              bp or card)
+          end
+          return true
+        end
+      }))
+      return nil, true
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+}
+
+-- Large Zit
+-- Little Horn

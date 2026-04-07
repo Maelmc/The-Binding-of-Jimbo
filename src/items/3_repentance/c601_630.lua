@@ -106,7 +106,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  angel = true,
+  attributes = {"tboj_angel"}
 }
 
 -- Sharp Key

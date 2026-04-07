@@ -25,7 +25,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true,
+  attributes = {"tboj_devil"}
 }
 
 -- Infamy
@@ -200,8 +200,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true,
-  devil = true
+  attributes = {"tboj_devil", "tboj_familiar"}
 }
 
 -- Leech

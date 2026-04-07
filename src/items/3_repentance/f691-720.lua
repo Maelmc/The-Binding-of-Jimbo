@@ -30,16 +30,59 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
 
--- many
+-- Dark Arts
+-- Abyss
+-- Supper
+SMODS.Joker {
+  key = "supper",
+  pos = { x = 1, y = 47 },
+  config = { extra = { money = 6, m_minus = 1 } },
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.money, card.ability.extra.m_minus } }
+  end,
+  rarity = 1,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = false,
+  calc_dollar_bonus = function(self, card)
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        if card.ability.extra.money - card.ability.extra.m_minus <= 0 then
+          SMODS.destroy_cards(card, true, nil, true)
+          SMODS.calculate_effect({message = localize("k_eaten_ex"), colour = G.C.MONEY}, card)
+        else
+          card.ability.extra.money = card.ability.extra.money - card.ability.extra.m_minus
+          SMODS.calculate_effect({message = localize({
+            type = "variable",
+            key = "tboj_minus_money_var",
+            vars = { 1 }
+          }), colour = G.C.MONEY}, card)
+        end
+        return true
+      end
+    }))
+
+    return card.ability.extra.money
+  end,
+  attributes = {"food"}
+}
+
+-- Suplex
+-- Bag of Crafting
+-- Flip
 -- Lemegeton
 TBOJ.Active {
   key = "lemegeton",
   pos = { x = 6, y = 47 },
   cost = 8,
-  config = {extra = {max_charge = 3, curr_charge = 3}},
+  config = {extra = {max_charge = 6, curr_charge = 6}},
   loc_vars = function(self, info_queue, card)
     if not card.edition or (card.edition and not card.edition.negative) then
       info_queue[#info_queue+1] = G.P_CENTERS.e_negative
@@ -70,8 +113,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  devil = true,
-  book = true,
+  attributes = {"tboj_book", "tboj_devil"}
 }
 
 -- Spindown Dice = Spectral
@@ -245,7 +287,7 @@ SMODS.Joker {
 
     desc_nodes[#desc_nodes+1] = {{n=G.UIT.C, config = {align = "tl", scale = 1.0, colour = G.C.UI.TEXT_LIGHT, padding = 0.05}, nodes = to_replace}}
   end,
-  poop = true,
+  attributes = {"tboj_poop"},
 }
 
 -- Hemoptysis

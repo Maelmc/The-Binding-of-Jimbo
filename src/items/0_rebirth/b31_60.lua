@@ -1,6 +1,38 @@
 -- Mom's Lipstick
 -- Wire Coat Hanger
 -- The Bible
+TBOJ.Active {
+  key = "the_bible",
+  pos = { x = 2, y = 2 },
+  cost = 4,
+  config = {extra = {h_size = 2, max_charge = 2, curr_charge = 2}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.h_size}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.STATE == G.STATES.SELECTING_HAND
+  end,
+  use = function(self, card, area, copier)
+    G.hand:change_size(card.ability.extra.h_size)
+    G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.h_size
+    SMODS.calculate_effect({message = localize({
+      type = "variable",
+      key = "tboj_plus_hand_size_var",
+      vars = { card.ability.extra.h_size },
+    })}, card)
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {"tboj_book", "tboj_angel"}
+}
+
 -- The Book of Belial
 TBOJ.Active {
   key = "the_book_of_belial",
@@ -31,8 +63,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  devil = true,
-  book = true,
+  attributes = {"tboj_book", "tboj_devil"}
 }
 
 -- The Necronomicon
@@ -56,7 +87,14 @@ TBOJ.Active {
   use = function(self, card, area, copier)
     TBOJ.juice_flip_highlighted(card)
     for i = 1, #G.hand.highlighted do
-      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() G.hand.highlighted[i]:set_ability("m_tboj_poop");return true end }))
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.1,
+        func = function()
+          G.hand.highlighted[i]:set_ability("m_tboj_poop")
+          return true
+        end
+      }))
     end 
     TBOJ.juice_flip_highlighted(card, true)
   end,
@@ -66,7 +104,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  poop = true,
+  attributes = {"tboj_poop"},
 }
 
 -- Mr. Boom
@@ -197,7 +235,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  devil = true
+  attributes = {"tboj_devil"}
 }
 
 -- Dr. Fetus
@@ -233,8 +271,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  familiar = true,
-  fly = true,
+  attributes = {"tboj_familiar", "tboj_fly"}
 }
 
 -- Book of Shadows

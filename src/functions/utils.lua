@@ -105,7 +105,7 @@ function TBOJ.get_random_key(args)
   local seed = args.seed
   local banned_rarities = args.banned_rarities
   local target_rarities = args.target_rarities
-  local tags = args.tags and (type(args.tags) ~= "table" and {args.tags} or args.tags) or {}
+  local attributes = args.attributes and (type(args.attributes) ~= "table" and {args.attributes} or args.attributes) or nil
   local _rarity = nil
   if set == "Joker" then
     if target_rarities then
@@ -136,17 +136,23 @@ function TBOJ.get_random_key(args)
     and not G.GAME.banned_keys[v.key]
     and (not _rarity or v.rarity == _rarity)
     and not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key))) and not SMODS.showman(v.key)) then
-      local all_tags = true
-      for _, _tag in pairs(tags) do
-        if not v[_tag] then
-          all_tags = false
-          break
+      local all_attributes = true
+      if attributes then
+        if not v.attributes then
+          all_attributes = false
+        else
+          for _, _attribute in pairs(attributes) do
+            if not table.contains(v.attributes, _attribute) then
+              all_attributes = false
+              break
+            end
+          end
         end
       end
-      if all_tags then
+      if all_attributes then
         if v.enhancement_gate then
           if G.playing_cards then
-            for kk, vv in pairs(G.playing_cards) do
+            for _, vv in pairs(G.playing_cards) do
               if SMODS.has_enhancement(vv, v.enhancement_gate) then
                 table.insert(candidates, v.key)
                 break
@@ -163,7 +169,7 @@ function TBOJ.get_random_key(args)
     local elem, _ = pseudorandom_element(candidates, pseudoseed(seed))
     return elem
   elseif set == "Joker" then return "j_tboj_breakfast"
-  elseif set == "tboj_active" then return "active_tboj_the_book_of_belial"
+  elseif set == "tboj_active" then return "active_tboj_the_d6"
   elseif set == "tboj_trinket" then return "trinket_tboj_swallowed_penny"
   elseif SMODS.ObjectTypes[set] and SMODS.ObjectTypes[set].default and G.P_CENTERS[SMODS.ObjectTypes[set].default] then return SMODS.ObjectTypes[set].default
   end

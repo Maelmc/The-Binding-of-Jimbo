@@ -108,6 +108,7 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"tboj_worm"}
 }
 
 -- Wiggle Worm
@@ -126,6 +127,7 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"tboj_worm"}
 }
 
 -- Ring Worm
@@ -145,6 +147,7 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"tboj_worm"}
 }
 
 -- Store Credit
@@ -219,6 +222,7 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"tboj_worm"}
 }
 
 -- Whip Worm

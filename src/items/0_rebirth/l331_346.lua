@@ -20,7 +20,7 @@ SMODS.Joker {
   remove_from_deck = function(self, card, from_debuff)
     G.hand:change_size(-card.ability.extra.h_size)
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
 
 -- The Body
@@ -45,7 +45,7 @@ SMODS.Joker {
     G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.d_size
     ease_discard(-card.ability.extra.d_size)
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
 
 -- The Soul
@@ -75,7 +75,7 @@ SMODS.Joker {
       ease_hands_played(-to_decrease)
     end
   end,
-  angel = true
+  attributes = {"tboj_angel"}
 }
 
 -- Dead Onion
@@ -89,3 +89,43 @@ SMODS.Joker {
 -- Match Book
 -- Synthoil
 -- A Snack
+SMODS.Joker {
+  key = "a_snack",
+  pos = {x = 0, y = 23},
+  config = {extra = {num = 4, num_mod = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.num, card.ability.extra.num_mod}}
+  end,
+  rarity = 2,
+  cost = 4,
+  atlas = "jokers",
+  blueprint_compat = false,
+  eternal_compat = false,
+  perishable_compat = true,
+  calculate = function(self, card, context)
+    if context.mod_probability and not context.blueprint then
+      return {
+        numerator = context.numerator + card.ability.extra.num
+      }
+    end
+
+    if context.pseudorandom_result and context.result then
+      if card.ability.extra.num - card.ability.extra.num_mod <= 0 then
+        SMODS.destroy_cards(card, true, nil, true)
+        return {
+          message = localize("k_eaten_ex"),
+          colour = G.C.GREEN
+        }
+      else
+        card.ability.extra.num = card.ability.extra.num - card.ability.extra.num_mod
+        SMODS.calculate_effect({message = localize({
+          type = "variable",
+          key = "tboj_minus_luck_var",
+          vars = { 1 }
+        }), colour = G.C.GREEN}, card)
+        return nil, true
+      end
+    end
+  end,
+  attributes = {"food"}
+}
