@@ -198,3 +198,44 @@ SMODS.Blind {
     return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_greed_defeated
   end
 }
+
+SMODS.Blind {
+  key = "sloth",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("A3D337"),
+  pos = { x = 0, y = 14 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  set_blind = function(self)
+    ease_hands_played(-1)
+    blind:juice_up()
+  end,
+  defeat = function(self)
+    G.GAME.modifiers.tboj_sloth_defeated = true
+  end,
+}
+
+SMODS.Blind {
+  key = "super_sloth",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("A3D337"),
+  pos = { x = 0, y = 15 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  set_blind = function(self)
+    ease_hands_played(-1)
+    ease_discard(-1)
+    G.GAME.blind:juice_up()
+  end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_sloth_defeated
+  end
+}

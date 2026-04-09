@@ -364,6 +364,19 @@ return {
           "or hand played",
         }, 
       },
+      bl_tboj_sloth = {
+        name = "Sloth",
+        text = {
+          "-1 Hand",
+        }, 
+      },
+      bl_tboj_super_sloth = {
+        name = "Super Sloth",
+        text = {
+          "-1 Hand",
+          "-1 Discard"
+        }, 
+      },
     },
     Enhanced = {
       m_tboj_poop = {

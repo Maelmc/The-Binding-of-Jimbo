@@ -7,7 +7,7 @@ SMODS.Stake {
       applied_stakes = {mod = false}
     },
     modifiers = function()
-      G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
+      G.GAME.modifiers.tboj_more_sins = true
     end,
     pos = {x = 0, y = 0},
     sticker_pos = {x = 0, y = 0},
