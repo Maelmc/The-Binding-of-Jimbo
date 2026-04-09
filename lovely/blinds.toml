@@ -13,7 +13,7 @@ position = 'before'
 match_indent = true
 payload = '''
 --G.GAME.round_resets.blind_choices.Small = TBOJ.get_new_small()
---G.GAME.round_resets.blind_choices.Big = TBOJ.get_new_big()
+G.GAME.round_resets.blind_choices.Big = TBOJ.get_new_big()
 '''
 
 # Add Custom Small/Big Blinds
@@ -27,5 +27,34 @@ self.GAME.round_resets.blind_choices.Boss = get_new_boss()
 '''
 payload = '''
 --self.GAME.round_resets.blind_choices.Small = TBOJ.get_new_small()
---self.GAME.round_resets.blind_choices.Big = TBOJ.get_new_big()
+self.GAME.round_resets.blind_choices.Big = TBOJ.get_new_big()
 '''
+
+# Thanks Emma for the following 3 patches
+# end_round / new_round
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then"
+position = "at"
+match_indent = true
+payload = "if G.GAME.round_resets.blind_states.Small == 'Current' then"
+times = 2
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then"
+position = "at"
+match_indent = true
+payload = "elseif G.GAME.round_resets.blind_states.Big == 'Current' then"
+times = 2
+
+# ease_background_colour_blind
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "if v.boss.showdown then"
+position = "at"
+payload = "if v.boss and v.boss.showdown then"
+match_indent = true

@@ -309,6 +309,61 @@ return {
           "hand or discard"
         }, 
       },
+      bl_tboj_envy = {
+        name = "Envy",
+        text = {
+          "When defeated,",
+          "fight again at",
+          "10% Blind Size"
+        }, 
+      },
+      bl_tboj_super_envy = {
+        name = "Super Envy",
+        text = {
+          "When defeated,",
+          "fight again at",
+          "25% Blind Size"
+        }, 
+      },
+      bl_tboj_gluttony = {
+        name = "Gluttony",
+        text = {
+          "Extra large blind",
+        }, 
+      },
+      bl_tboj_super_gluttony = {
+        name = "Super Gluttony",
+        text = {
+          "Extra large blind",
+        }, 
+      },
+      bl_tboj_wrath = {
+        name = "Wrath",
+        text = {
+          "X0.75 Base Mult",
+        }, 
+      },
+      bl_tboj_super_wrath = {
+        name = "Super Wrath",
+        text = {
+          "X0.75 Base",
+          "Chips and Mult"
+        }, 
+      },
+      bl_tboj_greed = {
+        name = "Greed",
+        text = {
+          "-$1 per",
+          "hand played",
+        }, 
+      },
+      bl_tboj_super_greed = {
+        name = "Super Greed",
+        text = {
+          "-$1 per discard",
+          "or hand played",
+        }, 
+      },
     },
     Enhanced = {
       m_tboj_poop = {

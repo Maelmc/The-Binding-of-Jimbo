@@ -1,0 +1,200 @@
+SMODS.Blind {
+  key = "envy",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("BBBBBB"),
+  pos = { x = 0, y = 3 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  calculate = function(self, blind, context)
+    if not blind.disabled then
+      if G.GAME.chips >= G.GAME.blind.chips then
+        blind.triggered = true
+        G.GAME.chips = 0
+        TBOJ.modify_blind_size({mult = 0.1, source = blind})
+        blind:disable()
+      end
+    end
+  end,
+  defeat = function(self)
+    G.GAME.modifiers.tboj_envy_defeated = true
+  end,
+}
+
+SMODS.Blind {
+  key = "super_envy",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("8575E3"),
+  pos = { x = 0, y = 4 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  calculate = function(self, blind, context)
+    if not blind.disabled then
+      if G.GAME.chips >= G.GAME.blind.chips then
+        blind.triggered = true
+        G.GAME.chips = 0
+        TBOJ.modify_blind_size({mult = 0.25, source = blind})
+        blind:disable()
+      end
+    end
+  end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_envy_defeated
+  end
+}
+
+SMODS.Blind {
+  key = "gluttony",
+  dollars = 4,
+  mult = 2,
+  big = true,
+  boss_colour = G.C.TBOJ.MOD_COLOR,
+  pos = { x = 0, y = 5 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  defeat = function(self)
+    G.GAME.modifiers.tboj_glutonny_defeated = true
+  end,
+}
+
+SMODS.Blind {
+  key = "super_gluttony",
+  dollars = 4,
+  mult = 3,
+  big = true,
+  boss_colour = G.C.TBOJ.MOD_COLOR,
+  pos = { x = 0, y = 6 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_glutonny_defeated
+  end
+}
+
+SMODS.Blind {
+  key = "wrath",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("BBBBBB"),
+  pos = { x = 0, y = 7 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  calculate = function(self, blind, context)
+    if not blind.disabled then
+      if context.modify_hand then
+          blind.triggered = true -- This won't trigger Matador in this context due to a Vanilla bug (a workaround is setting it in context.debuff_hand)
+          mult = mod_mult(math.max(math.floor(mult * 0.75 + 0.5), 1))
+          update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
+        end
+    end
+  end,
+  defeat = function(self)
+    G.GAME.modifiers.tboj_wrath_defeated = true
+  end,
+}
+
+SMODS.Blind {
+  key = "super_wrath",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("7A7A7A"),
+  pos = { x = 0, y = 8 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  calculate = function(self, blind, context)
+    if not blind.disabled then
+      if context.modify_hand then
+          blind.triggered = true -- This won't trigger Matador in this context due to a Vanilla bug (a workaround is setting it in context.debuff_hand)
+          mult = mod_mult(math.max(math.floor(mult * 0.75 + 0.5), 1))
+          hand_chips = mod_chips(math.max(math.floor(hand_chips * 0.75 + 0.5), 0))
+          update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
+        end
+    end
+  end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_wrath_defeated
+  end
+}
+
+SMODS.Blind {
+  key = "greed",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("DFCB00"),
+  pos = { x = 0, y = 14 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  calculate = function(self, blind, context)
+    if not blind.disabled then
+      if context.press_play then
+        blind.triggered = true
+        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 1
+        G.E_MANAGER:add_event(Event({
+          func = function()
+            G.GAME.dollar_buffer = 0
+            return true
+          end
+        }))
+        return {
+          dollars = -1
+        }
+      end
+    end
+  end,
+  defeat = function(self)
+    G.GAME.modifiers.tboj_greed_defeated = true
+  end,
+}
+
+SMODS.Blind {
+  key = "super_greed",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("DFCB00"),
+  pos = { x = 0, y = 15 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  calculate = function(self, blind, context)
+    if not blind.disabled then
+      if context.press_play or (context.pre_discard and not context.hook) then
+        blind.triggered = true
+        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 1
+        G.E_MANAGER:add_event(Event({
+          func = function()
+            G.GAME.dollar_buffer = 0
+            return true
+          end
+        }))
+        return {
+          dollars = -1
+        }
+      end
+    end
+  end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_greed_defeated
+  end
+}
