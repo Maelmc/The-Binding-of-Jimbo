@@ -350,17 +350,31 @@ return {
           "Chips and Mult"
         }, 
       },
+      bl_tboj_pride = {
+        name = "Pride",
+        text = {
+          "Must play a common rank",
+          "with the previous hand"
+        }, 
+      },
+      bl_tboj_super_pride = {
+        name = "Super Pride",
+        text = {
+          "Must play 2 common ranks",
+          "with the previous hand"
+        }, 
+      },
       bl_tboj_greed = {
         name = "Greed",
         text = {
-          "-$1 per",
+          "-$2 per",
           "hand played",
         }, 
       },
       bl_tboj_super_greed = {
         name = "Super Greed",
         text = {
-          "-$1 per discard",
+          "-$2 per discard",
           "or hand played",
         }, 
       },
@@ -1143,8 +1157,8 @@ return {
         stake_tboj_corpse_stake = {
           name = "Corpse Stake",
           text = {
-            "Required score scales",
-            "faster for each {C:attention}Ante",
+            "{C:attention}Deadly Sins{} appear more often",
+            "{C:attention}Super Deadly Sins{} may appear",
             "{s:0.8}Applies all previous Stakes",
           },
         },

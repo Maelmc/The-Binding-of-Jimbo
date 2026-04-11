@@ -134,6 +134,100 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
+  key = "pride",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("BBBBBB"),
+  pos = { x = 0, y = 9 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  set_blind = function(self)
+    G.GAME.modifiers.tboj_pride = nil
+  end,
+  calculate = function(self, blind, context)
+    if not blind.disabled then
+      if context.before then
+        G.GAME.modifiers.tboj_pride = {}
+        for _, v in ipairs(context.full_hand) do
+          if not SMODS.has_no_rank(v) then
+            local id = tostring(v:get_id())
+            G.GAME.modifiers.tboj_pride[id] = true
+          end
+        end
+      end
+    end
+  end,
+  debuff_hand = function (self, cards, hand, handname, check)
+    if not G.GAME.modifiers.tboj_pride then return false end
+    for _, v in pairs(cards) do
+      local id = tostring(v:get_id())
+      for k, _ in pairs(G.GAME.modifiers.tboj_pride) do
+        if k == id then return false end
+      end
+    end
+    return true
+  end,
+  defeat = function(self)
+    G.GAME.modifiers.tboj_pride_defeated = true
+  end,
+}
+
+SMODS.Blind {
+  key = "super_pride",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss_colour = HEX("E280D8"),
+  pos = { x = 0, y = 10 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  set_blind = function(self)
+    G.GAME.modifiers.tboj_pride = nil
+  end,
+  calculate = function(self, blind, context)
+    if not blind.disabled then
+      if context.before then
+        G.GAME.modifiers.tboj_pride = {}
+        for _, v in ipairs(context.full_hand) do
+          if not SMODS.has_no_rank(v) then
+            local id = tostring(v:get_id())
+            G.GAME.modifiers.tboj_pride[id] = (G.GAME.modifiers.tboj_pride[id] or 0) + 1
+          end
+        end
+      end
+    end
+  end,
+  debuff_hand = function (self, cards, hand, handname, check)
+    if not G.GAME.modifiers.tboj_pride then return false end
+    local common = 0
+    local used = {}
+    for _, v in pairs(cards) do
+      local id = tostring(v:get_id())
+      for k, vv in pairs(G.GAME.modifiers.tboj_pride) do
+        if k == id then
+          if table.contains(used,id) then
+            if vv >= 2 then return false end
+          else
+            common = common + 1
+            if common >= 2 then return false end
+            used[#used+1] = id
+          end
+        end
+      end
+    end
+    return true
+  end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_pride_defeated
+  end
+}
+
+SMODS.Blind {
   key = "greed",
   dollars = 4,
   mult = 1.5,
@@ -148,7 +242,7 @@ SMODS.Blind {
     if not blind.disabled then
       if context.press_play then
         blind.triggered = true
-        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 1
+        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 2
         G.E_MANAGER:add_event(Event({
           func = function()
             G.GAME.dollar_buffer = 0
@@ -156,7 +250,7 @@ SMODS.Blind {
           end
         }))
         return {
-          dollars = -1
+          dollars = -2
         }
       end
     end
@@ -181,7 +275,7 @@ SMODS.Blind {
     if not blind.disabled then
       if context.press_play or (context.pre_discard and not context.hook) then
         blind.triggered = true
-        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 1
+        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 2
         G.E_MANAGER:add_event(Event({
           func = function()
             G.GAME.dollar_buffer = 0
@@ -189,7 +283,7 @@ SMODS.Blind {
           end
         }))
         return {
-          dollars = -1
+          dollars = -2
         }
       end
     end
@@ -205,7 +299,7 @@ SMODS.Blind {
   mult = 1.5,
   big = true,
   boss_colour = HEX("A3D337"),
-  pos = { x = 0, y = 14 },
+  pos = { x = 0, y = 16 },
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
@@ -225,7 +319,7 @@ SMODS.Blind {
   mult = 1.5,
   big = true,
   boss_colour = HEX("A3D337"),
-  pos = { x = 0, y = 15 },
+  pos = { x = 0, y = 17 },
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },

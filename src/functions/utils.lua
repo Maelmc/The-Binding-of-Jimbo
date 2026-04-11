@@ -452,6 +452,7 @@ end
 
 
 function TBOJ.get_new_big()
+  if pseudorandom("big",1,2) == 1 then return "bl_tboj_pride" else return "bl_tboj_super_pride" end
   G.GAME.perscribed_big = G.GAME.perscribed_big or {
   }
   if G.GAME.perscribed_big and G.GAME.perscribed_big[G.GAME.round_resets.ante] then 
@@ -463,8 +464,14 @@ function TBOJ.get_new_big()
   if G.FORCE_BIG then return G.FORCE_BIG end
 
   if G.GAME.modifiers.tboj_more_sins then
-    if pseudorandom("big",1,2) > 1 then return "bl_big" end
-  elseif pseudorandom("big",1,4) > 1 then return "bl_big" end
+    if pseudorandom("big",1,3) == 1 then -- 66% for sin under corpse+ stake
+      G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
+      return "bl_big"
+    end
+  elseif pseudorandom("big",1,4) > 1 then --25% for sin
+    G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
+    return "bl_big"
+  end
   
   local eligible_big = {}
   for k, v in pairs(G.P_BLINDS) do
