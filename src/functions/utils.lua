@@ -452,7 +452,7 @@ end
 
 
 function TBOJ.get_new_big()
-  if pseudorandom("big",1,2) == 1 then return "bl_tboj_pride" else return "bl_tboj_super_pride" end
+  --if pseudorandom("big",1,2) == 1 then return "bl_tboj_pride" else return "bl_tboj_super_pride" end
   G.GAME.perscribed_big = G.GAME.perscribed_big or {
   }
   if G.GAME.perscribed_big and G.GAME.perscribed_big[G.GAME.round_resets.ante] then 

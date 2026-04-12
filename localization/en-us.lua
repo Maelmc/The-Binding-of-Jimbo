@@ -285,6 +285,33 @@ return {
           "Start with {C:attention,T:active_tboj_the_d6}The D6"
         }
       },
+      b_tboj_cain = {
+        name = "Cain Deck",
+        text = {
+          "Doubles all {C:attention}listed",
+          "{C:green,E:1,S:1.1}probabilities",
+          "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}2 in 6{C:inactive})",
+        }
+      },
+      b_tboj_judas = {
+        name = "Judas Deck",
+        text = {
+          "Played cards",
+          "permanently gain",
+          "{C:mult}#1#{} Mult before scoring,",
+          "{C:blue}#2#{} hand every round"
+        }
+      },
+      b_tboj_keeper = {
+        name = "Keeper Deck",
+        text = {
+          "Start with extra {C:money}$#1#{} and",
+          "{C:blue}#2#{} hands every round.",
+          "When {C:attention}Blind{} is selected, gain",
+          "{C:blue}#3#{} Hand per {C:money}$#4#{} you have",
+          "{C:inactive}(Max of {C:blue}#5#{C:inactive} Hands at {C:money}$#6#{C:inactive})"
+        }
+      },
     },
     Blind = {
       bl_tboj_siren = {
@@ -927,9 +954,9 @@ return {
         name = "Greed's Gullet",
         text = {
           "When {C:attention}Blind{} is selected",
-          "gain {C:blue}+1{} Hand for each",
+          "gain {C:blue}+1{} Hand per",
           "{C:money}$#1#{} you have",
-          "{C:inactive}(Max of #2# Hands at {C:money}$#3#{C:inactive})"
+          "{C:inactive}(Max of {C:blue}#2#{C:inactive} Hands at {C:money}$#3#{C:inactive})"
         }
       },
       j_tboj_bozo = {
@@ -1267,7 +1294,7 @@ return {
         text = {
           "Adds {C:attention}#1#{} to all {C:attention}listed",
           "{C:green,E:1,S:1.1}probabilities",
-          "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}2 in 6{C:inactive})",
+          "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}#2# in 6{C:inactive})",
         }
       },
       trinket_tboj_golden_horse_shoe = {

@@ -84,7 +84,7 @@ end
 
 bgt = Blind.get_type
 function Blind:get_type()
-  if self.small then return "Small" end
-  if self.big then return "Big" end
+  if self.config and self.config.blind and self.config.blind.small then return "Small" end
+  if self.config and self.config.blind and self.config.blind.big then return "Big" end
   return bgt(self)
 end
