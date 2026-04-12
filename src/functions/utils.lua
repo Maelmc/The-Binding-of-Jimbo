@@ -449,3 +449,74 @@ function TBOJ.predict_next_boss()
   G.GAME.round_resets.ante = real_ante
   return boss
 end
+
+
+function TBOJ.get_new_big()
+  G.GAME.perscribed_big = G.GAME.perscribed_big or {}
+  if G.GAME.perscribed_big and G.GAME.perscribed_big[G.GAME.round_resets.ante] then 
+    local ret_big = G.GAME.perscribed_big[G.GAME.round_resets.ante] 
+    G.GAME.perscribed_big[G.GAME.round_resets.ante] = nil
+    G.GAME.bosses_used[ret_big] = G.GAME.bosses_used[ret_big] + 1
+    return ret_big
+  end
+  if G.FORCE_BIG then return G.FORCE_BIG end
+
+  if G.GAME.modifiers.tboj_more_sins then
+    if pseudorandom("big",1,3) == 1 then -- 66% for sin under corpse+ stake
+      G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
+      return "bl_big"
+    end
+  elseif pseudorandom("big",1,4) > 1 then --25% for sin
+    G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
+    return "bl_big"
+  end
+  
+  local eligible_big = {}
+  for k, v in pairs(G.P_BLINDS) do
+    local res, options = SMODS.add_to_pool(v)
+    options = options or {}
+    if not v.big then
+    elseif not v.in_pool then
+      eligible_big[k] = true
+    elseif v.in_pool and type(v.in_pool) == 'function' then
+      eligible_big[k] = res and true or nil
+    end
+  end
+  for k, _ in pairs(G.GAME.banned_keys) do
+    if eligible_big[k] then eligible_big[k] = nil end
+  end
+
+  local min_use
+  for k, v in pairs(G.GAME.bosses_used) do
+    if eligible_big[k] then
+      eligible_big[k] = v
+      if not min_use or eligible_big[k] <= min_use then 
+        min_use = eligible_big[k]
+      end
+    end
+  end
+  for k, v in pairs(eligible_big) do
+    if eligible_big[k] then
+      if eligible_big[k] > min_use then 
+        eligible_big[k] = nil
+      end
+    end
+  end
+  local _, big = pseudorandom_element(eligible_big, pseudoseed('big'))
+  G.GAME.bosses_used[big] = G.GAME.bosses_used[big] + 1
+  
+  return big
+end
+
+function TBOJ.modify_blind_size(args)
+  if args.add then
+    G.GAME.blind.chips = G.GAME.blind.chips + args.add
+  end
+  if args.mult then
+    G.GAME.blind.chips = G.GAME.blind.chips * args.mult
+  end
+  if args.source then
+    args.source:juice_up()
+  end
+  G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+end

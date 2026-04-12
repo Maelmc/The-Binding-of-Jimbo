@@ -81,3 +81,10 @@ function get_new_boss()
   if G.GAME.modifiers.tboj_aprils_fool then return "bl_tboj_bloat" end
   return gnb()
 end
+
+bgt = Blind.get_type
+function Blind:get_type()
+  if self.config and self.config.blind and self.config.blind.small then return "Small" end
+  if self.config and self.config.blind and self.config.blind.big then return "Big" end
+  return bgt(self)
+end

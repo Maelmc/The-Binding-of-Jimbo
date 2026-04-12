@@ -285,6 +285,33 @@ return {
           "Start with {C:attention,T:active_tboj_the_d6}The D6"
         }
       },
+      b_tboj_cain = {
+        name = "Cain Deck",
+        text = {
+          "Doubles all {C:attention}listed",
+          "{C:green,E:1,S:1.1}probabilities",
+          "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}2 in 6{C:inactive})",
+        }
+      },
+      b_tboj_judas = {
+        name = "Judas Deck",
+        text = {
+          "Played cards",
+          "permanently gain",
+          "{C:mult}#1#{} Mult before scoring,",
+          "{C:blue}#2#{} hand every round"
+        }
+      },
+      b_tboj_keeper = {
+        name = "Keeper Deck",
+        text = {
+          "Start with extra {C:money}$#1#{} and",
+          "{C:blue}#2#{} hands every round.",
+          "When {C:attention}Blind{} is selected, gain",
+          "{C:blue}#3#{} Hand per {C:money}$#4#{} you have",
+          "{C:inactive}(Max of {C:blue}#5#{C:inactive} Hands at {C:money}$#6#{C:inactive})"
+        }
+      },
     },
     Blind = {
       bl_tboj_siren = {
@@ -307,6 +334,102 @@ return {
           "Playing or discarding",
           "costs an additional",
           "hand or discard"
+        }, 
+      },
+      bl_tboj_envy = {
+        name = "Envy",
+        text = {
+          "When defeated,",
+          "fight again at",
+          "10% Blind Size"
+        }, 
+      },
+      bl_tboj_super_envy = {
+        name = "Super Envy",
+        text = {
+          "When defeated,",
+          "fight again at",
+          "25% Blind Size"
+        }, 
+      },
+      bl_tboj_gluttony = {
+        name = "Gluttony",
+        text = {
+          "Extra large blind",
+        }, 
+      },
+      bl_tboj_super_gluttony = {
+        name = "Super Gluttony",
+        text = {
+          "Extra large blind",
+        }, 
+      },
+      bl_tboj_wrath = {
+        name = "Wrath",
+        text = {
+          "X0.75 Base Mult",
+        }, 
+      },
+      bl_tboj_super_wrath = {
+        name = "Super Wrath",
+        text = {
+          "X0.75 Base",
+          "Chips and Mult"
+        }, 
+      },
+      bl_tboj_pride = {
+        name = "Pride",
+        text = {
+          "Must play a common rank",
+          "with the previous hand"
+        }, 
+      },
+      bl_tboj_super_pride = {
+        name = "Super Pride",
+        text = {
+          "Must play 2 common ranks",
+          "with the previous hand"
+        }, 
+      },
+      bl_tboj_lust = {
+        name = "Lust",
+        text = {
+          "Must play 2",
+          "or more suits"
+        }, 
+      },
+      bl_tboj_super_lust = {
+        name = "Super Lust",
+        text = {
+          "Must play 3",
+          "or more suits"
+        }, 
+      },
+      bl_tboj_greed = {
+        name = "Greed",
+        text = {
+          "-$2 per",
+          "hand played",
+        }, 
+      },
+      bl_tboj_super_greed = {
+        name = "Super Greed",
+        text = {
+          "-$2 per discard",
+          "or hand played",
+        }, 
+      },
+      bl_tboj_sloth = {
+        name = "Sloth",
+        text = {
+          "-1 Hand",
+        }, 
+      },
+      bl_tboj_super_sloth = {
+        name = "Super Sloth",
+        text = {
+          "-1 Hand",
+          "-1 Discard"
         }, 
       },
     },
@@ -845,9 +968,9 @@ return {
         name = "Greed's Gullet",
         text = {
           "When {C:attention}Blind{} is selected",
-          "gain {C:blue}+1{} Hand for each",
+          "gain {C:blue}+1{} Hand per",
           "{C:money}$#1#{} you have",
-          "{C:inactive}(Max of #2# Hands at {C:money}$#3#{C:inactive})"
+          "{C:inactive}(Max of {C:blue}#2#{C:inactive} Hands at {C:money}$#3#{C:inactive})"
         }
       },
       j_tboj_bozo = {
@@ -1075,8 +1198,8 @@ return {
         stake_tboj_corpse_stake = {
           name = "Corpse Stake",
           text = {
-            "Required score scales",
-            "faster for each {C:attention}Ante",
+            "{C:attention}Deadly Sins{} appear more often",
+            "{C:attention}Super Deadly Sins{} may appear",
             "{s:0.8}Applies all previous Stakes",
           },
         },
@@ -1185,7 +1308,7 @@ return {
         text = {
           "Adds {C:attention}#1#{} to all {C:attention}listed",
           "{C:green,E:1,S:1.1}probabilities",
-          "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}2 in 6{C:inactive})",
+          "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}#2# in 6{C:inactive})",
         }
       },
       trinket_tboj_golden_horse_shoe = {
