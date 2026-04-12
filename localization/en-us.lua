@@ -391,6 +391,20 @@ return {
           "with the previous hand"
         }, 
       },
+      bl_tboj_lust = {
+        name = "Lust",
+        text = {
+          "Must play 2",
+          "or more suits"
+        }, 
+      },
+      bl_tboj_super_lust = {
+        name = "Super Lust",
+        text = {
+          "Must play 3",
+          "or more suits"
+        }, 
+      },
       bl_tboj_greed = {
         name = "Greed",
         text = {

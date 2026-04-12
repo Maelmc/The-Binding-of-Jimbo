@@ -236,6 +236,85 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
+  key = "lust",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss = false,
+  boss_colour = HEX("DB9AE0"),
+  pos = { x = 0, y = 12 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  debuff_hand = function (self, cards, hand, handname, check)
+    local suits = {}
+    local suit_count = 0
+    for i = 1, #cards do
+      if not SMODS.has_any_suit(cards[i]) then
+        for _, v in pairs(SMODS.Suits) do
+          if cards[i]:is_suit(v.key) then
+            suits[v.key] = true
+          end
+        end
+      end
+    end
+    for i = 1, #cards do
+      if SMODS.has_any_suit(cards[i]) then
+        suit_count = suit_count + 1
+      end
+    end
+    for _, _ in pairs(suits) do
+      suit_count = suit_count + 1
+    end
+    return not (suit_count >= 2)
+  end,
+  defeat = function(self)
+    G.GAME.modifiers.tboj_lust_defeated = true
+  end,
+}
+
+SMODS.Blind {
+  key = "super_lust",
+  dollars = 4,
+  mult = 1.5,
+  big = true,
+  boss = false,
+  boss_colour = HEX("DB9AE0"),
+  pos = { x = 0, y = 13 },
+  atlas = "boss_blinds",
+  discovered = false,
+  debuff = { },
+  config = {disabled = false},
+  debuff_hand = function (self, cards, hand, handname, check)
+    local suits = {}
+    local suit_count = 0
+    for i = 1, #cards do
+      if not SMODS.has_any_suit(cards[i]) then
+        for _, v in pairs(SMODS.Suits) do
+          if cards[i]:is_suit(v.key) and not suits[v.key] then
+            suits[v.key] = true
+            break
+          end
+        end
+      end
+    end
+    for i = 1, #cards do
+      if SMODS.has_any_suit(cards[i]) then
+        suit_count = suit_count + 1
+      end
+    end
+    for _, _ in pairs(suits) do
+      suit_count = suit_count + 1
+    end
+    return not (suit_count >= 3)
+  end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_lust_defeated
+  end
+}
+
+SMODS.Blind {
   key = "greed",
   dollars = 4,
   mult = 1.5,
