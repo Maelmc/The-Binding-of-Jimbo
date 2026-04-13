@@ -73,7 +73,7 @@ SMODS.Joker {
   pos = {x = 5, y = 33},
   config = {extra = {every = 100, max = 10}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.every, card.ability.extra.max, card.ability.extra.every * card.ability.extra.max}}
+    return {vars = {card.ability.extra.every, SMODS.signed(card.ability.extra.max), card.ability.extra.every * card.ability.extra.max}}
   end,
   rarity = 2,
   cost = 6,
