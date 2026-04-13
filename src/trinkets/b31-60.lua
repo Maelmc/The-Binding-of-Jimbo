@@ -49,7 +49,7 @@ TBOJ.Trinket {
   pos = { x = 11, y = 2 },
   cost = 4,
   config = {extra = {plus_odds = 1}},
-  loc_vars = function(self, info_queue, center)
+  loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.plus_odds, 1 + card.ability.extra.plus_odds}}
   end,
   calculate = function(self, card, context)
