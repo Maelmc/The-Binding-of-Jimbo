@@ -396,7 +396,7 @@ SMODS.Blind {
   config = {disabled = false},
   set_blind = function(self)
     ease_hands_played(-1)
-    blind:juice_up()
+    G.GAME.blind:juice_up()
   end,
   defeat = function(self)
     G.GAME.modifiers.tboj_sloth_defeated = true
