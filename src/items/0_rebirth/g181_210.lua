@@ -90,3 +90,36 @@ SMODS.Joker {
 
 -- Blood Rights
 -- Guppy's Hairball
+
+-- Mom's Key
+-- Mom's Eyeshadow
+-- Iron Bar
+SMODS.Joker {
+  key = "iron_bar",
+  pos = {x = 5, y = 13},
+  config = {extra = {Xmult_mult = 1.5}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.m_steel
+    return {vars = {card.ability.extra.Xmult_mult}}
+  end,
+  rarity = 2,
+  cost = 7,
+  enhancement_gate = 'm_steel',
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, 'm_steel') then
+      return {
+        x_mult = card.ability.extra.Xmult_multi
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+}
+
+-- Midas' Touch
+-- Humbleing Bundle
