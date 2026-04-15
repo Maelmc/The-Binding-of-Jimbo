@@ -524,18 +524,39 @@ function TBOJ.modify_blind_size(args)
 end
 
 function TBOJ.save_last_hand(context)
-  G.GAME.last_hand = {}
+  G.GAME.tboj_last_full_hand = {}
+  G.GAME.tboj_last_scored_hand = {}
+  context.full_hand = context.full_hand or {}
   for _, v in ipairs(context.full_hand) do
     local id
+    local value
     local suit
     if not SMODS.has_no_rank(v) then
-      id = tostring(v:get_id())
+      id = v:get_id()
+      value = v.base.value
     end
 
     if not SMODS.has_no_suit(v) then
       suit = v.base.suit
     end
 
-    G.GAME.last_hand[#G.GAME.last_hand+1] = {id = id, suit = suit}
+    G.GAME.tboj_last_full_hand[#G.GAME.tboj_last_full_hand+1] = {id = id, value = value, suit = suit}
+  end
+
+  
+  for _, v in ipairs(context.scoring_hand) do
+    local id
+    local value
+    local suit
+    if not SMODS.has_no_rank(v) then
+      id = v:get_id()
+      value = v.base.value
+    end
+
+    if not SMODS.has_no_suit(v) then
+      suit = v.base.suit
+    end
+
+    G.GAME.tboj_last_scored_hand[#G.GAME.tboj_last_scored_hand+1] = {id = id, value = value, suit = suit}
   end
 end

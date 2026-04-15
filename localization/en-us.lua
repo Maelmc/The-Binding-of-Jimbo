@@ -771,6 +771,7 @@ return {
         text = {
           "Played {C:attention}Steel{} cards",
           "give {X:mult,C:white}X#1#{} Mult",
+          "when scored",
         }
       },
       j_tboj_champion_belt = {
@@ -893,6 +894,17 @@ return {
           "{C:green,E:1,S:1.1}probabilities{}, {C:attention}-#2#{} when",
           "a probability succeeds"
         } 
+      },
+      j_tboj_dead_eye = {
+        name = "Dead Eye",
+        text = {
+          "This Joker gains {X:mult,C:white}X#1#{} Mult",
+          "when {C:attention}played{} poker hand contains",
+          "a {C:attention}common rank{} with the {C:attention}previous",
+          "poker hand, otherwise resets",
+          "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
+          "{C:inactive}(Last hand: #3#)",
+        },
       },
       j_tboj_holy_light = {
         name = "Holy Light",
@@ -1538,6 +1550,7 @@ return {
       tboj_white = "White",
       tboj_stone = "Stone",
       tboj_bomb = "Bomb",
+      tboj_play_hand = "Play a hand first",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
