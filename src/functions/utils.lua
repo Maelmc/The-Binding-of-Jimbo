@@ -461,14 +461,16 @@ function TBOJ.get_new_big()
   end
   if G.FORCE_BIG then return G.FORCE_BIG end
 
-  if G.GAME.modifiers.tboj_more_sins then
-    if pseudorandom("big",1,3) == 1 then -- 66% for sin under corpse+ stake
+  if not next(SMODS.find_card("j_tboj_champion_belt")) then
+    if G.GAME.modifiers.tboj_more_sins then
+      if pseudorandom("big",1,3) == 1 then -- 66% for sin under corpse+ stake
+        G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
+        return "bl_big"
+      end
+    elseif pseudorandom("big",1,4) > 1 then --25% for sin
       G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
       return "bl_big"
     end
-  elseif pseudorandom("big",1,4) > 1 then --25% for sin
-    G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
-    return "bl_big"
   end
   
   local eligible_big = {}
@@ -519,4 +521,21 @@ function TBOJ.modify_blind_size(args)
     args.source:juice_up()
   end
   G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+end
+
+function TBOJ.save_last_hand(context)
+  G.GAME.last_hand = {}
+  for _, v in ipairs(context.full_hand) do
+    local id
+    local suit
+    if not SMODS.has_no_rank(v) then
+      id = tostring(v:get_id())
+    end
+
+    if not SMODS.has_no_suit(v) then
+      suit = v.base.suit
+    end
+
+    G.GAME.last_hand[#G.GAME.last_hand+1] = {id = id, suit = suit}
+  end
 end

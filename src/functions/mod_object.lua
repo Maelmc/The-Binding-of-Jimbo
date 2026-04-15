@@ -37,6 +37,7 @@ SMODS.current_mod.calculate = function(self, context)
   -- Change Fruity Plum's suit each hand
   if context.after then
     reset_fruity_plum_card()
+    TBOJ.save_last_hand(context)
   end
 end
 

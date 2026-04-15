@@ -766,6 +766,21 @@ return {
           "during a {C:attention}Blind"
         }
       },
+      j_tboj_iron_bar = {
+        name = "Iron Bar",
+        text = {
+          "Played {C:attention}Steel{} cards",
+          "give {X:mult,C:white}X#1#{} Mult",
+        }
+      },
+      j_tboj_champion_belt = {
+        name = "Champion Belt",
+        text = {
+          "{C:white,X:mult}X#1#{} Mult",
+          "All {C:attention}Big Blinds{} are",
+          "{C:attention}Deadly Sins"
+        }
+      },
       j_tboj_monstro_lung = {
         name = "Monstro's Lung",
         text = {
