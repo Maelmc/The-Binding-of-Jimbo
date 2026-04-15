@@ -1,3 +1,53 @@
+-- Pisces
+-- Eve's Mascara
+-- Judas' Shadow
+SMODS.Joker {
+  key = "judas_shadow",
+  pos = {x = 10, y = 20},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.b_tboj_judas
+    return {vars = {}}
+  end,
+  rarity = 2,
+  cost = 7,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.end_of_round and context.game_over and context.main_eval then
+      if G.GAME.chips / G.GAME.blind.chips >= 0.25 then
+        print("a")
+        G.E_MANAGER:add_event(Event({
+          func = function()
+            G.hand_text_area.blind_chips:juice_up()
+            G.hand_text_area.game_chips:juice_up()
+            play_sound('tarot1')
+            TBOJ.change_deck("b_tboj_judas",true)
+            SMODS.destroy_cards(card,true)
+            return true
+        end
+        }))
+        return {
+          message = localize('k_saved_ex'),
+          saved = localize('tboj_become_judas'),
+          colour = G.C.RED
+        }
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_devil"}
+}
+
+-- Maggy's Bow
+-- Holy Mantle
+
+-- ???'s Only Friend
+-- Samson's Chain
 -- Mongo Baby
 SMODS.Joker {
   key = "mongo_baby",
@@ -54,3 +104,5 @@ SMODS.Joker {
   end,
   attributes = {"tboj_familiar"}
 }
+-- Isaac's Tears
+-- Undefined

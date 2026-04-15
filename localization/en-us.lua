@@ -862,6 +862,16 @@ return {
           "{C:mult}+#1#{} Mult when hand is played"
         }
       },
+      j_tboj_judas_shadow = {
+        name = "Judas' Shadow",
+        text = {
+          "Prevents Death and changes",
+          "deck to {C:attention}Judas Deck",
+          "if chips scored are",
+          "at least {C:attention}25%{} of required chips",
+          "then {C:red}self-destructs"
+        }
+      },
       j_tboj_mongo_baby = {
         name = "Mongo Baby",
         text = {
@@ -1551,6 +1561,7 @@ return {
       tboj_stone = "Stone",
       tboj_bomb = "Bomb",
       tboj_play_hand = "Play a hand first",
+      tboj_become_judas = "You became Judas",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

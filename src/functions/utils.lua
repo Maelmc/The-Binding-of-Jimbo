@@ -560,3 +560,107 @@ function TBOJ.save_last_hand(context)
     G.GAME.tboj_last_scored_hand[#G.GAME.tboj_last_scored_hand+1] = {id = id, value = value, suit = suit}
   end
 end
+
+TBOJ.remove_deck = {
+  ["b_abandoned"] = function()
+    local suits = {"Spades","Hearts","Clubs","Diamonds"}
+    local ranks = {"King","Queen","Jack"}
+    for _, v in pairs(suits) do
+      for _, w in pairs(ranks) do
+        SMODS.add_card {
+          set = "Base",
+          area = G.deck,
+          rank = w,
+          suit = v
+        }
+      end
+    end
+  end,
+  ["b_anaglyph"] = function() end, -- anaglyph is only a calculate function so nothing to remove
+  ["b_black"] = function()
+    G.jokers:change_size(-1)
+    G.GAME.round_resets.hands = G.GAME.round_resets.hands + 1
+    ease_hands_played(1)
+  end,
+  ["b_blue"] = function()
+    G.GAME.round_resets.hands = G.GAME.round_resets.hands - 1
+    ease_hands_played(-1)
+  end,
+  ["b_challenge"] = function() end, -- there's nothing to be done here
+  ["b_checkered"] = function() end, -- this one sucks to do
+  ["b_erratic"] = function() end, -- uuuuuuuuuuuuh
+  ["b_ghost"] = function()
+    G.GAME.spectral_rate = G.GAME.spectral_rate - 2
+  end,
+  ["b_green"] = function()
+    G.GAME.modifiers.money_per_hand = nil
+    G.GAME.modifiers.money_per_discard = nil
+    G.GAME.modifiers.no_interest = nil
+  end,
+  ["b_magic"] = function()
+    --[[for _, v in pairs(G.vouchers.cards) do
+      if v.config.center_key == "v_crystal_ball" then
+        v:unredeem()
+        return
+      end
+    end]] -- doesnt work
+  end,
+  ["b_nebula"] = function()
+    --[[for _, v in pairs(G.vouchers.cards) do
+      if v.config.center_key == "v_telescope" then
+        v:unredeem() -- from spectrallib
+        break
+      end
+    end]] -- doesnt work
+    G.consumeables:change_size(1)
+  end,
+  ["b_painted"] = function()
+    G.jokers:change_size(1)
+    G.hand:change_size(-3)
+  end,
+  ["b_plasma"] = function() end,
+  ["b_red"] = function()
+    G.GAME.round_resets.discards = G.GAME.round_resets.discards - 1
+    ease_discard(-1)
+  end,
+  ["b_yellow"] = function() end,
+  ["b_zodiac"] = function()
+    --[[for _, v in pairs(G.vouchers.cards) do
+      if v.config.center_key == "v_telescope" or v.config.center_key == "v_overstock_norm" or v.config.center_key == "v_tarot_merchant" then
+        v:unredeem() -- from spectrallib
+      end
+    end]] -- doesnt work
+  end,
+}
+
+function TBOJ.add_remove_deck(key,func,override)
+  if (key and type(key) == "string") and (func and type(func) == "function") then
+    if override or not TBOJ.remove_deck[key] then
+      TBOJ.remove_deck[key] = func
+    end
+  end
+end
+
+function TBOJ.change_deck(to,remove_previous)
+  if remove_previous then
+    if TBOJ.remove_deck[G.GAME.selected_back_key.key] then TBOJ.remove_deck[G.GAME.selected_back_key.key]() end
+  end
+
+  local new_deck = G.P_CENTERS[to]
+  G.GAME.selected_back_key = G.P_CENTERS[to]
+  G.GAME.selected_back = Back(new_deck)
+  G.GAME.selected_back:apply_to_run()
+
+  local areas = {G.jokers.cards, G.consumeables.cards, G.actives.cards, G.trinkets.cards, G.deck.cards, G.discard.cards, G.hand.cards, G.play.cards}
+  for _, area in pairs(areas) do
+    for _, v in pairs(area) do
+      local atlas_key = (G.GAME.viewed_back or G.GAME.selected_back) and ((G.GAME.viewed_back or G.GAME.selected_back)[G.SETTINGS.colourblind_option and 'hc_atlas' or 'lc_atlas'] or (G.GAME.viewed_back or G.GAME.selected_back).atlas) or 'centers'
+      v.children.back = SMODS.create_sprite(v.T.x, v.T.y, v.T.w, v.T.h, atlas_key, G.GAME["selected_back"].pos)
+      v.children.back.states.hover = v.states.hover
+      v.children.back.states.click = v.states.click
+      v.children.back.states.drag = v.states.drag
+      v.children.back.states.collide.can = false
+      v.children.back:set_role({major = v, role_type = 'Glued', draw_major = v})
+    end
+  end
+end
