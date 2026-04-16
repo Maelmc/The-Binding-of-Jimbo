@@ -224,7 +224,7 @@ SMODS.Joker {
   blueprint_compat = false,
   calculate = function(self, card, context)
     if context.modify_scoring_hand and not context.blueprint then
-      if table.contains(context.scoring_hand, context.other_card) then
+      if TBOJ.table_contains(context.scoring_hand, context.other_card) then
         return {
           remove_from_hand = true
         }

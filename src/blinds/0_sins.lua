@@ -218,7 +218,7 @@ SMODS.Blind {
       local id = tostring(v:get_id())
       for k, vv in pairs(G.GAME.modifiers.tboj_pride) do
         if k == id then
-          if table.contains(used,id) then
+          if TBOJ.table_contains(used,id) then
             if vv >= 2 then return false end
           else
             common = common + 1

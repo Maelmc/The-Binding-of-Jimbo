@@ -27,14 +27,14 @@ SMODS.Joker {
         if SMODS.has_enhancement(v, "m_glass") and v.area then
           for k, w in ipairs(v.area.cards) do
             if w == v then
-              if v.area.cards[k-1] and not table.contains(context.removed, v.area.cards[k-1]) and not v.area.cards[k-1].getting_sliced then
-                if not table.contains(to_destroy, v.area.cards[k-1]) then
+              if v.area.cards[k-1] and not TBOJ.table_contains(context.removed, v.area.cards[k-1]) and not v.area.cards[k-1].getting_sliced then
+                if not TBOJ.table_contains(to_destroy, v.area.cards[k-1]) then
                   table.insert(to_destroy, v.area.cards[k-1])
                 end
               end
 
-              if v.area.cards[k+1] and not table.contains(context.removed, v.area.cards[k+1]) and not v.area.cards[k+1].getting_sliced then
-                if not table.contains(to_destroy, v.area.cards[k+1]) then
+              if v.area.cards[k+1] and not TBOJ.table_contains(context.removed, v.area.cards[k+1]) and not v.area.cards[k+1].getting_sliced then
+                if not TBOJ.table_contains(to_destroy, v.area.cards[k+1]) then
                   table.insert(to_destroy, v.area.cards[k+1])
                 end
               end

@@ -109,18 +109,18 @@ function TBOJ.get_random_key(args)
   local _rarity = nil
   if set == "Joker" then
     if target_rarities then
-      if (table.contains(target_rarities, "Legendary") or table.contains(target_rarities, 4)) and (#target_rarities == 1 or pseudorandom('soul_'..seed) > 0.997) then
+      if (TBOJ.table_contains(target_rarities, "Legendary") or TBOJ.table_contains(target_rarities, 4)) and (#target_rarities == 1 or pseudorandom('soul_'..seed) > 0.997) then
         _rarity = 4
       else
         while true do
           _rarity = SMODS.poll_rarity(set, "rarity"..seed)
-          if table.contains(target_rarities, _rarity) then break end
+          if TBOJ.table_contains(target_rarities, _rarity) then break end
         end
       end
     elseif banned_rarities then
       while true do
         _rarity = SMODS.poll_rarity(set, "rarity"..seed)
-        if not table.contains(banned_rarities, _rarity) then break end
+        if not TBOJ.table_contains(banned_rarities, _rarity) then break end
       end
     else
       _rarity = SMODS.poll_rarity(set, "rarity"..seed)
@@ -142,7 +142,7 @@ function TBOJ.get_random_key(args)
           all_attributes = false
         else
           for _, _attribute in pairs(attributes) do
-            if not table.contains(v.attributes, _attribute) then
+            if not TBOJ.table_contains(v.attributes, _attribute) then
               all_attributes = false
               break
             end
@@ -175,7 +175,7 @@ function TBOJ.get_random_key(args)
   end
 end
 
-function table.contains(table, element)
+function TBOJ.table_contains(table, element)
   for _, value in pairs(table) do
     if value == element then
       return true
@@ -267,58 +267,6 @@ function TBOJ.juice_flip_highlighted(source, second)
     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound(sound, percent, extra);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true      end }))
   end
   delay(0.2)
-end
-
--- Mostly copied from Visibility's Crystal Geode
-function TBOJ.balance_percent(card, percent)
-  local percentage_mult = mult * percent
-  local percentage_chips = hand_chips * percent
-  mult = mult - math.floor(percentage_mult)
-  hand_chips = hand_chips - math.floor(percentage_chips)
-  local balance = math.floor((percentage_mult + percentage_chips) / 2)
-  mult = mult + balance
-  hand_chips = hand_chips + balance
-  update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})
-  G.E_MANAGER:add_event(Event({
-    delay = 0.6,
-    trigger = 'after',
-    func = (function()
-      --card:juice_up()
-      play_sound('gong', 0.94, 0.3)
-      play_sound('gong', 0.94*1.5, 0.2)
-      play_sound('tarot1', 1.5)
-      ease_colour(G.C.UI_CHIPS, {0.8, 0.45, 0.85, 1})
-      ease_colour(G.C.UI_MULT, {0.8, 0.45, 0.85, 1})
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        delay =  0.8,
-        func = (function() 
-          ease_colour(G.C.UI_CHIPS, G.C.BLUE, 0.8)
-          ease_colour(G.C.UI_MULT, G.C.RED, 0.8)
-          return true
-        end)
-      }))
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        no_delete = true,
-        delay =  1.3,
-        func = (function() 
-          G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3], G.C.BLUE[4]
-          G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED[4]
-          return true
-        end)
-      }))
-      return true
-    end)
-  }))
-  return { 
-    message = localize { type = 'variable', key = 'tboj_percent', vars = { percent } },
-    loc_vars = { percent }, colour =  {0.8, 0.45, 0.85, 1} 
-  }
 end
 
 function TBOJ.id_to_value(id)
@@ -558,157 +506,5 @@ function TBOJ.save_last_hand(context)
     end
 
     G.GAME.tboj_last_scored_hand[#G.GAME.tboj_last_scored_hand+1] = {id = id, value = value, suit = suit}
-  end
-end
-
-TBOJ.remove_deck = {
-  ["b_abandoned"] = function()
-    local suits = {"Spades","Hearts","Clubs","Diamonds"}
-    local ranks = {"King","Queen","Jack"}
-    for _, v in pairs(suits) do
-      for _, w in pairs(ranks) do
-        SMODS.add_card {
-          set = "Base",
-          area = G.deck,
-          rank = w,
-          suit = v
-        }
-      end
-    end
-  end,
-  ["b_anaglyph"] = function() end, -- anaglyph is only a calculate function so nothing to remove
-  ["b_black"] = function()
-    G.jokers:change_size(-1)
-    G.GAME.round_resets.hands = G.GAME.round_resets.hands + 1
-    ease_hands_played(1)
-  end,
-  ["b_blue"] = function()
-    G.GAME.round_resets.hands = G.GAME.round_resets.hands - 1
-    ease_hands_played(-1)
-  end,
-  ["b_challenge"] = function() end, -- there's nothing to be done here
-  ["b_checkered"] = function() end, -- this one sucks to do
-  ["b_erratic"] = function() end, -- uuuuuuuuuuuuh
-  ["b_ghost"] = function()
-    G.GAME.spectral_rate = G.GAME.spectral_rate - 2
-  end,
-  ["b_green"] = function()
-    G.GAME.modifiers.money_per_hand = nil
-    G.GAME.modifiers.money_per_discard = nil
-    G.GAME.modifiers.no_interest = nil
-  end,
-  ["b_magic"] = function()
-    --[[for _, v in pairs(G.vouchers.cards) do
-      if v.config.center_key == "v_crystal_ball" then
-        v:unredeem()
-        return
-      end
-    end]] -- doesnt work
-  end,
-  ["b_nebula"] = function()
-    --[[for _, v in pairs(G.vouchers.cards) do
-      if v.config.center_key == "v_telescope" then
-        v:unredeem() -- from spectrallib
-        break
-      end
-    end]] -- doesnt work
-    G.consumeables:change_size(1)
-  end,
-  ["b_painted"] = function()
-    G.jokers:change_size(1)
-    G.hand:change_size(-3)
-  end,
-  ["b_plasma"] = function() end,
-  ["b_red"] = function()
-    G.GAME.round_resets.discards = G.GAME.round_resets.discards - 1
-    ease_discard(-1)
-  end,
-  ["b_yellow"] = function() end, -- should we remove the extra money?
-  ["b_zodiac"] = function()
-    --[[for _, v in pairs(G.vouchers.cards) do
-      if v.config.center_key == "v_telescope" or v.config.center_key == "v_overstock_norm" or v.config.center_key == "v_tarot_merchant" then
-        v:unredeem() -- from spectrallib
-      end
-    end]] -- doesnt work
-  end,
-}
-
-function TBOJ.add_remove_deck(key,func,override)
-  if (key and type(key) == "string") and (func and type(func) == "function") then
-    if override or not TBOJ.remove_deck[key] then
-      TBOJ.remove_deck[key] = func
-    end
-  end
-end
-
-function TBOJ.change_deck(to,remove_previous)
-  if remove_previous then
-    if TBOJ.remove_deck[G.GAME.selected_back_key.key] then TBOJ.remove_deck[G.GAME.selected_back_key.key]() end
-  end
-
-  local new_deck = G.P_CENTERS[to]
-  G.GAME.selected_back_key = G.P_CENTERS[to]
-  G.GAME.selected_back = Back(new_deck)
-  G.GAME.selected_back:apply_to_run() -- remplacer par une function :apply_mid_run()
-  local _b = G.GAME.selected_back
-  if _b.effect.config.hands then 
-    G.GAME.round_resets.hands = G.GAME.round_resets.hands + _b.effect.config.hands
-    ease_hands_played(_b.effect.config.hands)
-  end
-  if _b.effect.config.dollars then
-    -- TBOJ.ease_money(_b.effect.config.dollars) should we give the extra money?
-  end
-  if _b.effect.config.remove_faces then
-    -- remove all faces in deck
-  end
-  if _b.effect.config.spectral_rate then
-    G.GAME.spectral_rate = (G.GAME.spectral_rate or 0) + _b.effect.config.spectral_rate
-  end
-  if _b.effect.config.discards then 
-    ease_discard(_b.effect.config.discards)
-  end
-  if _b.effect.config.reroll_discount then
-    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - _b.effect.config.reroll_discount
-    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - _b.effect.config.reroll_discount)
-  end
-  if _b.effect.config.randomize_rank_suit then
-    -- randomize all ranks and suits in deck
-  end
-  if _b.effect.config.joker_slot then
-    G.jokers:change_size(_b.effect.config.joker_slot)
-  end
-  if _b.effect.config.hand_size then
-    G.hand:change_size(_b.effect.config.hand_size)
-  end
-  if _b.effect.config.ante_scaling then
-    G.GAME.starting_params.ante_scaling = (G.GAME.starting_params.ante_scaling or 0) + _b.effect.config.ante_scaling
-  end
-  if _b.effect.config.consumable_slot then
-    G.consumables:change_size(_b.effect.config.consumable_slot)
-  end
-  if _b.effect.config.boosters_in_shop then
-    G.GAME.starting_params.boosters_in_shop = _b.effect.config.boosters_in_shop
-  end
-  if _b.effect.config.no_interest then
-    G.GAME.modifiers.no_interest = true
-  end
-  if _b.effect.config.extra_hand_bonus then 
-    G.GAME.modifiers.money_per_hand = (G.GAME.modifiers.money_per_hand or 0) + _b.effect.config.extra_hand_bonus
-  end
-  if _b.effect.config.extra_discard_bonus then 
-    G.GAME.modifiers.money_per_discard = (G.GAME.modifiers.money_per_discard or 0) + _b.effect.config.extra_discard_bonus
-  end
-
-  for _, v in pairs(G.I.CARD) do
-    if v.children and v.children.back then
-      v.children.back:remove()
-      local atlas_key = (G.GAME.viewed_back or G.GAME.selected_back) and ((G.GAME.viewed_back or G.GAME.selected_back)[G.SETTINGS.colourblind_option and 'hc_atlas' or 'lc_atlas'] or (G.GAME.viewed_back or G.GAME.selected_back).atlas) or 'centers'
-      v.children.back = SMODS.create_sprite(v.T.x, v.T.y, v.T.w, v.T.h, atlas_key, G.GAME["selected_back"].pos)
-      v.children.back.states.hover = v.states.hover
-      v.children.back.states.click = v.states.click
-      v.children.back.states.drag = v.states.drag
-      v.children.back.states.collide.can = false
-      v.children.back:set_role({major = v, role_type = 'Glued', draw_major = v})
-    end
   end
 end

@@ -270,7 +270,7 @@ SMODS.Joker {
   blueprint_compat = false,
   calculate = function(self, card, context)
     if context.destroy_card and not context.blueprint then
-      if #context.full_hand == 1 and context.destroy_card == context.full_hand[1] and (not SMODS.has_no_rank(context.full_hand[1])) and (not table.contains(card.ability.extra.used_ranks, context.full_hand[1]:get_id())) and G.GAME.current_round.hands_played == 0 then
+      if #context.full_hand == 1 and context.destroy_card == context.full_hand[1] and (not SMODS.has_no_rank(context.full_hand[1])) and (not TBOJ.table_contains(card.ability.extra.used_ranks, context.full_hand[1]:get_id())) and G.GAME.current_round.hands_played == 0 then
         table.insert(card.ability.extra.used_ranks, context.full_hand[1]:get_id())
         table.sort(card.ability.extra.used_ranks, function(a, b) return a < b end)
         if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
