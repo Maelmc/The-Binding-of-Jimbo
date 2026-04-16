@@ -307,7 +307,7 @@ return {
         text = {
           "Start with extra {C:money}$#1#{} and",
           "{C:blue}#2#{} hands every round.",
-          "When {C:attention}Blind{} is selected, gain",
+          "when {C:attention}Blind{} is selected, gain",
           "{C:blue}#3#{} Hand per {C:money}$#4#{} you have",
           "{C:inactive}(Max of {C:blue}#5#{C:inactive} Hands at {C:money}$#6#{C:inactive})"
         }
@@ -804,6 +804,17 @@ return {
         name = "Stop Watch",
         text = {
           "{C:attention}Doubles{} Joker scaling values"
+        }
+      },
+      j_tboj_tiny_planet = {
+        name = "Tiny Planet",
+        text = {
+          "This Joker gives {C:chips}Chips{} and {C:mult}Mult",
+          "equal to those of the",
+          "weakest {C:attention}poker hand{},",
+          "determined by {C:chips}Chips{} x {C:mult}Mult",
+          "{C:inactive}(Currently {C:attention}#3#{C:inactive} at",
+          "{C:chips}#1#{C:inactive} Chips and {C:mult}#2#{C:inactive} Mult)"
         }
       },
       j_tboj_e_coli = {

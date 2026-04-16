@@ -1,7 +1,7 @@
 -- Monstro's Lung
 SMODS.Joker {
   key = "monstro_lung",
-  pos = {x = 4, y = 15},
+  pos = {x = 3, y = 15},
   config = {extra = {min = 1, max = 4}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.min, card.ability.extra.max}}
@@ -56,7 +56,7 @@ SMODS.Joker {
 -- Abaddon
 SMODS.Joker {
   key = "abaddon",
-  pos = {x = 5, y = 15},
+  pos = {x = 4, y = 15},
   config = {extra = {Xmult = 0.25}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.Xmult, 1 + card.ability.extra.Xmult * (G.GAME and G.GAME.current_round.discards_left or 3)}}
@@ -91,7 +91,7 @@ SMODS.Joker {
 -- Stop Watch
 SMODS.Joker {
   key = "stop_watch", 
-  pos = {x = 7, y = 15},
+  pos = {x = 6, y = 15},
   config = {extra = {}},
   loc_vars = function(self, info_queue, center)
     return {vars = {}}
@@ -116,6 +116,55 @@ SMODS.Joker {
 }
 
 -- Tiny Planet
+SMODS.Joker {
+  key = "tiny_planet", 
+  pos = {x = 7, y = 15},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, center)
+    local _chips, _mult, name = 5, 1, "High Card"
+    if G.GAME.hands then
+      for k, v in pairs(G.GAME.hands) do
+        if v.visible and (not _chips or (v.mult * v.chips < _mult * _chips)) then
+          _chips = v.chips
+          _mult = v.mult
+          name = k
+        end
+      end
+    end
+    return {vars = {_chips, _mult, localize(name, 'poker_hands'),}}
+  end,
+  rarity = 1, 
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      local _chips, _mult, name
+      for k, v in pairs(G.GAME.hands) do
+        if v.visible and (not _chips or (v.mult * v.chips < _mult * _chips)) then
+          _chips = v.chips
+          _mult = v.mult
+          name = k
+        end
+      end
+      if _chips and _chips * _mult > 0 then
+        return {
+          chips = _chips,
+          mult = _mult,
+          remove_default_message = true,
+          message = localize(name, 'poker_hands'),
+          colour = G.C.FILTER,
+        }
+      end
+    end
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end
+}
+
 -- Infestation 2
 -- E. Coli
 SMODS.Joker {

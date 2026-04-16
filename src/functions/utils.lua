@@ -623,7 +623,7 @@ TBOJ.remove_deck = {
     G.GAME.round_resets.discards = G.GAME.round_resets.discards - 1
     ease_discard(-1)
   end,
-  ["b_yellow"] = function() end,
+  ["b_yellow"] = function() end, -- should we remove the extra money?
   ["b_zodiac"] = function()
     --[[for _, v in pairs(G.vouchers.cards) do
       if v.config.center_key == "v_telescope" or v.config.center_key == "v_overstock_norm" or v.config.center_key == "v_tarot_merchant" then
@@ -649,11 +649,59 @@ function TBOJ.change_deck(to,remove_previous)
   local new_deck = G.P_CENTERS[to]
   G.GAME.selected_back_key = G.P_CENTERS[to]
   G.GAME.selected_back = Back(new_deck)
-  G.GAME.selected_back:apply_to_run()
+  G.GAME.selected_back:apply_to_run() -- remplacer par une function :apply_mid_run()
+  local _b = G.GAME.selected_back
+  if _b.effect.config.hands then 
+    G.GAME.round_resets.hands = G.GAME.round_resets.hands + _b.effect.config.hands
+    ease_hands_played(_b.effect.config.hands)
+  end
+  if _b.effect.config.dollars then
+    -- TBOJ.ease_money(_b.effect.config.dollars) should we give the extra money?
+  end
+  if _b.effect.config.remove_faces then
+    -- remove all faces in deck
+  end
+  if _b.effect.config.spectral_rate then
+    G.GAME.spectral_rate = (G.GAME.spectral_rate or 0) + _b.effect.config.spectral_rate
+  end
+  if _b.effect.config.discards then 
+    ease_discard(_b.effect.config.discards)
+  end
+  if _b.effect.config.reroll_discount then
+    G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - _b.effect.config.reroll_discount
+    G.GAME.current_round.reroll_cost = math.max(0, G.GAME.current_round.reroll_cost - _b.effect.config.reroll_discount)
+  end
+  if _b.effect.config.randomize_rank_suit then
+    -- randomize all ranks and suits in deck
+  end
+  if _b.effect.config.joker_slot then
+    G.jokers:change_size(_b.effect.config.joker_slot)
+  end
+  if _b.effect.config.hand_size then
+    G.hand:change_size(_b.effect.config.hand_size)
+  end
+  if _b.effect.config.ante_scaling then
+    G.GAME.starting_params.ante_scaling = (G.GAME.starting_params.ante_scaling or 0) + _b.effect.config.ante_scaling
+  end
+  if _b.effect.config.consumable_slot then
+    G.consumables:change_size(_b.effect.config.consumable_slot)
+  end
+  if _b.effect.config.boosters_in_shop then
+    G.GAME.starting_params.boosters_in_shop = _b.effect.config.boosters_in_shop
+  end
+  if _b.effect.config.no_interest then
+    G.GAME.modifiers.no_interest = true
+  end
+  if _b.effect.config.extra_hand_bonus then 
+    G.GAME.modifiers.money_per_hand = (G.GAME.modifiers.money_per_hand or 0) + _b.effect.config.extra_hand_bonus
+  end
+  if _b.effect.config.extra_discard_bonus then 
+    G.GAME.modifiers.money_per_discard = (G.GAME.modifiers.money_per_discard or 0) + _b.effect.config.extra_discard_bonus
+  end
 
-  local areas = {G.jokers.cards, G.consumeables.cards, G.actives.cards, G.trinkets.cards, G.deck.cards, G.discard.cards, G.hand.cards, G.play.cards}
-  for _, area in pairs(areas) do
-    for _, v in pairs(area) do
+  for _, v in pairs(G.I.CARD) do
+    if v.children and v.children.back then
+      v.children.back:remove()
       local atlas_key = (G.GAME.viewed_back or G.GAME.selected_back) and ((G.GAME.viewed_back or G.GAME.selected_back)[G.SETTINGS.colourblind_option and 'hc_atlas' or 'lc_atlas'] or (G.GAME.viewed_back or G.GAME.selected_back).atlas) or 'centers'
       v.children.back = SMODS.create_sprite(v.T.x, v.T.y, v.T.w, v.T.h, atlas_key, G.GAME["selected_back"].pos)
       v.children.back.states.hover = v.states.hover

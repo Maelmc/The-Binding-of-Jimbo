@@ -18,7 +18,6 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.end_of_round and context.game_over and context.main_eval then
       if G.GAME.chips / G.GAME.blind.chips >= 0.25 then
-        print("a")
         G.E_MANAGER:add_event(Event({
           func = function()
             G.hand_text_area.blind_chips:juice_up()
