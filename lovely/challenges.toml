@@ -26,6 +26,7 @@ match_indent = true
 payload = '''
 if args.challenge then
   G.GAME.banned_keys["c_tboj_dagaz"] = true
+  G.GAME.banned_keys["j_tboj_judas_shadow"] = true
 end
 '''
 
@@ -38,17 +39,25 @@ match_indent = true
 payload = '''
 if challenge.restrictions then
   challenge.restrictions.banned_cards = challenge.restrictions.banned_cards or {}
-  local inside = false
+  local dagaz = false
+  local judas = false
   for _, v in pairs(challenge.restrictions.banned_cards) do
-    if v.id and v.id == "c_tboj_dagaz" then
-      inside = true
-      break
+    if v.id then
+      if v.id == "c_tboj_dagaz" then
+        dagaz = true
+      elseif v.id == "j_tboj_judas_shadow" then
+        judas = true
+      end
     end
+    if dagaz and judas then break end
   end
-  if not inside then
+  if not judas then
+    challenge.restrictions.banned_cards[#challenge.restrictions.banned_cards+1] = {id = "j_tboj_judas_shadow"}
+  end
+  if not dagaz then
     challenge.restrictions.banned_cards[#challenge.restrictions.banned_cards+1] = {id = "c_tboj_dagaz"}
   end
 else
-  challenge.restrictions = {banned_cards = {{id = "c_tboj_dagaz"}}}
+  challenge.restrictions = {banned_cards = {{id = "j_tboj_judas_shadow"}, {id = "c_tboj_dagaz"}}}
 end
 '''
