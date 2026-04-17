@@ -423,13 +423,15 @@ function TBOJ.get_new_big()
   
   local eligible_big = {}
   for k, v in pairs(G.P_BLINDS) do
-    local res, options = SMODS.add_to_pool(v)
-    options = options or {}
-    if not v.big then
-    elseif not v.in_pool then
-      eligible_big[k] = true
-    elseif v.in_pool and type(v.in_pool) == 'function' then
-      eligible_big[k] = res and true or nil
+    if k ~= "bl_big" or (k == "bl_big" and not next(SMODS.find_card("j_tboj_champion_belt"))) then
+      local res, options = SMODS.add_to_pool(v)
+      options = options or {}
+      if not v.big then
+      elseif not v.in_pool then
+        eligible_big[k] = true
+      elseif v.in_pool and type(v.in_pool) == 'function' then
+        eligible_big[k] = res and true or nil
+      end
     end
   end
   for k, _ in pairs(G.GAME.banned_keys) do
