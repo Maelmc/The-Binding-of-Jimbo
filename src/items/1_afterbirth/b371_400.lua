@@ -1,5 +1,60 @@
+-- Curse of the Tower
 -- Charged Baby
 -- Dead Eye
+SMODS.Joker {
+  key = "dead_eye",
+  pos = {x = 12, y = 24},
+  config = {extra = {Xmult = 1, Xmult_mod = 0.1}},
+  loc_vars = function(self, info_queue, card)
+    local ranks = ""
+    if G.GAME.tboj_last_scored_hand then
+      for _, v in pairs(G.GAME.tboj_last_scored_hand) do
+        if v.value then ranks = ranks..localize(v.value,"ranks").." " end
+      end
+      ranks = ranks:gsub("%s+$", "")
+    end
+    if ranks == "" then ranks = localize("tboj_play_hand") end
+    return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult, ranks}}
+  end,
+  rarity = 2,
+  cost = 7,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.before then
+      for _, v in pairs(context.scoring_hand) do
+        for _, w in pairs(G.GAME.tboj_last_scored_hand) do
+          if v:get_id() == w.id then
+            SMODS.scale_card(card, {
+              ref_value = 'Xmult',
+              scalar_value = 'Xmult_mod',
+            })
+            return nil, true
+          end
+        end
+      end
+      if card.ability.extra.Xmult > 1 then
+        card.ability.extra.Xmult = 1
+        return {
+          message = localize('k_reset'),
+          colour = G.C.RED
+        }
+      end
+    end
+
+    if context.joker_main then
+      return {
+        x_mult = card.ability.extra.Xmult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+}
+
 -- Holy Light
 SMODS.Joker {
   key = "holy_light",

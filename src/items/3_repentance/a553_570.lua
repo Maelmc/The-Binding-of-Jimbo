@@ -8,7 +8,7 @@ SMODS.Joker {
       --print("not in game")
       return {vars = {localize("tboj_unknown")}}
     end
-    if not table.contains(G.jokers.cards,card) then
+    if not TBOJ.table_contains(G.jokers.cards,card) then
       --print("not owned")
       return {vars = {localize("tboj_acquire_to_reveal")}}
     end

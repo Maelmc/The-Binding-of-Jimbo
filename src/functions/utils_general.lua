@@ -109,18 +109,18 @@ function TBOJ.get_random_key(args)
   local _rarity = nil
   if set == "Joker" then
     if target_rarities then
-      if (table.contains(target_rarities, "Legendary") or table.contains(target_rarities, 4)) and (#target_rarities == 1 or pseudorandom('soul_'..seed) > 0.997) then
+      if (TBOJ.table_contains(target_rarities, "Legendary") or TBOJ.table_contains(target_rarities, 4)) and (#target_rarities == 1 or pseudorandom('soul_'..seed) > 0.997) then
         _rarity = 4
       else
         while true do
           _rarity = SMODS.poll_rarity(set, "rarity"..seed)
-          if table.contains(target_rarities, _rarity) then break end
+          if TBOJ.table_contains(target_rarities, _rarity) then break end
         end
       end
     elseif banned_rarities then
       while true do
         _rarity = SMODS.poll_rarity(set, "rarity"..seed)
-        if not table.contains(banned_rarities, _rarity) then break end
+        if not TBOJ.table_contains(banned_rarities, _rarity) then break end
       end
     else
       _rarity = SMODS.poll_rarity(set, "rarity"..seed)
@@ -142,7 +142,7 @@ function TBOJ.get_random_key(args)
           all_attributes = false
         else
           for _, _attribute in pairs(attributes) do
-            if not table.contains(v.attributes, _attribute) then
+            if not TBOJ.table_contains(v.attributes, _attribute) then
               all_attributes = false
               break
             end
@@ -175,7 +175,7 @@ function TBOJ.get_random_key(args)
   end
 end
 
-function table.contains(table, element)
+function TBOJ.table_contains(table, element)
   for _, value in pairs(table) do
     if value == element then
       return true
@@ -267,58 +267,6 @@ function TBOJ.juice_flip_highlighted(source, second)
     G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound(sound, percent, extra);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true      end }))
   end
   delay(0.2)
-end
-
--- Mostly copied from Visibility's Crystal Geode
-function TBOJ.balance_percent(card, percent)
-  local percentage_mult = mult * percent
-  local percentage_chips = hand_chips * percent
-  mult = mult - math.floor(percentage_mult)
-  hand_chips = hand_chips - math.floor(percentage_chips)
-  local balance = math.floor((percentage_mult + percentage_chips) / 2)
-  mult = mult + balance
-  hand_chips = hand_chips + balance
-  update_hand_text({delay = 0}, {chips = hand_chips, mult = mult})
-  G.E_MANAGER:add_event(Event({
-    delay = 0.6,
-    trigger = 'after',
-    func = (function()
-      --card:juice_up()
-      play_sound('gong', 0.94, 0.3)
-      play_sound('gong', 0.94*1.5, 0.2)
-      play_sound('tarot1', 1.5)
-      ease_colour(G.C.UI_CHIPS, {0.8, 0.45, 0.85, 1})
-      ease_colour(G.C.UI_MULT, {0.8, 0.45, 0.85, 1})
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        delay =  0.8,
-        func = (function() 
-          ease_colour(G.C.UI_CHIPS, G.C.BLUE, 0.8)
-          ease_colour(G.C.UI_MULT, G.C.RED, 0.8)
-          return true
-        end)
-      }))
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        blockable = false,
-        blocking = false,
-        no_delete = true,
-        delay =  1.3,
-        func = (function() 
-          G.C.UI_CHIPS[1], G.C.UI_CHIPS[2], G.C.UI_CHIPS[3], G.C.UI_CHIPS[4] = G.C.BLUE[1], G.C.BLUE[2], G.C.BLUE[3], G.C.BLUE[4]
-          G.C.UI_MULT[1], G.C.UI_MULT[2], G.C.UI_MULT[3], G.C.UI_MULT[4] = G.C.RED[1], G.C.RED[2], G.C.RED[3], G.C.RED[4]
-          return true
-        end)
-      }))
-      return true
-    end)
-  }))
-  return { 
-    message = localize { type = 'variable', key = 'tboj_percent', vars = { percent } },
-    loc_vars = { percent }, colour =  {0.8, 0.45, 0.85, 1} 
-  }
 end
 
 function TBOJ.id_to_value(id)
@@ -461,25 +409,29 @@ function TBOJ.get_new_big()
   end
   if G.FORCE_BIG then return G.FORCE_BIG end
 
-  if G.GAME.modifiers.tboj_more_sins then
-    if pseudorandom("big",1,3) == 1 then -- 66% for sin under corpse+ stake
+  if not next(SMODS.find_card("j_tboj_champion_belt")) then
+    if G.GAME.modifiers.tboj_more_sins then
+      if pseudorandom("big",1,3) == 1 then -- 66% for sin under corpse+ stake
+        G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
+        return "bl_big"
+      end
+    elseif pseudorandom("big",1,4) > 1 then --25% for sin
       G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
       return "bl_big"
     end
-  elseif pseudorandom("big",1,4) > 1 then --25% for sin
-    G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
-    return "bl_big"
   end
   
   local eligible_big = {}
   for k, v in pairs(G.P_BLINDS) do
-    local res, options = SMODS.add_to_pool(v)
-    options = options or {}
-    if not v.big then
-    elseif not v.in_pool then
-      eligible_big[k] = true
-    elseif v.in_pool and type(v.in_pool) == 'function' then
-      eligible_big[k] = res and true or nil
+    if k ~= "bl_big" or (k == "bl_big" and not next(SMODS.find_card("j_tboj_champion_belt"))) then
+      local res, options = SMODS.add_to_pool(v)
+      options = options or {}
+      if not v.big then
+      elseif not v.in_pool then
+        eligible_big[k] = true
+      elseif v.in_pool and type(v.in_pool) == 'function' then
+        eligible_big[k] = res and true or nil
+      end
     end
   end
   for k, _ in pairs(G.GAME.banned_keys) do
@@ -519,4 +471,42 @@ function TBOJ.modify_blind_size(args)
     args.source:juice_up()
   end
   G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+end
+
+function TBOJ.save_last_hand(context)
+  G.GAME.tboj_last_full_hand = {}
+  G.GAME.tboj_last_scored_hand = {}
+  context.full_hand = context.full_hand or {}
+  for _, v in ipairs(context.full_hand) do
+    local id
+    local value
+    local suit
+    if not SMODS.has_no_rank(v) then
+      id = v:get_id()
+      value = v.base.value
+    end
+
+    if not SMODS.has_no_suit(v) then
+      suit = v.base.suit
+    end
+
+    G.GAME.tboj_last_full_hand[#G.GAME.tboj_last_full_hand+1] = {id = id, value = value, suit = suit}
+  end
+
+  
+  for _, v in ipairs(context.scoring_hand) do
+    local id
+    local value
+    local suit
+    if not SMODS.has_no_rank(v) then
+      id = v:get_id()
+      value = v.base.value
+    end
+
+    if not SMODS.has_no_suit(v) then
+      suit = v.base.suit
+    end
+
+    G.GAME.tboj_last_scored_hand[#G.GAME.tboj_last_scored_hand+1] = {id = id, value = value, suit = suit}
+  end
 end

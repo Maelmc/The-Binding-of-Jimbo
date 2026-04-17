@@ -102,7 +102,7 @@ TBOJ.Trinket {
       card.ability.extra.targets = {}
     end
 
-    if context.repetition and context.cardarea == G.play and table.contains(card.ability.extra.targets,context.other_card) then
+    if context.repetition and context.cardarea == G.play and TBOJ.table_contains(card.ability.extra.targets,context.other_card) then
       return {
         repetitions = card.ability.extra.repetitions
       }

@@ -368,7 +368,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.individual and not context.end_of_round and context.cardarea == G.play then
+    if context.individual and context.cardarea == G.play then
       if #context.full_hand == 3 then
         local all_six = true
         for _, v in pairs (context.full_hand) do

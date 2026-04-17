@@ -126,7 +126,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.individual and not context.end_of_round and context.cardarea == G.play then
+    if context.individual and context.cardarea == G.play then
       if #context.full_hand == 3 then
         local all_three = true
         for _, v in pairs (context.full_hand) do
@@ -224,7 +224,7 @@ SMODS.Joker {
   blueprint_compat = false,
   calculate = function(self, card, context)
     if context.modify_scoring_hand and not context.blueprint then
-      if table.contains(context.scoring_hand, context.other_card) then
+      if TBOJ.table_contains(context.scoring_hand, context.other_card) then
         return {
           remove_from_hand = true
         }
