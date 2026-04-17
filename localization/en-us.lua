@@ -123,7 +123,8 @@ return {
           },
           {
             "{C:attention}Reroll{} all {C:attention}Jokers",
-            "and {C:attention}Actives{} in the shop",
+            "and {C:attention}Actives{} in the {C:attention}shop",
+            "or current {C:attention}booster pack",
             "into ones of the same {C:attention}rarity"
           }
         }
