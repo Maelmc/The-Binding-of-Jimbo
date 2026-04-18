@@ -52,7 +52,8 @@ TBOJ.Active {
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
-  end
+  end,
+  attributes = {"destroy_card", "generation", "rank"},
 }
 
 -- Akeldama
@@ -113,7 +114,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "scaling", "xmult", "reset"}
 }
 
 -- Consolation Prize
@@ -154,7 +155,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_familiar", "tboj_fly"},
+  attributes = {"tboj_familiar", "tboj_fly", "chips", "scaling", "suit"},
   tboj_artist = {"Grumpy Egg", "Maelmc"}
 }
 

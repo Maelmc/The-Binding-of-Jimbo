@@ -51,6 +51,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"passive"},
 }
 
 -- Abaddon
@@ -84,7 +85,7 @@ SMODS.Joker {
     G.GAME.round_resets.discards = G.GAME.round_resets.discards + diff*2
     ease_discard(diff*2)
   end,
-  devil  = true,
+  attributes = {"tboj_devil", "discards", "xmult"},
 }
 
 -- Ball of Tar
@@ -103,7 +104,6 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = false,
   calculate = function(self, card, context)
-
   end,
   calc_scaling = function(self, card, scaling_card, initial, scalar_value, args)
     return {
@@ -112,7 +112,8 @@ SMODS.Joker {
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
-  end
+  end,
+  attributes = {"passive"},
 }
 
 -- Tiny Planet
@@ -162,7 +163,8 @@ SMODS.Joker {
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
-  end
+  end,
+  attributes = {"chips", "mult", "space"},
 }
 
 -- Infestation 2
@@ -207,5 +209,5 @@ SMODS.Joker {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_poop"},
+  attributes = {"tboj_poop", "enhancements", "modify_card", "face"},
 }

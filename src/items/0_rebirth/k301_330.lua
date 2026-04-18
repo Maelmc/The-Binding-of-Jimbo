@@ -39,7 +39,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil"}
+  attributes = {"tboj_devil", "prevents_death"}
 }
 
 -- Maggy's Bow
@@ -101,7 +101,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_familiar"}
+  attributes = {"tboj_familiar", "copying"}
 }
 -- Isaac's Tears
 -- Undefined

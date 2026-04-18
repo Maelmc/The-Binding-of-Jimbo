@@ -25,7 +25,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil"}
+  attributes = {"tboj_devil", "chance", "economy"}
 }
 
 -- Infamy
@@ -66,6 +66,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"retrigger", "xmult"}
 }
 
 -- Blue Map
@@ -106,7 +107,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"joker", "passive"}
 }
 
 -- Dark Matter
@@ -134,7 +136,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return (G.GAME.modifiers.enable_eternals_in_shop or G.GAME.modifiers.enable_perishables_in_shop or G.GAME.modifiers.enable_rentals_in_shop) and TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"joker", "passive"}
 }
 
 -- Proptosis
@@ -165,6 +168,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"xmult"},
   tboj_artist = "Maelmc",
 }
 
@@ -200,7 +204,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil", "tboj_familiar"}
+  attributes = {"tboj_devil", "tboj_familiar", "mult", "perma_bonus"}
 }
 
 -- Leech

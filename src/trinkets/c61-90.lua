@@ -16,6 +16,7 @@ TBOJ.Trinket {
       end
     end
   end,
+  attributes = {"passive", "joker"},
 }
 
 -- NO! 88
@@ -35,6 +36,7 @@ TBOJ.Trinket {
   remove_from_deck = function(self, card, from_debuff)
     G.GAME.tboj_active_rate = 4
   end,
+  attributes = {"passive"},
 }
 
 -- Child Leash 89
@@ -53,6 +55,7 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"xmult"},
 }
 
 -- Brown Cap 90

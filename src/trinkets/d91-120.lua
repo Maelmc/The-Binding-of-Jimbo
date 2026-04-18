@@ -16,4 +16,5 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"hands", "discards"},
 }

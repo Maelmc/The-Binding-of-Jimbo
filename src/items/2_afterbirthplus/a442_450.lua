@@ -50,6 +50,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"enhancements", "destroy_card"},
 }
 
 -- Metal Plate
@@ -93,4 +94,5 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"seals", "modify_card"},
 }

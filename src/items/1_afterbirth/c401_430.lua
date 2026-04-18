@@ -43,7 +43,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil"}
+  attributes = {"tboj_devil", "xmult", "scaling", "boos_blind", "reset"}
 }
 
 -- Cambion Conception
@@ -78,5 +78,5 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "xmult", "hands"}
 }

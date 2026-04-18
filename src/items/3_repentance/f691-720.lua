@@ -30,7 +30,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "passive", "chance"}
 }
 
 -- Dark Arts
@@ -71,7 +71,7 @@ SMODS.Joker {
 
     return card.ability.extra.money
   end,
-  attributes = {"food"}
+  attributes = {"food", "economy", "scaling"}
 }
 
 -- Suplex
@@ -113,7 +113,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_book", "tboj_devil"}
+  attributes = {"tboj_book", "tboj_devil", "joker", "editions", "generation"}
 }
 
 -- Spindown Dice = Spectral
@@ -287,7 +287,7 @@ SMODS.Joker {
 
     desc_nodes[#desc_nodes+1] = {{n=G.UIT.C, config = {align = "tl", scale = 1.0, colour = G.C.UI.TEXT_LIGHT, padding = 0.05}, nodes = to_replace}}
   end,
-  attributes = {"tboj_poop"},
+  attributes = {"tboj_poop", "enhancements", "generation", "mult", "xmult", "modify_card", "suit", "spades"},
 }
 
 -- Hemoptysis

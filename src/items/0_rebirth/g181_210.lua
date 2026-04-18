@@ -24,7 +24,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "xmult"}
 }
 
 -- Tooth Picks
@@ -85,7 +85,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "generation", "spectral"},
 }
 
 -- Blood Rights
@@ -119,6 +119,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"xmult", "enhancements"},
 }
 
 -- Midas' Touch
@@ -151,6 +152,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"xmult", "passive"},
 }
 
 -- Butt Bombs

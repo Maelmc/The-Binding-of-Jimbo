@@ -22,7 +22,7 @@ TBOJ.Active {
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
-  end
+  end,
 }
 
 -- Eden's Soul
@@ -62,7 +62,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "generation", "joker"}
 }
 
 -- Eucharist
@@ -102,6 +102,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"economy", "hand"},
 }
 
 -- Large Zit

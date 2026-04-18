@@ -28,7 +28,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"chips", "scaling"}
 }
 
 -- The Inner Eye
@@ -60,7 +61,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"passive"}
 }
 
 -- Spoon Bender
@@ -87,7 +89,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"xmult", "unscored"}
 }
 
 -- Cricket's Head
@@ -115,7 +118,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"mult", "xmult"}
 }
 
 -- My Reflection
@@ -143,7 +147,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"chips"}
 }
 
 -- Blood of the Martyr
@@ -166,7 +171,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "mult", "passive"}
 }
 
 -- Brother Bobby
@@ -194,7 +199,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_familiar"}
+  attributes = {"tboj_familiar", "chips"}
 }
 
 -- Skatole
@@ -243,7 +248,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_poop"},
+  attributes = {"tboj_poop", "enhancements", "generation"},
 }
 
 -- Halo of Flies
@@ -278,7 +283,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_fly"}
+  attributes = {"tboj_fly", "generation", "on_sell"}
 }
 
 -- 1up!
@@ -313,6 +318,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"on_sell", "hearts", "suit", "modify_card"}
 }
 
 -- Raw Liver
@@ -338,7 +344,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"economy", "on_sell"}
 }
 
 -- Boom!
@@ -376,7 +383,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"on_sell", "tboj_loot", "generation"}
 }
 
 -- Transcendence
@@ -436,7 +444,8 @@ SMODS.Joker {
         end
       end
     end
-  end
+  end,
+  attributes = {"destroy_card","passive"}
 }
 
 -- The Compass
