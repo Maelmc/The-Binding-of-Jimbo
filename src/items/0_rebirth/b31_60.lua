@@ -262,8 +262,8 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
-      local third = context.scoring_hand[3] or {}
-      local fourth = context.scoring_hand[4] or {}
+      local third = context.scoring_hand[1] or {}
+      local fourth = context.scoring_hand[2] or {}
       if context.other_card == third or context.other_card == fourth then
         return {
           mult = card.ability.extra.mult,

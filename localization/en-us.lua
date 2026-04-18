@@ -575,9 +575,9 @@ return {
       j_tboj_distant_admiration = {
         name = "Distant Admiration",
         text = {
-          "{C:attention}Third{} and {C:attention}fourth",
-          "scoring cards give",
-          "{C:mult}+#1#{} Mult when scored"
+          "{C:attention}First{} and {C:attention}second",
+          "cards in poker hand",
+          "give {C:mult}+#1#{} Mult when scored"
         }
       },
       j_tboj_charm_of_the_vampire = {
@@ -727,6 +727,14 @@ return {
         text = {
           "{C:red}+#1#{} Mult on {C:attention}final",
           "{C:attention}hand{} of round",
+        }
+      },
+      j_tboj_forever_alone = {
+        name = "Forever Alone",
+        text = {
+          "{C:attention}Fifth{} card in",
+          "poker hand gives",
+          "{C:chips}+#1#{} Chips when scored"
         }
       },
       j_tboj_a_lump_of_coal = {
@@ -916,6 +924,14 @@ return {
           "{C:green,E:1,S:1.1}probabilities{}, {C:attention}-#2#{} when",
           "a probability succeeds"
         } 
+      },
+      j_tboj_friend_zone = {
+        name = "Friend Zone",
+        text = {
+          "{C:attention}Third{} and {C:attention}fourth",
+          "cards in poker hand",
+          "give {C:money}$#1#{} when scored"
+        }
       },
       j_tboj_dead_eye = {
         name = "Dead Eye",

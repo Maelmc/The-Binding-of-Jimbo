@@ -26,12 +26,44 @@ SMODS.Joker {
   attributes = {"tboj_devil", "mult", "hands"}
 }
 
--- many
+-- Razor Blade
+-- Forget Me Now
+-- Forever Alone
+SMODS.Joker {
+  key = "forever_alone",
+  pos = {x = 7, y = 8},
+  config = {extra = {chips = 60}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      if context.other_card == context.scoring_hand[5] then
+        return {
+          chips = card.ability.extra.chips,
+        }
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "tboj_fly", "chips"}
+}
+
+-- Bucket of Lard
+-- A Pony
 
 -- A Lump of Coal
 SMODS.Joker {
   key = "a_lump_of_coal",
-  pos = {x = 11, y = 8 },
+  pos = {x = 11, y = 8},
   config = {extra = {Xmult_mod = 0.5}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.Xmult_mod}}
