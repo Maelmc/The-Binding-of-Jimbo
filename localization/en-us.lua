@@ -1074,9 +1074,10 @@ return {
         name = "Schoolbag",
         text = {
           "{C:attention}+#1#{} active slot",
-          "Destroy a random non-{C:dark_edition}Negative{}",
-          "{C:attention}Active{} when sold or destroyed",
-          "if you have more than the limit"
+          "{s:0.8}If this Joker is sold or destroyed",
+          "{s:0.8}and it results in having more",
+          "{s:0.8}Actives than available slots, destroy",
+          "{s:0.8}a random non-{s:0.8,C:dark_edition}Negative{s:0.8} one",
         }
       },
       j_tboj_flat_stone = {
