@@ -562,7 +562,9 @@ return {
       j_tboj_steven = {
         name = "Steven",
         text = {
-          "{C:mult}+#1#{} Mult"
+          "{C:mult}+#1#{} Mult if played",
+          "hand contains at least",
+          "1 {C:attention}unscoring{} card"
         }
       },
       j_tboj_pentagram = {

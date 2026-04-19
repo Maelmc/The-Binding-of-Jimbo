@@ -196,7 +196,7 @@ SMODS.Joker {
 SMODS.Joker {
   key = "steven",
   pos = {x = 4, y = 3},
-  config = {extra = {mult = 12}},
+  config = {extra = {mult = 15}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult}}
   end,
@@ -207,7 +207,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.joker_main then
+    if context.joker_main and #context.full_hand > #context.scoring_hand then
       return {
         mult = card.ability.extra.mult,
       }
