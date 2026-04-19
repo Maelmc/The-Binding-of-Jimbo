@@ -308,7 +308,7 @@ return {
         text = {
           "Start with extra {C:money}$#1#{} and",
           "{C:blue}#2#{} hands every round.",
-          "when {C:attention}Blind{} is selected, gain",
+          "When {C:attention}Blind{} is selected, gain",
           "{C:blue}#3#{} Hand per {C:money}$#4#{} you have",
           "{C:inactive}(Max of {C:blue}#5#{C:inactive} Hands at {C:money}$#6#{C:inactive})"
         }
