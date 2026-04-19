@@ -279,10 +279,7 @@ function TBOJ.id_to_value(id)
 end
 
 function TBOJ.total_chips(card)
-  local total_chips = (card.ability.bonus) + (card.ability.perma_bonus or 0)
-  if card.ability.effect ~= 'Stone Card' and not card.config.center.replace_base_card then
-    total_chips = total_chips + (card.base.nominal)
-  end
+  local total_chips = card:get_chip_bonus()
   if card.edition then
     total_chips = total_chips + (card.edition.chips or 0)
   end
