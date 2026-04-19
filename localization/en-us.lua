@@ -1195,6 +1195,14 @@ return {
           "- {C:white,X:mult}X#3#{} Mult then {C:red}self-destructs"
         }
       },
+      j_tboj_glass_eye = {
+        name = "Glass Eye",
+        text = {
+          "This Joker gains {X:mult,C:white}X#1#{} Mult",
+          "when a probability {C:attention}succeeds",
+          "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
+        },
+      },
     },
     Loot = {
       -- STANDARD LOOT

@@ -340,3 +340,42 @@ SMODS.Joker {
 
 -- Hemoptysis
 -- Ghost Bombs
+
+-- Glass Eye
+SMODS.Joker {
+  key = "glass_eye",
+  pos = { x = 9, y = 48 },
+  config = {extra = {Xmult = 1, Xmult_mod = 0.15}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.pseudorandom_result and context.result then
+      SMODS.scale_card(card, {
+        ref_value = 'Xmult',
+        scalar_value = 'Xmult_mod',
+        message_key = 'a_xmult',
+      })
+      return nil, true
+    end
+
+    if context.joker_main then
+      return {
+        mult = card.ability.extra.Xmult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"scaling", "xmult"},
+}
+
+-- Stye
+-- Mom's Ring
