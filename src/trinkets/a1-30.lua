@@ -10,7 +10,7 @@ TBOJ.Trinket {
   calculate = function(self, card, context)
     if context.press_play then
       return {
-        dollars = TBOJ.ease_money(card.ability.extra.money, true),
+        dollars = card.ability.extra.money,
         card = card
       }
     end
@@ -37,7 +37,7 @@ TBOJ.Trinket {
       end
       if poop > 0 then
         return {
-          dollars = TBOJ.ease_money(card.ability.extra.money * poop, true),
+          dollars = card.ability.extra.money * poop,
           card = card
         }
       end

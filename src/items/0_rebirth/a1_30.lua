@@ -339,7 +339,9 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.selling_self then
-      TBOJ.ease_money(card.ability.extra.money)
+      return {
+        dollars = card.ability.extra.money
+      }
     end
   end,
   in_pool = function (self, args)

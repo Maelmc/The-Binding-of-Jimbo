@@ -116,6 +116,54 @@ TBOJ.Active {
   attributes = {"tboj_book", "tboj_devil", "joker", "editions", "generation"}
 }
 
+-- Recall
+-- Hold
+-- Keeper's Sack
+SMODS.Joker {
+  key = "keeper_sack",
+  pos = { x = 10, y = 47 },
+  config = { extra = { mult = 0, mult_mod = 1, every = 5, scales_in = 5 } },
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.mult_mod, card.ability.extra.every, card.ability.extra.scales_in, card.ability.extra.mult } }
+  end,
+  rarity = 2,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.money_altered and context.from_shop and context.amount < 0 then
+      card.ability.extra.scales_in = card.ability.extra.scales_in + context.amount
+      local scale_by = 0
+      while card.ability.extra.scales_in <= 0 do
+        card.ability.extra.scales_in = card.ability.extra.scales_in + card.ability.extra.every
+        scale_by = scale_by + 1
+      end
+      if scale_by > 0 then
+        SMODS.scale_card(card, {
+          ref_value = 'mult',
+          scalar_value = 'mult_mod',
+          operation = function(ref_table, ref_value, initial, change)
+            ref_table[ref_value] = initial + scale_by*change
+          end,
+        })
+        return nil, true
+      end
+    end
+    
+    if context.joker_main then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+  end,
+  attributes = {"mult", "scaling", "reroll"}
+}
+
+-- Keeper's Kin
+-- Keeper's Box
+
 -- Spindown Dice = Spectral
 -- Hypercoagulation
 -- IBS
