@@ -621,7 +621,7 @@ return {
       j_tboj_cube_of_meat = {
         name = "Cube of Meat",
         text = {
-            {
+          {
             "{C:mult}+#1#{}, {C:mult}+#2#{}, {C:white,X:mult}X#3#{} or {C:white,X:mult}X#4#{} Mult",
             "depending on this Joker's stage",
             "{C:inactive}(Currently {C:attention}Stage #5#{C:inactive})"
@@ -1129,6 +1129,18 @@ return {
             "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
           } 
       },
+      j_tboj_guppy_eye = {
+        name = "Guppy's Eye",
+        text = {
+          {
+            "Select a {C:attention}Booster Pack{} to {C:attention}predict{} its content",
+          },
+          {
+          "#1# {C:attention}#2#{} #3#",
+          "#4#"
+          }
+        }
+      },
       j_tboj_soul_locket = {
         name = "Soul Locket",
         text = {
@@ -1590,6 +1602,10 @@ return {
       tboj_bomb = "Bomb",
       tboj_play_hand = "Play a hand first",
       tboj_become_judas = "You became Judas",
+      tboj_select_booster = "Select a Booster Pack first",
+      tboj_geye_1 = "This",
+      tboj_geye_2 = "contains:",
+      tboj_not_supported_pack = "This Pack is not supported",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
@@ -1608,7 +1624,8 @@ return {
       tboj_percent = "#1#%",
       tboj_plus_hand_size_var = "+#1# Hand Size",
       tboj_minus_luck_var = "-#1# Luck",
-      tboj_minus_money_var = "-$#1#"
+      tboj_minus_money_var = "-$#1#",
+      tboj_playing_card = "#1# of #2#"
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},
