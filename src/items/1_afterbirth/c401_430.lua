@@ -1,3 +1,71 @@
+-- Fart Baby
+-- GB Bug
+-- D8
+TBOJ.Active {
+  key = "d8",
+  pos = { x = 0, y = 27 },
+  cost = 5,
+  config = {extra = {max_charge = 2, curr_charge = 2, min = -2, max = 2}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.min, card.ability.extra.max}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge
+  end,
+  use = function(self, card, area, copier)
+    local _hands = pseudorandom("tboj_d8", card.ability.extra.min, card.ability.extra.max)
+    if _hands + G.GAME.round_resets.hands >= 1 and _hands + G.GAME.current_round.hands_left >= 1 then
+      G.GAME.round_resets.hands = G.GAME.round_resets.hands + _hands
+      ease_hands_played(_hands)
+      if _hands >= 0 then
+        SMODS.calculate_effect({message = localize {type = 'variable', key = 'a_hands', vars = { _hands }}, colour = G.C.BLUE}, card)
+      else
+        SMODS.calculate_effect({message = localize {type = 'variable', key = 'tboj_hands_minus', vars = { _hands * -1 }}, colour = G.C.BLUE}, card)
+      end
+    else
+      SMODS.calculate_effect({message = localize {type = 'variable', key = 'a_hands', vars = { 0 }}, colour = G.C.BLUE}, card)
+    end
+
+    local _discards = pseudorandom("tboj_d8", card.ability.extra.min, card.ability.extra.max)
+    if _discards + G.GAME.round_resets.discards >= 1 and _discards + G.GAME.current_round.discards_left >= 1 then
+      G.GAME.round_resets.discards = G.GAME.round_resets.discards + _discards
+      ease_discard(_discards)
+      if _discards >= 0 then
+        SMODS.calculate_effect({message = localize {type = 'variable', key = 'tboj_discards', vars = { _discards }}, colour = G.C.RED}, card)
+      else
+        SMODS.calculate_effect({message = localize {type = 'variable', key = 'tboj_discards_minus', vars = { _discards * -1 }}, colour = G.C.RED}, card)
+      end
+    else
+      SMODS.calculate_effect({message = localize {type = 'variable', key = 'tboj_discards', vars = { 0 }}, colour = G.C.RED}, card)
+    end
+
+    local _hand_size = pseudorandom("tboj_d8", card.ability.extra.min, card.ability.extra.max)
+    if _hand_size + G.hand.config.card_limit >= 1 then
+      G.hand:change_size(_hand_size)
+      if _hand_size >= 0 then
+        SMODS.calculate_effect({message = localize {type = 'variable', key = 'a_handsize', vars = { _hand_size }}}, card)
+      else
+        SMODS.calculate_effect({message = localize {type = 'variable', key = 'a_handsize_minus', vars = { _hand_size * -1 }}}, card)
+      end
+    else
+      SMODS.calculate_effect({message = localize {type = 'variable', key = 'a_handsize', vars = { 0 }}}, card)
+    end
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {"hands", "discards", "hand_size"}
+}
+
+-- Purity
+-- Athame
+
 -- Lusty Blood
 SMODS.Joker {
   key = "lusty_blood",

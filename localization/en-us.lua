@@ -142,6 +142,22 @@ return {
           }
         }
       },
+      active_tboj_d8 = {
+        name = "D8",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Randomly gain between",
+            "{C:red}#3#{} and {C:blue}#4# hands{},",
+            "{C:red}discards{} and {C:attention}hand size",
+            "{s:0.8}Cannot go below {C:attention,s:0.8}1"
+          }
+        }
+      },
       active_tboj_jar_of_flies = {
         name = "Jar of Flies",
         text = {
@@ -1641,10 +1657,13 @@ return {
     },
     v_dictionary = {  
       tboj_percent = "#1#%",
-      tboj_plus_hand_size_var = "+#1# Hand Size",
+      --tboj_plus_hand_size_var = "+#1# Hand Size",
       tboj_minus_luck_var = "-#1# Luck",
       tboj_minus_money_var = "-$#1#",
-      tboj_playing_card = "#1# of #2#"
+      tboj_playing_card = "#1# of #2#",
+      tboj_hands_minus = "-#1# Hands",
+      tboj_discards = "+#1# Discards",
+      tboj_discards_minus = "-#1# Discards",
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},

@@ -20,7 +20,7 @@ TBOJ.Active {
     G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.h_size
     SMODS.calculate_effect({message = localize({
       type = "variable",
-      key = "tboj_plus_hand_size_var",
+      key = "a_handsize",
       vars = { card.ability.extra.h_size },
     })}, card)
   end,
