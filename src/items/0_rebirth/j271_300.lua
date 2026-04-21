@@ -34,4 +34,5 @@ TBOJ.Active {
     return TBOJ.in_pool(self)
   end,
   spider = true,
+  attributes = {"generation"}
 }

@@ -19,6 +19,7 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"xmult"},
 }
 
 -- Rusted Key
@@ -36,7 +37,8 @@ TBOJ.Trinket {
   end,
   remove_from_deck = function(self, card, from_debuff)
     G.hand:change_size(-card.ability.extra.h_size)
-  end
+  end,
+  attributes = {"hand_size"},
 }
 
 -- Mom's Pearl
@@ -60,4 +62,5 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"passive", "mod_chance"},
 }

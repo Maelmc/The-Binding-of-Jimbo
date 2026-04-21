@@ -136,7 +136,11 @@ function Back:apply_mid_run()
 
   if self.effect.config.dollars then
     TBOJ.ease_money(self.effect.config.dollars)
-  end
+    SMODS.calculate_context({
+      money_altered = true,
+      amount = self.effect.config.dollars,
+    })
+end
   if self.effect.config.remove_faces then
     local to_destroy = {}
     for _, v in pairs(G.playing_cards) do

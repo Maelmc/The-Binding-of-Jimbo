@@ -20,7 +20,7 @@ TBOJ.Active {
     G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.h_size
     SMODS.calculate_effect({message = localize({
       type = "variable",
-      key = "tboj_plus_hand_size_var",
+      key = "a_handsize",
       vars = { card.ability.extra.h_size },
     })}, card)
   end,
@@ -30,7 +30,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_book", "tboj_angel"}
+  attributes = {"tboj_book", "tboj_angel", "hand_size"}
 }
 
 -- The Book of Belial
@@ -63,7 +63,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_book", "tboj_devil"}
+  attributes = {"tboj_book", "tboj_devil", "perma_bonus"}
 }
 
 -- The Necronomicon
@@ -104,7 +104,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_poop"},
+  attributes = {"tboj_poop", "enhancements"},
 }
 
 -- Mr. Boom
@@ -144,7 +144,8 @@ TBOJ.Active {
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
-  end
+  end,
+  attributes = {"xmult"}
 }
 
 -- Tammy's Head
@@ -184,7 +185,8 @@ SMODS.Joker {
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
-  end
+  end,
+  attributes = {"mod_chance", "passive"}
 }
 
 -- Doctor's Remote
@@ -194,7 +196,7 @@ SMODS.Joker {
 SMODS.Joker {
   key = "steven",
   pos = {x = 4, y = 3},
-  config = {extra = {mult = 12}},
+  config = {extra = {mult = 15}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult}}
   end,
@@ -205,7 +207,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.joker_main then
+    if context.joker_main and #context.full_hand > #context.scoring_hand then
       return {
         mult = card.ability.extra.mult,
       }
@@ -213,7 +215,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"mult"}
 }
 
 -- Pentagram
@@ -235,7 +238,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil"}
+  attributes = {"tboj_devil", "passive"}
 }
 
 -- Dr. Fetus
@@ -259,8 +262,8 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
-      local third = context.scoring_hand[3] or {}
-      local fourth = context.scoring_hand[4] or {}
+      local third = context.scoring_hand[1] or {}
+      local fourth = context.scoring_hand[2] or {}
       if context.other_card == third or context.other_card == fourth then
         return {
           mult = card.ability.extra.mult,
@@ -271,7 +274,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_familiar", "tboj_fly"}
+  attributes = {"tboj_familiar", "tboj_fly", "mult"}
 }
 
 -- Book of Shadows

@@ -37,6 +37,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"enhancements", "editions"},
 }
 
 -- Broken Modem
@@ -106,7 +107,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil"}
+  attributes = {"tboj_devil", "scaling", "chips", "rank", "tboj_loot"}
 }
 
 -- Haemolacria
@@ -161,7 +162,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "chips", "mult", "economy", "rank", "six"}
 }
 
 -- Schoolbag
@@ -204,6 +205,7 @@ SMODS.Joker {
       return true end
     }))
   end,
+  attributes = {"passive"},
 }
 
 -- Marbles
@@ -238,4 +240,5 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"passive"},
 }

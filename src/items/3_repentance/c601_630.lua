@@ -38,7 +38,8 @@ TBOJ.Active {
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
-  end
+  end,
+  attributes = {"xmult"},
 }
 
 -- 612
@@ -106,7 +107,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "tag", "joker", "destroy_card", "generation"},
 }
 
 -- Sharp Key

@@ -123,7 +123,8 @@ return {
           },
           {
             "{C:attention}Reroll{} all {C:attention}Jokers",
-            "and {C:attention}Actives{} in the shop",
+            "and {C:attention}Actives{} in the {C:attention}shop",
+            "or current {C:attention}booster pack",
             "into ones of the same {C:attention}rarity"
           }
         }
@@ -138,6 +139,22 @@ return {
           },
           {
             "Create {C:attention}#3#{} to {C:attention}#4# Blue Spiders"
+          }
+        }
+      },
+      active_tboj_d8 = {
+        name = "D8",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Randomly gain between",
+            "{C:red}#3#{} and {C:blue}#4# hands{},",
+            "{C:red}discards{} and {C:attention}hand size",
+            "{s:0.8}Cannot go below {C:attention,s:0.8}1"
           }
         }
       },
@@ -307,7 +324,7 @@ return {
         text = {
           "Start with extra {C:money}$#1#{} and",
           "{C:blue}#2#{} hands every round.",
-          "when {C:attention}Blind{} is selected, gain",
+          "When {C:attention}Blind{} is selected, gain",
           "{C:blue}#3#{} Hand per {C:money}$#4#{} you have",
           "{C:inactive}(Max of {C:blue}#5#{C:inactive} Hands at {C:money}$#6#{C:inactive})"
         }
@@ -561,7 +578,9 @@ return {
       j_tboj_steven = {
         name = "Steven",
         text = {
-          "{C:mult}+#1#{} Mult"
+          "{C:mult}+#1#{} Mult if played",
+          "hand contains at least",
+          "1 {C:attention}unscoring{} card"
         }
       },
       j_tboj_pentagram = {
@@ -574,9 +593,9 @@ return {
       j_tboj_distant_admiration = {
         name = "Distant Admiration",
         text = {
-          "{C:attention}Third{} and {C:attention}fourth",
-          "scoring cards give",
-          "{C:mult}+#1#{} Mult when scored"
+          "{C:attention}First{} and {C:attention}second",
+          "cards in poker hand",
+          "give {C:mult}+#1#{} Mult when scored"
         }
       },
       j_tboj_charm_of_the_vampire = {
@@ -620,7 +639,7 @@ return {
       j_tboj_cube_of_meat = {
         name = "Cube of Meat",
         text = {
-            {
+          {
             "{C:mult}+#1#{}, {C:mult}+#2#{}, {C:white,X:mult}X#3#{} or {C:white,X:mult}X#4#{} Mult",
             "depending on this Joker's stage",
             "{C:inactive}(Currently {C:attention}Stage #5#{C:inactive})"
@@ -651,7 +670,7 @@ return {
         name = "The Mark",
         text = {
           "Each played {C:attention}6{} gives",
-          "{C:mult}+#1#{} Mult when scored",
+          "{C:mult}+#1#{} Mult when scored.",
           "If played hand is exactly",
           "{C:attention}three 6s{}, they each give",
           "{C:mult}+#2#{} Mult when scored instead"
@@ -726,6 +745,14 @@ return {
         text = {
           "{C:red}+#1#{} Mult on {C:attention}final",
           "{C:attention}hand{} of round",
+        }
+      },
+      j_tboj_forever_alone = {
+        name = "Forever Alone",
+        text = {
+          "{C:attention}Fifth{} card in",
+          "poker hand gives",
+          "{C:chips}+#1#{} Chips when scored"
         }
       },
       j_tboj_a_lump_of_coal = {
@@ -916,6 +943,14 @@ return {
           "a probability succeeds"
         } 
       },
+      j_tboj_friend_zone = {
+        name = "Friend Zone",
+        text = {
+          "{C:attention}Third{} and {C:attention}fourth",
+          "cards in poker hand",
+          "give {C:money}$#1#{} when scored"
+        }
+      },
       j_tboj_dead_eye = {
         name = "Dead Eye",
         text = {
@@ -1045,7 +1080,7 @@ return {
         name = "Trisagion",
         text = {
           "Each played {C:attention}3{} gives {C:mult}+#1#{} Mult,",
-          "{C:chips}+#2#{} Chips or {C:money}$#3#{} when scored",
+          "{C:chips}+#2#{} Chips or {C:money}$#3#{} when scored.",
           "If played hand is exactly",
           "{C:attention}three 3s{}, they each give",
           "{C:attention}all three{} when scored instead"
@@ -1055,9 +1090,10 @@ return {
         name = "Schoolbag",
         text = {
           "{C:attention}+#1#{} active slot",
-          "Destroy a random non-{C:dark_edition}Negative{}",
-          "{C:attention}Active{} when sold or destroyed",
-          "if you have more than the limit"
+          "{s:0.8}If this Joker is sold or destroyed",
+          "{s:0.8}and it results in having more",
+          "{s:0.8}Actives than available slots, destroy",
+          "{s:0.8}a random non-{s:0.8,C:dark_edition}Negative{s:0.8} one",
         }
       },
       j_tboj_flat_stone = {
@@ -1112,6 +1148,18 @@ return {
             "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
           } 
       },
+      j_tboj_guppy_eye = {
+        name = "Guppy's Eye",
+        text = {
+          {
+            "Select a {C:attention}Booster Pack{} to {C:attention}predict{} its content",
+          },
+          {
+          "#1# {C:attention}#2#{} #3#",
+          "#4#"
+          }
+        }
+      },
       j_tboj_soul_locket = {
         name = "Soul Locket",
         text = {
@@ -1141,6 +1189,14 @@ return {
           "round played"
         },
       },
+      j_tboj_keeper_sack = {
+        name = "Keeper's Sack",
+        text = {
+          "This Joker gains {C:mult}+#1#{} Mult",
+          "every {C:attention}$#2#{C:inactive} [#3#]{} spent",
+          "{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)"
+        }
+      },
       j_tboj_ibs = {
         name = "IBS",
         text = {
@@ -1154,6 +1210,14 @@ return {
           "- Turn into a {C:attention}Stone{} card",
           "- {C:white,X:mult}X#3#{} Mult then {C:red}self-destructs"
         }
+      },
+      j_tboj_glass_eye = {
+        name = "Glass Eye",
+        text = {
+          "This Joker gains {X:mult,C:white}X#1#{} Mult",
+          "when a probability {C:attention}succeeds",
+          "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
+        },
       },
     },
     Loot = {
@@ -1573,6 +1637,10 @@ return {
       tboj_bomb = "Bomb",
       tboj_play_hand = "Play a hand first",
       tboj_become_judas = "You became Judas",
+      tboj_select_booster = "Select a Booster Pack first",
+      tboj_geye_1 = "This",
+      tboj_geye_2 = "contains:",
+      tboj_not_supported_pack = "This Pack is not supported",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
@@ -1589,9 +1657,13 @@ return {
     },
     v_dictionary = {  
       tboj_percent = "#1#%",
-      tboj_plus_hand_size_var = "+#1# Hand Size",
+      --tboj_plus_hand_size_var = "+#1# Hand Size",
       tboj_minus_luck_var = "-#1# Luck",
-      tboj_minus_money_var = "-$#1#"
+      tboj_minus_money_var = "-$#1#",
+      tboj_playing_card = "#1# of #2#",
+      tboj_hands_minus = "-#1# Hands",
+      tboj_discards = "+#1# Discards",
+      tboj_discards_minus = "-#1# Discards",
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},

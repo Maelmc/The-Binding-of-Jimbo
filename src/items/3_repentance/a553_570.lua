@@ -30,7 +30,8 @@ SMODS.Joker {
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
-  end
+  end,
+  attributes = {"passive", "boss_blind"},
 }
 
 -- Paschal Candle
@@ -72,7 +73,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "hand", "chips", "scaling", "reset"}
 }
 
 -- 568
@@ -126,7 +127,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil", "tboj_familiar"}
+  attributes = {"tboj_devil", "tboj_familiar", "xmult", "hand", "reset", "scaling"}
 }
 
 -- 570

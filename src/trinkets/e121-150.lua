@@ -26,6 +26,7 @@ TBOJ.Trinket {
       end
     end
   end,
+  attributes = {"booster", "tboj_loot"},
 }
 
 -- Myosotis
@@ -61,6 +62,7 @@ TBOJ.Trinket {
       end
     end
   end,
+  attributes = {"generation"},
 }
 
 -- 'M
@@ -79,6 +81,7 @@ TBOJ.Trinket {
       if context.active.ability.extra.curr_charge then context.active.ability.extra.curr_charge = 0 end
     end
   end,
+  attributes = {"passive"},
 }
 
 -- Teardrop Charm
@@ -102,5 +105,5 @@ TBOJ.Trinket {
       }
     end
   end,
-  attributes = {"tboj_worm"}
+  attributes = {"tboj_worm", "retrigger"}
 }

@@ -30,7 +30,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "passive", "chance"}
 }
 
 -- Dark Arts
@@ -71,7 +71,7 @@ SMODS.Joker {
 
     return card.ability.extra.money
   end,
-  attributes = {"food"}
+  attributes = {"food", "economy", "scaling"}
 }
 
 -- Suplex
@@ -113,8 +113,56 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_book", "tboj_devil"}
+  attributes = {"tboj_book", "tboj_devil", "joker", "editions", "generation"}
 }
+
+-- Recall
+-- Hold
+-- Keeper's Sack
+SMODS.Joker {
+  key = "keeper_sack",
+  pos = { x = 10, y = 47 },
+  config = { extra = { mult = 0, mult_mod = 1, every = 5, scales_in = 5 } },
+  loc_vars = function(self, info_queue, card)
+    return { vars = { card.ability.extra.mult_mod, card.ability.extra.every, card.ability.extra.scales_in, card.ability.extra.mult } }
+  end,
+  rarity = 2,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.money_altered and context.from_shop and context.amount < 0 then
+      card.ability.extra.scales_in = card.ability.extra.scales_in + context.amount
+      local scale_by = 0
+      while card.ability.extra.scales_in <= 0 do
+        card.ability.extra.scales_in = card.ability.extra.scales_in + card.ability.extra.every
+        scale_by = scale_by + 1
+      end
+      if scale_by > 0 then
+        SMODS.scale_card(card, {
+          ref_value = 'mult',
+          scalar_value = 'mult_mod',
+          operation = function(ref_table, ref_value, initial, change)
+            ref_table[ref_value] = initial + scale_by*change
+          end,
+        })
+        return nil, true
+      end
+    end
+    
+    if context.joker_main then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+  end,
+  attributes = {"mult", "scaling", "reroll"}
+}
+
+-- Keeper's Kin
+-- Keeper's Box
 
 -- Spindown Dice = Spectral
 -- Hypercoagulation
@@ -287,8 +335,47 @@ SMODS.Joker {
 
     desc_nodes[#desc_nodes+1] = {{n=G.UIT.C, config = {align = "tl", scale = 1.0, colour = G.C.UI.TEXT_LIGHT, padding = 0.05}, nodes = to_replace}}
   end,
-  attributes = {"tboj_poop"},
+  attributes = {"tboj_poop", "enhancements", "generation", "mult", "xmult", "modify_card", "suit", "spades"},
 }
 
 -- Hemoptysis
 -- Ghost Bombs
+
+-- Glass Eye
+SMODS.Joker {
+  key = "glass_eye",
+  pos = { x = 9, y = 48 },
+  config = {extra = {Xmult = 1, Xmult_mod = 0.15}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.pseudorandom_result and context.result then
+      SMODS.scale_card(card, {
+        ref_value = 'Xmult',
+        scalar_value = 'Xmult_mod',
+        message_key = 'a_xmult',
+      })
+      return nil, true
+    end
+
+    if context.joker_main then
+      return {
+        mult = card.ability.extra.Xmult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"scaling", "xmult"},
+}
+
+-- Stye
+-- Mom's Ring

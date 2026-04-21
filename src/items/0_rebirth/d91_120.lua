@@ -40,7 +40,7 @@ SMODS.Joker {
           return nil, true -- This is for Joker retrigger purposes
       end
   end,
-  attributes = {"tboj_familiar"}
+  attributes = {"tboj_familiar", "enhancements", "generation"}
 }
 
 -- Little C.H.A.D.
@@ -79,7 +79,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_book", "tboj_devil"}
+  attributes = {"tboj_book", "tboj_devil", "tboj_loot", "generation"}
 }
 
 -- The Relic
@@ -122,7 +122,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel", "tboj_familiar"}
+  attributes = {"tboj_angel", "tboj_familiar", "generation", "tboj_loot"}
 }
 
 -- Little Gish
@@ -150,12 +150,12 @@ SMODS.Joker {
     end
   end,
   calc_dollar_bonus = function(self, card)
-    return TBOJ.ease_money(card.ability.extra.money, true)
+    return card.ability.extra.money
 	end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel"}
+  attributes = {"tboj_angel", "chips", "mult", "economy"}
 }
 
 -- Mom's Bottle of Pills
@@ -176,12 +176,20 @@ TBOJ.Active {
     TBOJ.eor_charge(card,context)
   end,
   can_use = function(self, card)
-    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.shop_jokers and G.shop_jokers.cards
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and ((G.shop_jokers and #G.shop_jokers.cards > 0) or G.pack_cards and #G.pack_cards.cards > 0)
   end,
   use = function(self, card, area, copier)
-    for _, v in pairs(G.shop_jokers.cards) do
-      if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
-        TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
+    if G.pack_cards and #G.pack_cards.cards > 0 then
+      for _, v in pairs(G.pack_cards.cards) do
+        if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
+          TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
+        end
+      end
+    else
+      for _, v in pairs(G.shop_jokers.cards) do
+        if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
+          TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
+        end
       end
     end
   end,
@@ -190,7 +198,8 @@ TBOJ.Active {
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
-  end
+  end,
+  attributes = {"joker"}
 }
 
 -- 106
@@ -233,7 +242,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil"}
+  attributes = {"tboj_devil", "xmult"}
 }
 
 -- 110
@@ -300,7 +309,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil"}
+  attributes = {"tboj_devil", "generation", "spectral", "rank", "destroy_card"}
 }
 
 -- 116
@@ -329,7 +338,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil"}
+  attributes = {"tboj_devil", "xmult"}
 }
 
 -- 119

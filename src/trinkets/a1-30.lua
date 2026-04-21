@@ -10,11 +10,12 @@ TBOJ.Trinket {
   calculate = function(self, card, context)
     if context.press_play then
       return {
-        dollars = TBOJ.ease_money(card.ability.extra.money, true),
+        dollars = card.ability.extra.money,
         card = card
       }
     end
   end,
+  attributes = {"economy"},
 }
 
 -- Petrified Poop
@@ -36,12 +37,13 @@ TBOJ.Trinket {
       end
       if poop > 0 then
         return {
-          dollars = TBOJ.ease_money(card.ability.extra.money * poop, true),
+          dollars = card.ability.extra.money * poop,
           card = card
         }
       end
-      end
+    end
   end,
+  attributes = {"enhancements", "economy"},
 }
 
 -- AAA Battery
@@ -64,6 +66,7 @@ TBOJ.Trinket {
       }
     end
   end,
+  attributes = {"xblindsize", "economy"},
 }
 
 -- Broken Magnet
@@ -108,7 +111,7 @@ TBOJ.Trinket {
       }
     end
   end,
-  attributes = {"tboj_worm"}
+  attributes = {"tboj_worm", "retrigger"}
 }
 
 -- Wiggle Worm
@@ -127,7 +130,7 @@ TBOJ.Trinket {
       }
     end
   end,
-  attributes = {"tboj_worm"}
+  attributes = {"tboj_worm", "retrigger"}
 }
 
 -- Ring Worm
@@ -147,7 +150,7 @@ TBOJ.Trinket {
       }
     end
   end,
-  attributes = {"tboj_worm"}
+  attributes = {"tboj_worm", "retrigger"}
 }
 
 -- Store Credit
@@ -173,6 +176,7 @@ TBOJ.Trinket {
       return nil, true -- This is for Joker retrigger purposes
     end
   end,
+  attributes = {"tag", "on_sell", "economy"},
 }
 
 -- Callus
@@ -194,6 +198,7 @@ TBOJ.Trinket {
       end
     end
   end,
+  attributes = {"enhancements"},
 }
 
 -- Mom's Toenail
@@ -222,7 +227,7 @@ TBOJ.Trinket {
       }
     end
   end,
-  attributes = {"tboj_worm"}
+  attributes = {"tboj_worm", "retrigger"}
 }
 
 -- Whip Worm

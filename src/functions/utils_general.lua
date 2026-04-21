@@ -128,24 +128,20 @@ function TBOJ.get_random_key(args)
   end
 
   local candidates = {}
+  local available = 0
   for _, v in pairs(G.P_CENTERS) do
     if v.set and v.set == set
-    and (not (type(v.in_pool) == 'function') or v:in_pool())
+    and (not (type(v.in_pool) == 'function') or v:in_pool()) -- in pool
     and (not (v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag]))
     and ((not v.yes_pool_flag) or G.GAME.pool_flags[v.yes_pool_flag])
-    and not G.GAME.banned_keys[v.key]
-    and (not _rarity or v.rarity == _rarity)
-    and not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key))) and not SMODS.showman(v.key)) then
+    and not G.GAME.banned_keys[v.key] -- not banned
+    and (not _rarity or v.rarity == _rarity) then -- right rarity
       local all_attributes = true
       if attributes then
-        if not v.attributes then
-          all_attributes = false
-        else
-          for _, _attribute in pairs(attributes) do
-            if not TBOJ.table_contains(v.attributes, _attribute) then
-              all_attributes = false
-              break
-            end
+        for _, _attribute in pairs(attributes) do
+          if not TBOJ.center_has_attribute(v,_attribute) then
+            all_attributes = false
+            break
           end
         end
       end
@@ -154,19 +150,34 @@ function TBOJ.get_random_key(args)
           if G.playing_cards then
             for _, vv in pairs(G.playing_cards) do
               if SMODS.has_enhancement(vv, v.enhancement_gate) then
-                table.insert(candidates, v.key)
+                if SMODS.showman(v.key) or not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key)))) then
+                  table.insert(candidates, v.key)
+                  available = available + 1
+                else
+                  table.insert(candidates,"UNAVAILABLE")
+                end
                 break
               end
             end
           end
         else
-          table.insert(candidates, v.key)
+          if SMODS.showman(v.key) or not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key)))) then
+            table.insert(candidates, v.key)
+            available = available + 1
+          else
+            table.insert(candidates,"UNAVAILABLE")
+          end
         end
       end
     end
   end
-  if #candidates > 0 then
+  if available > 0 then
     local elem, _ = pseudorandom_element(candidates, pseudoseed(seed))
+    local it = 1
+    while elem == 'UNAVAILABLE' do
+      it = it + 1
+      elem = pseudorandom_element(candidates, pseudoseed(seed..'_resample'..it))
+    end
     return elem
   elseif set == "Joker" then return "j_tboj_breakfast"
   elseif set == "tboj_active" then return "active_tboj_the_d6"
@@ -279,10 +290,7 @@ function TBOJ.id_to_value(id)
 end
 
 function TBOJ.total_chips(card)
-  local total_chips = (card.ability.bonus) + (card.ability.perma_bonus or 0)
-  if card.ability.effect ~= 'Stone Card' and not card.config.center.replace_base_card then
-    total_chips = total_chips + (card.base.nominal)
-  end
+  local total_chips = card:get_chip_bonus()
   if card.edition then
     total_chips = total_chips + (card.edition.chips or 0)
   end
@@ -398,6 +406,252 @@ function TBOJ.predict_next_boss()
   return boss
 end
 
+function TBOJ.predict_pack(pack,amount)
+  local og_seed = {}
+  for k, v in pairs(G.GAME.pseudorandom) do
+    og_seed[k] = v
+  end
+
+  local og_used = {}
+  for k, v in pairs(G.GAME.used_jokers) do
+    og_used[k] = v
+  end
+
+  local res = ""
+
+  for i = 1, amount do
+    if pack == "Arcana" then
+      local forced_key
+      if not G.GAME.banned_keys['c_soul'] then
+        local soul_total_rate = 0
+        local non_soul_rate = 1
+        local modded_souls = {}
+        for _, v in ipairs(SMODS.Consumable.legendaries) do
+            if ("Tarot" == v.type.key or "Tarot" == v.soul_set) and not (G.GAME.used_jokers[v.key] and not SMODS.showman(v.key) and not v.can_repeat_soul) and SMODS.add_to_pool(v) then
+                soul_total_rate = soul_total_rate + v.soul_rate
+                non_soul_rate = non_soul_rate * (1 - v.soul_rate)
+                non_soul_rate = math.max(non_soul_rate, 0)
+                table.insert(modded_souls, v)
+            end
+        end
+        local roll = pseudorandom('soul_smods_'.."Tarot"..G.GAME.round_resets.ante)
+        local threshold = 1
+        for _, v in ipairs(modded_souls) do
+            threshold = threshold - v.soul_rate/soul_total_rate * (1-non_soul_rate)
+            if roll > threshold then
+                forced_key = v.key
+                break
+            end
+        end
+        if  not (G.GAME.used_jokers['c_soul'] and not SMODS.showman('c_soul')) then
+            if pseudorandom('soul_'.."Tarot"..G.GAME.round_resets.ante) > 0.997 then
+                forced_key = 'c_soul'
+            end
+        end
+      end
+
+      if forced_key then
+        res = res .. localize({type = "name_text", set = "Spectral", key = forced_key}) .. (i == amount and "" or ", ")
+        G.GAME.used_jokers[forced_key] = true
+      else
+        local _pool, _pool_key, set
+        if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
+          _pool, _pool_key = get_current_pool("Spectral", nil, nil, 'ar2')
+          set = "Spectral"
+        else
+          _pool, _pool_key = get_current_pool("Tarot", nil, nil, 'ar1')
+          set = "Tarot"
+        end
+        local center = pseudorandom_element(_pool, pseudoseed(_pool_key))
+        local it = 1
+        while center == 'UNAVAILABLE' do
+            it = it + 1
+            center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+        end
+        res = res .. localize({type = "name_text", set = set, key = center}) .. (i == amount and "" or ", ")
+        G.GAME.used_jokers[center] = true
+      end
+    
+    elseif pack == "Celestial" then
+      if G.GAME.used_vouchers.v_telescope and i == 1 then
+        local _planet, _hand, _tally = nil, nil, 0
+        for k, v in ipairs(G.handlist) do
+            if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
+                _hand = v
+                _tally = G.GAME.hands[v].played
+            end
+        end
+        if _hand then
+            for k, v in pairs(G.P_CENTER_POOLS.Planet) do
+                if v.config.hand_type == _hand then
+                    _planet = v.key
+                end
+            end
+        end
+        res = res .. localize({type = "name_text", set = "Planet", key = _planet}) .. (i == amount and "" or ", ")
+        G.GAME.used_jokers[_planet] = true
+      else
+        local forced_key
+        if not G.GAME.banned_keys['c_soul'] then
+          local soul_total_rate = 0
+          local non_soul_rate = 1
+          local modded_souls = {}
+          for _, v in ipairs(SMODS.Consumable.legendaries) do
+              if ("Planet" == v.type.key or "Planet" == v.soul_set) and not (G.GAME.used_jokers[v.key] and not SMODS.showman(v.key) and not v.can_repeat_soul) and SMODS.add_to_pool(v) then
+                  soul_total_rate = soul_total_rate + v.soul_rate
+                  non_soul_rate = non_soul_rate * (1 - v.soul_rate)
+                  non_soul_rate = math.max(non_soul_rate, 0)
+                  table.insert(modded_souls, v)
+              end
+          end
+          local roll = pseudorandom('soul_smods_'.."Planet"..G.GAME.round_resets.ante)
+          local threshold = 1
+          for _, v in ipairs(modded_souls) do
+              threshold = threshold - v.soul_rate/soul_total_rate * (1-non_soul_rate)
+              if roll > threshold then
+                  forced_key = v.key
+                  break
+              end
+          end
+          if not (G.GAME.used_jokers['c_black_hole'] and not SMODS.showman('c_black_hole')) then
+            if pseudorandom('soul_'.."Planet"..G.GAME.round_resets.ante) > 0.997 then
+              forced_key = 'c_black_hole'
+            end
+          end
+        end             
+
+        if forced_key then
+          res = res .. localize({type = "name_text", set = "Spectral", key = forced_key}) .. (i == amount and "" or ", ")
+          G.GAME.used_jokers[forced_key] = true
+        else
+          local _pool, _pool_key = get_current_pool("Planet", nil, nil, 'pl1')
+          local center = pseudorandom_element(_pool, pseudoseed(_pool_key))
+          local it = 1
+          while center == 'UNAVAILABLE' do
+              it = it + 1
+              center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+          end
+          res = res .. localize({type = "name_text", set = "Planet", key = center}) .. (i == amount and "" or ", ")
+          G.GAME.used_jokers[center] = true
+        end
+      end
+
+    elseif pack == "Standard" then
+      local _c, _ = pseudorandom_element(G.P_CARDS, pseudoseed('front'..('sta' or '')..G.GAME.round_resets.ante))
+      res = res .. localize{type = 'variable', key = 'tboj_playing_card', vars = {localize(_c.value, 'ranks'), localize(_c.suit, 'suits_plural')}} .. (i == amount and "" or ", ")
+
+    elseif pack == "Spectral" then
+      local forced_key
+      if not G.GAME.banned_keys['c_soul'] then
+        local soul_total_rate = 0
+        local non_soul_rate = 1
+        local modded_souls = {}
+        for _, v in ipairs(SMODS.Consumable.legendaries) do
+            if ("Spectral" == v.type.key or "Spectral" == v.soul_set) and not (G.GAME.used_jokers[v.key] and not SMODS.showman(v.key) and not v.can_repeat_soul) and SMODS.add_to_pool(v) then
+                soul_total_rate = soul_total_rate + v.soul_rate
+                non_soul_rate = non_soul_rate * (1 - v.soul_rate)
+                non_soul_rate = math.max(non_soul_rate, 0)
+                table.insert(modded_souls, v)
+            end
+        end
+        local roll = pseudorandom('soul_smods_'.."Spectral"..G.GAME.round_resets.ante)
+        local threshold = 1
+        for _, v in ipairs(modded_souls) do
+            threshold = threshold - v.soul_rate/soul_total_rate * (1-non_soul_rate)
+            if roll > threshold then
+                forced_key = v.key
+                break
+            end
+        end
+        if  not (G.GAME.used_jokers['c_soul'] and not SMODS.showman('c_soul')) then
+          if pseudorandom('soul_'.."Spectral"..G.GAME.round_resets.ante) > 0.997 then
+            forced_key = 'c_soul'
+          end
+        end
+        if not (G.GAME.used_jokers['c_black_hole'] and not SMODS.showman('c_black_hole')) then
+          if pseudorandom('soul_'.."Spectral"..G.GAME.round_resets.ante) > 0.997 then
+            forced_key = 'c_black_hole'
+          end
+        end
+      end
+
+      if forced_key then
+        res = res .. localize({type = "name_text", set = "Spectral", key = forced_key}) .. (i == amount and "" or ", ")
+        G.GAME.used_jokers[forced_key] = true
+      else
+        local _pool, _pool_key = get_current_pool("Spectral", nil, nil, 'spe')
+        local center = pseudorandom_element(_pool, pseudoseed(_pool_key))
+        local it = 1
+        while center == 'UNAVAILABLE' do
+            it = it + 1
+            center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+        end
+        res = res .. localize({type = "name_text", set = "Spectral", key = center}) .. (i == amount and "" or ", ")
+        G.GAME.used_jokers[center] = true
+      end
+
+    elseif pack == "Buffoon" then
+      local _pool, _pool_key = get_current_pool("Joker", nil, nil, 'buf')
+      local center = pseudorandom_element(_pool, pseudoseed(_pool_key))
+      local it = 1
+      while center == 'UNAVAILABLE' do
+          it = it + 1
+          center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+      end
+      res = res .. localize({type = "name_text", set = "Joker", key = center}) .. (i == amount and "" or ", ")
+      G.GAME.used_jokers[center] = true
+
+    elseif pack == "Angel" then
+      local _k
+      if i == 1 then
+        _k = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_angel", seed = "tboj_angel_pack"}
+        res = res .. localize({type = "name_text", set = "tboj_active", key = _k}) .. (i == amount and "" or ", ")
+      else
+        if pseudorandom('soul_angel'..G.GAME.round_resets.ante) > 0.997 then
+          _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", target_rarities = {4, "Legendary"}, seed = "tboj_angel_pack"}
+        else
+          _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", seed = "tboj_angel_pack"}
+        end
+        res = res .. localize({type = "name_text", set = "Joker", key = _k}) .. (i == amount and "" or ", ")
+      end
+      G.GAME.used_jokers[_k] = true
+
+    elseif pack == "Devil" then
+      local _k
+      if i == 1 then
+        _k = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_devil", seed = "tboj_devil_pack"}
+        res = res .. localize({type = "name_text", set = "tboj_active", key = _k}) .. (i == amount and "" or ", ")
+      else
+        if pseudorandom('soul_devil'..G.GAME.round_resets.ante) > 0.997 then
+          _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", target_rarities = {4, "Legendary"}, seed = "tboj_devil_pack"}
+        else
+          _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", seed = "tboj_devil_pack"}
+        end
+        res = res .. localize({type = "name_text", set = "Joker", key = _k}) .. (i == amount and "" or ", ")
+      end
+      G.GAME.used_jokers[_k] = true
+
+    else return localize("tboj_not_supported_pack") end
+  end
+
+  for k, _ in pairs(G.GAME.pseudorandom) do
+    if og_seed[k] then
+      G.GAME.pseudorandom[k] = og_seed[k]
+    else
+      G.GAME.pseudorandom[k] = nil
+    end
+  end
+
+  for k, _ in pairs(G.GAME.used_jokers) do
+    if og_used[k] then
+      G.GAME.used_jokers[k] = og_used[k]
+    else
+      G.GAME.used_jokers[k] = nil
+    end
+  end
+
+  return res
+end
 
 function TBOJ.get_new_big()
   G.GAME.perscribed_big = G.GAME.perscribed_big or {}
@@ -509,4 +763,13 @@ function TBOJ.save_last_hand(context)
 
     G.GAME.tboj_last_scored_hand[#G.GAME.tboj_last_scored_hand+1] = {id = id, value = value, suit = suit}
   end
+end
+
+function TBOJ.center_has_attribute(center,attribute)
+  if not SMODS.Attributes[attribute] or not center.attributes then return false end
+  if center.attributes[attribute] then return true end
+  for _, att in ipairs(SMODS.Attributes[attribute].alias or {}) do
+    if center.attributes[att] then return true end
+  end
+  return false
 end
