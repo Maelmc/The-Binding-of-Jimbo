@@ -128,24 +128,20 @@ function TBOJ.get_random_key(args)
   end
 
   local candidates = {}
+  local available = 0
   for _, v in pairs(G.P_CENTERS) do
     if v.set and v.set == set
-    and (not (type(v.in_pool) == 'function') or v:in_pool())
+    and (not (type(v.in_pool) == 'function') or v:in_pool()) -- in pool
     and (not (v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag]))
     and ((not v.yes_pool_flag) or G.GAME.pool_flags[v.yes_pool_flag])
-    and not G.GAME.banned_keys[v.key]
-    and (not _rarity or v.rarity == _rarity)
-    and not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key))) and not SMODS.showman(v.key)) then
+    and not G.GAME.banned_keys[v.key] -- not banned
+    and (not _rarity or v.rarity == _rarity) then -- right rarity
       local all_attributes = true
       if attributes then
-        if not v.attributes then
-          all_attributes = false
-        else
-          for _, _attribute in pairs(attributes) do
-            if not TBOJ.table_contains(v.attributes, _attribute) then
-              all_attributes = false
-              break
-            end
+        for _, _attribute in pairs(attributes) do
+          if not TBOJ.center_has_attribute(v,_attribute) then
+            all_attributes = false
+            break
           end
         end
       end
@@ -154,19 +150,34 @@ function TBOJ.get_random_key(args)
           if G.playing_cards then
             for _, vv in pairs(G.playing_cards) do
               if SMODS.has_enhancement(vv, v.enhancement_gate) then
-                table.insert(candidates, v.key)
+                if SMODS.showman(v.key) or not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key)))) then
+                  table.insert(candidates, v.key)
+                  available = available + 1
+                else
+                  table.insert(candidates,"UNAVAILABLE")
+                end
                 break
               end
             end
           end
         else
-          table.insert(candidates, v.key)
+          if SMODS.showman(v.key) or not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key)))) then
+            table.insert(candidates, v.key)
+            available = available + 1
+          else
+            table.insert(candidates,"UNAVAILABLE")
+          end
         end
       end
     end
   end
-  if #candidates > 0 then
+  if available > 0 then
     local elem, _ = pseudorandom_element(candidates, pseudoseed(seed))
+    local it = 1
+    while elem == 'UNAVAILABLE' do
+      it = it + 1
+      elem = pseudorandom_element(candidates, pseudoseed(seed..'_resample'..it))
+    end
     return elem
   elseif set == "Joker" then return "j_tboj_breakfast"
   elseif set == "tboj_active" then return "active_tboj_the_d6"
@@ -752,4 +763,13 @@ function TBOJ.save_last_hand(context)
 
     G.GAME.tboj_last_scored_hand[#G.GAME.tboj_last_scored_hand+1] = {id = id, value = value, suit = suit}
   end
+end
+
+function TBOJ.center_has_attribute(center,attribute)
+  if not SMODS.Attributes[attribute] or not center.attributes then return false end
+  if center.attributes[attribute] then return true end
+  for _, att in ipairs(SMODS.Attributes[attribute].alias or {}) do
+    if center.attributes[att] then return true end
+  end
+  return false
 end

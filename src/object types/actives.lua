@@ -20,17 +20,6 @@ TBOJ.Active = SMODS.Center:extend {
   required_params = {
     "key"
   },
-  inject = function(self)
-    G.P_CENTERS[self.key] = self
-    if not self.omit then SMODS.insert_pool(G.P_CENTER_POOLS[self.set], self) end
-    for k, v in pairs(SMODS.ObjectTypes) do
-        -- Should "cards" be formatted as `{[<center key>] = true}` or {<center key>}?
-        -- Changing "cards" and "pools" wouldn't be hard to do, just depends on preferred format
-        if ((self.pools and self.pools[k]) or (v.cards and v.cards[self.key])) then
-            v:inject_card(self)
-        end
-    end
-  end,
 }
 
 SMODS.UndiscoveredSprite {
