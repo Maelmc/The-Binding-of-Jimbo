@@ -18,7 +18,7 @@ SMODS.Blind {
         blind:juice_up()
       end
 
-      if context.discard then
+      if context.pre_discard and not context.hook then
         ease_discard(-1)
         blind:juice_up()
       end

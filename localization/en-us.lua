@@ -1193,7 +1193,7 @@ return {
         name = "Keeper's Sack",
         text = {
           "This Joker gains {C:mult}+#1#{} Mult",
-          "every {C:attention}$#2#{C:inactive} [#3#]{} spent",
+          "every {C:money}$#2#{C:inactive} [#3#]{} spent",
           "{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)"
         }
       },
