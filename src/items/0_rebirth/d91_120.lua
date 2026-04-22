@@ -179,7 +179,7 @@ TBOJ.Active {
     return card.ability.extra.curr_charge >= card.ability.extra.max_charge and ((G.shop_jokers and #G.shop_jokers.cards > 0) or G.pack_cards and #G.pack_cards.cards > 0)
   end,
   use = function(self, card, area, copier)
-    if G.pack_cards and #G.pack_cards.cards > 0 then
+    if G.pack_cards and G.pack_cards.cards and #G.pack_cards.cards > 0 then
       for _, v in pairs(G.pack_cards.cards) do
         if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
           TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
