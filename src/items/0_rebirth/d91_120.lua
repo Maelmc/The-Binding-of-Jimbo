@@ -176,7 +176,9 @@ TBOJ.Active {
     TBOJ.eor_charge(card,context)
   end,
   can_use = function(self, card)
-    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and ((G.shop_jokers and #G.shop_jokers.cards > 0) or G.pack_cards and #G.pack_cards.cards > 0)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and
+    ((G.shop_jokers and G.shop_jokers.cards and #G.shop_jokers.cards > 0)
+    or (G.pack_cards and G.pack_cards.cards and #G.pack_cards.cards > 0))
   end,
   use = function(self, card, area, copier)
     if G.pack_cards and G.pack_cards.cards and #G.pack_cards.cards > 0 then
