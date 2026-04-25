@@ -183,7 +183,24 @@ target = '=[SMODS _ "src/overrides.lua"]'
 pattern = "elseif _center.set == 'Joker' or _center.consumeable or _center.set == 'Voucher' then"
 position = "before"
 payload = '''
-elseif not self.params.bypass_discovery_center and _center.set == 'tboj_active' and not _center.discovered then
+elseif not self.params.bypass_discovery_center and _center.set == 'tboj_active' and (not _center.discovered) and (not TBOJ.table_contains({
+    G.STATES.SMODS_BOOSTER_OPENED,
+    G.STATES.SMODS_REDEEM_VOUCHER,
+    G.STATES.SELECTING_HAND,
+    G.STATES.HAND_PLAYED,
+    G.STATES.DRAW_TO_HAND,
+    G.STATES.GAME_OVER,
+    G.STATES.SHOP,
+    G.STATES.PLAY_TAROT,
+    G.STATES.BLIND_SELECT,
+    G.STATES.ROUND_EVAL,
+    G.STATES.TAROT_PACK,
+    G.STATES.PLANET_PACK,
+    G.STATES.SPECTRAL_PACK,
+    G.STATES.STANDARD_PACK,
+    G.STATES.BUFFOON_PACK,
+    G.STATES.NEW_ROUND,
+  },G.STATE)) then
   local atlas = SMODS.get_atlas("tboj_undiscovered")
   local pos = { x = 3, y = 0 }
   self.children.center = SMODS.create_sprite(self.T.x, self.T.y, self.T.w, self.T.h, atlas, pos)
