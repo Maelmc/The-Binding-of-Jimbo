@@ -1030,6 +1030,13 @@ return {
           "on {C:attention}first{} hand of round"
         },
       },
+      j_tboj_head_of_the_keeper = {
+        name = "Head of the Keeper",
+        text = {
+          "Played cards with a {C:attention}seal",
+          "give {C:money}$#1#{} when scored"
+        },
+      },
       j_tboj_shard_of_glass = {
         name = "Shard of Glass",
         text = {
