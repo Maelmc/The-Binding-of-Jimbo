@@ -1138,6 +1138,14 @@ return {
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
       },
+      j_tboj_red_stew = {
+        name = "Red Stew",
+        text = {
+          "{C:mult}+#1#{} Mult",
+          "{C:mult}-#2#{} Mult for every hand played",
+          "{C:mult}+#2#{} Mult at end of round",
+        },
+      },
       j_tboj_revelation = {
         name = "Revelation",
         text = {

@@ -51,7 +51,59 @@ TBOJ.Active {
 -- 618
 -- 619
 -- 620
--- 621
+-- Red Stew
+SMODS.Joker {
+  key = "red_stew",
+  pos = { x = 5, y = 41 },
+  config = {extra = {mult = 40, mult_mod = 10}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult, card.ability.extra.mult_mod}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+
+    if context.after and not context.blueprint then
+      if card.ability.extra.mult - card.ability.extra.mult_mod <= 0 then
+        SMODS.destroy_cards(card, nil, nil, true)
+        return {
+          message = localize('k_eaten_ex'),
+          colour = G.C.MULT
+        }
+      else
+        SMODS.scale_card(card, {
+          ref_value = 'mult',
+          scalar_value = 'mult_mod',
+          operation = '-',
+          message_key = 'a_mult_minus',
+        })
+        return nil, true
+      end
+    end
+
+    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+      SMODS.scale_card(card, {
+        ref_value = 'mult',
+        scalar_value = 'mult_mod',
+      })
+      return nil, true
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"mult", "food", "scaling"},
+}
+
 -- Genesis
 TBOJ.Active {
   key = "genesis",
