@@ -91,6 +91,38 @@ SMODS.Joker {
 -- Blood Rights
 -- Guppy's Hairball
 
+-- 3 Dollar Bill
+-- Telepathy For Dummies
+-- MEAT!
+SMODS.Joker {
+  key = "meat",
+  pos = {x = 12, y = 12},
+  config = {extra = {mult_mod = 5}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult_mod * G.GAME.current_round.hands_left}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        mult = card.ability.extra.mult_mod * G.GAME.current_round.hands_left
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"mult", "hands"},
+}
+
+-- Magic 8 Ball
+-- Mom's Purse
+
 -- Mom's Key
 -- Mom's Eyeshadow
 -- Iron Bar

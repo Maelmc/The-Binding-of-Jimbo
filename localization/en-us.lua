@@ -793,6 +793,14 @@ return {
           "during a {C:attention}Blind"
         }
       },
+      j_tboj_meat = {
+        name = "MEAT!",
+        text = {
+          "{C:mult}+#1#{} Mult per",
+          "remaining {C:blue}Hands",
+          "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+        }
+      },
       j_tboj_iron_bar = {
         name = "Iron Bar",
         text = {
