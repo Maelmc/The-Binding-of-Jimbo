@@ -1079,6 +1079,13 @@ return {
           "add {C:dark_edition}Polychrome{} to it"
         }
       },
+      j_tboj_7_seals = {
+        name = "7 Seals",
+        text = {
+          "Each discarded {C:attention}7",
+          "gains a random {C:attention}seal"
+        }
+      },
       j_tboj_death_list = {
         name = "Death's List",
         text = {
