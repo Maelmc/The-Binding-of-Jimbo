@@ -53,7 +53,32 @@ SMODS.Joker {
 -- Technology Zero
 -- Leprosy
 -- 7 seals
--- 527
+SMODS.Joker {
+  key = "7_seals",
+  pos = {x = 0, y = 35 },
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 2,
+  cost = 7,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.discard and not context.blueprint and context.other_card:get_id() == 7 then
+      context.other_card:set_seal(SMODS.poll_seal({type_key = "tboj_7_seals", guaranteed = true}))
+      return nil, true
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_angel", "tboj_devil", "tboj_familiar", "seals", "seven", "modify_card", "discard"},
+}
+
+-- Mr. ME!
 -- Angelic Prism
 -- Pop!
 -- Death's List

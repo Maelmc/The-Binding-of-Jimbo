@@ -793,6 +793,14 @@ return {
           "during a {C:attention}Blind"
         }
       },
+      j_tboj_meat = {
+        name = "MEAT!",
+        text = {
+          "{C:mult}+#1#{} Mult per",
+          "remaining {C:blue}Hands",
+          "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+        }
+      },
       j_tboj_iron_bar = {
         name = "Iron Bar",
         text = {
@@ -1022,6 +1030,13 @@ return {
           "on {C:attention}first{} hand of round"
         },
       },
+      j_tboj_head_of_the_keeper = {
+        name = "Head of the Keeper",
+        text = {
+          "Played cards with a {C:attention}seal",
+          "give {C:money}$#1#{} when scored"
+        },
+      },
       j_tboj_shard_of_glass = {
         name = "Shard of Glass",
         text = {
@@ -1062,6 +1077,13 @@ return {
           "If first hand of round is",
           "a single {C:attention}Poop{} card,",
           "add {C:dark_edition}Polychrome{} to it"
+        }
+      },
+      j_tboj_7_seals = {
+        name = "7 Seals",
+        text = {
+          "Each discarded {C:attention}7",
+          "gains a random {C:attention}seal"
         }
       },
       j_tboj_death_list = {
@@ -1129,6 +1151,14 @@ return {
           "resets at end of round",
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
+      },
+      j_tboj_red_stew = {
+        name = "Red Stew",
+        text = {
+          "{C:mult}+#1#{} Mult",
+          "{C:mult}-#2#{} Mult for every hand played",
+          "{C:mult}+#2#{} Mult at end of round",
+        },
       },
       j_tboj_revelation = {
         name = "Revelation",

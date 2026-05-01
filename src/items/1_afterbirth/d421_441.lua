@@ -1,3 +1,41 @@
+-- PJs
+-- Head of the Keeper
+SMODS.Joker {
+  key = "head_of_the_keeper",
+  pos = { x = 8, y = 28 },
+  config = {extra = {money_mod = 3}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.money_mod}}
+  end,
+  rarity = 2,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = false,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and context.other_card:get_seal() then
+      G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money_mod
+      return {
+        dollars = card.ability.extra.money_mod,
+        func = function()
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              G.GAME.dollar_buffer = 0
+              return true
+            end
+          }))
+        end
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"economy","seals"},
+}
+
+-- Papa Fly
 -- Multidimensional Baby
 -- Glitter Bomb
 -- My Shadow
