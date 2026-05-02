@@ -122,14 +122,12 @@ SMODS.Joker {
   pos = {x = 7, y = 15},
   config = {extra = {}},
   loc_vars = function(self, info_queue, center)
-    local _chips, _mult, name = 5, 1, "High Card"
-    if G.GAME.hands then
-      for k, v in pairs(G.GAME.hands) do
-        if v.visible and (not _chips or (v.mult * v.chips < _mult * _chips)) then
-          _chips = v.chips
-          _mult = v.mult
-          name = k
-        end
+    local _chips, _mult, name
+    for k, v in pairs(G.GAME.hands) do
+      if v.visible and ((not _chips) or (v.mult * v.chips < _mult * _chips)) then
+        _chips = v.chips
+        _mult = v.mult
+        name = k
       end
     end
     return {vars = {_chips, _mult, localize(name, 'poker_hands'),}}
@@ -139,12 +137,12 @@ SMODS.Joker {
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
-  blueprint_compat = false,
+  blueprint_compat = true,
   calculate = function(self, card, context)
     if context.joker_main then
       local _chips, _mult, name
       for k, v in pairs(G.GAME.hands) do
-        if v.visible and (not _chips or (v.mult * v.chips < _mult * _chips)) then
+        if v.visible and ((not _chips) or (v.mult * v.chips < _mult * _chips)) then
           _chips = v.chips
           _mult = v.mult
           name = k
