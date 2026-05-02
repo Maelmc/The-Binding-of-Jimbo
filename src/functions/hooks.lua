@@ -55,7 +55,7 @@ function Card:click()
       self.ability.extra.to_draw = self.ability.extra.to_draw - 1
       if self.ability.extra.to_draw <= 0 then
         SMODS.destroy_cards(self, true, nil, true)
-        SMODS.calculate_effect({message = localize('k_eaten_ex'), colour = G.C.FILTER}, self)
+        SMODS.calculate_effect({message = localize('k_drank_ex'), colour = G.C.FILTER}, self)
       end
     end
   end
