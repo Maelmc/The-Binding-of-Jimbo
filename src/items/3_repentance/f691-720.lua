@@ -357,6 +357,7 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.pseudorandom_result and context.result then
+      print("a")
       SMODS.scale_card(card, {
         ref_value = 'Xmult',
         scalar_value = 'Xmult_mod',
@@ -367,7 +368,7 @@ SMODS.Joker {
 
     if context.joker_main then
       return {
-        mult = card.ability.extra.Xmult
+        xmult = card.ability.extra.Xmult
       }
     end
   end,
