@@ -591,12 +591,22 @@ function TBOJ.predict_pack(pack,amount)
       end
 
     elseif pack == "Buffoon" then
-      local _pool, _pool_key = get_current_pool("Joker", nil, nil, 'buf')
-      local center = pseudorandom_element(_pool, pseudoseed(_pool_key))
-      local it = 1
-      while center == 'UNAVAILABLE' do
-          it = it + 1
-          center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+      local center
+      if i == 1 and next(SMODS.find_card("j_tboj_pentagram")) then
+        local rand = pseudorandom("tboj_pentagram")
+        if rand < 0.5 then
+          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", seed = "tboj_pentagram"}
+        else
+          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", seed = "tboj_pentagram"}
+        end
+      else
+        local _pool, _pool_key = get_current_pool("Joker", nil, nil, 'buf')
+        center = pseudorandom_element(_pool, pseudoseed(_pool_key))
+        local it = 1
+        while center == 'UNAVAILABLE' do
+            it = it + 1
+            center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+        end
       end
       res = res .. localize({type = "name_text", set = "Joker", key = center}) .. (i == amount and "" or ", ")
       G.GAME.used_jokers[center] = true
