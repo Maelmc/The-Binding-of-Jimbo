@@ -1,3 +1,95 @@
+-- Fate's Reward
+-- Lil Chest
+-- Lil Chest
+-- Sworn Protector
+-- Friend Zone
+SMODS.Joker {
+  key = "friend_zone",
+  pos = {x = 3, y = 24},
+  config = {extra = {money = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.money}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      local third = context.scoring_hand[3] or {}
+      local fourth = context.scoring_hand[4] or {}
+      if context.other_card == third or context.other_card == fourth then
+        return {
+          dollars = card.ability.extra.money,
+        }
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "tboj_fly", "economy"}
+}
+
+-- Lost Fly
+-- Scatter Bombs
+-- Sticky Bombs
+-- Epiphora
+SMODS.Joker {
+  key = "epiphora",
+  pos = {x = 7, y = 24},
+  config = {extra = {to_retrigger = 0, retrigg_scale = 1, repetitions = 1, hand = nil}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.to_retrigger, card.ability.extra.repetitions, card.ability.extra.retrigg_scale,
+    G.GAME.last_hand_played and localize(G.GAME.last_hand_played, 'poker_hands') or localize("tboj_none"),
+  }}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.before then
+      if card.ability.extra.hand == context.scoring_name then
+        SMODS.scale_card(card, {
+          ref_value = 'to_retrigger',
+          scalar_value = 'retrigg_scale',
+        })
+        return nil, true
+      else
+        card.ability.extra.to_retrigger = 0
+        card.ability.extra.hand = G.GAME.last_hand_played
+        return {
+          message = localize("k_reset")
+        }
+      end
+    end
+
+    if context.repetition and card.ability.extra.to_retrigger > 0 and context.cardarea == G.play then
+      for i = 1, card.ability.extra.to_retrigger do
+        if context.other_card == context.scoring_hand[i] then
+          return {
+            repetitions = card.ability.extra.repetitions
+          }
+        end
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  add_to_deck = function(self, card, from_debuff)
+    card.ability.extra.hand = G.GAME.last_hand_played
+  end,
+  attributes = {"retrigger", "scaling"}
+}
+
+-- Continuum
+-- Mr. Dolly
 -- Curse of the Tower
 -- Charged Baby
 -- Dead Eye

@@ -959,6 +959,17 @@ return {
           "give {C:money}$#1#{} when scored"
         }
       },
+      j_tboj_epiphora = {
+        name = "Epiphora",
+        text = {
+          "Retrigger the first {C:attention}#1#",
+          "played cards used in scoring",
+          "{C:attention}#2#{} additionnal time, increases",
+          "by {C:attention}#3#{} when {C:attention}consecutively",
+          "playing the same {C:attention}poker hand",
+          "{C:inactive}(Last hand: {C:attention}#4#{C:inactive})",
+        }
+      },
       j_tboj_dead_eye = {
         name = "Dead Eye",
         text = {
@@ -1671,6 +1682,7 @@ return {
       tboj_geye_1 = "This",
       tboj_geye_2 = "contains:",
       tboj_not_supported_pack = "This Pack is not supported",
+      tboj_none = "None",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
