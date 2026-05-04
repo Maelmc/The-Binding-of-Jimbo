@@ -15,7 +15,7 @@ SMODS.Back {
           local hands = math.min(self.config.max_hands,math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/self.config.every))
           if hands >= 1 then
             ease_hands_played(hands)
-            SMODS.calculate_effect({ message = localize { type = 'variable', key = 'a_hands', vars = { hands } } }, back)
+            SMODS.calculate_effect({ message = localize { type = 'variable', key = 'a_hands', vars = { hands } } }, G.deck.cards[1] or {})
           end
           return true
         end
