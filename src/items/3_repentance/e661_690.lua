@@ -6,21 +6,15 @@ SMODS.Joker {
   pos = { x = 4, y = 44 },
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
-    if not G.jokers then
-      --print("not in game")
-      return {vars = {"",localize("tboj_unknown"),"",""}}
-    end
-    if not TBOJ.table_contains(G.jokers.cards,card) then
-      --print("not owned")
-      return {vars = {"",localize("tboj_acquire_to_reveal"),"",""}}
+    local cardarea = CardArea(G.ROOM.T.x, G.ROOM.T.y, G.CARD_W * 0.7, G.CARD_H * 0.7, {
+      type = "title_2", card_limit = 0, highlight_limit = 0
+    })
+    if (not G.jokers) or (not TBOJ.table_contains(G.jokers.cards,card)) then
+      return {vars = {elements = {cardarea}}}
     end
 
-    local predict, part1, part2, part3
+    local predict
     if (not G.shop_booster) or (not G.shop_booster.highlighted[1]) then
-      part2 = localize("tboj_select_booster")
-      predict = ""
-      part1 = ""
-      part3 = ""
     else
       local set = G.shop_booster.highlighted[1].ability.name
       if set:find("Buffoon") then set = "Buffoon"
@@ -32,17 +26,33 @@ SMODS.Joker {
       elseif set:find("tboj_angel") then set = "Angel"
       end
       predict = TBOJ.predict_pack(set, G.shop_booster.highlighted[1].ability.extra)
-      part1 = localize("tboj_geye_1")
-      local key
-      if G.P_CENTERS[G.shop_booster.highlighted[1].config.center_key].original_mod then
-        key = G.shop_booster.highlighted[1].config.center_key
-      else
-        key = string.sub(G.shop_booster.highlighted[1].config.center_key,1,#G.shop_booster.highlighted[1].config.center_key - 2)
+      if predict then
+        cardarea.T.w = cardarea.T.w * (#predict+1)
+        for _, v in ipairs(predict) do
+          local _card
+          if v.rank then
+            _card = SMODS.create_card({set = "Base", area = cardarea, rank = v.rank, suit = v.suit })
+            if v.enhancement then _card:set_ability(v.enhancement) end
+            if v.edition then _card:set_edition(v.edition,true,true) end
+            if v.seal then _card:set_seal(v.seal,true,true) end
+          else
+            _card = SMODS.create_card({key = v.key, area = cardarea, no_edition = true})
+            if v.edition then _card:set_edition(v.edition,true,true) end
+            if v.stickers then
+              for l, w in pairs(v.stickers) do
+                if w and (_card.config.center[l.."_compat"] ~= false) then
+                  local sticker = SMODS.Stickers[l]
+                  sticker:apply(_card, true)
+                end
+              end
+            end
+          end
+          _card.T.scale = _card.T.scale * 0.7
+          cardarea:emplace(_card)
+        end
       end
-      part2 = localize({type = "name_text", set = "Other", key = key})
-      part3 = localize("tboj_geye_2")
     end
-    return {vars = {part1, part2, part3, predict}}
+    return {vars = {elements = {cardarea}}}
   end,
   rarity = 1,
   cost = 5,

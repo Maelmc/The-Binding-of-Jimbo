@@ -10,17 +10,18 @@ SMODS.Back {
 	atlas = "backs",
   calculate = function (self, back, context)
     if context.setting_blind then
-      G.E_MANAGER:add_event(Event({
-        func = function()
-          local hands = math.min(self.config.max_hands,math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/self.config.every))
-          if hands >= 1 then
+      local hands = math.min(self.config.max_hands,math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/self.config.every))
+      if hands >= 1 then
+        G.E_MANAGER:add_event(Event({
+          func = function()
             ease_hands_played(hands)
-            SMODS.calculate_effect({ message = localize { type = 'variable', key = 'a_hands', vars = { hands } } }, back)
+            return true
           end
-          return true
-        end
-      }))
-      return nil, true
+        }))
+        return {
+          message = localize { type = 'variable', key = 'a_hands', vars = { hands } }
+        }
+      end
     end
   end
 }

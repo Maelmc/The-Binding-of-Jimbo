@@ -1196,8 +1196,7 @@ return {
             "Select a {C:attention}Booster Pack{} to {C:attention}predict{} its content",
           },
           {
-          "#1# {C:attention}#2#{} #3#",
-          "#4#"
+          " {element:1} "
           }
         }
       },
