@@ -1,3 +1,30 @@
+-- Peeper
+SMODS.Joker {
+  key = "the_peeper",
+  pos = {x = 4, y = 10},
+  config = {extra = {mult = 4}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.hand and not context.end_of_round and context.other_card:is_face() then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"face", "tboj_familiar", "mult"}
+}
+
 -- Habit
 SMODS.Joker {
   key = "habit",

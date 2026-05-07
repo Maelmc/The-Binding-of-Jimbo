@@ -769,6 +769,14 @@ return {
           "for each scoring card"
         }
       },
+      j_tboj_the_peeper = {
+        name = "The Peeper",
+        text = {
+          "Each {C:attention}face card",
+          "held in hand",
+          "gives {C:mult}+#1#{} Mult"
+        }
+      },
       j_tboj_habit = {
         name = "Habit",
         text = {
