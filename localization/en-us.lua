@@ -1236,6 +1236,13 @@ return {
           "round played"
         },
       },
+      j_tboj_stapler = {
+        name = "Stapler",
+        text = {
+          "{X:red,C:white}X#1#{} Mult",
+          "{C:attention}Pinned"
+        },
+      },
       j_tboj_keeper_sack = {
         name = "Keeper's Sack",
         text = {
