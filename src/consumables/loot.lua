@@ -140,3 +140,35 @@ SMODS.Consumable {
     card:juice_up(0.3, 0.5)
   end,
 }
+
+-- Copied from Forager Nonessentials' Graffiti Artist
+SMODS.Consumable {
+  key = "key",
+  set = "Loot",
+  pos = { x = 10, y = 0 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+  end,
+  can_use = function(self, card)
+    local type = G.GAME.blind:get_type()
+    return G.STATE == G.STATES.SELECTING_HAND and G.GAME.round_resets.blind_tags[type]
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				play_sound("tarot1")
+				local tag = Tag(G.GAME.round_resets.blind_tags[G.GAME.blind:get_type()])
+				add_tag(tag)
+        local target = copier or card
+				target:juice_up(0.8, 0.5)
+				return true
+			end,
+		}))
+  end,
+  tboj_designer = "hagma1",
+}

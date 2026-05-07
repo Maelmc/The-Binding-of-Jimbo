@@ -1308,6 +1308,13 @@ return {
           "to {C:attention}#2#{} selected card"
         }
       },
+      c_tboj_key = {
+        name = "Key",
+        text = {
+          "Use during a {C:attention}Blind{} to",
+          "gain its {C:attention}Skip Tag"
+        }
+      },
 
       -- RUNES
       c_tboj_jera = {
@@ -1338,7 +1345,8 @@ return {
       c_tboj_algiz = {
         name = "Algiz",
         text = {
-          "{C:blue}+#1#{} hand this round"
+          "Use during a {C:attention}Blind{} to",
+          "gain {C:blue}+#1#{} hand this round"
         }
       },
     },
