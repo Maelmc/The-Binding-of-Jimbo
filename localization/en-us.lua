@@ -691,6 +691,13 @@ return {
           "then {C:red}self-destructs"
         }
       },
+      j_tboj_the_small_rock = {
+        name = "The Small Rock",
+        text = {
+          "Played {C:attention}Stone{} cards give",
+          "{C:mult}+#1#{} Mult when scored"
+        }
+      },
       j_tboj_robo_baby = {
         name = "Robo-Baby",
         text = {
