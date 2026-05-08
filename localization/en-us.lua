@@ -1239,12 +1239,9 @@ return {
       j_tboj_guppy_eye = {
         name = "Guppy's Eye",
         text = {
-          {
-            "Select a {C:attention}Booster Pack{} to {C:attention}predict{} its content",
-          },
-          {
-          " {element:1} "
-          }
+          "Hover over a {C:attention}Booster Pack",
+          "to {C:attention}predict{} its content",
+          "{C:inactive,s:0.8}Incompatible with Booster Packs from other mods"
         }
       },
       j_tboj_soul_locket = {

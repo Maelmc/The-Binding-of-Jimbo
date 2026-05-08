@@ -1,0 +1,94 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+## Cardarea on the packs
+
+# adding element to the pack's localization text
+[[patches]]
+[patches.pattern]
+target = "functions/misc_functions.lua"
+pattern = '''if args.type == 'other' then
+    loc_target = G.localization.descriptions.Other[args.key]'''
+position = "after"
+payload = '''
+  if next(SMODS.find_card("j_tboj_guppy_eye")) and string.match(args.key, "^p_") then
+    loc_target = TBOJ.table_copy(loc_target)
+    loc_target.text_parsed[#loc_target.text_parsed+1] = {
+      {
+        strings = {" "},
+        control = {}
+      },
+      {
+        strings = {" "},
+        control = {element = 1}
+      }
+    }
+  end
+'''
+match_indent = true
+
+# adding the cardarea to the returned vars
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+pattern = '''if desc_nodes == full_UI_table.main and not full_UI_table.name then
+                full_UI_table.name = localize{type = 'name', set = 'Other', key = res.name_key or target.key, nodes = full_UI_table.name, vars = res.name_vars or target.vars or {}}'''
+position = "before"
+payload = '''
+if next(SMODS.find_card("j_tboj_guppy_eye")) then
+  local set = card.ability.name
+  if set:find("Buffoon") then set = "Buffoon"
+  elseif set:find('Standard') then set = "Standard"
+  elseif set:find('Spectral') then set = "Spectral"
+  elseif set:find('Celestial') then set = "Celestial"
+  elseif set:find('Arcana') then set = "Arcana"
+  elseif set:find("tboj_devil") then set = "Devil"
+  elseif set:find("tboj_angel") then set = "Angel"
+  else set = nil end -- no support for modded packs
+
+  if set then
+    local cardarea = CardArea(G.ROOM.T.x, G.ROOM.T.y, G.CARD_W * 0.7, G.CARD_H * 0.7, {
+      type = "title_2", card_limit = 0, highlight_limit = 0
+    })
+    local predict = TBOJ.predict_pack(set, card.ability.extra)
+    if predict then
+
+      -- fill the area
+      cardarea.T.w = cardarea.T.w * (#predict+1)
+      for _, v in ipairs(predict) do
+        local _card
+        if v.rank then
+          _card = SMODS.create_card({set = "Base", area = cardarea, rank = v.rank, suit = v.suit })
+          if v.enhancement then _card:set_ability(v.enhancement) end
+          if v.edition then _card:set_edition(v.edition,true,true) end
+          if v.seal then _card:set_seal(v.seal,true,true) end
+        else
+          _card = SMODS.create_card({key = v.key, area = cardarea, no_edition = true})
+          if v.edition then _card:set_edition(v.edition,true,true) end
+          if v.stickers then
+            for l, w in pairs(v.stickers) do
+              if w and (_card.config.center[l.."_compat"] ~= false) then
+                local sticker = SMODS.Stickers[l]
+                sticker:apply(_card, true)
+              end
+            end
+          end
+        end
+        _card.T.scale = _card.T.scale * 0.7
+        cardarea:emplace(_card)
+      end
+
+      -- add to vars
+      if target.vars.elements then
+        target.vars.elements[target.vars.elements+1] = cardarea
+      else
+        target.vars.elements = {cardarea}
+      end
+
+    end
+  end
+end
+'''
+match_indent = true

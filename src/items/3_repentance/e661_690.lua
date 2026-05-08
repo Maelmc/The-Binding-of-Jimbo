@@ -6,7 +6,7 @@ SMODS.Joker {
   pos = { x = 4, y = 44 },
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
-    local cardarea = CardArea(G.ROOM.T.x, G.ROOM.T.y, G.CARD_W * 0.7, G.CARD_H * 0.7, {
+    --[[local cardarea = CardArea(G.ROOM.T.x, G.ROOM.T.y, G.CARD_W * 0.7, G.CARD_H * 0.7, {
       type = "title_2", card_limit = 0, highlight_limit = 0
     })
     if (not G.jokers) or (not TBOJ.table_contains(G.jokers.cards,card)) then
@@ -52,7 +52,7 @@ SMODS.Joker {
         end
       end
     end
-    return {vars = {elements = {cardarea}}}
+    return {vars = {elements = {cardarea}}}]]
   end,
   rarity = 1,
   cost = 5,
