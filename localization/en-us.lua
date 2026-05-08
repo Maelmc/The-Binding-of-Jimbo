@@ -466,6 +466,38 @@ return {
       },
     },
     Joker = {
+      -- fixing vanilla localizations to be accurate with retriggers only being applied to scoring cards
+      j_dusk={
+        text={
+          "Retrigger all played",
+          "cards used in scoring",
+          "in {C:attention}final hand{} of round",
+        },
+      },
+      j_hack={
+        text={
+          "Retrigger each",
+          "each played",
+          "{C:attention}2{}, {C:attention}3{}, {C:attention}4{}, or {C:attention}5{}",
+          "used in scoring"
+        },
+      },
+      j_sock_and_buskin={
+        text={
+          "Retrigger all",
+          "played {C:attention}face{} cards",
+          "used in scoring"
+        },
+      },
+      j_selzer={
+        text={
+          "Retrigger all played",
+          "cards used in scoring",
+          "for the next {C:attention}#1#{} hands",
+        },
+      },
+
+      -- TBOJ jokers
       j_tboj_the_sad_onion = {
         name = "The Sad Onion",
         text = {
@@ -1550,7 +1582,8 @@ return {
       trinket_tboj_brain_worm = {
         name = "Brain Worm",
         text = {
-          "Retrigger {C:attention}unscored{} cards",
+          "Retrigger {C:attention}unscored",
+          "cards in played hand",
           "{C:attention}#1#{} additionnal time"
         }
       },
