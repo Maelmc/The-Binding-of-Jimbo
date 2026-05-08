@@ -430,6 +430,9 @@ function TBOJ.predict_pack(pack,amount)
 
   local keys = {}
 
+  -- TODO: maybe simply replace by a call from the booster's create_card function
+  -- Advantage: better mod compat, much simpler function
+  -- Problem: if the create_card function does some stuff other than creating cards, it'll be done each time you hover over the pack
   for i = 1, amount do
     if pack == "Arcana" then
       local forced_key

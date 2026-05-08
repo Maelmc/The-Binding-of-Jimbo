@@ -59,6 +59,7 @@ if next(SMODS.find_card("j_tboj_guppy_eye")) then
       cardarea.T.w = cardarea.T.w * (#predict+1)
       for _, v in ipairs(predict) do
         local _card
+        local prev_used = G.GAME.used_jokers[v.key]
         if v.rank then
           _card = SMODS.create_card({set = "Base", area = cardarea, rank = v.rank, suit = v.suit })
           if v.enhancement then _card:set_ability(v.enhancement) end
@@ -76,6 +77,7 @@ if next(SMODS.find_card("j_tboj_guppy_eye")) then
             end
           end
         end
+        if G.GAME.used_jokers[v.key] then G.GAME.used_jokers[v.key] = prev_used end
         _card.T.scale = _card.T.scale * 0.7
         cardarea:emplace(_card)
       end
