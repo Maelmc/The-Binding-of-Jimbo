@@ -2,14 +2,16 @@
 -- Sacred Heart
 SMODS.Joker {
   key = "sacred_heart",
+  atlas = "jokers",
   pos = {x = 2, y = 12},
+  soul_atlas = "soul_jokers",
+  soul_pos = {x = 2, y = 12},
   config = {extra = {Xmult_multi = 3}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.Xmult_multi}}
   end,
   rarity = 4,
   cost = 20,
-  atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
   blueprint_compat = true,

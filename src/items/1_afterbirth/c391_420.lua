@@ -121,14 +121,16 @@ SMODS.Joker {
 -- Crown of Light
 SMODS.Joker {
   key = "crown_of_light",
+  atlas = "jokers",
   pos = {x = 9, y = 27},
+  soul_atlas = "soul_jokers",
+  soul_pos = {x = 9, y = 27},
   config = {extra = {Xmult_multi = 2}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.Xmult_multi}}
   end,
   rarity = 4,
   cost = 20,
-  atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
   blueprint_compat = true,
