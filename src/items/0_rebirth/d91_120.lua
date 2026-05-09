@@ -319,14 +319,16 @@ SMODS.Joker {
 -- Brimstone
 SMODS.Joker {
   key = "brimstone",
+  atlas = "jokers",
   pos = {x = 12, y = 7},
+  soul_atlas = "soul_jokers",
+  soul_pos = {x = 12, y = 7},
   config = {extra = {Xmult_mod = 1}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.Xmult_mod}}
   end,
   rarity = 4,
   cost = 20,
-  atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
   blueprint_compat = true,

@@ -76,7 +76,7 @@ SMODS.Joker {
       if card.ability.extra.mult - card.ability.extra.mult_mod <= 0 then
         SMODS.destroy_cards(card, nil, nil, true)
         return {
-          message = localize('k_eaten_ex'),
+          message = localize('k_drank_ex'),
           colour = G.C.MULT
         }
       else

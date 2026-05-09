@@ -74,6 +74,38 @@ SMODS.Joker {
   attributes = {"food", "economy", "scaling"}
 }
 
+-- Stapler
+SMODS.Joker {
+  key = "stapler",
+  pos = { x = 2, y = 47 },
+  config = {extra = {Xmult = 3}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        xmult = card.ability.extra.Xmult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  set_ability = function(self, card, initial, delay_sprites)
+    if initial then
+      card.pinned = true
+    end
+  end,
+  attributes = {"xmult"},
+}
+
 -- Suplex
 -- Bag of Crafting
 -- Flip

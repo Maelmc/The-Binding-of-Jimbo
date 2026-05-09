@@ -6,21 +6,15 @@ SMODS.Joker {
   pos = { x = 4, y = 44 },
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
-    if not G.jokers then
-      --print("not in game")
-      return {vars = {"",localize("tboj_unknown"),"",""}}
-    end
-    if not TBOJ.table_contains(G.jokers.cards,card) then
-      --print("not owned")
-      return {vars = {"",localize("tboj_acquire_to_reveal"),"",""}}
+    --[[local cardarea = CardArea(G.ROOM.T.x, G.ROOM.T.y, G.CARD_W * 0.7, G.CARD_H * 0.7, {
+      type = "title_2", card_limit = 0, highlight_limit = 0
+    })
+    if (not G.jokers) or (not TBOJ.table_contains(G.jokers.cards,card)) then
+      return {vars = {elements = {cardarea}}}
     end
 
-    local predict, part1, part2, part3
+    local predict
     if (not G.shop_booster) or (not G.shop_booster.highlighted[1]) then
-      part2 = localize("tboj_select_booster")
-      predict = ""
-      part1 = ""
-      part3 = ""
     else
       local set = G.shop_booster.highlighted[1].ability.name
       if set:find("Buffoon") then set = "Buffoon"
@@ -32,17 +26,33 @@ SMODS.Joker {
       elseif set:find("tboj_angel") then set = "Angel"
       end
       predict = TBOJ.predict_pack(set, G.shop_booster.highlighted[1].ability.extra)
-      part1 = localize("tboj_geye_1")
-      local key
-      if G.P_CENTERS[G.shop_booster.highlighted[1].config.center_key].original_mod then
-        key = G.shop_booster.highlighted[1].config.center_key
-      else
-        key = string.sub(G.shop_booster.highlighted[1].config.center_key,1,#G.shop_booster.highlighted[1].config.center_key - 2)
+      if predict then
+        cardarea.T.w = cardarea.T.w * (#predict+1)
+        for _, v in ipairs(predict) do
+          local _card
+          if v.rank then
+            _card = SMODS.create_card({set = "Base", area = cardarea, rank = v.rank, suit = v.suit })
+            if v.enhancement then _card:set_ability(v.enhancement) end
+            if v.edition then _card:set_edition(v.edition,true,true) end
+            if v.seal then _card:set_seal(v.seal,true,true) end
+          else
+            _card = SMODS.create_card({key = v.key, area = cardarea, no_edition = true})
+            if v.edition then _card:set_edition(v.edition,true,true) end
+            if v.stickers then
+              for l, w in pairs(v.stickers) do
+                if w and (_card.config.center[l.."_compat"] ~= false) then
+                  local sticker = SMODS.Stickers[l]
+                  sticker:apply(_card, true)
+                end
+              end
+            end
+          end
+          _card.T.scale = _card.T.scale * 0.7
+          cardarea:emplace(_card)
+        end
       end
-      part2 = localize({type = "name_text", set = "Other", key = key})
-      part3 = localize("tboj_geye_2")
     end
-    return {vars = {part1, part2, part3, predict}}
+    return {vars = {elements = {cardarea}}}]]
   end,
   rarity = 1,
   cost = 5,
@@ -108,3 +118,59 @@ SMODS.Joker {
   end,
   attributes = {"tboj_angel", "tboj_loot", "chips", "mult"}
 }
+
+-- Friend Fiender
+-- Inner Child
+-- Glitch Crown
+SMODS.Joker {
+  key = "glitched_crown",
+  atlas = "jokers",
+  pos = { x = 13, y = 45 },
+  soul_atlas = "soul_jokers",
+  soul_pos = { x = 13, y = 45 },
+  config = {extra = {between = 5, every = 0.2}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.between, card.ability.extra.every}}
+  end,
+  rarity = 4,
+  cost = 20,
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  add_to_deck = function (self, card, from_debuff)
+    if G.GAME.modifiers.tboj_cycling then
+      G.GAME.modifiers.tboj_cycling.amount = (G.GAME.modifiers.tboj_cycling.amount or 0) + card.ability.extra.between - 1
+      card.ability.extra.prev_every = G.GAME.modifiers.tboj_cycling.seconds
+      G.GAME.modifiers.tboj_cycling.seconds = card.ability.extra.every
+      G.GAME.modifiers.tboj_cycling.sets["Joker"] = (G.GAME.modifiers.tboj_cycling.sets["Joker"] or 0) + 1
+      G.GAME.modifiers.tboj_cycling.sets["tboj_active"] = (G.GAME.modifiers.tboj_cycling.sets["tboj_active"] or 0) + 1
+      
+    else
+      G.GAME.modifiers.tboj_cycling = {
+        amount = card.ability.extra.between - 1,
+        seconds = card.ability.extra.every,
+        sets = {
+          Joker = 1,
+          tboj_active = 1,
+        },
+      }
+    end
+  end,
+  remove_from_deck = function (self, card, from_debuff)
+    if not G.GAME.modifiers.tboj_cycling then return end
+    G.GAME.modifiers.tboj_cycling.amount = (G.GAME.modifiers.tboj_cycling.amount or 0) - card.ability.extra.between + 1
+    if G.GAME.modifiers.tboj_cycling.amount <= 0 then
+      G.GAME.modifiers.tboj_cycling = nil
+      return
+    end
+    G.GAME.modifiers.tboj_cycling.seconds = card.ability.extra.prev_every
+    G.GAME.modifiers.tboj_cycling.sets["Joker"] = G.GAME.modifiers.tboj_cycling.sets["Joker"] - 1
+    G.GAME.modifiers.tboj_cycling.sets["tboj_active"] = G.GAME.modifiers.tboj_cycling.sets["tboj_active"] - 1
+  end,
+  attributes = {"joker"}
+}
+
+-- Belly Jelly

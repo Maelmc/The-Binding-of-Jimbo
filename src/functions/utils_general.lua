@@ -29,18 +29,19 @@ function TBOJ.ease_money(amt, calc_only)
 end
 
 -- Stolen from Pokermon
-function TBOJ.reroll(card, to_key, silent)
+function TBOJ.reroll(card, to_key, silent, from_cycling)
   local new_card = G.P_CENTERS[to_key]
   if not new_card then return end
   if card.config.center == new_card then return end
   
-  card.children.center = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS[new_card.atlas or "Joker"], new_card.pos)
-  card.children.center.states.hover = card.states.hover
-  card.children.center.states.click = card.states.click
-  card.children.center.states.drag = card.states.drag
-  card.children.center.states.collide.can = false
-  card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
+  card.children.center.atlas = G.ASSET_ATLAS[(new_card.atlas or (new_card.set == 'Joker' or new_card.consumeable or new_card.set == 'Voucher') and new_card.set) or 'centers']
+  card.children.center:set_sprite_pos(new_card.pos)
+  --if card.config.center.set_sprites then
+  --  card.config.center:set_sprites(card, card.children.front, true)
+  --end
+  if from_cycling then card.children.tboj_from_cycle = true end
   card:set_ability(new_card, true)
+  card.children.tboj_from_cycle = nil
   card:set_cost()
 
   if new_card.soul_pos then
@@ -54,7 +55,9 @@ function TBOJ.reroll(card, to_key, silent)
   end
 
   if card.area == G.shop_jokers or card.area == G.shop_booster or card.area == G.shop_vouchers then
-    create_shop_card_ui(card)
+    if not from_cycling then
+      create_shop_card_ui(card)
+    end
   end
 
   if not silent then
@@ -68,8 +71,20 @@ function TBOJ.reroll(card, to_key, silent)
         G.P_CENTERS.e_poke_shiny.on_load(card)
       end
     end
-    SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
+    if not from_cycling then
+      SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
+    end
   end
+
+  if card.states.hover.is then
+    card:stop_hover()
+    card:hover()
+  end
+
+  --[[if then
+    card.area:remove_from_highlighted(card)
+    card.area:add_to_highlighted(card)
+  end]]
 end
 
 function TBOJ.leftmost_or_selected_joker()
@@ -193,6 +208,17 @@ function TBOJ.table_contains(table, element)
     end
   end
   return false
+end
+
+-- https://stackoverflow.com/a/26367080
+function TBOJ.table_copy(obj, seen)
+  if type(obj) ~= 'table' then return obj end
+  if seen and seen[obj] then return seen[obj] end
+  local s = seen or {}
+  local res = setmetatable({}, getmetatable(obj))
+  s[obj] = res
+  for k, v in pairs(obj) do res[TBOJ.table_copy(k, s)] = TBOJ.table_copy(v, s) end
+  return res
 end
 
 function TBOJ.juice_flip_cards(cards,source, second)
@@ -417,8 +443,11 @@ function TBOJ.predict_pack(pack,amount)
     og_used[k] = v
   end
 
-  local res = ""
+  local keys = {}
 
+  -- TODO: maybe simply replace by a call from the booster's create_card function
+  -- Advantage: better mod compat, much simpler function
+  -- Problem: if the create_card function does some stuff other than creating cards, it'll be done each time you hover over the pack
   for i = 1, amount do
     if pack == "Arcana" then
       local forced_key
@@ -451,16 +480,14 @@ function TBOJ.predict_pack(pack,amount)
       end
 
       if forced_key then
-        res = res .. localize({type = "name_text", set = "Spectral", key = forced_key}) .. (i == amount and "" or ", ")
+        keys[#keys+1] = {key = forced_key}
         G.GAME.used_jokers[forced_key] = true
       else
-        local _pool, _pool_key, set
+        local _pool, _pool_key
         if G.GAME.used_vouchers.v_omen_globe and pseudorandom('omen_globe') > 0.8 then
           _pool, _pool_key = get_current_pool("Spectral", nil, nil, 'ar2')
-          set = "Spectral"
         else
           _pool, _pool_key = get_current_pool("Tarot", nil, nil, 'ar1')
-          set = "Tarot"
         end
         local center = pseudorandom_element(_pool, pseudoseed(_pool_key))
         local it = 1
@@ -468,7 +495,7 @@ function TBOJ.predict_pack(pack,amount)
             it = it + 1
             center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
         end
-        res = res .. localize({type = "name_text", set = set, key = center}) .. (i == amount and "" or ", ")
+        keys[#keys+1] = {key = center}
         G.GAME.used_jokers[center] = true
       end
     
@@ -488,7 +515,7 @@ function TBOJ.predict_pack(pack,amount)
                 end
             end
         end
-        res = res .. localize({type = "name_text", set = "Planet", key = _planet}) .. (i == amount and "" or ", ")
+        keys[#keys+1] = {key = _planet}
         G.GAME.used_jokers[_planet] = true
       else
         local forced_key
@@ -521,7 +548,7 @@ function TBOJ.predict_pack(pack,amount)
         end             
 
         if forced_key then
-          res = res .. localize({type = "name_text", set = "Spectral", key = forced_key}) .. (i == amount and "" or ", ")
+          keys[#keys+1] = {key = forced_key}
           G.GAME.used_jokers[forced_key] = true
         else
           local _pool, _pool_key = get_current_pool("Planet", nil, nil, 'pl1')
@@ -531,14 +558,27 @@ function TBOJ.predict_pack(pack,amount)
               it = it + 1
               center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
           end
-          res = res .. localize({type = "name_text", set = "Planet", key = center}) .. (i == amount and "" or ", ")
+          keys[#keys+1] = {key = center}
           G.GAME.used_jokers[center] = true
         end
       end
 
     elseif pack == "Standard" then
-      local _c, _ = pseudorandom_element(G.P_CARDS, pseudoseed('front'..('sta' or '')..G.GAME.round_resets.ante))
-      res = res .. localize{type = 'variable', key = 'tboj_playing_card', vars = {localize(_c.value, 'ranks'), localize(_c.suit, 'suits_plural')}} .. (i == amount and "" or ", ")
+      local _set = (pseudorandom(pseudoseed('stdset'..G.GAME.round_resets.ante)) > 0.6) and "Enhanced" or "Base"
+
+      local center
+      if _set == "Enhanced" then
+        local _pool, _pool_key = get_current_pool(_set, nil, nil, 'sta')
+        center = pseudorandom_element(_pool, pseudoseed(_pool_key))
+        local it = 1
+        while center == 'UNAVAILABLE' do
+          it = it + 1
+          center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+        end
+      end
+
+      local _c, _ = pseudorandom_element(G.P_CARDS, pseudoseed('frontsta'..G.GAME.round_resets.ante))
+      keys[#keys+1] = {set = _set, rank = _c.value, suit = _c.suit, enhancement = center, edition = SMODS.poll_edition { key = "standard_edition" .. G.GAME.round_resets.ante, mod = 2, no_negative = true }, seal = SMODS.poll_seal({ mod = 10 })}
 
     elseif pack == "Spectral" then
       local forced_key
@@ -576,7 +616,7 @@ function TBOJ.predict_pack(pack,amount)
       end
 
       if forced_key then
-        res = res .. localize({type = "name_text", set = "Spectral", key = forced_key}) .. (i == amount and "" or ", ")
+        keys[#keys+1] = {key = forced_key}
         G.GAME.used_jokers[forced_key] = true
       else
         local _pool, _pool_key = get_current_pool("Spectral", nil, nil, 'spe')
@@ -586,52 +626,96 @@ function TBOJ.predict_pack(pack,amount)
             it = it + 1
             center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
         end
-        res = res .. localize({type = "name_text", set = "Spectral", key = center}) .. (i == amount and "" or ", ")
+        keys[#keys+1] = {key = center}
         G.GAME.used_jokers[center] = true
       end
 
     elseif pack == "Buffoon" then
-      local _pool, _pool_key = get_current_pool("Joker", nil, nil, 'buf')
-      local center = pseudorandom_element(_pool, pseudoseed(_pool_key))
-      local it = 1
-      while center == 'UNAVAILABLE' do
-          it = it + 1
-          center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+      local center
+      if i == 1 and next(SMODS.find_card("j_tboj_pentagram")) then
+        local rand = pseudorandom("tboj_pentagram")
+        if rand < 0.5 then
+          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", seed = "tboj_pentagram"}
+        else
+          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", seed = "tboj_pentagram"}
+        end
+      else
+        local _pool, _pool_key = get_current_pool("Joker", nil, nil, 'buf')
+        center = pseudorandom_element(_pool, pseudoseed(_pool_key))
+        local it = 1
+        while center == 'UNAVAILABLE' do
+            it = it + 1
+            center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+        end
       end
-      res = res .. localize({type = "name_text", set = "Joker", key = center}) .. (i == amount and "" or ", ")
+
+      local _eternal
+      local _perish
+      local eternal_perishable_poll = pseudorandom(('packetper')..G.GAME.round_resets.ante)
+      if G.GAME.modifiers.all_eternal then _eternal = true
+      else
+        _eternal = G.GAME.modifiers.enable_eternals_in_shop and eternal_perishable_poll > 0.7 and not SMODS.Stickers["eternal"].should_apply
+      end
+      if not _eternal then
+        _perish = G.GAME.modifiers.enable_perishables_in_shop and ((eternal_perishable_poll > 0.4) and (eternal_perishable_poll <= 0.7)) and not SMODS.Stickers["perishable"].should_apply
+      end
+      local _rental = G.GAME.modifiers.enable_rentals_in_shop and pseudorandom(('packssjr')..G.GAME.round_resets.ante) > 0.7 and not SMODS.Stickers["rental"].should_apply
+      keys[#keys+1] = {key = center, edition = poll_edition('edibuf'..G.GAME.round_resets.ante), stickers = {eternal = _eternal, perishable = _perish, rental = _rental}}
       G.GAME.used_jokers[center] = true
 
     elseif pack == "Angel" then
-      local _k
+      local center
       if i == 1 then
-        _k = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_angel", seed = "tboj_angel_pack"}
-        res = res .. localize({type = "name_text", set = "tboj_active", key = _k}) .. (i == amount and "" or ", ")
+        center = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_angel", seed = "tboj_angel_pack"}
       else
         if pseudorandom('soul_angel'..G.GAME.round_resets.ante) > 0.997 then
-          _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", target_rarities = {4, "Legendary"}, seed = "tboj_angel_pack"}
+          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", target_rarities = {4, "Legendary"}, seed = "tboj_angel_pack"}
         else
-          _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", seed = "tboj_angel_pack"}
+          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", seed = "tboj_angel_pack"}
         end
-        res = res .. localize({type = "name_text", set = "Joker", key = _k}) .. (i == amount and "" or ", ")
       end
-      G.GAME.used_jokers[_k] = true
+
+      local _eternal
+      local _perish
+      local eternal_perishable_poll = pseudorandom(('packetper')..G.GAME.round_resets.ante)
+      if G.GAME.modifiers.all_eternal then _eternal = true
+      else
+        _eternal = G.GAME.modifiers.enable_eternals_in_shop and eternal_perishable_poll > 0.7 and not SMODS.Stickers["eternal"].should_apply
+      end
+      if not _eternal then
+        _perish = G.GAME.modifiers.enable_perishables_in_shop and ((eternal_perishable_poll > 0.4) and (eternal_perishable_poll <= 0.7)) and not SMODS.Stickers["perishable"].should_apply
+      end
+      local _rental = G.GAME.modifiers.enable_rentals_in_shop and pseudorandom(('packssjr')..G.GAME.round_resets.ante) > 0.7 and not SMODS.Stickers["rental"].should_apply
+      keys[#keys+1] = {key = center, edition = poll_edition('edibuf'..G.GAME.round_resets.ante), stickers = {eternal = _eternal, perishable = _perish, rental = _rental}}
+      G.GAME.used_jokers[center] = true
 
     elseif pack == "Devil" then
-      local _k
+      local center
       if i == 1 then
-        _k = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_devil", seed = "tboj_devil_pack"}
-        res = res .. localize({type = "name_text", set = "tboj_active", key = _k}) .. (i == amount and "" or ", ")
+        center = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_devil", seed = "tboj_devil_pack"}
       else
         if pseudorandom('soul_devil'..G.GAME.round_resets.ante) > 0.997 then
-          _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", target_rarities = {4, "Legendary"}, seed = "tboj_devil_pack"}
+          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", target_rarities = {4, "Legendary"}, seed = "tboj_devil_pack"}
         else
-          _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", seed = "tboj_devil_pack"}
+          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", seed = "tboj_devil_pack"}
         end
-        res = res .. localize({type = "name_text", set = "Joker", key = _k}) .. (i == amount and "" or ", ")
       end
-      G.GAME.used_jokers[_k] = true
 
-    else return localize("tboj_not_supported_pack") end
+      local _eternal
+      local _perish
+      local eternal_perishable_poll = pseudorandom(('packetper')..G.GAME.round_resets.ante)
+      if G.GAME.modifiers.all_eternal then _eternal = true
+      else
+        _eternal = G.GAME.modifiers.enable_eternals_in_shop and eternal_perishable_poll > 0.7 and not SMODS.Stickers["eternal"].should_apply
+      end
+      if not _eternal then
+        _perish = G.GAME.modifiers.enable_perishables_in_shop and ((eternal_perishable_poll > 0.4) and (eternal_perishable_poll <= 0.7)) and not SMODS.Stickers["perishable"].should_apply
+      end
+      local _rental = G.GAME.modifiers.enable_rentals_in_shop and pseudorandom(('packssjr')..G.GAME.round_resets.ante) > 0.7 and not SMODS.Stickers["rental"].should_apply
+      keys[#keys+1] = {key = center, edition = poll_edition('edibuf'..G.GAME.round_resets.ante), stickers = {eternal = _eternal, perishable = _perish, rental = _rental}}
+      G.GAME.used_jokers[center] = true
+
+    else return keys end
   end
 
   for k, _ in pairs(G.GAME.pseudorandom) do
@@ -650,7 +734,7 @@ function TBOJ.predict_pack(pack,amount)
     end
   end
 
-  return res
+  return keys
 end
 
 function TBOJ.get_new_big()

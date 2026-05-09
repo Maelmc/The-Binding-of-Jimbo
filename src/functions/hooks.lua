@@ -55,7 +55,7 @@ function Card:click()
       self.ability.extra.to_draw = self.ability.extra.to_draw - 1
       if self.ability.extra.to_draw <= 0 then
         SMODS.destroy_cards(self, true, nil, true)
-        SMODS.calculate_effect({message = localize('k_eaten_ex'), colour = G.C.FILTER}, self)
+        SMODS.calculate_effect({message = localize('k_drank_ex'), colour = G.C.FILTER}, self)
       end
     end
   end
@@ -82,9 +82,97 @@ function get_new_boss()
   return gnb()
 end
 
-bgt = Blind.get_type
+local bgt = Blind.get_type
 function Blind:get_type()
   if self.config and self.config.blind and self.config.blind.small then return "Small" end
   if self.config and self.config.blind and self.config.blind.big then return "Big" end
   return bgt(self)
+end
+
+-- remove cards from the glitch crown cycle from used_jokers
+local cardremove = Card.remove
+function Card:remove()
+  local cycling = self.ability and self.ability.tboj_cycling or nil
+  local res = cardremove(self)
+  if cycling then
+    for _, v in pairs(cycling) do
+      if not next(SMODS.find_card(v, true)) then
+        G.GAME.used_jokers[v] = nil
+      end
+    end
+  end
+  return res
+end
+
+-- add cycling cards to a card
+--[[local cc = create_card
+function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+  local res = cc(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+  if res and G.GAME.modifiers.tboj_cycling then
+    res.ability.tboj_cycling = {}
+    for i = 1, G.GAME.modifiers.tboj_cycling.amount do
+      local key = TBOJ.get_random_key({set = res.config.center.set, seed = "tboj_cycling"})
+      res.ability.tboj_cycling[#res.ability.tboj_cycling+1] = key
+      res.ability.tboj_cycle = 0
+      G.GAME.used_jokers[key] = true
+    end
+  end
+  return res
+end]]
+
+-- cycle through cards
+local cardupdate = Card.update
+function Card:update(dt, real_dt)
+
+  if self.ability then
+    --local banned_keys = {"Default", "Base", "Enhanced", "Playing Card"} -- these would crash in packs
+    if (self.area ~= G.shop_jokers) and (self.area ~= G.pack_cards) then
+      self.ability.tboj_cycling = nil
+      self.ability.tboj_cycle = nil
+    elseif G.GAME.modifiers.tboj_cycling and (not self.ability.tboj_cycling) and G.GAME.modifiers.tboj_cycling.sets[self.config.center.set] then
+      self.ability.tboj_cycling = {}
+      for _ = 1, G.GAME.modifiers.tboj_cycling.amount do
+        local key = TBOJ.get_random_key({set = self.config.center.set, seed = "tboj_cycling"})
+        self.ability.tboj_cycling[#self.ability.tboj_cycling+1] = key
+        self.ability.tboj_cycle = 0
+        G.GAME.used_jokers[key] = true
+      end
+    end
+  end
+
+  if G.GAME.modifiers.tboj_cycling and G.GAME.modifiers.tboj_cycling.sets[self.config.center.set] and self.ability and self.ability.tboj_cycling then
+    self.ability.tboj_cycle = self.ability.tboj_cycle + real_dt
+    if self.ability.tboj_cycle >= G.GAME.modifiers.tboj_cycling.seconds then
+      local cycling = self.ability.tboj_cycling
+      local _first = cycling[1]
+      table.remove(cycling,1)
+      cycling[#cycling+1] = self.config.center.key
+      TBOJ.reroll(self, _first, true, true)
+      self.ability.tboj_cycling = cycling
+      self.ability.tboj_cycle = 0
+    end
+  end
+
+  if ((not G.GAME.modifiers.tboj_cycling) or G.GAME.modifiers.tboj_cycling.seconds <= 0) and self.ability.tboj_cycling then
+    self.ability.tboj_cycling = nil
+    self.ability.tboj_cycle = nil
+  end
+
+  return cardupdate(self, dt, real_dt)
+end
+
+-- let the buttons be clickable while cycling
+local scuc = SMODS.clean_up_children
+function SMODS.clean_up_children(t)
+  if t.tboj_from_cycle then
+    local ignore = {center = true, shadow = true, back = true, h_popup = true, front = true, price = true, buy_button = true, buy_and_use_button = true, use_button = true}
+    for k, v in pairs(t) do
+        if not ignore[k] then
+            if type(v) == 'table' and v.remove then v:remove() end
+            t[k] = nil
+        end
+	  end
+    return
+  end
+  return scuc(t)
 end

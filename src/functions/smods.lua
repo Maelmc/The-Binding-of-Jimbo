@@ -80,7 +80,6 @@ SMODS.Booster:take_ownership_by_kind('Buffoon', {
     if i == 1 and next(SMODS.find_card("j_tboj_pentagram")) then
       local _k
       local rand = pseudorandom("tboj_pentagram")
-      print(rand)
       if rand < 0.5 then
         _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", seed = "tboj_pentagram"}
       else

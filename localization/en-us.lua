@@ -466,6 +466,38 @@ return {
       },
     },
     Joker = {
+      -- fixing vanilla localizations to be accurate with retriggers only being applied to scoring cards
+      j_dusk={
+        text={
+          "Retrigger all played",
+          "cards used in scoring",
+          "in {C:attention}final hand{} of round",
+        },
+      },
+      j_hack={
+        text={
+          "Retrigger each",
+          "each played",
+          "{C:attention}2{}, {C:attention}3{}, {C:attention}4{}, or {C:attention}5{}",
+          "used in scoring"
+        },
+      },
+      j_sock_and_buskin={
+        text={
+          "Retrigger all",
+          "played {C:attention}face{} cards",
+          "used in scoring"
+        },
+      },
+      j_selzer={
+        text={
+          "Retrigger all played",
+          "cards used in scoring",
+          "for the next {C:attention}#1#{} hands",
+        },
+      },
+
+      -- TBOJ jokers
       j_tboj_the_sad_onion = {
         name = "The Sad Onion",
         text = {
@@ -691,6 +723,13 @@ return {
           "then {C:red}self-destructs"
         }
       },
+      j_tboj_the_small_rock = {
+        name = "The Small Rock",
+        text = {
+          "Played {C:attention}Stone{} cards give",
+          "{C:mult}+#1#{} Mult when scored"
+        }
+      },
       j_tboj_robo_baby = {
         name = "Robo-Baby",
         text = {
@@ -760,6 +799,14 @@ return {
         text = {
           "{C:white,X:red}X1{} Mult, plus {C:white,X:red}X#1#{}",
           "for each scoring card"
+        }
+      },
+      j_tboj_the_peeper = {
+        name = "The Peeper",
+        text = {
+          "Each {C:attention}face card",
+          "held in hand",
+          "gives {C:mult}+#1#{} Mult"
         }
       },
       j_tboj_habit = {
@@ -957,6 +1004,17 @@ return {
           "{C:attention}Third{} and {C:attention}fourth",
           "cards in poker hand",
           "give {C:money}$#1#{} when scored"
+        }
+      },
+      j_tboj_epiphora = {
+        name = "Epiphora",
+        text = {
+          "Retrigger the first {C:attention}#1#",
+          "played cards used in scoring",
+          "{C:attention}#2#{} additionnal time, increases",
+          "by {C:attention}#3#{} when {C:attention}consecutively",
+          "playing the same {C:attention}poker hand",
+          "{C:inactive}(Last hand: {C:attention}#4#{C:inactive})",
         }
       },
       j_tboj_dead_eye = {
@@ -1181,13 +1239,9 @@ return {
       j_tboj_guppy_eye = {
         name = "Guppy's Eye",
         text = {
-          {
-            "Select a {C:attention}Booster Pack{} to {C:attention}predict{} its content",
-          },
-          {
-          "#1# {C:attention}#2#{} #3#",
-          "#4#"
-          }
+          "Hover over a {C:attention}Booster Pack",
+          "to {C:attention}predict{} its content",
+          "{C:inactive,s:0.8}Incompatible with Booster Packs from other mods"
         }
       },
       j_tboj_soul_locket = {
@@ -1198,6 +1252,15 @@ return {
           "using a {C:attention}Soul Heart",
           "or a {C:attention}Black Heart",
           "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips and {C:mult}+#4#{C:inactive} Mult)"
+        }
+      },
+      j_tboj_glitched_crown = {
+        name = "Glitched Crown",
+        text = {
+          "{C:attention}Jokers{} and {C:attention}Actives{} in",
+          "the {C:attention}shop{} and {C:attention}Booster Packs",
+          "cycle between {C:attention}#1#{} of them",
+          "every {C:attention}#2#{} second"
         }
       },
       j_tboj_sacred_orb = {
@@ -1217,6 +1280,13 @@ return {
           "end of round,",
           "loses {C:money}$#2#{} per",
           "round played"
+        },
+      },
+      j_tboj_stapler = {
+        name = "Stapler",
+        text = {
+          "{X:red,C:white}X#1#{} Mult",
+          "{C:attention}Pinned"
         },
       },
       j_tboj_keeper_sack = {
@@ -1291,6 +1361,13 @@ return {
           "to {C:attention}#2#{} selected card"
         }
       },
+      c_tboj_key = {
+        name = "Key",
+        text = {
+          "Use during a {C:attention}Blind{} to",
+          "gain its {C:attention}Skip Tag"
+        }
+      },
 
       -- RUNES
       c_tboj_jera = {
@@ -1321,7 +1398,8 @@ return {
       c_tboj_algiz = {
         name = "Algiz",
         text = {
-          "{C:blue}+#1#{} hand this round"
+          "Use during a {C:attention}Blind{} to",
+          "gain {C:blue}+#1#{} hand this round"
         }
       },
     },
@@ -1510,7 +1588,8 @@ return {
       trinket_tboj_brain_worm = {
         name = "Brain Worm",
         text = {
-          "Retrigger {C:attention}unscored{} cards",
+          "Retrigger {C:attention}unscored",
+          "cards in played hand",
           "{C:attention}#1#{} additionnal time"
         }
       },
@@ -1671,6 +1750,7 @@ return {
       tboj_geye_1 = "This",
       tboj_geye_2 = "contains:",
       tboj_not_supported_pack = "This Pack is not supported",
+      tboj_none = "None",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

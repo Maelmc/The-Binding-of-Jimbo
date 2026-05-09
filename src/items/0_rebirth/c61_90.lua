@@ -514,3 +514,35 @@ TBOJ.Active {
   end,
   attributes = {"tarot", "generation"}
 }
+
+-- Little Chubby
+-- Spider Bite
+-- The Small Rock
+SMODS.Joker {
+  key = "the_small_rock",
+  pos = {x = 14, y = 5},
+  config = {extra = {mult_mod = 10}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod}}
+  end,
+  rarity = 2,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  enhancement_gate = "m_stone",
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      if SMODS.has_enhancement(context.other_card, "m_stone") then
+        return {
+          mult = card.ability.extra.mult_mod
+        }
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"mult", "enhancements"}
+}

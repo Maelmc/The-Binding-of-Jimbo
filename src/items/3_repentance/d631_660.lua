@@ -61,14 +61,16 @@ TBOJ.Active {
 -- Revelation
 SMODS.Joker {
   key = "revelation",
+  atlas = "jokers",
   pos = {x = 12, y = 42},
+  soul_atlas = "soul_jokers",
+  soul_pos = {x = 12, y = 42},
   config = {extra = {Xmult = 1, Xmult_mod = 0.1}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
   end,
   rarity = 4,
   cost = 20,
-  atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
   blueprint_compat = true,
