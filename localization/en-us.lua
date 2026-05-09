@@ -536,7 +536,7 @@ return {
       j_tboj_blood_of_the_martyr = {
         name = "Blood of the Martyr",
         text = {
-          "Scoring cards with additionnal",
+          "Scoring cards with additional",
           "{C:mult}Mult{} give {C:attention}double{} the {C:mult}Mult",
         },
       },
@@ -919,7 +919,7 @@ return {
         name = "20/20",
         text = {
           "Retrigger all played cards",
-          "{C:attention}#1#{} additionnal time",
+          "{C:attention}#1#{} additional time",
           "{X:mult,C:white}X#2#{} Mult per card retriggered"
         }
       },
@@ -1011,7 +1011,7 @@ return {
         text = {
           "Retrigger the first {C:attention}#1#",
           "played cards used in scoring",
-          "{C:attention}#2#{} additionnal time, increases",
+          "{C:attention}#2#{} additional time, increases",
           "by {C:attention}#3#{} when {C:attention}consecutively",
           "playing the same {C:attention}poker hand",
           "{C:inactive}(Last hand: {C:attention}#4#{C:inactive})",
@@ -1469,7 +1469,7 @@ return {
         text = {
           "Retrigger {C:attention}3{} random",
           "played cards used in scoring",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additional time"
         }
       },
       trinket_tboj_wiggle_worm = {
@@ -1477,7 +1477,7 @@ return {
         text = {
           "Retrigger {C:attention}second{} and {C:attention}fourth",
           "played cards used in scoring",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additional time"
         }
       },
       trinket_tboj_flat_worm = {
@@ -1485,7 +1485,7 @@ return {
         text = {
           "Retrigger {C:attention}third{} played",
           "card used in scoring",
-          "{C:attention}#1#{} additionnal times"
+          "{C:attention}#1#{} additional times"
         }
       },
       trinket_tboj_store_credit = {
@@ -1508,7 +1508,7 @@ return {
         text = {
           "Retrigger {C:attention}first{} and {C:attention}fifth",
           "played cards used in scoring",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additional time"
         }
       },
       trinket_tboj_curved_horn = {
@@ -1590,7 +1590,7 @@ return {
         text = {
           "Retrigger {C:attention}unscored",
           "cards in played hand",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additional time"
         }
       },
     },
