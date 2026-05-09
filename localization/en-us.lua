@@ -1260,7 +1260,7 @@ return {
           "{C:attention}Jokers{} and {C:attention}Actives{} in",
           "the {C:attention}shop{} and {C:attention}Booster Packs",
           "cycle between {C:attention}#1#{} of them",
-          "every {C:attention}#2#{} second"
+          "every {C:attention}#2#{} seconds"
         }
       },
       j_tboj_sacred_orb = {
