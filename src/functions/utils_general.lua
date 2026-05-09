@@ -29,18 +29,19 @@ function TBOJ.ease_money(amt, calc_only)
 end
 
 -- Stolen from Pokermon
-function TBOJ.reroll(card, to_key, silent)
+function TBOJ.reroll(card, to_key, silent, from_cycling)
   local new_card = G.P_CENTERS[to_key]
   if not new_card then return end
   if card.config.center == new_card then return end
   
-  card.children.center = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS[new_card.atlas or "Joker"], new_card.pos)
-  card.children.center.states.hover = card.states.hover
-  card.children.center.states.click = card.states.click
-  card.children.center.states.drag = card.states.drag
-  card.children.center.states.collide.can = false
-  card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
+  card.children.center.atlas = G.ASSET_ATLAS[(new_card.atlas or (new_card.set == 'Joker' or new_card.consumeable or new_card.set == 'Voucher') and new_card.set) or 'centers']
+  card.children.center:set_sprite_pos(new_card.pos)
+  --if card.config.center.set_sprites then
+  --  card.config.center:set_sprites(card, card.children.front, true)
+  --end
+  if from_cycling then card.children.tboj_from_cycle = true end
   card:set_ability(new_card, true)
+  card.children.tboj_from_cycle = nil
   card:set_cost()
 
   if new_card.soul_pos then
@@ -54,7 +55,9 @@ function TBOJ.reroll(card, to_key, silent)
   end
 
   if card.area == G.shop_jokers or card.area == G.shop_booster or card.area == G.shop_vouchers then
-    create_shop_card_ui(card)
+    if not from_cycling then
+      create_shop_card_ui(card)
+    end
   end
 
   if not silent then
@@ -68,8 +71,20 @@ function TBOJ.reroll(card, to_key, silent)
         G.P_CENTERS.e_poke_shiny.on_load(card)
       end
     end
-    SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
+    if not from_cycling then
+      SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
+    end
   end
+
+  if card.states.hover.is then
+    card:stop_hover()
+    card:hover()
+  end
+
+  --[[if then
+    card.area:remove_from_highlighted(card)
+    card.area:add_to_highlighted(card)
+  end]]
 end
 
 function TBOJ.leftmost_or_selected_joker()

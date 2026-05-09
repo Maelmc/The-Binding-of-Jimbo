@@ -1254,6 +1254,15 @@ return {
           "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips and {C:mult}+#4#{C:inactive} Mult)"
         }
       },
+      j_tboj_glitched_crown = {
+        name = "Glitched Crown",
+        text = {
+          "{C:attention}Jokers{} and {C:attention}Actives{} in",
+          "the {C:attention}shop{} and {C:attention}Booster Packs",
+          "cycle between {C:attention}#1#{} of them",
+          "every {C:attention}#2#{} second"
+        }
+      },
       j_tboj_sacred_orb = {
         name = "Sacred Orb",
         text = {

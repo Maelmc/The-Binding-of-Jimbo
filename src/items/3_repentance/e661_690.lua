@@ -118,3 +118,59 @@ SMODS.Joker {
   end,
   attributes = {"tboj_angel", "tboj_loot", "chips", "mult"}
 }
+
+-- Friend Fiender
+-- Inner Child
+-- Glitch Crown
+SMODS.Joker {
+  key = "glitched_crown",
+  atlas = "jokers",
+  pos = { x = 13, y = 45 },
+  soul_atlas = "soul_jokers",
+  soul_pos = { x = 13, y = 45 },
+  config = {extra = {between = 5, every = 0.2}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.between, card.ability.extra.every}}
+  end,
+  rarity = 4,
+  cost = 20,
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  add_to_deck = function (self, card, from_debuff)
+    if G.GAME.modifiers.tboj_cycling then
+      G.GAME.modifiers.tboj_cycling.amount = (G.GAME.modifiers.tboj_cycling.amount or 0) + card.ability.extra.between - 1
+      card.ability.extra.prev_every = G.GAME.modifiers.tboj_cycling.seconds
+      G.GAME.modifiers.tboj_cycling.seconds = card.ability.extra.every
+      G.GAME.modifiers.tboj_cycling.sets["Joker"] = (G.GAME.modifiers.tboj_cycling.sets["Joker"] or 0) + 1
+      G.GAME.modifiers.tboj_cycling.sets["tboj_active"] = (G.GAME.modifiers.tboj_cycling.sets["tboj_active"] or 0) + 1
+      
+    else
+      G.GAME.modifiers.tboj_cycling = {
+        amount = card.ability.extra.between - 1,
+        seconds = card.ability.extra.every,
+        sets = {
+          Joker = 1,
+          tboj_active = 1,
+        },
+      }
+    end
+  end,
+  remove_from_deck = function (self, card, from_debuff)
+    if not G.GAME.modifiers.tboj_cycling then return end
+    G.GAME.modifiers.tboj_cycling.amount = (G.GAME.modifiers.tboj_cycling.amount or 0) - card.ability.extra.between + 1
+    if G.GAME.modifiers.tboj_cycling.amount <= 0 then
+      G.GAME.modifiers.tboj_cycling = nil
+      return
+    end
+    G.GAME.modifiers.tboj_cycling.seconds = card.ability.extra.prev_every
+    G.GAME.modifiers.tboj_cycling.sets["Joker"] = G.GAME.modifiers.tboj_cycling.sets["Joker"] - 1
+    G.GAME.modifiers.tboj_cycling.sets["tboj_active"] = G.GAME.modifiers.tboj_cycling.sets["tboj_active"] - 1
+  end,
+  attributes = {"joker"}
+}
+
+-- Belly Jelly
