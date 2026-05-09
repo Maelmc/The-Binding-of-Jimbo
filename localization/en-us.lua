@@ -1061,15 +1061,6 @@ return {
           "has less {C:attention}total{} {C:chips}Chips{} than the",
           "next card in {C:attention}poker hand",
         },
-      },  
-      j_tboj_dream_catcher = {
-        name = "Dream Catcher",
-        text = {
-          "The next Ante's",
-          "{C:attention}Boss Blind{} is {C:attention}#1#",
-          "{s:0.8}Prediction might change",
-          "{s:0.8}based on your actions",
-        },
       },
       j_tboj_lusty_blood = {
         name = "Lusty Blood",
@@ -1190,6 +1181,15 @@ return {
           "{C:white,X:red}X#1#{} Mult when scored"
         }
       },
+      j_tboj_dream_catcher = {
+        name = "Dream Catcher",
+        text = {
+          "The next Ante's",
+          "{C:attention}Boss Blind{} is {C:attention}#1#",
+          "{s:0.8}Prediction might change",
+          "{s:0.8}based on your actions",
+        },
+      },
       j_tboj_paschal_candle = {
         name = "Paschal Candle",
         text = {
@@ -1240,7 +1240,7 @@ return {
         name = "Guppy's Eye",
         text = {
           "Hover over a {C:attention}Booster Pack",
-          "to {C:attention}predict{} its content",
+          "to {C:attention}reveal{} its content",
           "{C:inactive,s:0.8}Incompatible with Booster Packs from other mods"
         }
       },
