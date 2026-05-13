@@ -92,6 +92,13 @@ SMODS.Atlas({
     py = 24
 })
 
+SMODS.Atlas({
+  key = "wiki",
+  path = "wiki.png",
+  px = 53,
+  py = 53
+})
+
 -- Colors
 G.C.TBOJ = {
   FAMILIAR = HEX("E70000"),

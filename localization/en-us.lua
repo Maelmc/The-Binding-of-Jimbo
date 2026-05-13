@@ -1755,6 +1755,9 @@ return {
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
       tboj_credits_designer = "Designer: ",
+      tboj_links = "Links",
+      tboj_discord = "Discord",
+      tboj_wiki = "Wiki",
     },  
     labels = {
 
