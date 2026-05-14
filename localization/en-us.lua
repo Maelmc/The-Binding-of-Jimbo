@@ -503,7 +503,7 @@ return {
         text = {
           "This Joker gains {C:chips}+#1#{} Chips",
           "when playing a hand",
-          "{C:inactive}(Currently {C:chips}#2#{C:inactive} Chips)",
+          "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
         },
       },
       j_tboj_the_inner_eye = {
@@ -536,7 +536,7 @@ return {
       j_tboj_blood_of_the_martyr = {
         name = "Blood of the Martyr",
         text = {
-          "Scoring cards with additionnal",
+          "Scoring cards with additional",
           "{C:mult}Mult{} give {C:attention}double{} the {C:mult}Mult",
         },
       },
@@ -919,7 +919,7 @@ return {
         name = "20/20",
         text = {
           "Retrigger all played cards",
-          "{C:attention}#1#{} additionnal time",
+          "{C:attention}#1#{} additional time",
           "{X:mult,C:white}X#2#{} Mult per card retriggered"
         }
       },
@@ -1011,7 +1011,7 @@ return {
         text = {
           "Retrigger the first {C:attention}#1#",
           "played cards used in scoring",
-          "{C:attention}#2#{} additionnal time, increases",
+          "{C:attention}#2#{} additional time, increases",
           "by {C:attention}#3#{} when {C:attention}consecutively",
           "playing the same {C:attention}poker hand",
           "{C:inactive}(Last hand: {C:attention}#4#{C:inactive})",
@@ -1060,15 +1060,6 @@ return {
           "in {C:attention}first{} hand of round that",
           "has less {C:attention}total{} {C:chips}Chips{} than the",
           "next card in {C:attention}poker hand",
-        },
-      },  
-      j_tboj_dream_catcher = {
-        name = "Dream Catcher",
-        text = {
-          "The next Ante's",
-          "{C:attention}Boss Blind{} is {C:attention}#1#",
-          "{s:0.8}Prediction might change",
-          "{s:0.8}based on your actions",
         },
       },
       j_tboj_lusty_blood = {
@@ -1190,6 +1181,15 @@ return {
           "{C:white,X:red}X#1#{} Mult when scored"
         }
       },
+      j_tboj_dream_catcher = {
+        name = "Dream Catcher",
+        text = {
+          "The next Ante's",
+          "{C:attention}Boss Blind{} is {C:attention}#1#",
+          "{s:0.8}Prediction might change",
+          "{s:0.8}based on your actions",
+        },
+      },
       j_tboj_paschal_candle = {
         name = "Paschal Candle",
         text = {
@@ -1240,7 +1240,7 @@ return {
         name = "Guppy's Eye",
         text = {
           "Hover over a {C:attention}Booster Pack",
-          "to {C:attention}predict{} its content",
+          "to {C:attention}reveal{} its content",
           "{C:inactive,s:0.8}Incompatible with Booster Packs from other mods"
         }
       },
@@ -1260,7 +1260,7 @@ return {
           "{C:attention}Jokers{} and {C:attention}Actives{} in",
           "the {C:attention}shop{} and {C:attention}Booster Packs",
           "cycle between {C:attention}#1#{} of them",
-          "every {C:attention}#2#{} second"
+          "every {C:attention}#2#{} seconds"
         }
       },
       j_tboj_sacred_orb = {
@@ -1469,7 +1469,7 @@ return {
         text = {
           "Retrigger {C:attention}3{} random",
           "played cards used in scoring",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additional time"
         }
       },
       trinket_tboj_wiggle_worm = {
@@ -1477,7 +1477,7 @@ return {
         text = {
           "Retrigger {C:attention}second{} and {C:attention}fourth",
           "played cards used in scoring",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additional time"
         }
       },
       trinket_tboj_flat_worm = {
@@ -1485,7 +1485,7 @@ return {
         text = {
           "Retrigger {C:attention}third{} played",
           "card used in scoring",
-          "{C:attention}#1#{} additionnal times"
+          "{C:attention}#1#{} additional times"
         }
       },
       trinket_tboj_store_credit = {
@@ -1508,7 +1508,7 @@ return {
         text = {
           "Retrigger {C:attention}first{} and {C:attention}fifth",
           "played cards used in scoring",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additional time"
         }
       },
       trinket_tboj_curved_horn = {
@@ -1590,7 +1590,7 @@ return {
         text = {
           "Retrigger {C:attention}unscored",
           "cards in played hand",
-          "{C:attention}#1#{} additionnal time"
+          "{C:attention}#1#{} additional time"
         }
       },
     },
@@ -1755,6 +1755,9 @@ return {
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
       tboj_credits_designer = "Designer: ",
+      tboj_links = "Links",
+      tboj_discord = "Discord",
+      tboj_wiki = "Wiki",
     },  
     labels = {
 

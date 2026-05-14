@@ -64,7 +64,8 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil", "passive"}
+  attributes = {"tboj_devil", "passive"},
+  tboj_artist = "Maelmc",
 }
 
 -- Strawman

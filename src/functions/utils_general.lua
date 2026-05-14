@@ -34,7 +34,7 @@ function TBOJ.reroll(card, to_key, silent, from_cycling)
   if not new_card then return end
   if card.config.center == new_card then return end
   
-  card.children.center.atlas = G.ASSET_ATLAS[(new_card.atlas or (new_card.set == 'Joker' or new_card.consumeable or new_card.set == 'Voucher') and new_card.set) or 'centers']
+  card.children.center.atlas = SMODS.get_atlas((new_card.atlas or (new_card.set == 'Joker' or new_card.consumeable or new_card.set == 'Voucher') and new_card.set) or 'centers')
   card.children.center:set_sprite_pos(new_card.pos)
   --if card.config.center.set_sprites then
   --  card.config.center:set_sprites(card, card.children.front, true)
@@ -78,7 +78,29 @@ function TBOJ.reroll(card, to_key, silent, from_cycling)
 
   if card.states.hover.is then
     card:stop_hover()
-    card:hover()
+    -- Card:hover() but without the juice
+    play_sound('paper1', math.random()*0.2 + 0.9, 0.35)
+
+    --if this is the focused card
+    if card.states.focus.is and not card.children.focused_ui then
+        card.children.focused_ui = G.UIDEF.card_focus_ui(card)
+    end
+
+    if card.facing == 'front' and (not card.states.drag.is or G.CONTROLLER.HID.touch) and not card.no_ui and not G.debug_tooltip_toggle then 
+        if card.children.alert and not card.config.center.alerted then
+            card.config.center.alerted = true
+            G:save_progress()
+        elseif card.children.alert and card.seal and not G.P_SEALS[card.seal].alerted then
+            G.P_SEALS[card.seal].alerted = true
+            G:save_progress()
+        end
+
+        card.ability_UIBox_table = card:generate_UIBox_ability_table()
+        card.config.h_popup = G.UIDEF.card_h_popup(card)
+        card.config.h_popup_config = card:align_h_popup()
+
+        Node.hover(card)
+    end
   end
 
   --[[if then
@@ -150,6 +172,7 @@ function TBOJ.get_random_key(args)
     and (not (v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag]))
     and ((not v.yes_pool_flag) or G.GAME.pool_flags[v.yes_pool_flag])
     and not G.GAME.banned_keys[v.key] -- not banned
+    and not v.no_collection
     and (not _rarity or v.rarity == _rarity) then -- right rarity
       local all_attributes = true
       if attributes then
