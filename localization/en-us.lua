@@ -503,7 +503,7 @@ return {
         text = {
           "This Joker gains {C:chips}+#1#{} Chips",
           "when playing a hand",
-          "{C:inactive}(Currently {C:chips}#2#{C:inactive} Chips)",
+          "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
         },
       },
       j_tboj_the_inner_eye = {
