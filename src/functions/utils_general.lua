@@ -455,7 +455,13 @@ function TBOJ.predict_next_boss()
   return boss
 end
 
-function TBOJ.predict_pack(pack,amount)
+function TBOJ.predict_pack(args)
+  TBOJ.predict_pack_state = true
+  local amount = args.amount
+  local pack = args.pack
+  local create_card = args.create_card
+  local pack_self = args.pack_self
+
   local og_seed = {}
   for k, v in pairs(G.GAME.pseudorandom) do
     og_seed[k] = v
@@ -472,7 +478,30 @@ function TBOJ.predict_pack(pack,amount)
   -- Advantage: better mod compat, much simpler function
   -- Problem: if the create_card function does some stuff other than creating cards, it'll be done each time you hover over the pack
   for i = 1, amount do
-    if pack == "Arcana" then
+    -- in theory, should always run this
+    if create_card then
+      local _card_to_spawn = create_card(pack_self, pack_self, i)
+      local card
+      if type((_card_to_spawn or {}).is) == 'function' and _card_to_spawn:is(Card) then
+        card = _card_to_spawn
+      else
+        card = SMODS.create_card(_card_to_spawn)
+      end
+      keys[#keys+1] = {
+        card = card,
+        key = card.config.center.key,
+        --[[set = card.config.center.set,
+        rank = card.base and card.base.value or nil,
+        suit = card.base and card.base.suit or nil,
+        enhancement = card.config.center.key,
+        edition = card.edition and card.edition.key or nil,
+        seal = card:get_seal(),
+        stickers = {eternal = card.ability and card.ability.eternal or nil, perishable = card.ability and card.ability.perishable or nil, rental = card.ability and card.ability.rental or nil}]]
+      }
+      G.GAME.used_jokers[card.config.center.key] = true
+    
+    -- otherwise run manual checks that work with vanilla + tboj content, as a failsafe
+    elseif pack == "Arcana" then
       local forced_key
       if not G.GAME.banned_keys['c_soul'] then
         local soul_total_rate = 0
@@ -738,7 +767,10 @@ function TBOJ.predict_pack(pack,amount)
       keys[#keys+1] = {key = center, edition = poll_edition('edibuf'..G.GAME.round_resets.ante), stickers = {eternal = _eternal, perishable = _perish, rental = _rental}}
       G.GAME.used_jokers[center] = true
 
-    else return keys end
+    else 
+      TBOJ.predict_pack_state = nil
+      return keys
+    end
   end
 
   for k, _ in pairs(G.GAME.pseudorandom) do
@@ -757,6 +789,7 @@ function TBOJ.predict_pack(pack,amount)
     end
   end
 
+  TBOJ.predict_pack_state = nil
   return keys
 end
 

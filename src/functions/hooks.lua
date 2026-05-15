@@ -176,3 +176,22 @@ function SMODS.clean_up_children(t)
   end
   return scuc(t)
 end
+
+-- set editions and seals passively during pack prediction
+local cse = Card.set_edition
+function Card:set_edition(edition, immediate, silent, delay)
+  if TBOJ.predict_pack_state then
+    immediate = true
+    silent = true
+  end
+  return cse(self, edition, immediate, silent, delay)
+end
+
+local css = Card.set_seal
+function Card:set_seal(_seal, silent, immediate)
+  if TBOJ.predict_pack_state then
+    immediate = true
+    silent = true
+  end
+  return css(self, _seal, silent, immediate)
+end

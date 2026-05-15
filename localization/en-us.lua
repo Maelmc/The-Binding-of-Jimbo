@@ -1241,7 +1241,6 @@ return {
         text = {
           "Hover over a {C:attention}Booster Pack",
           "to {C:attention}reveal{} its content",
-          "{C:inactive,s:0.8}Incompatible with Booster Packs from other mods"
         }
       },
       j_tboj_soul_locket = {
