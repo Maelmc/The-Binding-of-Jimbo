@@ -677,7 +677,7 @@ return {
             "{C:inactive}(Currently {C:attention}Stage #5#{C:inactive})"
           },
           {
-            "Buying another {C:attention}Cube of Meat{}",
+            "Acquiring another {C:attention}Cube of Meat{}",
             "increases the stage of {C:attention}leftmost",
             "{C:attention}Cube of Meat{} instead",
             "{C:inactive}(Can appear multiple times in shop)"
