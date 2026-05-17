@@ -1367,6 +1367,14 @@ return {
           "gain its {C:attention}Skip Tag"
         }
       },
+      c_tboj_poop_nugget = {
+        name = "Poop Nugget",
+        text = {
+          "Enhances {C:attention}#1#",
+          "selected cards to",
+          "{C:attention}Poop Cards",
+        },
+      },
 
       -- RUNES
       c_tboj_jera = {
