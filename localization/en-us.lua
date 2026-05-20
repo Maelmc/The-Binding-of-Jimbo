@@ -677,7 +677,7 @@ return {
             "{C:inactive}(Currently {C:attention}Stage #5#{C:inactive})"
           },
           {
-            "Buying another {C:attention}Cube of Meat{}",
+            "Acquiring another {C:attention}Cube of Meat{}",
             "increases the stage of {C:attention}leftmost",
             "{C:attention}Cube of Meat{} instead",
             "{C:inactive}(Can appear multiple times in shop)"
@@ -1241,7 +1241,6 @@ return {
         text = {
           "Hover over a {C:attention}Booster Pack",
           "to {C:attention}reveal{} its content",
-          "{C:inactive,s:0.8}Incompatible with Booster Packs from other mods"
         }
       },
       j_tboj_soul_locket = {
@@ -1367,6 +1366,14 @@ return {
           "Use during a {C:attention}Blind{} to",
           "gain its {C:attention}Skip Tag"
         }
+      },
+      c_tboj_poop_nugget = {
+        name = "Poop Nugget",
+        text = {
+          "Enhances {C:attention}#1#",
+          "selected cards to",
+          "{C:attention}Poop Cards",
+        },
       },
 
       -- RUNES

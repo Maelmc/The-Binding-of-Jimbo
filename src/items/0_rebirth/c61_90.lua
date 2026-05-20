@@ -181,14 +181,14 @@ SMODS.Joker {
 -- Cube of Meat
 SMODS.Joker {
   key = "cube_of_meat",
-  pos = {x = 12, y = 4},
+  pos = {x = 0, y = 0},
   config = {extra = {mult = 4, mult2 = 15, Xmult = 2, Xmult2 = 4, stage = 1}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.mult, card.ability.extra.mult2, card.ability.extra.Xmult, card.ability.extra.Xmult2, card.ability.extra.stage}}
   end,
   rarity = 1,
   cost = 4,
-  atlas = "jokers",
+  atlas = "multisprites",
   perishable_compat = false,
   eternal_compat = false,
   blueprint_compat = true,
@@ -218,6 +218,7 @@ SMODS.Joker {
       for _, v in ipairs(G.jokers.cards) do
         if v.config.center.key == "j_tboj_cube_of_meat" and v ~= card and v.ability.extra.stage < 4 then
           v.ability.extra.stage = v.ability.extra.stage + 1
+          self:set_sprites(v)
           SMODS.destroy_cards(card,true)
           SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, v)
           return
@@ -228,7 +229,10 @@ SMODS.Joker {
   in_pool = function (self, args)
     return true, {allow_duplicates = true}
   end,
-  attributes = {"tboj_familiar", "mult","xmult"}
+  set_sprites = function(self,card,front)
+    card.children.center:set_sprite_pos({x = (card.ability and card.ability.extra and card.ability.extra.stage or 1) - 1, y = 0})
+  end,
+  attributes = {"tboj_familiar", "mult", "xmult"}
 }
 
 -- A Quarter

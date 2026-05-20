@@ -21,6 +21,13 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({
+  key = "multisprites",
+  path = "multisprites.png",
+  px = 71,
+  py = 95
+})
+
+SMODS.Atlas({
   key = "consumables",
   path = "consumables.png",
   px = 71,

@@ -172,3 +172,34 @@ SMODS.Consumable {
   end,
   tboj_designer = "hagma1",
 }
+
+SMODS.Consumable {
+  key = "poop_nugget",
+  set = "Loot",
+  pos = { x = 11, y = 0 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  config = { extra = { max_highlighted = 2 } },
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_tboj_poop
+    return {vars = {card.ability.extra.max_highlighted}}
+  end,
+  can_use = function(self, card)
+    return G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+  end,
+  use = function(self, card, area, copier)
+    TBOJ.juice_flip_highlighted(card)
+    for i = 1, #G.hand.highlighted do
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.1,
+        func = function()
+          G.hand.highlighted[i]:set_ability("m_tboj_poop")
+          return true
+        end
+      }))
+    end 
+    TBOJ.juice_flip_highlighted(card, true)
+  end,
+}
