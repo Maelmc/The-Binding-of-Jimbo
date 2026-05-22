@@ -23,14 +23,20 @@ TBOJ.Trinket {
   key = "petrified_poop",
   pos = { x = 1, y = 0 },
   cost = 5,
-  config = {extra = {money = 3}},
+  config = {extra = {x_odds = 3}},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_tboj_poop
-    return {vars = {card.ability.extra.money}}
+    return {vars = {card.ability.extra.x_odds}}
   end,
   enhancement_gate = "m_tboj_poop",
   calculate = function(self, card, context)
-    if context.remove_playing_cards then
+    if context.mod_probability and not context.blueprint
+    and (context.identifier == "tboj_poop_money" or context.identifier == "tboj_poop_hand") then
+      return {
+        numerator = context.numerator * card.ability.extra.x_odds,
+      }
+    end
+    --[[if context.remove_playing_cards then
       local poop = 0
       for _, removed_card in ipairs(context.removed) do
         if SMODS.has_enhancement(removed_card,"m_tboj_poop") then poop = poop + 1 end
@@ -41,7 +47,7 @@ TBOJ.Trinket {
           card = card
         }
       end
-    end
+    end]]
   end,
   attributes = {"enhancements", "economy"},
 }

@@ -453,8 +453,12 @@ return {
     Enhanced = {
       m_tboj_poop = {
         name = "Poop Card",
-        text = {
-          "{C:inactive}Does nothing",
+        text={
+          "{C:green}#1# in #2#{} chance",
+          "to win {C:money}$#3#",
+          "{C:green}#4# in #5#{} chance",
+          "to gain {C:blue}+#6#{} hand",
+          "this round"
         },
       },
       m_tboj_laser = {
@@ -1459,9 +1463,9 @@ return {
       trinket_tboj_petrified_poop = {
         name = "Petrified Poop",
         text = {
-          "Earn {C:money}$#1#{} when",
-          "a {C:attention}Poop{} card",
-          "is destroyed"
+          "{C:white,X:green}X#1#{} to all {C:attention}listed",
+          "{C:green,E:1,S:1.1}probabilities",
+          "on {C:attention}Poop Cards"
         }
       },
       trinket_tboj_purple_heart = {
