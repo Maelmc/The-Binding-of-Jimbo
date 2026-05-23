@@ -36,7 +36,7 @@ TBOJ.Trinket {
       end
     end
   end,
-  attributes = {"scaling", "reset", "generation", "chance", "passive"},
+  attributes = {"scaling", "reset", "generation", "chance"},
 }
 
 -- Error
@@ -102,11 +102,45 @@ TBOJ.Trinket {
       end
     end
   end,
-  attributes = {"generation", "chance", "passive"},
+  attributes = {"generation", "chance"},
 }
 
 -- Blister
 -- Second Hand
+-- Endless Nameless
+TBOJ.Trinket {
+  key = "endless_nameless",
+  pos = { x = 3, y = 5 },
+  cost = 5,
+  config = {extra = {num = 1, den = 4}},
+  loc_vars = function(self, info_queue, card)
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_endless_nameless")
+    return {vars = {num, den}}
+  end,
+  calculate = function(self, card, context)
+    if context.using_consumeable and not context.consumeable.tboj_endless_nameless_copy then
+      if SMODS.pseudorandom_probability(card, "tboj_golden_horse_shoe", card.ability.extra.num, card.ability.extra.den, "tboj_endless_nameless") then
+        local used = context.consumeable
+        G.E_MANAGER:add_event(Event {
+          func = function()
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit + (used.edition and used.edition.negative and 1 or 0) then
+              local _card = copy_card(used)
+              _card.tboj_endless_nameless_copy = true
+              _card:add_to_deck()
+              G.consumeables:emplace(_card)
+            end
+            return true
+          end
+        })
+        return nil, true
+      end
+    end
+  end,
+  attributes = {"generation", "chance"},
+}
+
+-- Black Feather
+-- Blind Rage
 
 -- Golden Horse Shoe 82
 TBOJ.Trinket {
@@ -127,7 +161,7 @@ TBOJ.Trinket {
       end
     end
   end,
-  attributes = {"passive", "joker", "generation", "chance"},
+  attributes = {"joker", "generation", "chance"},
 }
 
 -- NO! 88

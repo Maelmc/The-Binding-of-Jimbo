@@ -1572,6 +1572,15 @@ return {
           }
         }
       },
+      trinket_tboj_endless_nameless = {
+        name = "Endless Nameless",
+        text = {
+          "{C:green}#1# in #2#{} chance to create a",
+          "copy of a used {C:attention}consumeable",
+          "{C:inactive}(Must have room)",
+          "{C:inactive}(Cannot copy a copy)",
+        }
+      },
       trinket_tboj_golden_horse_shoe = {
         name = "Golden Horse Shoe",
         text = {
