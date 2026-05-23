@@ -41,6 +41,70 @@ TBOJ.Trinket {
 
 -- Error
 -- Poker Chip
+TBOJ.Trinket {
+  key = "poker_chip",
+  pos = { x = 0, y = 5 },
+  cost = 4,
+  config = {extra = {num = 1, den = 2}},
+  loc_vars = function(self, info_queue, card)
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_poker_chip")
+    return {vars = {num, den}}
+  end,
+  calculate = function(self, card, context)
+    if context.open_booster then
+      if SMODS.pseudorandom_probability(card, "tboj_poker_chip", card.ability.extra.num, card.ability.extra.den, "tboj_poker_chip") then
+        G.E_MANAGER:add_event(Event {
+          func = function()
+            if #G.pack_cards.cards > 0 then
+              SMODS.destroy_cards(G.pack_cards.cards, true, true)
+            end
+            return true
+          end
+        })
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4,
+          func = function()
+            attention_text({
+              text = localize('k_nope_ex'),
+              scale = 1.3, 
+              hold = 1.4,
+              major = card,
+              backdrop_colour = G.C.SECONDARY_SET.Tarot,
+              align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) and 'tm' or 'cm',
+              silent = true
+            })
+            G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.06*G.SETTINGS.GAMESPEED, blockable = false, blocking = false, func = function()
+                play_sound('tarot2', 0.76, 0.4);return true end}))
+            play_sound('tarot2', 1, 0.4)
+            card:juice_up(0.3, 0.5)
+            return true
+          end
+        }))
+        return nil, true
+      else
+        G.E_MANAGER:add_event(Event {
+          func = function()
+            for i = 1, context.card.ability.extra do
+              local _card_to_spawn = context.card.config.center.create_card(context.card, context.card, i)
+              local card
+              if type((_card_to_spawn or {}).is) == 'function' and _card_to_spawn:is(Card) then
+                card = _card_to_spawn
+              else
+                card = SMODS.create_card(_card_to_spawn)
+              end
+              G.pack_cards:emplace(card)
+            end
+            return true
+          end
+        })
+        return {
+          message = localize("tboj_lucky_ex"),
+        }
+      end
+    end
+  end,
+  attributes = {"generation", "chance", "passive"},
+}
+
 -- Blister
 -- Second Hand
 

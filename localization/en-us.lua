@@ -1558,6 +1558,20 @@ return {
           }
         }
       },
+      trinket_tboj_poker_chip = {
+        name = "Poker Chip",
+        text = {
+          {
+          "{C:green}#1# in #2#{} chance to",
+          "{C:red}destroy{} all cards in",
+          "opened {C:attention}Booster Packs"
+          },
+          {
+            "Otherwise, {C:attention}doubles{} the",
+            "amount of cards in them"
+          }
+        }
+      },
       trinket_tboj_golden_horse_shoe = {
         name = "Golden Horse Shoe",
         text = {
