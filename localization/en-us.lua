@@ -1656,6 +1656,14 @@ return {
           "appear in {C:attention}Celestial Packs"
         }
       },
+      trinket_tboj_temporary_tattoo = {
+        name = "Temporary Tattoo",
+        text = {
+          "Create a random",
+          "{C:attention}Booster Pack{}-related {C:attention}Tag",
+          "when {C:attention}Boss Blind{} is defeated"
+        }
+      },
     },
     tboj_spiderfly = {
       spiderfly_tboj_pretty_fly = {
@@ -1759,6 +1767,15 @@ return {
               "unseeded run to",
               "learn what it does",
           },
+      },
+      temporary_tattoo_tag_pool = {
+          name = "Tag Pool",
+          text = {
+              "{C:attention}#1#",
+              "{C:attention}#2#",
+              "{C:attention}#3#",
+              "{C:attention}#4#",
+          }
       },
     }
   },
