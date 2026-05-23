@@ -1542,6 +1542,45 @@ return {
           "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}#2# in 6{C:inactive})",
         }
       },
+      trinket_tboj_stud_finder = {
+        name = "Stud Finder",
+        text = {
+          {
+          "{C:green}#1# in #2#{} chance to add",
+          "a random {C:attention}Booster Pack{} to the",
+          "shop when {C:attention}entering{} the shop,"
+          },
+          {
+            "Probability increase by {C:green}#3#{}",
+            "when a {C:attention}Stone Card{}",
+            "is destroyed, resets when",
+            "a Booster Pack is {C:attention}created"
+          }
+        }
+      },
+      trinket_tboj_poker_chip = {
+        name = "Poker Chip",
+        text = {
+          {
+          "{C:green}#1# in #2#{} chance to",
+          "{C:red}destroy{} all cards in",
+          "opened {C:attention}Booster Packs"
+          },
+          {
+            "Otherwise, {C:attention}doubles{} the",
+            "amount of cards in them"
+          }
+        }
+      },
+      trinket_tboj_endless_nameless = {
+        name = "Endless Nameless",
+        text = {
+          "{C:green}#1# in #2#{} chance to create a",
+          "copy of a used {C:attention}consumeable",
+          "{C:inactive}(Must have room)",
+          "{C:inactive}(Cannot copy a copy)",
+        }
+      },
       trinket_tboj_golden_horse_shoe = {
         name = "Golden Horse Shoe",
         text = {
@@ -1602,6 +1641,27 @@ return {
           "Retrigger {C:attention}unscored",
           "cards in played hand",
           "{C:attention}#1#{} additional time"
+        }
+      },
+      trinket_tboj_mother_kiss = {
+        name = "Mother's Kiss",
+        text = {
+          "{C:blue}+#1#{} hand"
+        }
+      },
+      trinket_tboj_telescope_lens = {
+        name = "Telescope Lens",
+        text = {
+          "{C:attention}Space{}-related Jokers may",
+          "appear in {C:attention}Celestial Packs"
+        }
+      },
+      trinket_tboj_temporary_tattoo = {
+        name = "Temporary Tattoo",
+        text = {
+          "Create a random",
+          "{C:attention}Booster Pack{}-related {C:attention}Tag",
+          "when {C:attention}Boss Blind{} is defeated"
         }
       },
     },
@@ -1708,6 +1768,15 @@ return {
               "learn what it does",
           },
       },
+      temporary_tattoo_tag_pool = {
+          name = "Tag Pool",
+          text = {
+              "{C:attention}#1#",
+              "{C:attention}#2#",
+              "{C:attention}#3#",
+              "{C:attention}#4#",
+          }
+      },
     }
   },
   misc = {
@@ -1788,6 +1857,7 @@ return {
       tboj_hands_minus = "-#1# Hands",
       tboj_discards = "+#1# Discards",
       tboj_discards_minus = "-#1# Discards",
+      tboj_pack = "+#1# Booster Pack#2#"
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},

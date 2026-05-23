@@ -51,7 +51,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"passive"},
+  attributes = {"generation"},
 }
 
 -- Abaddon

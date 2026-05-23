@@ -81,7 +81,7 @@ TBOJ.Trinket {
       if context.active.ability.extra.curr_charge then context.active.ability.extra.curr_charge = 0 end
     end
   end,
-  attributes = {"passive"},
+  --attributes = {"passive"},
 }
 
 -- Teardrop Charm
