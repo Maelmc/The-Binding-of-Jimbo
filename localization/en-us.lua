@@ -1649,6 +1649,13 @@ return {
           "{C:blue}+#1#{} hand"
         }
       },
+      trinket_tboj_telescope_lens = {
+        name = "Telescope Lens",
+        text = {
+          "{C:attention}Space{}-related Jokers may",
+          "appear in {C:attention}Celestial Packs"
+        }
+      },
     },
     tboj_spiderfly = {
       spiderfly_tboj_pretty_fly = {

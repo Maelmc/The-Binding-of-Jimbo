@@ -75,6 +75,14 @@ SMODS.Scoring_Parameter({
   end
 })
 
+local buffoon_create
+for _, v in ipairs(G.P_CENTER_POOLS.Booster) do
+  if v.set == "Booster" and v.kind and v.kind == "Buffoon" then
+    buffoon_create = v.create_card
+    break
+  end
+end
+
 SMODS.Booster:take_ownership_by_kind('Buffoon', {
   create_card = function(self, card, i)
     if i == 1 and next(SMODS.find_card("j_tboj_pentagram")) then
@@ -87,6 +95,24 @@ SMODS.Booster:take_ownership_by_kind('Buffoon', {
       end
       return { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
     end
-    return {set = "Joker", area = G.pack_cards, skip_materialize = true, soulable = true, key_append = "buf"}
+    return buffoon_create(self, card, i)
+  end,
+}, true)
+
+local celestia_create
+for _, v in ipairs(G.P_CENTER_POOLS.Booster) do
+  if v.set == "Booster" and v.kind and v.kind == "Celestial" then
+    celestia_create = v.create_card
+    break
+  end
+end
+
+SMODS.Booster:take_ownership_by_kind('Celestial', {
+  create_card = function(self, card, i)
+    if next(SMODS.find_card("trinket_tboj_telescope_lens")) and pseudorandom('tboj_telescope_lens') > 0 then
+      local _k = TBOJ.get_random_key{set = "Joker", attributes = "space", seed = "tboj_telescope_lens_gen"}
+      return { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
+    end
+    return celestia_create(self, card, i)
   end,
 }, true)
