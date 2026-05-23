@@ -1634,6 +1634,12 @@ return {
           "{C:attention}#1#{} additional time"
         }
       },
+      trinket_tboj_mother_kiss = {
+        name = "Mother's Kiss",
+        text = {
+          "{C:blue}+#1#{} hand"
+        }
+      },
     },
     tboj_spiderfly = {
       spiderfly_tboj_pretty_fly = {
