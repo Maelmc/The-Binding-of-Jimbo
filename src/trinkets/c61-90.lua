@@ -1,3 +1,49 @@
+-- Watch Battery
+-- Blasting Cap
+-- Stud Finder
+TBOJ.Trinket {
+  key = "stud_finder",
+  pos = { x = 13, y = 4 },
+  cost = 5,
+  config = {extra = {num = 1, den = 5, increase = 1}},
+  loc_vars = function(self, info_queue, card)
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_stud_finder")
+    return {vars = {num, den, card.ability.extra.increase}}
+  end,
+  calculate = function(self, card, context)
+    if context.remove_playing_cards then
+      local trig = false
+      for _, removed_card in ipairs(context.removed) do
+        if SMODS.has_enhancement(removed_card,"m_stone") then
+          SMODS.scale_card(card, {
+            ref_value = 'num',        
+            scalar_value = 'increase',
+          })
+        end
+      end
+      if trig then
+        return nil, true
+      end
+    end
+
+    if context.starting_shop then
+      if SMODS.pseudorandom_probability(card, "tboj_stud_finder", card.ability.extra.num, card.ability.extra.den, "tboj_stud_finder") then
+        card.ability.extra.num = 1
+        SMODS.add_booster_to_shop()
+        return {
+          message = localize {type = 'variable', key = 'tboj_pack', vars = { 1, "" }}
+        }
+      end
+    end
+  end,
+  attributes = {"scaling", "reset", "generation", "chance", "passive"},
+}
+
+-- Error
+-- Poker Chip
+-- Blister
+-- Second Hand
+
 -- Golden Horse Shoe 82
 TBOJ.Trinket {
   key = "golden_horse_shoe",
@@ -12,11 +58,12 @@ TBOJ.Trinket {
     if context.reroll_shop or context.starting_shop then
       if SMODS.pseudorandom_probability(card, "tboj_golden_horse_shoe", card.ability.extra.num, card.ability.extra.den, "tboj_golden_horse_shoe") then
         local _card = SMODS.create_card({set = "Joker", area = G.shop_jokers})
-        TBOJ.add_to_shop(_card,localize("tboj_lucky_ex"))
+        TBOJ.add_to_shop(_card, localize("tboj_lucky_ex"))
+        return nil, true
       end
     end
   end,
-  attributes = {"passive", "joker"},
+  attributes = {"passive", "joker", "generation", "chance"},
 }
 
 -- NO! 88

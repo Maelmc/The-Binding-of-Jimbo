@@ -49,7 +49,7 @@ TBOJ.Trinket {
       end
     end]]
   end,
-  attributes = {"enhancements", "economy"},
+  attributes = {"enhancements", "economy", "tboj_poop"},
 }
 
 -- AAA Battery

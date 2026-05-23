@@ -1542,6 +1542,22 @@ return {
           "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}#2# in 6{C:inactive})",
         }
       },
+      trinket_tboj_stud_finder = {
+        name = "Stud Finder",
+        text = {
+          {
+          "{C:green}#1# in #2#{} chance to add",
+          "a random {C:attention}Booster Pack{} to the",
+          "shop when {C:attention}entering{} the shop,"
+          },
+          {
+            "Probability increase by {C:green}#3#{}",
+            "when a {C:attention}Stone Card{}",
+            "is destroyed, resets when",
+            "a Booster Pack is {C:attention}created"
+          }
+        }
+      },
       trinket_tboj_golden_horse_shoe = {
         name = "Golden Horse Shoe",
         text = {
@@ -1788,6 +1804,7 @@ return {
       tboj_hands_minus = "-#1# Hands",
       tboj_discards = "+#1# Discards",
       tboj_discards_minus = "-#1# Discards",
+      tboj_pack = "+#1# Booster Pack#2#"
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},
