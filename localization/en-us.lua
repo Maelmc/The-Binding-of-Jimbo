@@ -529,6 +529,14 @@ return {
           "{C:mult}+#1#{} and {C:white,X:mult}X#2#{} Mult"
         }
       },
+      j_tboj_my_reflection = {
+        name = "My Reflection",
+        text = {
+          "Sets all {C:attention}listed",
+          "{C:green,E:1,S:1.1}probabilities",
+          "to {C:attention}0"
+        } 
+      },
       j_tboj_number_one = {
         name = "Number One",
         text = {
