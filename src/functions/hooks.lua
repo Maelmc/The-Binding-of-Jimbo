@@ -195,3 +195,9 @@ function Card:set_seal(_seal, silent, immediate)
   end
   return css(self, _seal, silent, immediate)
 end
+
+local ed = ease_dollars
+function ease_dollars(mod)
+  ed(mod)
+  SMODS.calculate_context({tboj_money = mod})
+end

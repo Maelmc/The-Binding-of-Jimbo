@@ -129,6 +129,20 @@ return {
           }
         }
       },
+      active_tboj_guppy_paw = {
+        name = "Guppy's Paw",
+        text = {
+          {
+            "Must have at least",
+            "{C:blue}#1#{} hands to use"
+          },
+          {
+            "{C:attention}Permanently{} convert",
+            "{C:blue}#2#{} hand into",
+            "{C:red}#3#{} discards"
+          }
+        }
+      },
       active_tboj_box_of_spiders = {
         name = "Box of Spiders",
         text = {
@@ -533,8 +547,7 @@ return {
         name = "My Reflection",
         text = {
           "Sets all {C:attention}listed",
-          "{C:green,E:1,S:1.1}probabilities",
-          "to {C:attention}0"
+          "{C:green,E:1,S:1.1}probabilities{} to {C:attention}#1#"
         } 
       },
       j_tboj_number_one = {
@@ -804,6 +817,14 @@ return {
           "{C:attention}Fifth{} card in",
           "poker hand gives",
           "{C:chips}+#1#{} Chips when scored"
+        }
+      },
+      j_tboj_piggy_bank = {
+        name = "Piggy Bank",
+        text = {
+          "This Joker gains {C:money}$#1#",
+          "of sell value whenever",
+          "{C:money}money{} is earned"
         }
       },
       j_tboj_a_lump_of_coal = {
