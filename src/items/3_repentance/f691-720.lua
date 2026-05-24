@@ -377,7 +377,7 @@ SMODS.Joker {
 SMODS.Joker {
   key = "glass_eye",
   pos = { x = 9, y = 48 },
-  config = {extra = {Xmult = 1, Xmult_mod = 0.15}},
+  config = {extra = {Xmult = 1, Xmult_mod = 0.1}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
   end,

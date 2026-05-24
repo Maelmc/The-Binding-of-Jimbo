@@ -128,7 +128,6 @@ SMODS.Joker {
   pos = {x = 4, y = 0},
   config = {extra = {set_odds = 0}},
   loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_pill
     return {vars = {card.ability.extra.set_odds}}
   end,
   rarity = 2, 
