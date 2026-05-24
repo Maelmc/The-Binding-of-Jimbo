@@ -198,11 +198,11 @@ return {
             "{C:attention}Destroy{} all cards in the {C:attention}shop{} and",
             "upgrade a random {C:attention}poker hand{}",
             "for each card destroyed this way",
-            "The destroyed cards cannot appear again"
+            "The destroyed cards {C:attention}cannot appear again"
           }
         }
       },
-      active_tboj_smelter = {
+      --[[active_tboj_smelter = {
         name = "Smelter",
         text = {
           {
@@ -215,7 +215,7 @@ return {
             "a selected {C:attention}Trinket"
           }
         }
-      },
+      },]]
       active_tboj_dull_razor = {
         name = "Dull Razor",
         text = {
@@ -341,6 +341,13 @@ return {
           "When {C:attention}Blind{} is selected, gain",
           "{C:blue}#3#{} Hand per {C:money}$#4#{} you have",
           "{C:inactive}(Max of {C:blue}#5#{C:inactive} Hands at {C:money}$#6#{C:inactive})"
+        }
+      },
+      b_tboj_apollyon = {
+        name = "Apollyon Deck",
+        text = {
+          "Cards sold {C:attention}cannot",
+          "{C:attention}appear again"
         }
       },
     },
@@ -1444,15 +1451,22 @@ return {
       },
     },
     Spectral = {
-      c_tboj_spindown_dice = {
-            name = "Spindown Dice",
-            text = {
-                "{C:attention}Reroll{} leftmost or selected",
-                "{C:attention}Joker{} to the previous one",
-                "in {C:attention}collection{} order",
-                "{C:inactive,s:0.8}Destroys {C:attention,s:0.8}Joker {C:inactive,s:0.8}and {C:attention,s:0.8}The Sad Onion",
-            }
+      c_tboj_smelter = {
+        name = "Smelter",
+        text = {
+          "Add {C:dark_edition}Negative{} to",
+          "a selected {C:attention}Trinket"
         }
+      },
+      c_tboj_spindown_dice = {
+        name = "Spindown Dice",
+        text = {
+          "{C:attention}Reroll{} leftmost or selected",
+          "{C:attention}Joker{} to the previous one",
+          "in {C:attention}collection{} order",
+          "{C:inactive,s:0.8}Destroys {C:attention,s:0.8}Joker {C:inactive,s:0.8}and {C:attention,s:0.8}The Sad Onion",
+        }
+      },
     },
     Stake={
         stake_tboj_corpse_stake = {

@@ -119,7 +119,8 @@ TBOJ.Active {
 
 -- Pause
 -- Smelter
-TBOJ.Active {
+-- Is a Spectral
+--[[TBOJ.Active {
   key = "smelter",
   pos = { x = 13, y = 31 },
   cost = 10,
@@ -148,6 +149,6 @@ TBOJ.Active {
     return TBOJ.in_pool(self)
   end,
   attributes = {"editions"},
-}
+}]]
 
 -- Compost
