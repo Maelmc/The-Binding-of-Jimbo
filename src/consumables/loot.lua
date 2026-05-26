@@ -52,7 +52,7 @@ SMODS.Consumable {
   end,
   can_use = function(self, card)
     local target = TBOJ.leftmost_or_selected_active()
-    return target and target.ability.extra.curr_charge and target.ability.extra.curr_charge < target.ability.extra.max_charge
+    return TBOJ.can_charge(target)
   end,
   use = function(self, card, area, copier)
     local target = TBOJ.leftmost_or_selected_active()

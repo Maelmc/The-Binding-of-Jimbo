@@ -33,7 +33,7 @@ function TBOJ.reroll(card, to_key, silent, from_cycling)
   local new_card = G.P_CENTERS[to_key]
   if not new_card then return end
   if card.config.center == new_card then return end
-  
+
   card.children.center.atlas = SMODS.get_atlas((new_card.atlas or (new_card.set == 'Joker' or new_card.consumeable or new_card.set == 'Voucher') and new_card.set) or 'centers')
   card.children.center:set_sprite_pos(new_card.pos)
   --if card.config.center.set_sprites then
@@ -123,16 +123,24 @@ function TBOJ.eor_charge(card,context)
   end
 end
 
+function TBOJ.can_charge(card)
+  if (not card) or (not card.ability) or (not card.ability.extra) or not (card.ability.extra.curr_charge and card.ability.extra.max_charge) then
+    return false
+  end
+
+  return next(SMODS.find_card("j_tboj_the_battery")) and card.ability.extra.curr_charge <  card.ability.extra.max_charge * 2
+    or card.ability.extra.curr_charge <  card.ability.extra.max_charge
+end
+
 function TBOJ.charge_active(card,amount)
   local charged = false
   for _ = 1, amount do
-    if next(SMODS.find_card("j_tboj_the_battery")) and card.ability.extra.curr_charge <  card.ability.extra.max_charge * 2 or
-    card.ability.extra.curr_charge <  card.ability.extra.max_charge then
+    if TBOJ.can_charge(card) then
       charged = true
       card.ability.extra.curr_charge = card.ability.extra.curr_charge + 1
     else break end
   end
-  if charged then 
+  if charged then
     SMODS.calculate_effect({message = localize('tboj_charged_ex')}, card)
   end
 end
@@ -358,9 +366,9 @@ function TBOJ.add_to_shop(card,text)
   card:start_materialize()
   card:set_cost()
   create_shop_card_ui(card)
-  
+
   if (SMODS.Mods["Talisman"] or {}).can_load then
-    if Talisman.config_file.disable_anims then 
+    if Talisman.config_file.disable_anims then
       card.states.visible = true
     end
   end
@@ -372,7 +380,7 @@ end
 
 function TBOJ.predict_seed(key)
   local pkey = G.GAME.pseudorandom[key]
-  if not G.GAME.pseudorandom[key] then 
+  if not G.GAME.pseudorandom[key] then
     pkey = pseudohash(key..(G.GAME.pseudorandom.seed or ''))
   end
 
@@ -386,7 +394,7 @@ function TBOJ.predict_next_boss()
   G.GAME.round_resets.ante = G.GAME.round_resets.ante + 1
   G.GAME.perscribed_bosses = G.GAME.perscribed_bosses or {
   }
-  if G.GAME.perscribed_bosses and G.GAME.perscribed_bosses[G.GAME.round_resets.ante] then 
+  if G.GAME.perscribed_bosses and G.GAME.perscribed_bosses[G.GAME.round_resets.ante] then
     local ret_boss = G.GAME.perscribed_bosses[G.GAME.round_resets.ante]
     G.GAME.round_resets.ante = real_ante
     return ret_boss
@@ -395,14 +403,14 @@ function TBOJ.predict_next_boss()
     G.GAME.round_resets.ante = real_ante
     return G.FORCE_BOSS
   end
-  
+
   local eligible_bosses = {}
   for k, v in pairs(G.P_BLINDS) do
     if G.GAME.round_resets.blind_choices.Boss ~= v.key then
       local res, options = SMODS.add_to_pool(v)
       options = options or {}
       if not v.boss then
-      
+
       elseif options.ignore_showdown_check then
         eligible_bosses[k] = res and true or nil
       elseif v.in_pool and type(v.in_pool) == 'function' then
@@ -430,7 +438,7 @@ function TBOJ.predict_next_boss()
     if eligible_bosses[k] then
       if G.GAME.round_resets.blind_choices.Boss ~= k then
         eligible_bosses[k] = v
-        if eligible_bosses[k] <= min_use then 
+        if eligible_bosses[k] <= min_use then
           min_use = eligible_bosses[k]
         end
       end
@@ -439,7 +447,7 @@ function TBOJ.predict_next_boss()
   --local tot_elig = 0
   for k, v in pairs(eligible_bosses) do
     if eligible_bosses[k] then
-      if eligible_bosses[k] > min_use then 
+      if eligible_bosses[k] > min_use then
         eligible_bosses[k] = nil
       elseif G.GAME.round_resets.blind_choices.Boss == eligible_bosses[k] then
         eligible_bosses[k] = nil
@@ -499,7 +507,7 @@ function TBOJ.predict_pack(args)
         stickers = {eternal = card.ability and card.ability.eternal or nil, perishable = card.ability and card.ability.perishable or nil, rental = card.ability and card.ability.rental or nil}]]
       }
       G.GAME.used_jokers[card.config.center.key] = true
-    
+
     -- otherwise run manual checks that work with vanilla + tboj content, as a failsafe
     elseif pack == "Arcana" then
       local forced_key
@@ -550,7 +558,7 @@ function TBOJ.predict_pack(args)
         keys[#keys+1] = {key = center}
         G.GAME.used_jokers[center] = true
       end
-    
+
     elseif pack == "Celestial" then
       if G.GAME.used_vouchers.v_telescope and i == 1 then
         local _planet, _hand, _tally = nil, nil, 0
@@ -597,7 +605,7 @@ function TBOJ.predict_pack(args)
               forced_key = 'c_black_hole'
             end
           end
-        end             
+        end
 
         if forced_key then
           keys[#keys+1] = {key = forced_key}
@@ -767,7 +775,7 @@ function TBOJ.predict_pack(args)
       keys[#keys+1] = {key = center, edition = poll_edition('edibuf'..G.GAME.round_resets.ante), stickers = {eternal = _eternal, perishable = _perish, rental = _rental}}
       G.GAME.used_jokers[center] = true
 
-    else 
+    else
       TBOJ.predict_pack_state = nil
       return keys
     end
@@ -795,8 +803,8 @@ end
 
 function TBOJ.get_new_big()
   G.GAME.perscribed_big = G.GAME.perscribed_big or {}
-  if G.GAME.perscribed_big and G.GAME.perscribed_big[G.GAME.round_resets.ante] then 
-    local ret_big = G.GAME.perscribed_big[G.GAME.round_resets.ante] 
+  if G.GAME.perscribed_big and G.GAME.perscribed_big[G.GAME.round_resets.ante] then
+    local ret_big = G.GAME.perscribed_big[G.GAME.round_resets.ante]
     G.GAME.perscribed_big[G.GAME.round_resets.ante] = nil
     G.GAME.bosses_used[ret_big] = G.GAME.bosses_used[ret_big] + 1
     return ret_big
@@ -814,7 +822,7 @@ function TBOJ.get_new_big()
       return "bl_big"
     end
   end
-  
+
   local eligible_big = {}
   for k, v in pairs(G.P_BLINDS) do
     if k ~= "bl_big" or (k == "bl_big" and not next(SMODS.find_card("j_tboj_champion_belt"))) then
@@ -836,21 +844,21 @@ function TBOJ.get_new_big()
   for k, v in pairs(G.GAME.bosses_used) do
     if eligible_big[k] then
       eligible_big[k] = v
-      if not min_use or eligible_big[k] <= min_use then 
+      if not min_use or eligible_big[k] <= min_use then
         min_use = eligible_big[k]
       end
     end
   end
   for k, v in pairs(eligible_big) do
     if eligible_big[k] then
-      if eligible_big[k] > min_use then 
+      if eligible_big[k] > min_use then
         eligible_big[k] = nil
       end
     end
   end
   local _, big = pseudorandom_element(eligible_big, pseudoseed('big'))
   G.GAME.bosses_used[big] = G.GAME.bosses_used[big] + 1
-  
+
   return big
 end
 
@@ -887,7 +895,7 @@ function TBOJ.save_last_hand(context)
     G.GAME.tboj_last_full_hand[#G.GAME.tboj_last_full_hand+1] = {id = id, value = value, suit = suit}
   end
 
-  
+
   for _, v in ipairs(context.scoring_hand) do
     local id
     local value
