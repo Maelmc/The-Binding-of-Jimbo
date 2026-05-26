@@ -93,11 +93,14 @@ TBOJ.Active {
     local to_up = #G.shop_jokers.cards
     for i = 1, #G.shop_jokers.cards do
       local target = G.shop_jokers.cards[i]
-      G.GAME.banned_keys[target.config.center.key] = true
       SMODS.destroy_cards(target, true)
+      if target.ability.set == "Joker" then
+        G.GAME.banned_keys[target.config.center.key] = true
+        SMODS.calculate_effect({message = localize("tboj_voided")}, card)
+      end
     end
 
-    for i = 1, to_up do
+    for _ = 1, to_up do
       local _poker_hands = {}
       for k, _ in pairs(G.GAME.hands) do
         if SMODS.is_poker_hand_visible(k) then
@@ -119,7 +122,7 @@ TBOJ.Active {
 
 -- Pause
 -- Smelter
--- Is a Spectral
+-- Is a Spectral now
 --[[TBOJ.Active {
   key = "smelter",
   pos = { x = 13, y = 31 },

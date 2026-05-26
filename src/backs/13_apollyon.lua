@@ -9,10 +9,10 @@ SMODS.Back {
 	pos = { x = 13, y = 0 },
 	atlas = "backs",
   calculate = function (self, back, context)
-    if context.selling_card then
+    if context.selling_card and context.card.ability.set == "Joker" then
       G.GAME.banned_keys[context.card.config.center.key] = true
       return {
-        message = localize("tboj_banned")
+        message = localize("tboj_voided")
       }
     end
   end

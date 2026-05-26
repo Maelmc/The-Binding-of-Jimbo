@@ -197,8 +197,9 @@ return {
           {
             "{C:attention}Destroy{} all cards in the {C:attention}shop{} and",
             "upgrade a random {C:attention}poker hand{}",
-            "for each card destroyed this way",
-            "The destroyed cards {C:attention}cannot appear again"
+            "for each card destroyed this way.",
+            "Destroyed Jokers",
+            "{C:attention}cannot appear again"
           }
         }
       },
@@ -346,7 +347,7 @@ return {
       b_tboj_apollyon = {
         name = "Apollyon Deck",
         text = {
-          "Cards sold {C:attention}cannot",
+          "Jokers sold {C:attention}cannot",
           "{C:attention}appear again"
         }
       },
@@ -1874,6 +1875,7 @@ return {
       tboj_geye_2 = "contains:",
       tboj_not_supported_pack = "This Pack is not supported",
       tboj_none = "None",
+      tboj_voided = "Voided",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
