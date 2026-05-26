@@ -1,3 +1,48 @@
+-- Gimpy
+-- Black Lotus
+-- Piggy Bank
+-- Copied from Extra Credit's Hoarder
+SMODS.Joker {
+  key = "piggy_bank",
+  pos = {x = 1, y = 15},
+  config = {extra = {money = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.money}}
+  end,
+  rarity = 2,
+  cost = 3,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.tboj_money then
+      if context.tboj_money > 0 then
+        SMODS.scale_card(card, {
+          ref_table = card.ability,
+          ref_value = "extra_value",
+          scalar_table = card.ability.extra,
+          scalar_value = "money",
+          operation = function(ref_table, ref_value, initial, change)
+            ref_table[ref_value] = initial + change
+          end,
+          scaling_message = {
+            message = localize('k_val_up'),
+            colour = G.C.MONEY
+          }
+        })
+        card:set_cost()
+        return nil, true
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"economy", "scaling", "sell_value"},
+}
+
+-- Mom's Perfum
 -- Monstro's Lung
 SMODS.Joker {
   key = "monstro_lung",
@@ -85,7 +130,7 @@ SMODS.Joker {
     G.GAME.round_resets.discards = G.GAME.round_resets.discards + diff*2
     ease_discard(diff*2)
   end,
-  attributes = {"tboj_devil", "discards", "xmult"},
+  attributes = {"tboj_devil", "hands", "discards", "xmult"},
 }
 
 -- Ball of Tar

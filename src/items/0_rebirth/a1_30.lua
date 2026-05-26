@@ -123,6 +123,32 @@ SMODS.Joker {
 }
 
 -- My Reflection
+SMODS.Joker {
+  key = "my_reflection", 
+  pos = {x = 4, y = 0},
+  config = {extra = {set_odds = 0}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.set_odds}}
+  end,
+  rarity = 2, 
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.fix_probability and not context.blueprint then
+      return {
+        numerator = card.ability.extra.set_odds,
+      }
+    end
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {"mod_chance", "passive"}
+}
+
 -- Number One
 SMODS.Joker {
   key = "number_one",

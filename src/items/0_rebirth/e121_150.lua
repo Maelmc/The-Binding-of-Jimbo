@@ -87,3 +87,32 @@ SMODS.Joker {
   end,
   attributes = {"tboj_devil", "xmult"}
 }
+
+-- Guppy's Paw
+TBOJ.Active {
+  key = "guppy_paw",
+  pos = { x = 12, y = 8 },
+  cost = 5,
+  config = {extra = {req_hand = 2, hand = 1, discard = 2}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {
+      card.ability.extra.req_hand, card.ability.extra.hand, card.ability.extra.discard
+    }}
+  end,
+  can_use = function(self, card)
+    return G.GAME.round_resets.hands >= card.ability.extra.req_hand and G.GAME.current_round.hands_left >= card.ability.extra.req_hand
+  end,
+  use = function(self, card, area, copier)
+    G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hand
+    ease_hands_played(-card.ability.extra.hand)
+    G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discard
+    ease_discard(card.ability.extra.discard)
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {"hands", "discards", "tboj_guppy", "tboj_devil"}
+}

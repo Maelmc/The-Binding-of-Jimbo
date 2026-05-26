@@ -1,3 +1,4 @@
+-- Bomb
 SMODS.Consumable {
   key = "bomb",
   set = "Loot",
@@ -37,6 +38,7 @@ SMODS.Consumable {
   end
 }
 
+-- Lil' Battery
 SMODS.Consumable {
   key = "lil_battery",
   set = "Loot",
@@ -44,13 +46,13 @@ SMODS.Consumable {
   atlas = "consumables",
   cost = 4,
   unlocked = true,
-  config = {extra = {charge = 6}},
+  config = {extra = {charge = 2}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.charge}}
   end,
   can_use = function(self, card)
     local target = TBOJ.leftmost_or_selected_active()
-    return target and target.ability.extra.curr_charge
+    return TBOJ.can_charge(target)
   end,
   use = function(self, card, area, copier)
     local target = TBOJ.leftmost_or_selected_active()
@@ -62,6 +64,7 @@ SMODS.Consumable {
   end,
 }
 
+-- Pill
 SMODS.Consumable {
   key = "pill",
   set = "Loot",
@@ -93,6 +96,7 @@ SMODS.Consumable {
   end,
 }
 
+-- Soul Heart
 SMODS.Consumable {
   key = "soul_heart",
   set = "Loot",
@@ -117,6 +121,7 @@ SMODS.Consumable {
   end,
 }
 
+-- Black Heart
 SMODS.Consumable {
   key = "black_heart",
   set = "Loot",
@@ -141,6 +146,7 @@ SMODS.Consumable {
   end,
 }
 
+-- Key
 -- Copied from Forager Nonessentials' Graffiti Artist
 SMODS.Consumable {
   key = "key",
@@ -173,6 +179,7 @@ SMODS.Consumable {
   tboj_designer = "hagma1",
 }
 
+-- Poop Nugget
 SMODS.Consumable {
   key = "poop_nugget",
   set = "Loot",

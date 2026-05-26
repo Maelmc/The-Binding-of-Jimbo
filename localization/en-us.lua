@@ -129,6 +129,20 @@ return {
           }
         }
       },
+      active_tboj_guppy_paw = {
+        name = "Guppy's Paw",
+        text = {
+          {
+            "Must have at least",
+            "{C:blue}#1#{} hands to use"
+          },
+          {
+            "{C:attention}Permanently{} convert",
+            "{C:blue}#2#{} hand into",
+            "{C:red}#3#{} discards"
+          }
+        }
+      },
       active_tboj_box_of_spiders = {
         name = "Box of Spiders",
         text = {
@@ -183,12 +197,13 @@ return {
           {
             "{C:attention}Destroy{} all cards in the {C:attention}shop{} and",
             "upgrade a random {C:attention}poker hand{}",
-            "for each card destroyed this way",
-            "The destroyed cards cannot appear again"
+            "for each card destroyed this way.",
+            "Destroyed Jokers",
+            "{C:attention}cannot appear again"
           }
         }
       },
-      active_tboj_smelter = {
+      --[[active_tboj_smelter = {
         name = "Smelter",
         text = {
           {
@@ -201,7 +216,7 @@ return {
             "a selected {C:attention}Trinket"
           }
         }
-      },
+      },]]
       active_tboj_dull_razor = {
         name = "Dull Razor",
         text = {
@@ -327,6 +342,13 @@ return {
           "When {C:attention}Blind{} is selected, gain",
           "{C:blue}#3#{} Hand per {C:money}$#4#{} you have",
           "{C:inactive}(Max of {C:blue}#5#{C:inactive} Hands at {C:money}$#6#{C:inactive})"
+        }
+      },
+      b_tboj_apollyon = {
+        name = "Apollyon Deck",
+        text = {
+          "Jokers sold {C:attention}cannot",
+          "{C:attention}appear again"
         }
       },
     },
@@ -528,6 +550,13 @@ return {
         text = {
           "{C:mult}+#1#{} and {C:white,X:mult}X#2#{} Mult"
         }
+      },
+      j_tboj_my_reflection = {
+        name = "My Reflection",
+        text = {
+          "Sets all {C:attention}listed",
+          "{C:green,E:1,S:1.1}probabilities{} to {C:attention}#1#"
+        } 
       },
       j_tboj_number_one = {
         name = "Number One",
@@ -796,6 +825,14 @@ return {
           "{C:attention}Fifth{} card in",
           "poker hand gives",
           "{C:chips}+#1#{} Chips when scored"
+        }
+      },
+      j_tboj_piggy_bank = {
+        name = "Piggy Bank",
+        text = {
+          "This Joker gains {C:money}$#1#",
+          "of sell value whenever",
+          "{C:money}money{} is earned"
         }
       },
       j_tboj_a_lump_of_coal = {
@@ -1415,15 +1452,22 @@ return {
       },
     },
     Spectral = {
-      c_tboj_spindown_dice = {
-            name = "Spindown Dice",
-            text = {
-                "{C:attention}Reroll{} leftmost or selected",
-                "{C:attention}Joker{} to the previous one",
-                "in {C:attention}collection{} order",
-                "{C:inactive,s:0.8}Destroys {C:attention,s:0.8}Joker {C:inactive,s:0.8}and {C:attention,s:0.8}The Sad Onion",
-            }
+      c_tboj_smelter = {
+        name = "Smelter",
+        text = {
+          "Add {C:dark_edition}Negative{} to",
+          "a selected {C:attention}Trinket"
         }
+      },
+      c_tboj_spindown_dice = {
+        name = "Spindown Dice",
+        text = {
+          "{C:attention}Reroll{} leftmost or selected",
+          "{C:attention}Joker{} to the previous one",
+          "in {C:attention}collection{} order",
+          "{C:inactive,s:0.8}Destroys {C:attention,s:0.8}Joker {C:inactive,s:0.8}and {C:attention,s:0.8}The Sad Onion",
+        }
+      },
     },
     Stake={
         stake_tboj_corpse_stake = {
@@ -1831,6 +1875,7 @@ return {
       tboj_geye_2 = "contains:",
       tboj_not_supported_pack = "This Pack is not supported",
       tboj_none = "None",
+      tboj_voided = "Voided",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
