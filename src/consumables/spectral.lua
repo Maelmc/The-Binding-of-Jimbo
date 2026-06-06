@@ -41,7 +41,7 @@ SMODS.Consumable {
   end,
   can_use = function(self, card)
     local target = TBOJ.leftmost_or_selected_joker()
-    return target and target.config and target.config.center and target.config.center.key
+    return target and target.config and target.config.center and target.config.center.key and not target:is_rarity("tboj_transformation")
   end,
   use = function(self, card, area, copier)
     local target = TBOJ.leftmost_or_selected_joker()
@@ -60,7 +60,7 @@ SMODS.Consumable {
       if v.key == target.config.center.key then
         for l = k-1, 0, -1 do
           local prev = G.P_CENTER_POOLS.Joker[l]
-          if not prev.no_collection then
+          if (not prev.no_collection) and (not prev.rarity == "tboj_transformation") then
             G.E_MANAGER:add_event(Event({
               trigger = 'after',
               delay = 0.4,

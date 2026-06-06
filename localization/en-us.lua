@@ -1359,6 +1359,64 @@ return {
           "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
         },
       },
+
+      -- TRANSFORMATIONS
+      j_tboj_transformation_guppy = {
+        name = "Guppy",
+        text = {
+          {
+            "Acquired by getting {C:attention}3{} different",
+            "{C:attention}Guppy{} objects during a run"
+          },
+          {
+            "Create a {C:attention}Pretty Fly",
+            "for each card {C:attention}drawn{}",
+          }
+        }
+      },
+      j_tboj_transformation_seraphim = {
+        name = "Seraphim",
+        text = {
+          {
+            "Acquired by getting {C:attention}3{} different",
+            "{C:attention}Angel{} objects during a run"
+          },
+          {
+            "Create {C:attention}#1# {C:dark_edition}Negative",
+            "{C:attention}Soul Hearts{} when acquired",
+            "and create a {C:attention}Soul Heart{}",
+            "every {C:attention}#2# {C:inactive}[#3#]{} card drawn",
+          }
+        }
+      },
+      j_tboj_transformation_leviathan = {
+        name = "Leviathan",
+        text = {
+          {
+            "Acquired by getting {C:attention}3{} different",
+            "{C:attention}Devil{} objects during a run"
+          },
+          {
+            "Create {C:attention}#1# {C:dark_edition}Negative",
+            "{C:attention}Black Hearts{} when acquired",
+            "and create a {C:attention}Black Heart{}",
+            "every {C:attention}#2# {C:inactive}[#3#]{} card drawn",
+          }
+        }
+      },
+      j_tboj_transformation_bookworm = {
+        name = "Bookworm",
+        text = {
+          {
+            "Acquired by getting {C:attention}3{} different",
+            "{C:attention}Book{} objects during a run"
+          },
+          {
+            "{C:green}#1# in #2#{} chance to",
+            "{C:attention}retrigger{} each played card",
+          } 
+        }
+      },
     },
     Loot = {
       -- STANDARD LOOT
@@ -1466,6 +1524,8 @@ return {
           "{C:attention}Joker{} to the previous one",
           "in {C:attention}collection{} order",
           "{C:inactive,s:0.8}Destroys {C:attention,s:0.8}Joker {C:inactive,s:0.8}and {C:attention,s:0.8}The Sad Onion",
+          "{C:inactive,s:0.8}Cannot roll a {C:attention,s:0.8}Transformation",
+          "{C:inactive,s:0.8}or into a {C:attention,s:0.8}Transformation"
         }
       },
     },
@@ -1838,6 +1898,7 @@ return {
       k_tboj_devil_pack = "Devil Pack",
       k_tboj_angel_pack = "Angel Pack",
       k_tboj_spiderfly = "Fly/Spider",
+      k_tboj_transformation = "Transformation",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",
@@ -1876,6 +1937,12 @@ return {
       tboj_not_supported_pack = "This Pack is not supported",
       tboj_none = "None",
       tboj_voided = "Voided",
+      tboj_guppy = "Guppy",
+      tboj_book = "Book",
+      tboj_spider = "Spider",
+      tboj_poop = "Poop",
+      tboj_angel = "Angel",
+      tboj_devil = "Devil",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
@@ -1883,9 +1950,9 @@ return {
       tboj_links = "Links",
       tboj_discord = "Discord",
       tboj_wiki = "Wiki",
-    },  
+    }, 
     labels = {
-
+      k_tboj_transformation = "Transformation",
     },
     poker_hands = {
         

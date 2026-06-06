@@ -12,11 +12,26 @@ position = 'before'
 match_indent = true
 payload = '''
 if Object.is(card, Card) then
+  if card:has_attribute("tboj_angel") then
+    badges[#badges+1] = create_badge(localize("tboj_angel"), G.C.TBOJ.ANGEL, G.C.WHITE, 1.2 )
+  end
+  if card:has_attribute("tboj_book") then
+    badges[#badges+1] = create_badge(localize("tboj_book"), G.C.TBOJ.BOOK, G.C.WHITE, 1.2 )
+  end
+  if card:has_attribute("tboj_devil") then
+    badges[#badges+1] = create_badge(localize("tboj_devil"), G.C.TBOJ.DEVIL, G.C.WHITE, 1.2 )
+  end
   if card:has_attribute("tboj_familiar") then
     badges[#badges+1] = create_badge(localize("tboj_familiar"), G.C.TBOJ.FAMILIAR, G.C.WHITE, 1.2 )
   end
   --if card:has_attribute("tboj_fly") then
   --  badges[#badges+1] = create_badge(localize("tboj_fly"), G.C.TBOJ.FLY, G.C.WHITE, 1.2 )
+  --end
+  if card:has_attribute("tboj_guppy") then
+    badges[#badges+1] = create_badge(localize("tboj_guppy"), G.C.TBOJ.GUPPY, G.C.WHITE, 1.2 )
+  end
+  --if card:has_attribute("tboj_poop") then
+  --  badges[#badges+1] = create_badge(localize("tboj_poop"), G.C.TBOJ.POOP, G.C.WHITE, 1.2 )
   --end
 end
 '''

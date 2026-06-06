@@ -274,7 +274,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_poop", "enhancements", "generation"},
+  attributes = {"tboj_poop", "tboj_fly", "enhancements", "generation"},
 }
 
 -- Halo of Flies

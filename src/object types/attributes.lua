@@ -28,3 +28,7 @@ SMODS.Attribute({
 SMODS.Attribute({
     key = "tboj_loot",
 })
+
+SMODS.Attribute({
+    key = "tboj_guppy"
+})
