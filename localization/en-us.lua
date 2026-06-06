@@ -738,7 +738,8 @@ return {
           "{C:mult}+#1#{} Mult when scored.",
           "If played hand is exactly",
           "{C:attention}three 6s{}, they each give",
-          "{C:mult}+#2#{} Mult when scored instead"
+          "{C:mult}+#1#{} and {C:white,X:mult}X#2#{} Mult",
+          "when scored instead"
         }
       },
       j_tboj_the_pact = {
