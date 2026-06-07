@@ -123,8 +123,8 @@ SMODS.Joker {
       moved[#G.play.cards] = G.play.cards[1]
       G.play.cards = moved
 
+      local target = context.other_card
       return {
-        message = localize("tboj_shift_ex"),
         func = function ()
           G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -134,6 +134,9 @@ SMODS.Joker {
               return true 
             end 
           }))
+          SMODS.calculate_effect({
+            message = localize("tboj_shift_ex"),
+          }, target )
         end
       }
     end
