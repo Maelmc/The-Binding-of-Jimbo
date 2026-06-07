@@ -18,13 +18,6 @@ local transformation_attributes = {
   tboj_devil = "leviathan",
 }
 
-local cc = create_card
-function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-  local res = cc(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-  SMODS.calculate_context({card = res, tboj_card_created = true})
-  return res
-end
-
 local atd = Card.add_to_deck
 function Card:add_to_deck(from_debuff)
   local res = atd(self, from_debuff)
