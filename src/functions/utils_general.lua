@@ -1,24 +1,4 @@
-function TBOJ.in_pool(self, args)
-  if SMODS.showman(self.key) then
-    return true
-  end
-
-  if next(SMODS.find_card(self.key)) then
-    return false
-  end
-
-  if self.enhancement_gate and G.playing_cards then
-    for _, v in pairs(G.playing_cards) do
-      if v.config.center.key == self.enhancement_gate then
-        return true
-      end
-    end
-    return false
-  end
-
-  return true
-end
-
+-- Fix money with Talisman
 function TBOJ.ease_money(amt, calc_only)
   local earned = amt
   if (SMODS.Mods["Talisman"] or {}).can_load then
@@ -28,123 +8,12 @@ function TBOJ.ease_money(amt, calc_only)
   return earned
 end
 
--- Stolen from Pokermon
-function TBOJ.reroll(card, to_key, silent, from_cycling)
-  local new_card = G.P_CENTERS[to_key]
-  if not new_card then return end
-  if card.config.center == new_card then return end
-
-  card.children.center.atlas = SMODS.get_atlas((new_card.atlas or (new_card.set == 'Joker' or new_card.consumeable or new_card.set == 'Voucher') and new_card.set) or 'centers')
-  card.children.center:set_sprite_pos(new_card.pos)
-  --if card.config.center.set_sprites then
-  --  card.config.center:set_sprites(card, card.children.front, true)
-  --end
-  if from_cycling then card.children.tboj_from_cycle = true end
-  card:set_ability(new_card, true)
-  card.children.tboj_from_cycle = nil
-  card:set_cost()
-
-  if new_card.soul_pos then
-    card.children.floating_sprite = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS[new_card.atlas or "Joker"], new_card.soul_pos)
-    card.children.floating_sprite.role.draw_major = card
-    card.children.floating_sprite.states.hover.can = false
-    card.children.floating_sprite.states.click.can = false
-  elseif card.children.floating_sprite then
-    card.children.floating_sprite:remove()
-    card.children.floating_sprite = nil
-  end
-
-  if card.area == G.shop_jokers or card.area == G.shop_booster or card.area == G.shop_vouchers then
-    if not from_cycling then
-      create_shop_card_ui(card)
-    end
-  end
-
-  if not silent then
-    if card.edition then
-      if card.edition.foil then play_sound('foil1', 1.2, 0.4) end
-      if card.edition.holo then play_sound('holo1', 1.2*1.58, 0.4) end
-      if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
-      if card.edition.negative then play_sound('negative', 1.5, 0.4) end
-      if card.edition.poke_shiny then
-        play_sound('poke_e_shiny', 1, 0.2)
-        G.P_CENTERS.e_poke_shiny.on_load(card)
-      end
-    end
-    if not from_cycling then
-      SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
-    end
-  end
-
-  if card.states.hover.is then
-    card:stop_hover()
-    -- Card:hover() but without the juice
-    play_sound('paper1', math.random()*0.2 + 0.9, 0.35)
-
-    --if this is the focused card
-    if card.states.focus.is and not card.children.focused_ui then
-        card.children.focused_ui = G.UIDEF.card_focus_ui(card)
-    end
-
-    if card.facing == 'front' and (not card.states.drag.is or G.CONTROLLER.HID.touch) and not card.no_ui and not G.debug_tooltip_toggle then 
-        if card.children.alert and not card.config.center.alerted then
-            card.config.center.alerted = true
-            G:save_progress()
-        elseif card.children.alert and card.seal and not G.P_SEALS[card.seal].alerted then
-            G.P_SEALS[card.seal].alerted = true
-            G:save_progress()
-        end
-
-        card.ability_UIBox_table = card:generate_UIBox_ability_table()
-        card.config.h_popup = G.UIDEF.card_h_popup(card)
-        card.config.h_popup_config = card:align_h_popup()
-
-        Node.hover(card)
-    end
-  end
-
-  --[[if then
-    card.area:remove_from_highlighted(card)
-    card.area:add_to_highlighted(card)
-  end]]
-end
-
+-- Get the selected joker, or leftmost if none are selected
 function TBOJ.leftmost_or_selected_joker()
   return G.jokers.highlighted[1] or G.jokers.cards[1]
 end
 
-function TBOJ.leftmost_or_selected_active()
-  return G.actives.highlighted[1] or G.actives.cards[1]
-end
-
-function TBOJ.eor_charge(card,context)
-  if context.end_of_round and context.cardarea == G.actives then
-    TBOJ.charge_active(card,1)
-  end
-end
-
-function TBOJ.can_charge(card)
-  if (not card) or (not card.ability) or (not card.ability.extra) or not (card.ability.extra.curr_charge and card.ability.extra.max_charge) then
-    return false
-  end
-
-  return next(SMODS.find_card("j_tboj_the_battery")) and card.ability.extra.curr_charge <  card.ability.extra.max_charge * 2
-    or card.ability.extra.curr_charge <  card.ability.extra.max_charge
-end
-
-function TBOJ.charge_active(card,amount)
-  local charged = false
-  for _ = 1, amount do
-    if TBOJ.can_charge(card) then
-      charged = true
-      card.ability.extra.curr_charge = card.ability.extra.curr_charge + 1
-    else break end
-  end
-  if charged then
-    SMODS.calculate_effect({message = localize('tboj_charged_ex')}, card)
-  end
-end
-
+-- Get a random key following parameters
 function TBOJ.get_random_key(args)
   local set = args.set
   local seed = args.seed
@@ -241,6 +110,7 @@ function TBOJ.table_contains(table, element)
   return false
 end
 
+-- Deep copy a table
 -- https://stackoverflow.com/a/26367080
 function TBOJ.table_copy(obj, seen)
   if type(obj) ~= 'table' then return obj end
@@ -252,7 +122,8 @@ function TBOJ.table_copy(obj, seen)
   return res
 end
 
-function TBOJ.juice_flip_cards(cards,source, second)
+-- Flip a table of cards
+function TBOJ.juice_flip_cards(cards, source, second)
   if not cards[1] then
     if Object.is(cards, Card) then
       cards = {cards}
@@ -285,6 +156,7 @@ function TBOJ.juice_flip_cards(cards,source, second)
   delay(0.2)
 end
 
+-- Flip all cards held in hand
 function TBOJ.juice_flip_hand(source, second)
   local sound = 'card1'
   local base_percent = 1.15
@@ -311,6 +183,7 @@ function TBOJ.juice_flip_hand(source, second)
   delay(0.2)
 end
 
+-- Flip all highlighted cards
 function TBOJ.juice_flip_highlighted(source, second)
   local sound = 'card1'
   local base_percent = 1.15
@@ -337,6 +210,7 @@ function TBOJ.juice_flip_highlighted(source, second)
   delay(0.2)
 end
 
+-- Converts a card's ID to the corresponding value
 function TBOJ.id_to_value(id)
   if id == 11 then return "Jack"
   elseif id == 12 then return "Queen"
@@ -346,6 +220,7 @@ function TBOJ.id_to_value(id)
   end
 end
 
+-- Get a card's total chips
 function TBOJ.total_chips(card)
   local total_chips = card:get_chip_bonus()
   if card.edition then
@@ -354,6 +229,7 @@ function TBOJ.total_chips(card)
   return total_chips
 end
 
+-- Add a card to the shop and realign them
 -- Taken from Pokermon
 function TBOJ.add_to_shop(card,text)
   if G.GAME.shop.joker_max == 1 then
@@ -378,6 +254,7 @@ function TBOJ.add_to_shop(card,text)
   end
 end
 
+-- Predict the next result of an rng call
 function TBOJ.predict_seed(key)
   local pkey = G.GAME.pseudorandom[key]
   if not G.GAME.pseudorandom[key] then
@@ -388,6 +265,7 @@ function TBOJ.predict_seed(key)
   return (pkey + (G.GAME.pseudorandom.hashed_seed or 0))/2
 end
 
+-- Predict the next boss blind
 function TBOJ.predict_next_boss()
   if G.GAME.modifiers.tboj_aprils_fool then return "bl_tboj_bloat" end
   local real_ante = G.GAME.round_resets.ante
@@ -463,6 +341,7 @@ function TBOJ.predict_next_boss()
   return boss
 end
 
+-- Predict a booster pack's content
 function TBOJ.predict_pack(args)
   TBOJ.predict_pack_state = true
   local amount = args.amount
@@ -482,9 +361,6 @@ function TBOJ.predict_pack(args)
 
   local keys = {}
 
-  -- TODO: maybe simply replace by a call from the booster's create_card function
-  -- Advantage: better mod compat, much simpler function
-  -- Problem: if the create_card function does some stuff other than creating cards, it'll be done each time you hover over the pack
   for i = 1, amount do
     -- in theory, should always run this
     if create_card then
@@ -801,67 +677,7 @@ function TBOJ.predict_pack(args)
   return keys
 end
 
-function TBOJ.get_new_big()
-  G.GAME.perscribed_big = G.GAME.perscribed_big or {}
-  if G.GAME.perscribed_big and G.GAME.perscribed_big[G.GAME.round_resets.ante] then
-    local ret_big = G.GAME.perscribed_big[G.GAME.round_resets.ante]
-    G.GAME.perscribed_big[G.GAME.round_resets.ante] = nil
-    G.GAME.bosses_used[ret_big] = G.GAME.bosses_used[ret_big] + 1
-    return ret_big
-  end
-  if G.FORCE_BIG then return G.FORCE_BIG end
-
-  if not next(SMODS.find_card("j_tboj_champion_belt")) then
-    if G.GAME.modifiers.tboj_more_sins then
-      if pseudorandom("big",1,3) == 1 then -- 66% for sin under corpse+ stake
-        G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
-        return "bl_big"
-      end
-    elseif pseudorandom("big",1,4) > 1 then --25% for sin
-      G.GAME.bosses_used["bl_big"] = G.GAME.bosses_used["bl_big"] + 1
-      return "bl_big"
-    end
-  end
-
-  local eligible_big = {}
-  for k, v in pairs(G.P_BLINDS) do
-    if k ~= "bl_big" or (k == "bl_big" and not next(SMODS.find_card("j_tboj_champion_belt"))) then
-      local res, options = SMODS.add_to_pool(v)
-      options = options or {}
-      if not v.big then
-      elseif not v.in_pool then
-        eligible_big[k] = true
-      elseif v.in_pool and type(v.in_pool) == 'function' then
-        eligible_big[k] = res and true or nil
-      end
-    end
-  end
-  for k, _ in pairs(G.GAME.banned_keys) do
-    if eligible_big[k] then eligible_big[k] = nil end
-  end
-
-  local min_use
-  for k, v in pairs(G.GAME.bosses_used) do
-    if eligible_big[k] then
-      eligible_big[k] = v
-      if not min_use or eligible_big[k] <= min_use then
-        min_use = eligible_big[k]
-      end
-    end
-  end
-  for k, v in pairs(eligible_big) do
-    if eligible_big[k] then
-      if eligible_big[k] > min_use then
-        eligible_big[k] = nil
-      end
-    end
-  end
-  local _, big = pseudorandom_element(eligible_big, pseudoseed('big'))
-  G.GAME.bosses_used[big] = G.GAME.bosses_used[big] + 1
-
-  return big
-end
-
+-- Modify score required to beat the blind
 function TBOJ.modify_blind_size(args)
   if args.add then
     G.GAME.blind.chips = G.GAME.blind.chips + args.add
@@ -875,6 +691,7 @@ function TBOJ.modify_blind_size(args)
   G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
 end
 
+-- Save a played hand to a variable
 function TBOJ.save_last_hand(context)
   G.GAME.tboj_last_full_hand = {}
   G.GAME.tboj_last_scored_hand = {}
@@ -913,6 +730,7 @@ function TBOJ.save_last_hand(context)
   end
 end
 
+-- Check if a given center has a given attribute
 function TBOJ.center_has_attribute(center,attribute)
   if not SMODS.Attributes[attribute] or not center.attributes then return false end
   if center.attributes[attribute] then return true end
@@ -920,4 +738,27 @@ function TBOJ.center_has_attribute(center,attribute)
     if center.attributes[att] then return true end
   end
   return false
+end
+
+-- Recalculate the scoring hand
+function TBOJ.get_scoring_hand()
+  local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+  local final_scoring_hand = {}
+  for i=1, #G.play.cards do
+      local splashed = SMODS.always_scores(G.play.cards[i]) or next(find_joker('Splash'))
+      local unsplashed = SMODS.never_scores(G.play.cards[i])
+      if not splashed then
+          for _, card in pairs(scoring_hand) do
+              if card == G.play.cards[i] then splashed = true end
+          end
+      end
+      local effects = {}
+      SMODS.calculate_context({modify_scoring_hand = true, other_card =  G.play.cards[i], full_hand = G.play.cards, scoring_hand = scoring_hand, in_scoring = true, ignore_other_debuff = true}, effects)
+      local flags = SMODS.trigger_effects(effects, G.play.cards[i])
+      if flags.add_to_hand then splashed = true end
+    if flags.remove_from_hand then unsplashed = true end
+      if splashed and not unsplashed then table.insert(final_scoring_hand, G.play.cards[i]) end
+  end
+
+  return final_scoring_hand
 end

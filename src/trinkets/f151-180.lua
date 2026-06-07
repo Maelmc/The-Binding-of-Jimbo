@@ -56,7 +56,7 @@ TBOJ.Trinket {
     for _, v in ipairs(tags) do
       locs[#locs+1] = localize({type = "name_text", set = "Tag", key = v})
     end
-    info_queue[#info_queue+1] = {set = 'Other', key = 'temporary_tattoo_tag_pool', vars = locs}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_temporary_tattoo_tag_pool', vars = locs}
     return { vars = {} }
   end,
   calculate = function(self, card, context)

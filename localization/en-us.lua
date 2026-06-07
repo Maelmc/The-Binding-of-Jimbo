@@ -1059,6 +1059,13 @@ return {
           "{C:inactive}(Last hand: {C:attention}#4#{C:inactive})",
         }
       },
+      j_tboj_continuum = {
+        name = "Continuum",
+        text = {
+          "Played cards {C:attention}shift{} one card to",
+          "the left when a card is {C:attention}scored",
+        }
+      },
       j_tboj_dead_eye = {
         name = "Dead Eye",
         text = {
@@ -1873,7 +1880,7 @@ return {
               "learn what it does",
           },
       },
-      temporary_tattoo_tag_pool = {
+      tboj_temporary_tattoo_tag_pool = {
           name = "Tag Pool",
           text = {
               "{C:attention}#1#",
@@ -1882,6 +1889,15 @@ return {
               "{C:attention}#4#",
           }
       },
+      tboj_shift = {
+        name = "Shift",
+        text = {
+          "{s:0.8}You play a {C:attention,s:0.8}8{s:0.8} and {C:attention,s:0.8}2{s:0.8} High Card.",
+          "{s:0.8}The {C:attention,s:0.8}first{s:0.8} card, being the {C:attention,s:0.8}8{s:0.8}, scores.",
+          "{s:0.8}All cards {C:attention,s:0.8}move{s:0.8}, and you now have {C:attention,s:0.8}2{s:0.8} and {C:attention,s:0.8}8{s:0.8}.",
+          "{s:0.8}Then the {C:attention,s:0.8}second{s:0.8} card, the {C:attention,s:0.8}8{s:0.8} again, scores."
+        }
+      }
     }
   },
   misc = {
@@ -1944,6 +1960,7 @@ return {
       tboj_poop = "Poop",
       tboj_angel = "Angel",
       tboj_devil = "Devil",
+      tboj_shift_ex = "Shift!",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
