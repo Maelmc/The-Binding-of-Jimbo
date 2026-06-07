@@ -1,3 +1,4 @@
+-- Laser scoring parameter
 SMODS.Scoring_Parameter({
   key = 'tboj_balance_percent',
   default_value = 0,
@@ -75,6 +76,7 @@ SMODS.Scoring_Parameter({
   end
 })
 
+-- Pentagram implementation
 local buffoon_create
 for _, v in ipairs(G.P_CENTER_POOLS.Booster) do
   if v.set == "Booster" and v.kind and v.kind == "Buffoon" then
@@ -99,6 +101,7 @@ SMODS.Booster:take_ownership_by_kind('Buffoon', {
   end,
 }, true)
 
+-- Telescope lens implementation
 local celestia_create
 for _, v in ipairs(G.P_CENTER_POOLS.Booster) do
   if v.set == "Booster" and v.kind and v.kind == "Celestial" then

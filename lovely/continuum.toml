@@ -1,0 +1,21 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Calculate the area
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+pattern = '''if SMODS.check_looping_context(_card) then
+                    goto skip
+                end'''
+position = "before"
+payload = '''
+if TBOJ.Continuum_flag.check and not TBOJ.Continuum_flag.calculated then
+  TBOJ.Continuum_flag.calculated = true
+  TBOJ.Continuum_flag.calculated = TBOJ.get_scoring_hand()
+  context.scoring_hand = TBOJ.Continuum_flag.calculated
+end
+'''
+match_indent = true

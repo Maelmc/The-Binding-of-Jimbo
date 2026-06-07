@@ -1,3 +1,4 @@
+-- Active and trinker selection in packs (and shop?)
 local csc = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
   local card = e.config.ref_table
@@ -25,6 +26,7 @@ G.FUNCS.can_select_card = function(e)
   return csc(e)
 end
 
+-- Increase Loot used count for the run
 local scu = set_consumeable_usage
 function set_consumeable_usage(card)
   if card.config.center_key and card.ability.consumeable then
@@ -47,6 +49,7 @@ function set_consumeable_usage(card)
   return scu(card)
 end
 
+-- Breakfast effect
 local click = Card.click
 function Card:click()
   if (not self.highlighted) and self.config and self.config.center and self.config.center.key == "j_tboj_breakfast" and self.area == G.jokers then
@@ -76,12 +79,14 @@ function get_blind_amount(ante)
   return amount
 end]]
 
+-- Setting Bloat as the boss during Aprils Fool challenge
 local gnb = get_new_boss
 function get_new_boss()
   if G.GAME.modifiers.tboj_aprils_fool then return "bl_tboj_bloat" end
   return gnb()
 end
 
+-- Getting the correct kind of blind
 local bgt = Blind.get_type
 function Blind:get_type()
   if self.config and self.config.blind and self.config.blind.small then return "Small" end
@@ -196,8 +201,56 @@ function Card:set_seal(_seal, silent, immediate)
   return css(self, _seal, silent, immediate)
 end
 
+-- Context for when money is earned
 local ed = ease_dollars
 function ease_dollars(mod)
   ed(mod)
   SMODS.calculate_context({tboj_money = mod})
+end
+
+-- Continuum effect
+local cms = SMODS.calculate_main_scoring
+TBOJ.Continuum_flag = {check = false}
+function SMODS.calculate_main_scoring(context, scoring_hand)
+  if (context.cardarea == G.play) and next(SMODS.find_card("j_tboj_continuum")) then
+    local parse = {}
+    for i, v in ipairs(G.play.cards) do
+      parse[i] = v
+    end
+    for i = 1, #parse do
+      context.cardarea = G.play
+      local card = G.play.cards[i]
+      if context.scoring_hand and not SMODS.check_looping_context(card) then
+        context.scoring_hand = TBOJ.get_scoring_hand()
+      end
+      local in_scoring = scoring_hand and SMODS.in_scoring(card, context.scoring_hand)
+      --add cards played to list
+      if scoring_hand and not SMODS.has_no_rank(card) and in_scoring then
+        G.GAME.cards_played[card.base.value].total = G.GAME.cards_played[card.base.value].total + 1
+        if not SMODS.has_no_suit(card) then
+          G.GAME.cards_played[card.base.value].suits[card.base.suit] = true
+        end
+      end
+      --if card is debuffed
+      if scoring_hand and card.debuff then
+        if in_scoring then
+          G.GAME.blind.triggered = true
+          G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = (function() SMODS.juice_up_blind();return true end)
+          }))
+          card_eval_status_text(card, 'debuff')
+        end
+      else
+        if scoring_hand then
+          if in_scoring then context.cardarea = G.play else context.cardarea = 'unscored' end
+        end
+        TBOJ.Continuum_flag = {check = true}
+        SMODS.score_card(card, context)
+      end
+    end
+  else
+    cms(context, scoring_hand)
+  end
+  TBOJ.Continuum_flag = {check = false}
 end

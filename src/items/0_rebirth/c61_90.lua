@@ -369,9 +369,9 @@ TBOJ.Active {
 SMODS.Joker {
   key = "the_mark",
   pos = {x = 3, y = 5},
-  config = {extra = {mult = 6, mult2 = 18}},
+  config = {extra = {mult = 6, Xmult_multi = 1.6}},
   loc_vars = function(self, info_queue, card)
-    return {vars = { card.ability.extra.mult, card.ability.extra.mult2 }}
+    return {vars = { card.ability.extra.mult, card.ability.extra.Xmult_multi }}
   end,
   rarity = 1,
   cost = 4,
@@ -388,7 +388,8 @@ SMODS.Joker {
         end
         if all_six then
           return {
-            mult = card.ability.extra.mult2,
+            mult = card.ability.extra.mult,
+            xmult = card.ability.extra.Xmult_multi
           }
         end
       end
@@ -402,7 +403,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil", "mult", "six"}
+  attributes = {"tboj_devil", "mult", "xmult", "six"}
 }
 
 -- The Pact

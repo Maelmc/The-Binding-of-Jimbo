@@ -106,6 +106,13 @@ SMODS.Atlas({
   py = 53
 })
 
+SMODS.Atlas({
+    key = "transformations",
+    path = "transformations.png",
+    px = 71,
+    py = 95
+})
+
 -- Colors
 G.C.TBOJ = {
   FAMILIAR = HEX("E70000"),
@@ -118,6 +125,9 @@ G.C.TBOJ = {
   ANGEL = HEX("2B5167"),
   ANGEL_PARTICLE = {HEX("B9BF19"), HEX("A73213"), HEX("A71313")},
   MOD_COLOR = HEX("E3C6C5"),
+  GUPPY = HEX("636363"),
+  BOOK = HEX("6F5146"),
+  SPIDER = HEX("557293"),
 }
 
 local lc = loc_colour
@@ -129,3 +139,9 @@ function loc_colour(_c, _default)
   return lc(_c, _default)
 end
 loc_colour()
+
+-- Sounds
+SMODS.Sound({
+    key = "transformation",
+    path = "transformation.wav"
+})

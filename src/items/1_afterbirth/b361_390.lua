@@ -89,6 +89,65 @@ SMODS.Joker {
 }
 
 -- Continuum
+SMODS.Joker {
+  key = "continuum",
+  pos = {x = 8, y = 24},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_shift'}
+    return {vars = {}}
+  end,
+  rarity = 3,
+  cost = 8,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.before then
+      card.ability.extra.og = nil
+    end
+
+    if context.individual and (context.cardarea == G.play) then
+      if not card.ability.extra.og then
+        card.ability.extra.og = {}
+        for i, v in pairs(G.play.cards) do
+          card.ability.extra.og[i] = v
+        end
+      end
+
+      local moved = {}
+      for i = 2, #G.play.cards do
+        moved[i-1] = G.play.cards[i]
+      end
+      moved[#G.play.cards] = G.play.cards[1]
+      G.play.cards = moved
+
+      return {
+        message = localize("tboj_shift_ex"),
+        func = function ()
+          G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.1,
+            func = function() 
+              G.play.cards = moved
+              return true 
+            end 
+          }))
+        end
+      }
+    end
+
+    if context.after and card.ability.extra.og then
+      G.play.cards = card.ability.extra.og
+      card.ability.extra.og = nil
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+}
+
 -- Mr. Dolly
 -- Curse of the Tower
 -- Charged Baby
