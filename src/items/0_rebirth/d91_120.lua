@@ -127,6 +127,32 @@ SMODS.Joker {
 
 -- Little Gish
 -- Little Steven
+SMODS.Joker {
+  key = "little_steven",
+  pos = {x = 9, y = 6},
+  config = {extra = {mult = 10}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 3,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main and #context.full_hand > #context.scoring_hand then
+      return {
+        mult = card.ability.extra.mult,
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"mult", "tboj_familiar"}
+}
+
 -- The Halo 
 SMODS.Joker {
   key = "the_halo",

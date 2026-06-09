@@ -640,14 +640,14 @@ return {
           "a poker hand's {C:attention}level"
         } 
       },
-      j_tboj_steven = {
+      --[[j_tboj_steven = {
         name = "Steven",
         text = {
           "{C:mult}+#1#{} Mult if played",
           "hand contains at least",
           "1 {C:attention}unscoring{} card"
         }
-      },
+      },]]
       j_tboj_pentagram = {
         name = "Pentagram",
         text = {
@@ -779,6 +779,14 @@ return {
           "at end of round",
           "{C:inactive}(Must have room)"
         },
+      },
+      j_tboj_little_steven = {
+        name = "Little Steven",
+        text = {
+          "{C:mult}+#1#{} Mult if played",
+          "hand contains at least",
+          "1 {C:attention}unscoring{} card"
+        }
       },
       j_tboj_the_halo = {
         name = "The Halo",
