@@ -42,7 +42,7 @@ SMODS.Joker {
       SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, card)
     end
   end,
-  in_pool = function (self, args)
+  in_pool = function(self, args)
     return false
   end,
   attributes = {"tboj_transformation"}
