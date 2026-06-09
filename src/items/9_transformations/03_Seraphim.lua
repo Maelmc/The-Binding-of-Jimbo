@@ -58,21 +58,23 @@ SMODS.Joker {
       end
     end
   end,
-  add_to_deck = function (self, card, from_debuff)
-    for _ = 1, card.ability.extra.on_add do
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        delay = 0.4,
-        func = function()
-          G.GAME.consumeable_buffer = 0
-          play_sound('timpani')
-          SMODS.add_card({key = "c_tboj_soul_heart", edition = 'e_negative'})
-          return true
-        end
-      }))
+  add_to_deck = function(self, card, from_debuff)
+    if not from_debuff then
+      for _ = 1, card.ability.extra.on_add do
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.4,
+          func = function()
+            G.GAME.consumeable_buffer = 0
+            play_sound('timpani')
+            SMODS.add_card({key = "c_tboj_soul_heart", edition = 'e_negative'})
+            return true
+          end
+        }))
+      end
     end
   end,
-  in_pool = function (self, args)
+  in_pool = function(self, args)
     return false
   end,
   attributes = {"tboj_transformation"}
