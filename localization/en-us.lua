@@ -1834,16 +1834,16 @@ return {
         name = "Devil Pack",
         text = {
           "Choose {C:attention}#1#{} from among",
-          "{C:attention}#2#{} devil {C:attention}Joker{} cards and",
-          "{C:attention}#3#{} devil {C:attention}Active{} card",
+          "{C:attention}#2# Devil Joker{} cards and",
+          "{C:attention}#3# Devil Active{} card",
         },
       },
       p_tboj_angel_pack_1 = {
         name = "Angel Pack",
         text = {
           "Choose {C:attention}#1#{} from among",
-          "{C:attention}#2#{} angel {C:attention}Joker{} cards and",
-          "{C:attention}#3#{} angel {C:attention}Active{} card",
+          "{C:attention}#2# Angel Joker{} cards and",
+          "{C:attention}#3# Angel Active{} card",
         },
       },
       tboj_corpse_stake_sticker = {
