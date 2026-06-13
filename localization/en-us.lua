@@ -886,7 +886,7 @@ return {
         name = "Dead Dove",
         text = {
           "Create a {C:spectral}Spectral{} card",
-          "every {C:attention}#1# {C:inactive}[#2#]{} card drawn",
+          "every {C:attention}#1# {C:inactive}[#2#]{} cards drawn",
           "during a {C:attention}Blind"
         }
       },
@@ -1401,7 +1401,7 @@ return {
             "Create {C:attention}#1# {C:dark_edition}Negative",
             "{C:attention}Soul Hearts{} when acquired",
             "and create a {C:attention}Soul Heart{}",
-            "every {C:attention}#2# {C:inactive}[#3#]{} card drawn",
+            "every {C:attention}#2# {C:inactive}[#3#]{} cards drawn",
           }
         }
       },
@@ -1416,7 +1416,7 @@ return {
             "Create {C:attention}#1# {C:dark_edition}Negative",
             "{C:attention}Black Hearts{} when acquired",
             "and create a {C:attention}Black Heart{}",
-            "every {C:attention}#2# {C:inactive}[#3#]{} card drawn",
+            "every {C:attention}#2# {C:inactive}[#3#]{} cards drawn",
           }
         }
       },
@@ -1668,10 +1668,10 @@ return {
           {
           "{C:green}#1# in #2#{} chance to add",
           "a random {C:attention}Booster Pack{} to the",
-          "shop when {C:attention}entering{} the shop,"
+          "shop when {C:attention}entering{} the shop"
           },
           {
-            "Probability increase by {C:green}#3#{}",
+            "Probability increases by {C:green}#3#{}",
             "when a {C:attention}Stone Card{}",
             "is destroyed, resets when",
             "a Booster Pack is {C:attention}created"
@@ -1696,7 +1696,7 @@ return {
         name = "Endless Nameless",
         text = {
           "{C:green}#1# in #2#{} chance to create a",
-          "copy of a used {C:attention}consumeable",
+          "copy of a used {C:attention}consumable",
           "{C:inactive}(Must have room)",
           "{C:inactive}(Cannot copy a copy)",
         }

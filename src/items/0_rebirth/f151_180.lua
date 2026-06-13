@@ -1,4 +1,4 @@
--- Peeper
+-- The Peeper
 SMODS.Joker {
   key = "the_peeper",
   pos = {x = 4, y = 10},
