@@ -52,7 +52,7 @@ SMODS.Joker {
 SMODS.Joker {
   key = "the_soul",
   pos = {x = 4, y = 22},
-  config = {extra = {hands = 2}},
+  config = {extra = {hands = 3}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.hands}}
   end,
