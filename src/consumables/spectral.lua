@@ -50,7 +50,7 @@ SMODS.Consumable {
         trigger = 'after',
         delay = 0.4,
         func = function() 
-          SMODS.destroy_cards(target,true)
+          SMODS.destroy_cards(target,{bypass_eternal = true})
           return true 
         end 
       }))

@@ -71,6 +71,12 @@ TBOJ.Trinket {
         message = localize('tboj_champion_ex')
       }
     end
+
+    if context.modify_final_cashout then
+      return {
+        modify = math.floor(context.amount / 2)
+      }
+    end
   end,
   attributes = {"xblindsize", "economy"},
 }

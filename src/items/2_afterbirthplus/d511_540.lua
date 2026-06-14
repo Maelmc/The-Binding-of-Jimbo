@@ -222,7 +222,7 @@ SMODS.Joker {
         end
         if #not_neg > 0 and #not_neg > G.actives.config.card_limit then
           local target = pseudorandom_element(not_neg,"schoolbag")
-          SMODS.destroy_cards(target,true)
+          SMODS.destroy_cards(target, {bypass_eternal = true})
         end
         return true end
       }))

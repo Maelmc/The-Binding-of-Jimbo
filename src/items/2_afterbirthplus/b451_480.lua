@@ -93,7 +93,7 @@ TBOJ.Active {
     local to_up = #G.shop_jokers.cards
     for i = 1, #G.shop_jokers.cards do
       local target = G.shop_jokers.cards[i]
-      SMODS.destroy_cards(target, true)
+      SMODS.destroy_cards(target, {bypass_eternal = true})
       if target.ability.set == "Joker" then
         G.GAME.banned_keys[target.config.center.key] = true
         SMODS.calculate_effect({message = localize("tboj_voided")}, card)

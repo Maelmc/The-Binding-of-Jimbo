@@ -35,16 +35,18 @@ TBOJ.Active {
         if target_rank == 1 then target_rank = "Ace" end
         if target_rank then
           SMODS.change_base(_card, nil, tostring(target_rank))
-          G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-          _card:add_to_deck()
-          G.deck.config.card_limit = G.deck.config.card_limit + 1
-          G.hand:emplace(_card)
+          --G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+          --_card:add_to_deck()
+          --G.deck.config.card_limit = G.deck.config.card_limit + 1
+          --G.hand:emplace(_card)
+          SMODS.add_to_deck(_card, {area = G.hand})
           _card:start_materialize()
           new_cards[#new_cards + 1] = _card
         end
       end
       SMODS.destroy_cards(G.hand.highlighted[i])
     end
+    SMODS.calculate_effect({message = localize("tboj_cleaved_ex")}, card)
     SMODS.calculate_context({ playing_card_added = true, cards = new_cards })
   end,
   keep_on_use = function(self, card)

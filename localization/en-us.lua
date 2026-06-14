@@ -1969,6 +1969,7 @@ return {
       tboj_angel = "Angel",
       tboj_devil = "Devil",
       tboj_shift_ex = "Shift!",
+      tboj_cleaved_ex = "Cleaved!",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

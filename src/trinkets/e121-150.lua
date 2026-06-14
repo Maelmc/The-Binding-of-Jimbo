@@ -52,9 +52,9 @@ TBOJ.Trinket {
           func = function()
             G.GAME.consumeable_buffer = 0
             local pick, _ = pseudorandom_element(targets, "tboj_myosotis")
-            local copied_card = copy_card(pick)
-            copied_card:add_to_deck()
-            G.consumeables:emplace(copied_card)
+            local copied_card = SMODS.copy_card(pick, {area = G.consumeables})
+            --copied_card:add_to_deck()
+            --G.consumeables:emplace(copied_card)
             return true
           end
         }))

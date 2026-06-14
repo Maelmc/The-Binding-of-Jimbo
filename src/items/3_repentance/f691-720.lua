@@ -55,7 +55,7 @@ SMODS.Joker {
       delay = 0.4,
       func = function()
         if card.ability.extra.money - card.ability.extra.m_minus <= 0 then
-          SMODS.destroy_cards(card, true, nil, true)
+          SMODS.destroy_cards(card, {bypass_eternal = true, pinch_anim = true})
           SMODS.calculate_effect({message = localize("k_eaten_ex"), colour = G.C.MONEY}, card)
         else
           card.ability.extra.money = card.ability.extra.money - card.ability.extra.m_minus
@@ -319,7 +319,7 @@ SMODS.Joker {
         local _c = context.other_card
         G.E_MANAGER:add_event(Event({
           func = function()
-            SMODS.destroy_cards(_c,true)
+            SMODS.destroy_cards(_c, {bypass_eternal = true})
             return true
           end
         }))

@@ -111,7 +111,7 @@ SMODS.Joker {
 
     if context.pseudorandom_result and context.result then
       if card.ability.extra.num - card.ability.extra.num_mod <= 0 then
-        SMODS.destroy_cards(card, true, nil, true)
+        SMODS.destroy_cards(card, {bypass_eternal = true, pinch_anim = true})
         return {
           message = localize("k_eaten_ex"),
           colour = G.C.GREEN

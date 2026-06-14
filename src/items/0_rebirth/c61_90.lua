@@ -219,7 +219,7 @@ SMODS.Joker {
         if v.config.center.key == "j_tboj_cube_of_meat" and v ~= card and v.ability.extra.stage < 4 then
           v.ability.extra.stage = v.ability.extra.stage + 1
           self:set_sprites(v)
-          SMODS.destroy_cards(card,true)
+          SMODS.destroy_cards(card,{bypass_eternal = true})
           SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, v)
           return
         end
@@ -457,7 +457,7 @@ SMODS.Joker {
             G.hand_text_area.game_chips:juice_up()
             play_sound('tarot1')
             if card.ability.extra.remaining == 1 then
-              SMODS.destroy_cards(card,true)
+              SMODS.destroy_cards(card,{bypass_eternal = true})
             else
               card.ability.extra.remaining = card.ability.extra.remaining - 1
             end

@@ -56,7 +56,7 @@ TBOJ.Trinket {
         G.E_MANAGER:add_event(Event {
           func = function()
             if #G.pack_cards.cards > 0 then
-              SMODS.destroy_cards(G.pack_cards.cards, true, true)
+              SMODS.destroy_cards(G.pack_cards.cards, {bypass_eternal = true, immediate = true})
             end
             return true
           end
@@ -124,10 +124,10 @@ TBOJ.Trinket {
         func = function()
           if #G.consumeables.cards + (G.GAME.consumeable_buffer or 0) < G.consumeables.config.card_limit + (used.edition and used.edition.negative and 1 or 0) then
             if SMODS.pseudorandom_probability(card, "tboj_endless_nameless", card.ability.extra.num, card.ability.extra.den, "tboj_endless_nameless") then
-              local _card = copy_card(used)
+              local _card = SMODS.copy_card(used, {area = G.consumeables})
               _card.tboj_endless_nameless_copy = true
-              _card:add_to_deck()
-              G.consumeables:emplace(_card)
+              --_card:add_to_deck()
+              --G.consumeables:emplace(_card)
               SMODS.calculate_effect({message = localize("k_copied_ex")}, card)
             end
           end
