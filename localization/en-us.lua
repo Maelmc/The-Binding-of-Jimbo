@@ -1168,6 +1168,16 @@ return {
           "and {C:green}#1# in #2#{} to create a {C:attention}Blue Spider",
         }
       },
+      j_tboj_hushy = {
+        name = "Hushy",
+        text = {
+          "Played cards with {C:clubs}Clubs{} suit",
+          "give {C:chips}+#1#{} Chips when scored",
+          "for each non-{C:clubs}Clubs{}",
+          "scored this round",
+          "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+        }
+      },
       j_tboj_greed_gullet = {
         name = "Greed's Gullet",
         text = {

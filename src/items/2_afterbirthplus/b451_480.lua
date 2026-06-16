@@ -72,6 +72,54 @@ SMODS.Joker {
 -- Eye of Belial
 -- Sulfuric Acid
 
+-- Shade
+-- Depression
+-- Hushy
+SMODS.Joker {
+  key = "hushy",
+  pos = { x = 4, y = 31 },
+  config = {extra = {chips = 0, chips_mod = 8}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      if context.other_card:is_suit("Clubs") then
+        return {
+          chips = card.ability.extra.chips
+        }
+      else
+        SMODS.scale_card(card, {
+          ref_value = 'chips',
+          scalar_value = 'chips_mod',
+        })
+        return nil, true
+      end
+    end
+
+    if context.end_of_round and card.ability.extra.chips ~= 0 then
+      card.ability.extra.chips = 0
+      return {
+        message = localize('k_reset'),
+        colour = G.C.RED
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "chips", "clubs", "reset"}
+}
+
+-- Lil Monstro
+-- King Baby
+
 -- Plan C
 -- D1
 -- Void
