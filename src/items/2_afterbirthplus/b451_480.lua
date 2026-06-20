@@ -94,7 +94,7 @@ SMODS.Joker {
         return {
           chips = card.ability.extra.chips
         }
-      else
+      elseif not context.blueprint then
         SMODS.scale_card(card, {
           ref_value = 'chips',
           scalar_value = 'chips_mod',
@@ -103,7 +103,7 @@ SMODS.Joker {
       end
     end
 
-    if context.end_of_round and card.ability.extra.chips ~= 0 then
+    if context.end_of_round and card.ability.extra.chips ~= 0 and not context.blueprint then
       card.ability.extra.chips = 0
       return {
         message = localize('k_reset'),
@@ -114,7 +114,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_familiar", "chips", "clubs", "reset"}
+  attributes = {"tboj_familiar", "chips", "clubs", "reset", "suit"}
 }
 
 -- Lil Monstro

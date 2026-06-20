@@ -762,3 +762,30 @@ function TBOJ.get_scoring_hand()
 
   return final_scoring_hand
 end
+
+function TBOJ.count_unique_suits(hand)
+  local suits = {}
+  local suit_count = 0
+
+  for k, v in pairs(hand) do
+    for x, y in pairs(SMODS.Suits) do
+      if not SMODS.has_any_suit(v) and v:is_suit(y.key, true) and not suits[y.key] then
+        suits[y.key] = true
+        suit_count = suit_count + 1
+        break
+      end
+    end
+  end
+
+  for k, v in pairs(hand) do
+    for x, y in pairs(SMODS.Suits) do
+      if SMODS.has_any_suit(v) and v:is_suit(y.key) and not suits[y.key] then
+        suits[y.key] = true
+        suit_count = suit_count + 1
+        break
+      end
+    end
+  end
+
+  return suit_count
+end

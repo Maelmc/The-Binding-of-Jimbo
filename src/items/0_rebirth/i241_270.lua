@@ -46,7 +46,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.repetition and context.cardarea == G.play then
+    if context.repetition and (context.cardarea == G.play or context.cardarea == "unscored") then
       card.ability.extra.times = card.ability.extra.times + 1
       return {
         repetitions = card.ability.extra.repetitions

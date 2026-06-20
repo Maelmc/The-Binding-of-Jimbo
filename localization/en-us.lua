@@ -1210,6 +1210,15 @@ return {
           "gains a random {C:attention}seal"
         }
       },
+      j_tboj_angelic_prism = {
+        name = "Angelic Prism",
+        text = {
+          "Retrigger all played cards",
+          "used in scoring {C:attention}#1#{} additional",
+          "time if played hand contains",
+          "{C:attention}#2#{} or more suits"
+        }
+      },
       j_tboj_death_list = {
         name = "Death's List",
         text = {
@@ -1448,7 +1457,7 @@ return {
           {
             "{C:green}#1# in #2#{} chance to",
             "{C:attention}retrigger{} each played card",
-          } 
+          }
         }
       },
     },

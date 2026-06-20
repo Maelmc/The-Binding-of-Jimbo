@@ -67,7 +67,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_familiar", "mult", "hearts", "hands"}
+  attributes = {"tboj_familiar", "mult", "hearts", "hands", "suit"}
 }
 
 -- The Book of Sin
