@@ -1247,8 +1247,8 @@ return {
           "{C:attention}+#1#{} active slot",
           "{s:0.8}If this Joker is sold or destroyed",
           "{s:0.8}and it results in having more",
-          "{s:0.8}Actives than available slots, destroy",
-          "{s:0.8}a random non-{s:0.8,C:dark_edition}Negative{s:0.8} one",
+          "{C:attention,s:0.8}Actives{s:0.8} than available slots, destroy",
+          "{s:0.8}a random non-{s:0.8,C:dark_edition}Negative{C:attention,s:0.8} Active",
         }
       },
       j_tboj_flat_stone = {
