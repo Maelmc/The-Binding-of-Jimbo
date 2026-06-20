@@ -772,6 +772,14 @@ return {
           "to your hand",
         }
       },
+      j_tboj_little_chad = {
+        name = "Little C.H.A.D.",
+        text = {
+          "Played cards with {C:hearts}Hearts{} suit",
+          "give {C:mult}+#1#{} Mult, {C:mult}+#1#{} per",
+          "remaining {C:blue}hand{} when scored"
+        }
+      },
       j_tboj_the_relic = {
         name = "The Relic",
         text = {
