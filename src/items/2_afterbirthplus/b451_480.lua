@@ -83,7 +83,7 @@ SMODS.Joker {
     return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
   end,
   rarity = 1,
-  cost = 4,
+  cost = 5,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,

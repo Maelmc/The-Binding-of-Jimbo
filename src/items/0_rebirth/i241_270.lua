@@ -143,7 +143,7 @@ SMODS.Joker {
 -- Proptosis
 SMODS.Joker {
   key = "proptosis",
-  pos = {x = 6, y = 17},
+  pos = {x = 5, y = 17},
   config = {extra = {Xmult_multi = 3}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.Xmult_multi}}
@@ -175,6 +175,32 @@ SMODS.Joker {
 -- Missing Page 2
 -- Clear Rune
 -- Smart Fly
+SMODS.Joker {
+  key = "smart_fly",
+  pos = {x = 8, y = 17},
+  config = {extra = {mult_mod = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and context.other_card:is_suit("Diamonds") then
+      return {
+        mult = card.ability.extra.mult_mod * #G.hand.cards
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_fly", "tboj_familiar", "mult", "suit", "diamonds"}
+}
+
 -- Dry Baby
 -- JuicySack
 -- Robo-Baby 2.0

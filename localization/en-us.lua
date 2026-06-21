@@ -775,7 +775,7 @@ return {
       j_tboj_little_chad = {
         name = "Little C.H.A.D.",
         text = {
-          "Played cards with {C:hearts}Hearts{} suit",
+          "Played cards with {C:hearts}Heart{} suit",
           "give {C:mult}+#1#{} Mult, {C:mult}+#1#{} per",
           "remaining {C:blue}hand{} when scored"
         }
@@ -1005,6 +1005,15 @@ return {
           "in {C:attention}played hand{} when scored"
         }
       },
+      j_tboj_smart_fly = {
+        name = "Smart Fly",
+        text = {
+          "Played cards with",
+          "{C:diamonds}Diamond{} suit give",
+          "{C:mult}+#1#{} Mult per card",
+          "held in hand"
+        }
+      },
       j_tboj_headless_baby = {
         name = "Headless Baby",
         text = {
@@ -1163,7 +1172,7 @@ return {
         name = "Eye of Greed",
         text = {
           "After scoring {C:attention}#1#{} {C:inactive}[#2#]",
-          "cards, spend {C:money}$#3#{} to",
+          "cards, spend {C:money}$#3#{} and",
           "add a {C:attention}Gold Seal{} to",
           "the next scoring card"
         }
@@ -1179,7 +1188,7 @@ return {
       j_tboj_hushy = {
         name = "Hushy",
         text = {
-          "Played cards with {C:clubs}Clubs{} suit",
+          "Played cards with {C:clubs}Club{} suit",
           "give {C:chips}+#1#{} Chips when scored",
           "for each non-{C:clubs}Clubs{}",
           "scored this round",
