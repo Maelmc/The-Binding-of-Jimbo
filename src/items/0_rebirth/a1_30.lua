@@ -336,7 +336,7 @@ SMODS.Joker {
         TBOJ.juice_flip_hand(card)
         for i=1, #G.hand.cards do
           G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() G.hand.cards[i]:change_suit("Hearts");return true end }))
-        end 
+        end
         TBOJ.juice_flip_hand(card, true)
       end
     end

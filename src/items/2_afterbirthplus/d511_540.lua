@@ -80,6 +80,32 @@ SMODS.Joker {
 
 -- Mr. ME!
 -- Angelic Prism
+SMODS.Joker {
+  key = "angelic_prism",
+  pos = {x = 2, y = 35 },
+  config = {extra = {repetitions = 1, unique_suits = 4}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.repetitions, card.ability.extra.unique_suits}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.repetition and context.cardarea == G.play and TBOJ.count_unique_suits(context.full_hand) >= card.ability.extra.unique_suits then
+      return {
+        repetitions = card.ability.extra.repetitions
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_angel", "suit", "retrigger"}
+}
+
 -- Pop!
 -- Death's List
 SMODS.Joker {
@@ -222,7 +248,7 @@ SMODS.Joker {
         end
         if #not_neg > 0 and #not_neg > G.actives.config.card_limit then
           local target = pseudorandom_element(not_neg,"schoolbag")
-          SMODS.destroy_cards(target,true)
+          SMODS.destroy_cards(target, {bypass_eternal = true})
         end
         return true end
       }))

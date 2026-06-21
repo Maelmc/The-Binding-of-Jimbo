@@ -309,12 +309,13 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.pre_splash then
-      local _card = copy_card(G.play.cards[1])
+      local _card = SMODS.copy_card(G.play.cards[1], {area = G.play})
       _card.seraphim_target = true
       _card.states.visible = false
-      _card:add_to_deck()
-      G.deck.config.card_limit = G.deck.config.card_limit + 1
-      G.play:emplace(_card)
+      --_card:add_to_deck()
+      --G.deck.config.card_limit = G.deck.config.card_limit + 1
+      --G.play:emplace(_card)
+      --SMODS.add_to_deck(_card, {area = G.play})
       G.E_MANAGER:add_event(Event({
         func = function()
           _card:start_materialize()

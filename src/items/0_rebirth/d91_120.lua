@@ -44,6 +44,32 @@ SMODS.Joker {
 }
 
 -- Little C.H.A.D.
+SMODS.Joker {
+  key = "little_chad",
+  pos = { x = 5, y = 6 },
+  config = {extra = {mult_mod = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and context.other_card:is_suit("Hearts") then
+      return {
+        mult = card.ability.extra.mult_mod + card.ability.extra.mult_mod * G.GAME.current_round.hands_left
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "mult", "hearts", "hands", "suit"}
+}
+
 -- The Book of Sin
 TBOJ.Active {
   key = "the_book_of_sin",
@@ -126,6 +152,33 @@ SMODS.Joker {
 }
 
 -- Little Gish
+SMODS.Joker {
+  key = "little_gish",
+  pos = {x = 8, y = 6},
+  config = {extra = {mult_mod = 2, chips_mod = 8}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.chips_mod}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and context.other_card:is_suit("Spades") then
+      return {
+        mult = card.ability.extra.mult_mod,
+        chips = card.ability.extra.chips_mod
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "mult", "suit", "spades"}
+}
+
 -- Little Steven
 SMODS.Joker {
   key = "little_steven",

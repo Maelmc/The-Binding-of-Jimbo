@@ -72,6 +72,54 @@ SMODS.Joker {
 -- Eye of Belial
 -- Sulfuric Acid
 
+-- Shade
+-- Depression
+-- Hushy
+SMODS.Joker {
+  key = "hushy",
+  pos = { x = 4, y = 31 },
+  config = {extra = {chips = 0, chips_mod = 8}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play then
+      if context.other_card:is_suit("Clubs") then
+        return {
+          chips = card.ability.extra.chips
+        }
+      elseif not context.blueprint then
+        SMODS.scale_card(card, {
+          ref_value = 'chips',
+          scalar_value = 'chips_mod',
+        })
+        return nil, true
+      end
+    end
+
+    if context.end_of_round and card.ability.extra.chips ~= 0 and not context.blueprint then
+      card.ability.extra.chips = 0
+      return {
+        message = localize('k_reset'),
+        colour = G.C.RED
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "chips", "clubs", "reset", "suit"}
+}
+
+-- Lil Monstro
+-- King Baby
+
 -- Plan C
 -- D1
 -- Void
@@ -93,7 +141,7 @@ TBOJ.Active {
     local to_up = #G.shop_jokers.cards
     for i = 1, #G.shop_jokers.cards do
       local target = G.shop_jokers.cards[i]
-      SMODS.destroy_cards(target, true)
+      SMODS.destroy_cards(target, {bypass_eternal = true})
       if target.ability.set == "Joker" then
         G.GAME.banned_keys[target.config.center.key] = true
         SMODS.calculate_effect({message = localize("tboj_voided")}, card)

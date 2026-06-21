@@ -32,7 +32,7 @@ TBOJ.Spiderfly {
     if context.joker_main then
       G.E_MANAGER:add_event(Event({
         func = function()
-          SMODS.destroy_cards(card,true)
+          SMODS.destroy_cards(card, {bypass_eternal = true})
           return true
         end
       }))
@@ -63,7 +63,7 @@ TBOJ.Spiderfly {
     if context.joker_main then
       G.E_MANAGER:add_event(Event({
         func = function()
-          SMODS.destroy_cards(card,true)
+          SMODS.destroy_cards(card, {bypass_eternal = true})
           return true
         end
       }))

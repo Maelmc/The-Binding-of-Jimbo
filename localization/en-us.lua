@@ -772,6 +772,14 @@ return {
           "to your hand",
         }
       },
+      j_tboj_little_chad = {
+        name = "Little C.H.A.D.",
+        text = {
+          "Played cards with {C:hearts}Heart{} suit",
+          "give {C:mult}+#1#{} Mult, {C:mult}+#1#{} per",
+          "remaining {C:blue}hand{} when scored"
+        }
+      },
       j_tboj_the_relic = {
         name = "The Relic",
         text = {
@@ -779,6 +787,15 @@ return {
           "at end of round",
           "{C:inactive}(Must have room)"
         },
+      },
+      j_tboj_little_gish = {
+        name = "Little Gish",
+        text = {
+          "Played cards with",
+          "{C:spades}Spade{} suit give",
+          "{C:mult}+#1#{} Mult and {C:chips}+#2#",
+          "Chips when scored"
+        }
       },
       j_tboj_little_steven = {
         name = "Little Steven",
@@ -886,7 +903,7 @@ return {
         name = "Dead Dove",
         text = {
           "Create a {C:spectral}Spectral{} card",
-          "every {C:attention}#1# {C:inactive}[#2#]{} card drawn",
+          "every {C:attention}#1# {C:inactive}[#2#]{} cards drawn",
           "during a {C:attention}Blind"
         }
       },
@@ -995,6 +1012,15 @@ return {
           "Played cards give {C:white,X:mult}X#1#{} Mult",
           "divided by their {C:attention}position",
           "in {C:attention}played hand{} when scored"
+        }
+      },
+      j_tboj_smart_fly = {
+        name = "Smart Fly",
+        text = {
+          "Played cards with",
+          "{C:diamonds}Diamond{} suit give",
+          "{C:mult}+#1#{} Mult per card",
+          "held in hand"
         }
       },
       j_tboj_headless_baby = {
@@ -1155,7 +1181,7 @@ return {
         name = "Eye of Greed",
         text = {
           "After scoring {C:attention}#1#{} {C:inactive}[#2#]",
-          "cards, spend {C:money}$#3#{} to",
+          "cards, spend {C:money}$#3#{} and",
           "add a {C:attention}Gold Seal{} to",
           "the next scoring card"
         }
@@ -1166,6 +1192,16 @@ return {
           "When a played card scores,",
           "{C:green}#1# in #2#{} to create a {C:attention}Pretty Fly",
           "and {C:green}#1# in #2#{} to create a {C:attention}Blue Spider",
+        }
+      },
+      j_tboj_hushy = {
+        name = "Hushy",
+        text = {
+          "Played cards with {C:clubs}Club{} suit",
+          "give {C:chips}+#1#{} Chips when scored",
+          "for each non-{C:clubs}Clubs{}",
+          "scored this round",
+          "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
         }
       },
       j_tboj_greed_gullet = {
@@ -1190,6 +1226,15 @@ return {
         text = {
           "Each discarded {C:attention}7",
           "gains a random {C:attention}seal"
+        }
+      },
+      j_tboj_angelic_prism = {
+        name = "Angelic Prism",
+        text = {
+          "Retrigger all played cards",
+          "used in scoring {C:attention}#1#{} additional",
+          "time if played hand contains",
+          "{C:attention}#2#{} or more suits"
         }
       },
       j_tboj_death_list = {
@@ -1220,8 +1265,8 @@ return {
           "{C:attention}+#1#{} active slot",
           "{s:0.8}If this Joker is sold or destroyed",
           "{s:0.8}and it results in having more",
-          "{s:0.8}Actives than available slots, destroy",
-          "{s:0.8}a random non-{s:0.8,C:dark_edition}Negative{s:0.8} one",
+          "{C:attention,s:0.8}Actives{s:0.8} than available slots, destroy",
+          "{s:0.8}a random non-{s:0.8,C:dark_edition}Negative{C:attention,s:0.8} Active",
         }
       },
       j_tboj_flat_stone = {
@@ -1401,7 +1446,7 @@ return {
             "Create {C:attention}#1# {C:dark_edition}Negative",
             "{C:attention}Soul Hearts{} when acquired",
             "and create a {C:attention}Soul Heart{}",
-            "every {C:attention}#2# {C:inactive}[#3#]{} card drawn",
+            "every {C:attention}#2# {C:inactive}[#3#]{} cards drawn",
           }
         }
       },
@@ -1416,7 +1461,7 @@ return {
             "Create {C:attention}#1# {C:dark_edition}Negative",
             "{C:attention}Black Hearts{} when acquired",
             "and create a {C:attention}Black Heart{}",
-            "every {C:attention}#2# {C:inactive}[#3#]{} card drawn",
+            "every {C:attention}#2# {C:inactive}[#3#]{} cards drawn",
           }
         }
       },
@@ -1430,7 +1475,7 @@ return {
           {
             "{C:green}#1# in #2#{} chance to",
             "{C:attention}retrigger{} each played card",
-          } 
+          }
         }
       },
     },
@@ -1668,10 +1713,10 @@ return {
           {
           "{C:green}#1# in #2#{} chance to add",
           "a random {C:attention}Booster Pack{} to the",
-          "shop when {C:attention}entering{} the shop,"
+          "shop when {C:attention}entering{} the shop"
           },
           {
-            "Probability increase by {C:green}#3#{}",
+            "Probability increases by {C:green}#3#{}",
             "when a {C:attention}Stone Card{}",
             "is destroyed, resets when",
             "a Booster Pack is {C:attention}created"
@@ -1696,7 +1741,7 @@ return {
         name = "Endless Nameless",
         text = {
           "{C:green}#1# in #2#{} chance to create a",
-          "copy of a used {C:attention}consumeable",
+          "copy of a used {C:attention}consumable",
           "{C:inactive}(Must have room)",
           "{C:inactive}(Cannot copy a copy)",
         }
@@ -1834,16 +1879,16 @@ return {
         name = "Devil Pack",
         text = {
           "Choose {C:attention}#1#{} from among",
-          "{C:attention}#2#{} devil {C:attention}Joker{} cards and",
-          "{C:attention}#3#{} devil {C:attention}Active{} card",
+          "{C:attention}#2# Devil Joker{} cards and",
+          "{C:attention}#3# Devil Active{} card",
         },
       },
       p_tboj_angel_pack_1 = {
         name = "Angel Pack",
         text = {
           "Choose {C:attention}#1#{} from among",
-          "{C:attention}#2#{} angel {C:attention}Joker{} cards and",
-          "{C:attention}#3#{} angel {C:attention}Active{} card",
+          "{C:attention}#2# Angel Joker{} cards and",
+          "{C:attention}#3# Angel Active{} card",
         },
       },
       tboj_corpse_stake_sticker = {
@@ -1969,6 +2014,7 @@ return {
       tboj_angel = "Angel",
       tboj_devil = "Devil",
       tboj_shift_ex = "Shift!",
+      tboj_cleaved_ex = "Cleaved!",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
