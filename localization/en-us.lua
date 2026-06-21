@@ -788,6 +788,15 @@ return {
           "{C:inactive}(Must have room)"
         },
       },
+      j_tboj_little_gish = {
+        name = "Little Gish",
+        text = {
+          "Played cards with",
+          "{C:spades}Spade{} suit give",
+          "{C:mult}+#1#{} Mult and {C:chips}+#2#",
+          "Chips when scored"
+        }
+      },
       j_tboj_little_steven = {
         name = "Little Steven",
         text = {
