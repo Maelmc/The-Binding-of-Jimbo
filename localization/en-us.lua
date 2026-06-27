@@ -1017,10 +1017,9 @@ return {
       j_tboj_smart_fly = {
         name = "Smart Fly",
         text = {
-          "Played cards with",
-          "{C:diamonds}Diamond{} suit give",
-          "{C:mult}+#1#{} Mult per card",
-          "held in hand"
+          "Played cards with {C:diamonds}Diamond{} suit",
+          "give {C:mult}+#1#{} Mult per card",
+          "held in hand when scored"
         }
       },
       j_tboj_headless_baby = {
