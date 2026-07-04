@@ -1706,6 +1706,13 @@ return {
           "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}#2# in 6{C:inactive})",
         }
       },
+      trinket_tboj_counterfeit_penny = {
+        name = "Counterfeit Penny",
+        text = {
+          "{C:green}#1# in #2#{} chance to earn {C:money}$#3#{}",
+          "whenever {C:money}money{} is earned"
+        }
+      },
       trinket_tboj_stud_finder = {
         name = "Stud Finder",
         text = {
