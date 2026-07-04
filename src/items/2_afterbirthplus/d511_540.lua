@@ -76,6 +76,7 @@ SMODS.Joker {
     return TBOJ.in_pool(self, args)
   end,
   attributes = {"tboj_angel", "tboj_devil", "tboj_familiar", "seals", "seven", "modify_card", "discard"},
+  tboj_artist = "Maelmc",
 }
 
 -- Mr. ME!

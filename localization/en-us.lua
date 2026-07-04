@@ -1017,10 +1017,9 @@ return {
       j_tboj_smart_fly = {
         name = "Smart Fly",
         text = {
-          "Played cards with",
-          "{C:diamonds}Diamond{} suit give",
-          "{C:mult}+#1#{} Mult per card",
-          "held in hand"
+          "Played cards with {C:diamonds}Diamond{} suit",
+          "give {C:mult}+#1#{} Mult per card",
+          "held in hand when scored"
         }
       },
       j_tboj_headless_baby = {
@@ -1705,6 +1704,14 @@ return {
           "Adds {C:attention}#1#{} to all {C:attention}listed",
           "{C:green,E:1,S:1.1}probabilities",
           "{C:inactive}(ex: {C:green}1 in 6{C:inactive} -> {C:green}#2# in 6{C:inactive})",
+        }
+      },
+      trinket_tboj_counterfeit_penny = {
+        name = "Counterfeit Penny",
+        text = {
+          "{C:green}#1# in #2#{} chance to earn {C:money}$#3#{}",
+          "whenever {C:money}money{} is earned",
+          "{C:inactive,s:0.8}(Cannot trigger from {C:attention,s:0.8}Counterfeit Penny{C:inactive,s:0.8})"
         }
       },
       trinket_tboj_stud_finder = {
