@@ -203,8 +203,8 @@ end
 
 -- Context for when money is earned
 local ed = ease_dollars
-function ease_dollars(mod)
-  ed(mod)
+function ease_dollars(mod, instant)
+  ed(mod, instant)
   SMODS.calculate_context({tboj_money = mod})
 end
 

@@ -16,8 +16,8 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = false,
   calculate = function(self, card, context)
-    if context.tboj_money then
-      if context.tboj_money > 0 then
+    if context.money_altered then
+      if context.amount > 0 then
         SMODS.scale_card(card, {
           ref_table = card.ability,
           ref_value = "extra_value",

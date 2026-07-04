@@ -1710,7 +1710,8 @@ return {
         name = "Counterfeit Penny",
         text = {
           "{C:green}#1# in #2#{} chance to earn {C:money}$#3#{}",
-          "whenever {C:money}money{} is earned"
+          "whenever {C:money}money{} is earned",
+          "{C:inactive,s:0.8}(Cannot trigger from {C:attention,s:0.8}Counterfeit Penny{C:inactive,s:0.8})"
         }
       },
       trinket_tboj_stud_finder = {

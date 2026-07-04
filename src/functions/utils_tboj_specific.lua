@@ -199,3 +199,57 @@ function TBOJ.get_new_big()
 
   return big
 end
+
+function TBOJ.ease_dollars(mod, instant)
+    local handy_ease_muted = (Handy and Handy.animation_skip.mute_ease_dollars > 0) or false
+    local function _mod(mod2)
+        local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
+        mod2 = mod2 or 0
+        local text = '+'..localize('$')
+                local col = G.C.MONEY
+                if to_big(mod2) < to_big(0) then
+            text = '-'..localize('$')
+            col = G.C.RED
+        else
+          inc_career_stat('c_dollars_earned', mod2)
+        end
+        --Ease from current chips to the new number of chips
+        G.GAME.dollars = G.GAME.dollars + mod2
+        check_and_set_high_score('most_money', G.GAME.dollars)
+        check_for_unlock({type = 'money'})
+        dollar_UI.config.object:update()
+        G.HUD:recalculate()
+        --Popup text next to the chips in UI showing number of chips gained/lost
+        attention_text({
+          text = text..tostring(math.abs(mod2)),
+          scale = 0.8,
+          hold = 0.7,
+          cover = dollar_UI.parent,
+          cover_colour = col,
+          align = 'cm',
+          })
+        --Play a chip sound
+        if handy_ease_muted then return end
+        play_sound('coin1')
+    end
+    if instant then
+        _mod(mod)
+    else
+        G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+            _mod(mod)
+            return true
+        end
+        }))
+    end
+
+    SMODS.calculate_context({
+        money_altered = true,
+        amount = mod,
+        from_shop = (G.STATE == G.STATES.SHOP or G.STATE == G.STATES.SMODS_BOOSTER_OPENED or G.STATE == G.STATES.SMODS_REDEEM_VOUCHER) or nil,
+        from_consumeable = (G.STATE == G.STATES.PLAY_TAROT) or nil,
+        from_scoring = (G.STATE == G.STATES.HAND_PLAYED) or nil,
+        tboj_from_counterfeit = true,
+    })
+end
