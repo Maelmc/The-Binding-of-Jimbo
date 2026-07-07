@@ -1,6 +1,6 @@
 SMODS.Booster {
   key = "angel_pack_1",
-	kind = "Deal",
+	kind = "tboj_deal",
 	atlas = "boosters",
 	pos = { x = 1, y = 0 },
 	config = { extra = 4, choose = 1 },

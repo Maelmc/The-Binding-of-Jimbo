@@ -24,6 +24,7 @@ load_directory("src/consumables")
 load_directory("src/enhancements")
 load_directory("src/items")
 load_directory("src/stakes")
+load_directory("src/tags")
 load_directory("src/trinkets")
 load_directory("src/ui")
 

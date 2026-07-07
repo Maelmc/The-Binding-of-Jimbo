@@ -113,6 +113,13 @@ SMODS.Atlas({
     py = 95
 })
 
+SMODS.Atlas({
+    key = "tags",
+    path = "tags.png",
+    px = 34,
+    py = 34
+})
+
 -- Colors
 G.C.TBOJ = {
   FAMILIAR = HEX("E70000"),
