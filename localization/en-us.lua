@@ -1614,7 +1614,13 @@ return {
         },
     },
     Tag = {
-        
+      tag_tboj_blessed = {
+        name = "Blessed Tag",
+        text = {
+          "Gives a free",
+          "{C:attention}Angel{} or {C:attention}Devil Pack",
+        }
+      },
     },
     tboj_trinket = {
       trinket_tboj_swallowed_penny = {
