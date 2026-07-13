@@ -838,6 +838,24 @@ return {
           "scoring card"
         }
       },
+      j_tboj_odd_mushroom_thin = {
+        name = "Odd Mushroom",
+        text = {
+            "This Joker gains {C:chips}+#1#{} Chips",
+            "when each played",
+            "{C:attention}odd{} card is scored",
+            "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+          }
+      },
+      j_tboj_odd_mushroom_large = {
+        name = "Odd Mushroom",
+        text = {
+            "This Joker gains {C:white,X:mult}X#1#{} Mult",
+            "if {C:attention}poker hand{} contains",
+            "{C:attention}#2#{} or more {C:attention}odd{} cards",
+            "{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)"
+          }
+      },
       j_tboj_whore_of_babylon = {
         name = "Whore of Babylon",
         text = {
@@ -1335,7 +1353,7 @@ return {
             "when each played {V:1}#2#{} is scored,",
             "suit changes after every hand played",
             "{C:inactive}(Currently {C:chips}+#3#{C:inactive} Chips)"
-          } 
+          }
       },
       j_tboj_guppy_eye = {
         name = "Guppy's Eye",
