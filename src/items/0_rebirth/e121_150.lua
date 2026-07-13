@@ -1,4 +1,45 @@
--- 121
+-- Odd Mushroom (Large)
+SMODS.Joker {
+  key = "odd_mushroom_large",
+  atlas = "jokers",
+  pos = {x = 0, y = 8},
+  config = {extra = {Xmult_mod = 0.1, Xmult = 1, odd_requ = 3}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.odd_requ, card.ability.extra.Xmult}}
+  end,
+  rarity = 2,
+  cost = 6,
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.before and not context.blueprint then
+      local odd_count = 0
+      for _, v in pairs(context.scoring_hand) do
+        local id = v:get_id()
+        if (id <= 10 and id >= 0 and id % 2 == 1) or (id == 14) then
+          odd_count = odd_count + 1
+        end
+      end
+      if odd_count >= card.ability.extra.odd_requ then
+        SMODS.scale_card(card, {
+          ref_value = 'Xmult',
+          scalar_value = 'Xmult_mod',
+        })
+
+        return nil, true
+      end
+    end
+
+    if context.joker_main then
+      return {
+        xmult = card.ability.extra.Xmult
+      }
+    end
+  end,
+  attributes = {"xmult", "scaling", "rank", "ace", "three", "five", "seven", "nine"}
+}
+
 -- Whore of Babylon
 SMODS.Joker {
   key = "whore_of_babylon",

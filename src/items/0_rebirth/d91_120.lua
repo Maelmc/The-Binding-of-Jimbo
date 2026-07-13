@@ -424,5 +424,39 @@ SMODS.Joker {
   attributes = {"tboj_devil", "xmult"}
 }
 
--- 119
--- 120
+-- Blood Bag
+-- Odd Mushroom (Thin)
+SMODS.Joker {
+  key = "odd_mushroom_thin",
+  atlas = "jokers",
+  pos = {x = 14, y = 7},
+  config = {extra = {chips_mod = 3, chips = 0}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+  end,
+  rarity = 2,
+  cost = 6,
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and not context.blueprint then
+      local id = context.other_card:get_id()
+      if (id <= 10 and id >= 0 and id % 2 == 1) or (id == 14) then
+        SMODS.scale_card(card, {
+          ref_value = 'chips',
+          scalar_value = 'chips_mod',
+        })
+
+        return nil, true
+      end
+    end
+
+    if context.joker_main then
+      return {
+        chips = card.ability.extra.chips
+      }
+    end
+  end,
+  attributes = {"chips", "scaling", "rank", "ace", "three", "five", "seven", "nine"}
+}
