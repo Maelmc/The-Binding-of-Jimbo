@@ -34,7 +34,7 @@ TBOJ.Active {
         if j == 1 then target_rank = math.ceil(target_rank) else target_rank = math.floor(target_rank) end
         if target_rank == 1 then target_rank = "Ace" end
         if target_rank then
-          SMODS.change_base(_card, nil, tostring(target_rank))
+          assert(SMODS.change_base(_card, nil, tostring(target_rank)))
           --G.playing_card = (G.playing_card and G.playing_card + 1) or 1
           --_card:add_to_deck()
           --G.deck.config.card_limit = G.deck.config.card_limit + 1

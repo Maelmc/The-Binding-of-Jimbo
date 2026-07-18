@@ -18,7 +18,7 @@ local function reset_fruity_plum_card()
   for _, v in pairs(SMODS.Suits) do
     if v.key ~= G.GAME.tboj_fruity_plum_suit then valid_suits[#valid_suits + 1] = v end
   end
-  if valid_suits[1] then 
+  if valid_suits[1] then
     local suit = pseudorandom_element(valid_suits, pseudoseed('tboj_fruity_plum'..G.GAME.round_resets.ante))
     G.GAME.tboj_fruity_plum_suit = suit.key
   end
@@ -60,7 +60,7 @@ function SMODS.current_mod.custom_card_areas(game)
   game.actives = CardArea(
     0, 0.95*G.CARD_H + 0.3,
     2.3*G.CARD_W * 0.7,
-    0.95*G.CARD_H, 
+    0.95*G.CARD_H,
     {card_limit = 1, type = 'joker', highlight_limit = 1}
   )
   game.actives.config.align_buttons = true
@@ -71,7 +71,7 @@ function SMODS.current_mod.custom_card_areas(game)
   game.trinkets = CardArea(
     0, 0.95*G.CARD_H + 0.3,
     2.3*G.CARD_W * 0.7,
-    0.95*G.CARD_H, 
+    0.95*G.CARD_H,
     {card_limit = 1, type = 'joker', highlight_limit = 1}
   )
   game.trinkets.config.align_buttons = true
@@ -81,18 +81,18 @@ function SMODS.current_mod.custom_card_areas(game)
   game.flies = CardArea(
     0, 0.95*G.CARD_H + 0.3,
     4.9*G.CARD_W * 0.3,
-    0.1, 
+    0.1,
     {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR}
   )
   game.flies.config.align_buttons = true
   game.flies.T.x = G.consumeables.T.x - 4.9*G.CARD_W*0.4
   game.flies.T.y = G.consumeables.T.y + G.consumeables.T.h + 0.35
 
-  
+
   game.spiders = CardArea(
     0, 0.95*G.CARD_H + 0.3,
     4.9*G.CARD_W * 0.3,
-    0.1, 
+    0.1,
     {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR}
   )
   game.spiders.config.align_buttons = true
