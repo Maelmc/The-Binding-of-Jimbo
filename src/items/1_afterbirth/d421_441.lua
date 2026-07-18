@@ -75,3 +75,41 @@ TBOJ.Active {
   end,
   attributes = {"tboj_fly", "generation"}
 }
+
+-- Lil Loki
+SMODS.Joker {
+  key = "lil_loki",
+  pos = {x = 14, y = 28},
+  config = {extra = {mult_mod = 1, mult = 0, card_count = 4}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.card_count, card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = false,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main then
+      return {
+        mult = card.ability.extra.mult,
+      }
+    end
+
+    if context.before and not context.blueprint and #context.full_hand == card.ability.extra.card_count then
+      SMODS.scale_card(card, {
+        ref_value = 'mult',
+        scalar_value = 'mult_mod',
+      })
+      return nil, true
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "mult", "scaling"}
+}
+
+-- Milk!
+-- D7

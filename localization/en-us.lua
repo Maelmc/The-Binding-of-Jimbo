@@ -1201,6 +1201,15 @@ return {
           "give {C:money}$#1#{} when scored"
         },
       },
+      j_tboj_lil_loki = {
+        name = "Lil Loki",
+        text = {
+          "This Joker gains {C:mult}+#1#{} Mult",
+          "if played hand has",
+          "exactly {C:attention}#2#{} cards",
+          "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)"
+        },
+      },
       j_tboj_shard_of_glass = {
         name = "Shard of Glass",
         text = {
