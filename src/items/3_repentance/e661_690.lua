@@ -79,7 +79,7 @@ SMODS.Joker {
   pos = { x = 4, y = 45 },
   config = {extra = {Xmult_mod = 0.15}},
   loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue + 1] = G.P_CENTERS.m_steel
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_tboj_poop
 
     local poop_tally = 0
     if G.playing_cards then
@@ -95,6 +95,7 @@ SMODS.Joker {
   perishable_compat = true,
   eternal_compat = true,
   blueprint_compat = false,
+  enhancement_gate = "m_tboj_poop",
   calculate = function(self, card, context)
     if context.joker_main then
       local poop_tally = 0
