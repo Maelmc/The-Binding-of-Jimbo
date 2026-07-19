@@ -156,6 +156,21 @@ return {
           }
         }
       },
+      active_tboj_d10 = {
+        name = "D10",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "{C:attention}Reduce{} the rank of all cards",
+            "held in hand by {C:attention}#3#{} and",
+            "randomize their {C:attention}suit"
+          }
+        }
+      },
       active_tboj_d8 = {
         name = "D8",
         text = {
@@ -1186,6 +1201,15 @@ return {
           "give {C:money}$#1#{} when scored"
         },
       },
+      j_tboj_lil_loki = {
+        name = "Lil Loki",
+        text = {
+          "This Joker gains {C:mult}+#1#{} Mult",
+          "if played hand has",
+          "exactly {C:attention}#2#{} cards",
+          "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)"
+        },
+      },
       j_tboj_shard_of_glass = {
         name = "Shard of Glass",
         text = {
@@ -1224,9 +1248,8 @@ return {
       j_tboj_greed_gullet = {
         name = "Greed's Gullet",
         text = {
-          "When {C:attention}Blind{} is selected",
-          "gain {C:blue}+1{} Hand per",
-          "{C:money}$#1#{} you have",
+          "When {C:attention}Blind{} is selected, gain",
+          "{C:blue}+1{} Hand per {C:money}$#1#{} you have",
           "{C:inactive}(Max of {C:blue}#2#{C:inactive} Hands at {C:money}$#3#{C:inactive})"
         }
       },
@@ -1360,6 +1383,14 @@ return {
         text = {
           "Hover over a {C:attention}Booster Pack",
           "to {C:attention}reveal{} its content",
+        }
+      },
+      j_tboj_montezuma_revenge = {
+        name = "Montezuma's Revenge",
+        text = {
+          "Gives {C:white,X:mult}X#1#{} Mult for each",
+          "{C:attention}Poop Card{} in your {C:attention}full deck",
+          "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Chips)"
         }
       },
       j_tboj_soul_locket = {

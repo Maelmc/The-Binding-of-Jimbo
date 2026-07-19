@@ -436,7 +436,7 @@ SMODS.Joker {
   end,
   rarity = 2,
   cost = 6,
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
