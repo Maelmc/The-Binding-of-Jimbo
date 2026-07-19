@@ -111,7 +111,6 @@ SMODS.Joker {
     return TBOJ.in_pool(self, args)
   end,
   attributes = {"tboj_poop", "xmult", "enhancements", "full_deck"},
-  tboj_artist = "Maelmc",
 }
 
 -- Lil Portal

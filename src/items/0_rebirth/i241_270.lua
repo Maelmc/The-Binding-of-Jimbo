@@ -132,6 +132,7 @@ SMODS.Joker {
       context.card.ability.perishable = nil
       context.card.ability.eternal = false
       context.card.ability.rental = false
+      context.card:set_cost()
     end
   end,
   in_pool = function (self, args)
