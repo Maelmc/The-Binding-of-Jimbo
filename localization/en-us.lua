@@ -1323,6 +1323,32 @@ return {
           "{C:white,X:red}X#1#{} Mult when scored"
         }
       },
+      j_tboj_blood_puppy = {
+        name = "Blood Puppy",
+        text = {
+          "{C:white,X:mult}X#1#{} Mult",
+          "{C:inactive,s:0.8}Changes form after {C:attention,s:0.8}#2#{C:inactive,s:0.8} round#3#"
+        }
+      },
+      j_tboj_blood_puppy_2 = {
+        name = "Blood Puppy",
+        text = {
+          "{C:white,X:mult}X#1#{} Mult",
+          "Destroy {C:attention}#2#{} played card",
+          "after hand is played",
+          "{C:inactive,s:0.8}Changes form after {C:attention,s:0.8}#3#{C:inactive,s:0.8} round#4#",
+          "{C:inactive,s:0.8}or with {C:attention,s:0.8}no hands left"
+        }
+      },
+      j_tboj_blood_puppy_3 = {
+        name = "Blood Puppy",
+        text = {
+          "{C:white,X:mult}X#1#{} Mult",
+          "Destroy {C:attention}#2#{} played cards",
+          "after hand is played",
+          "{C:inactive,s:0.8}Changes form with {C:attention,s:0.8}no hands left"
+        }
+      },
       j_tboj_dream_catcher = {
         name = "Dream Catcher",
         text = {
@@ -1909,7 +1935,6 @@ return {
       },
     },
     Voucher = {
-        
     },
     Other = {
       tboj_reroll = {
@@ -2077,6 +2102,9 @@ return {
       tboj_devil = "Devil",
       tboj_shift_ex = "Shift!",
       tboj_cleaved_ex = "Cleaved!",
+      tboj_growing_dot = "Growing...",
+      tboj_angry_ex = "Angry!",
+      tboj_tamed_ex = "Tamed!",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
@@ -2084,17 +2112,17 @@ return {
       tboj_links = "Links",
       tboj_discord = "Discord",
       tboj_wiki = "Wiki",
-    }, 
+    },
     labels = {
       k_tboj_transformation = "Transformation",
     },
     poker_hands = {
-        
+
     },
     quips = {
-        
+
     },
-    v_dictionary = {  
+    v_dictionary = {
       tboj_percent = "#1#%",
       --tboj_plus_hand_size_var = "+#1# Hand Size",
       tboj_minus_luck_var = "-#1# Luck",
@@ -2111,5 +2139,4 @@ return {
         ch_c_tboj_aprils_fool = {"{C:inactive}None :)"},
     },
   }
-  
 }
