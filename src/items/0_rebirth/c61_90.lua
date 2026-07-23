@@ -230,7 +230,9 @@ SMODS.Joker {
     return true, {allow_duplicates = true}
   end,
   set_sprites = function(self,card,front)
-    card.children.center:set_sprite_pos({x = (card.ability and card.ability.extra and card.ability.extra.stage or 1) - 1, y = 0})
+    if not (TBOJ.is_in_collection(card) and not card.discovered) then
+      card.children.center:set_sprite_pos({x = (card.ability and card.ability.extra and card.ability.extra.stage or 1) - 1, y = 0})
+    end
   end,
   attributes = {"tboj_familiar", "mult", "xmult"}
 }
