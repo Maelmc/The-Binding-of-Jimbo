@@ -63,7 +63,7 @@ SMODS.Joker {
         delay = 0.4,
         func = function()
           play_sound('tarot1')
-          local target = context.blueprint and context.blueprint_card or card
+          local target = context.blueprint_card or card
           target:juice_up(0.3, 0.5)
           return true
         end
