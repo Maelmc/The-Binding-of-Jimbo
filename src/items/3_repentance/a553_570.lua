@@ -48,29 +48,32 @@ SMODS.Joker {
           temp_hand[#temp_hand + 1] = playing_card
         end
       end
-      table.sort(temp_hand,
-        function(a, b)
-          return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card
-        end
-      )
 
-      pseudoshuffle(temp_hand, 'tboj_blood_puppy')
+      if #temp_hand > 0 then
+        table.sort(temp_hand,
+          function(a, b)
+            return not a.playing_card or not b.playing_card or a.playing_card < b.playing_card
+          end
+        )
 
-      for i = 1, todestroy do destroyed_cards[#destroyed_cards + 1] = temp_hand[i] end
+        pseudoshuffle(temp_hand, 'tboj_blood_puppy')
 
-      G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        delay = 0.4,
-        func = function()
-          play_sound('tarot1')
-          local target = context.blueprint_card or card
-          target:juice_up(0.3, 0.5)
-          return true
-        end
-      }))
-      SMODS.destroy_cards(destroyed_cards)
+        for i = 1, todestroy do destroyed_cards[#destroyed_cards + 1] = temp_hand[i] end
 
-      return nil, true
+        G.E_MANAGER:add_event(Event({
+          trigger = 'after',
+          delay = 0.4,
+          func = function()
+            play_sound('tarot1')
+            local target = context.blueprint_card or card
+            target:juice_up(0.3, 0.5)
+            return true
+          end
+        }))
+        SMODS.destroy_cards(destroyed_cards)
+
+        return nil, true
+      end
     end
 
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
