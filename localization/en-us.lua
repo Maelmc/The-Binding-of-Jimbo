@@ -373,14 +373,14 @@ return {
         text = {
           "Familiar Jokers",
           "are debuffed"
-        }, 
+        },
       },
       bl_tboj_monstro = {
         name = "Monstro",
         text = {
           "14 random cards",
           "are debuffed"
-        }, 
+        },
       },
       bl_tboj_bloat = {
         name = "The Bloat",
@@ -388,7 +388,7 @@ return {
           "Playing or discarding",
           "costs an additional",
           "hand or discard"
-        }, 
+        },
       },
       bl_tboj_envy = {
         name = "Envy",
@@ -396,7 +396,7 @@ return {
           "When defeated,",
           "fight again at",
           "10% Blind Size"
-        }, 
+        },
       },
       bl_tboj_super_envy = {
         name = "Super Envy",
@@ -404,87 +404,95 @@ return {
           "When defeated,",
           "fight again at",
           "25% Blind Size"
-        }, 
+        },
       },
       bl_tboj_gluttony = {
         name = "Gluttony",
         text = {
           "Extra large blind",
-        }, 
+        },
       },
       bl_tboj_super_gluttony = {
         name = "Super Gluttony",
         text = {
           "Extra large blind",
-        }, 
+        },
       },
       bl_tboj_wrath = {
         name = "Wrath",
         text = {
           "X0.75 Base Mult",
-        }, 
+        },
       },
       bl_tboj_super_wrath = {
         name = "Super Wrath",
         text = {
           "X0.75 Base",
           "Chips and Mult"
-        }, 
+        },
       },
       bl_tboj_pride = {
         name = "Pride",
         text = {
           "Must play a common rank",
           "with the previous hand"
-        }, 
+        },
       },
       bl_tboj_super_pride = {
         name = "Super Pride",
         text = {
           "Must play 2 common ranks",
           "with the previous hand"
-        }, 
+        },
       },
       bl_tboj_lust = {
         name = "Lust",
         text = {
           "Must play 2",
           "or more suits"
-        }, 
+        },
       },
       bl_tboj_super_lust = {
         name = "Super Lust",
         text = {
           "Must play 3",
           "or more suits"
-        }, 
+        },
       },
       bl_tboj_greed = {
         name = "Greed",
         text = {
           "-$2 per",
           "hand played",
-        }, 
+        },
       },
       bl_tboj_super_greed = {
         name = "Super Greed",
         text = {
           "-$2 per discard",
           "or hand played",
-        }, 
+        },
       },
       bl_tboj_sloth = {
         name = "Sloth",
         text = {
           "-1 Hand",
-        }, 
+        },
       },
       bl_tboj_super_sloth = {
         name = "Super Sloth",
         text = {
           "-1 Hand",
           "-1 Discard"
-        }, 
+        },
+      },
+      bl_tboj_clog = {
+        name = "Clog",
+        text = {
+          "Held cards' rank randomly",
+          "increases or decreases",
+          "when hand is played"
+        },
       },
     },
     Enhanced = {
@@ -571,7 +579,7 @@ return {
         text = {
           "Sets all {C:attention}listed",
           "{C:green,E:1,S:1.1}probabilities{} to {C:attention}#1#"
-        } 
+        }
       },
       j_tboj_number_one = {
         name = "Number One",
@@ -653,7 +661,7 @@ return {
           "{C:green,E:1,S:1.1}probabilities",
           "{C:attention}Pills{} cannot reduce",
           "a poker hand's {C:attention}level"
-        } 
+        }
       },
       --[[j_tboj_steven = {
         name = "Steven",
@@ -1104,7 +1112,7 @@ return {
           "Adds {C:attention}#1#{} to all {C:attention}listed",
           "{C:green,E:1,S:1.1}probabilities{}, {C:attention}-#2#{} when",
           "a probability succeeds"
-        } 
+        }
       },
       j_tboj_friend_zone = {
         name = "Friend Zone",
