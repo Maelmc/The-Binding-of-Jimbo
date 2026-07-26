@@ -1561,7 +1561,7 @@ return {
         }
       },
     },
-    Loot = {
+    tboj_loot = {
       -- STANDARD LOOT
       c_tboj_bomb = {
         name = "Bomb",
@@ -1649,6 +1649,14 @@ return {
         text = {
           "Use during a {C:attention}Blind{} to",
           "gain {C:blue}+#1#{} hand this round"
+        }
+      },
+      c_tboj_soul_of_lilith = {
+        name = "Algiz",
+        text = {
+          "Creates a random",
+          "{C:attention}Familiar Joker{} card",
+          "{C:inactive}(Must have room)",
         }
       },
     },

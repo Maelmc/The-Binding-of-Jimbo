@@ -347,7 +347,7 @@ TBOJ.Active {
             G.E_MANAGER:add_event(Event({
               func = (function()
                 play_sound('timpani')
-                SMODS.add_card({ set = 'Loot', key = "c_tboj_soul_heart" })
+                SMODS.add_card({ set = "tboj_loot", key = "c_tboj_soul_heart" })
                 card:juice_up(0.3, 0.5)
                 G.GAME.consumeable_buffer = 0
                 return true

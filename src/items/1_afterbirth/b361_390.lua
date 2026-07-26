@@ -265,7 +265,7 @@ SMODS.Joker {
         card.ability.extra.current = card.ability.extra.current + 1
         if card.ability.extra.current == card.ability.extra.every then
           card.ability.extra.current = 0
-          local _card = SMODS.add_card({ set = 'Loot', key = "c_tboj_bomb", edition = 'e_negative' })
+          local _card = SMODS.add_card({ set = "tboj_loot", key = "c_tboj_bomb", edition = 'e_negative' })
           _card.states.visible = nil
           _card.ability.extra.fused = true
           G.E_MANAGER:add_event(Event({

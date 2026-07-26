@@ -13,7 +13,8 @@ function TBOJ.leftmost_or_selected_joker()
   return G.jokers.highlighted[1] or G.jokers.cards[1]
 end
 
--- Get a random key following parameters
+---@param args? {set?: string, seed?: string, banned_rarities?: table<string>, target_rarities?: table<string|number>, attributes?: table<string>}
+--- Get a random key based on arguments
 function TBOJ.get_random_key(args)
   local set = args.set
   local seed = args.seed

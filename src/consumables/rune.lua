@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = "jera",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 5, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -54,12 +54,12 @@ SMODS.Consumable {
     }))
     delay(0.6)
   end,
-  rune = true,
+  tboj_rune = true,
 }
 
 SMODS.Consumable {
   key = "dagaz",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 6, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -93,7 +93,7 @@ SMODS.Consumable {
       end
     end
   end,
-  rune = true,
+  tboj_rune = true,
   in_pool = function(self)
     local ok = false
     for i = 1, #G.jokers.cards do
@@ -111,7 +111,7 @@ SMODS.Consumable {
 
 SMODS.Consumable {
   key = "perthro",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 7, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -130,12 +130,12 @@ SMODS.Consumable {
       end
     end
   end,
-  rune = true,
+  tboj_rune = true,
 }
 
 SMODS.Consumable {
   key = "algiz",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 9, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -150,5 +150,38 @@ SMODS.Consumable {
   use = function(self, card, area, copier)
     ease_hands_played(card.ability.extra.hands)
   end,
-  rune = true,
+  tboj_rune = true,
 }
+
+--[[
+SMODS.Consumable {
+  key = "soul_of_lilith",
+  set = "tboj_loot",
+  pos = { x = 10, y = 1 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  soul_set = "tboj_loot",
+  soul_rate = .025,
+  config = { extra = {}},
+  loc_vars = function(self, info_queue, card)
+  end,
+  can_use = function(self, card)
+    return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        play_sound('timpani')
+        SMODS.add_card({ set = 'Joker', key = TBOJ.get_random_key({set = "Joker", attributes = {"tboj_familiar"}}) })
+        card:juice_up(0.3, 0.5)
+        return true
+      end
+    }))
+    delay(0.6)
+  end,
+  tboj_rune = true,
+}
+]]
