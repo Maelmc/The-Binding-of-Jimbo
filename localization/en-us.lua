@@ -1652,11 +1652,18 @@ return {
         }
       },
       c_tboj_soul_of_lilith = {
-        name = "Algiz",
+        name = "Soul of Lilith",
         text = {
           "Creates a random",
           "{C:attention}Familiar Joker{} card",
           "{C:inactive}(Must have room)",
+        }
+      },
+      c_tboj_soul_of_the_keeper = {
+        name = "Soul of The Keeper",
+        text = {
+          "Earn between {C:money}$#1#{} and {C:money}$#2#{}",
+          "at random"
         }
       },
     },
