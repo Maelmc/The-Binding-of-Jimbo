@@ -1651,6 +1651,13 @@ return {
           "gain {C:blue}+#1#{} hand this round"
         }
       },
+      c_tboj_soul_of_cain = {
+        name = "Soul of Cain",
+        text = {
+          "Creates this Ante's",
+          "{C:attention}Skip Tags",
+        }
+      },
       c_tboj_soul_of_lilith = {
         name = "Soul of Lilith",
         text = {

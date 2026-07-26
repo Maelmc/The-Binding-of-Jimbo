@@ -155,6 +155,68 @@ SMODS.Consumable {
 
 local soul_runes_rate = .045
 
+SMODS.Consumable {
+  key = "soul_of_cain",
+  set = "tboj_loot",
+  pos = { x = 1, y = 1 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  soul_set = "tboj_loot",
+  soul_rate = soul_runes_rate,
+  config = { extra = {min = 1, max = 25}},
+  loc_vars = function(self, info_queue, card)
+    return { vars = {card.ability.extra.min, card.ability.extra.max}}
+  end,
+  can_use = function(self, card)
+    return true
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				play_sound("tarot1")
+				local tag = Tag(G.GAME.round_resets.blind_tags["Small"])
+				add_tag(tag)
+        local target = copier or card
+				target:juice_up(0.8, 0.5)
+				return true
+			end,
+		}))
+
+    G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				play_sound("tarot1")
+				local tag = Tag(G.GAME.round_resets.blind_tags["Big"])
+				add_tag(tag)
+        local target = copier or card
+				target:juice_up(0.8, 0.5)
+				return true
+			end,
+		}))
+
+    if G.GAME.round_resets.blind_tags["Boss"] then
+      G.E_MANAGER:add_event(Event({
+        trigger = "after",
+        delay = 0.2,
+        func = function()
+          play_sound("tarot1")
+          local tag = Tag(G.GAME.round_resets.blind_tags["Boss"])
+          add_tag(tag)
+          local target = copier or card
+          target:juice_up(0.8, 0.5)
+          return true
+        end,
+      }))
+    end
+    delay(0.6)
+  end,
+  tboj_rune = true,
+}
+
 --[[
 SMODS.Consumable {
   key = "soul_of_lilith",
