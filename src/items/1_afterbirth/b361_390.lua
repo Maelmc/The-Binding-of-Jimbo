@@ -285,7 +285,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_poop", "enhancements", "generation", "tboj_loot", "edition"},
+  attributes = {"tboj_poop", "enhancements", "generation", "tboj_loot_attribute", "edition"},
 }
 
 -- Pupula Duplex

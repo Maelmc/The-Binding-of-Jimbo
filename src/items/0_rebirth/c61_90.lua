@@ -364,7 +364,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_angel", "tboj_book", "tboj_loot", "generation"}
+  attributes = {"tboj_angel", "tboj_book", "tboj_loot_attribute", "generation"}
 }
 
 -- The Mark

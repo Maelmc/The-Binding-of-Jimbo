@@ -412,7 +412,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"on_sell", "tboj_loot", "generation"}
+  attributes = {"on_sell", "tboj_loot_attribute", "generation"}
 }
 
 -- Transcendence
