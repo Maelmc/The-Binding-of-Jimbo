@@ -143,7 +143,7 @@ SMODS.Joker {
             func = function()
               G.GAME.consumeable_buffer = 0
               play_sound('timpani')
-              SMODS.add_card({ set = "Loot", key_append = "tboj_death_list" })
+              SMODS.add_card({ set = "tboj_loot", key_append = "tboj_death_list" })
               SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
               return true
             end

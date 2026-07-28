@@ -400,7 +400,7 @@ SMODS.Joker {
             func = (function()
               G.GAME.consumeable_buffer = 0
               play_sound('timpani')
-              SMODS.add_card({ set = 'Loot', key = "c_tboj_bomb" })
+              SMODS.add_card({ set = "tboj_loot", key = "c_tboj_bomb" })
               card:juice_up(0.3, 0.5)
               return true
             end)

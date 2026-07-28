@@ -1,6 +1,6 @@
 SMODS.Consumable {
   key = "jera",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 5, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -54,12 +54,12 @@ SMODS.Consumable {
     }))
     delay(0.6)
   end,
-  rune = true,
+  tboj_rune = true,
 }
 
 SMODS.Consumable {
   key = "dagaz",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 6, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -93,7 +93,7 @@ SMODS.Consumable {
       end
     end
   end,
-  rune = true,
+  tboj_rune = true,
   in_pool = function(self)
     local ok = false
     for i = 1, #G.jokers.cards do
@@ -111,7 +111,7 @@ SMODS.Consumable {
 
 SMODS.Consumable {
   key = "perthro",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 7, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -130,12 +130,12 @@ SMODS.Consumable {
       end
     end
   end,
-  rune = true,
+  tboj_rune = true,
 }
 
 SMODS.Consumable {
   key = "algiz",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 9, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -150,5 +150,134 @@ SMODS.Consumable {
   use = function(self, card, area, copier)
     ease_hands_played(card.ability.extra.hands)
   end,
-  rune = true,
+  tboj_rune = true,
+}
+
+local soul_runes_rate = .045
+
+SMODS.Consumable {
+  key = "soul_of_cain",
+  set = "tboj_loot",
+  pos = { x = 1, y = 1 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  soul_set = "tboj_loot",
+  soul_rate = soul_runes_rate,
+  config = { extra = {min = 1, max = 25}},
+  loc_vars = function(self, info_queue, card)
+    return { vars = {card.ability.extra.min, card.ability.extra.max}}
+  end,
+  can_use = function(self, card)
+    return true
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				play_sound("tarot1")
+				local tag = Tag(G.GAME.round_resets.blind_tags["Small"])
+				add_tag(tag)
+        local target = copier or card
+				target:juice_up(0.8, 0.5)
+				return true
+			end,
+		}))
+
+    G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				play_sound("tarot1")
+				local tag = Tag(G.GAME.round_resets.blind_tags["Big"])
+				add_tag(tag)
+        local target = copier or card
+				target:juice_up(0.8, 0.5)
+				return true
+			end,
+		}))
+
+    if G.GAME.round_resets.blind_tags["Boss"] then
+      G.E_MANAGER:add_event(Event({
+        trigger = "after",
+        delay = 0.2,
+        func = function()
+          play_sound("tarot1")
+          local tag = Tag(G.GAME.round_resets.blind_tags["Boss"])
+          add_tag(tag)
+          local target = copier or card
+          target:juice_up(0.8, 0.5)
+          return true
+        end,
+      }))
+    end
+    delay(0.6)
+  end,
+  tboj_rune = true,
+}
+
+--[[
+SMODS.Consumable {
+  key = "soul_of_lilith",
+  set = "tboj_loot",
+  pos = { x = 10, y = 1 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  soul_set = "tboj_loot",
+  soul_rate = soul_runes_rate,
+  config = { extra = {}},
+  loc_vars = function(self, info_queue, card)
+  end,
+  can_use = function(self, card)
+    return G.jokers and #G.jokers.cards < G.jokers.config.card_limit
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        play_sound('timpani')
+        SMODS.add_card({ set = 'Joker', key = TBOJ.get_random_key({set = "Joker", attributes = {"tboj_familiar"}}) })
+        card:juice_up(0.3, 0.5)
+        return true
+      end
+    }))
+    delay(0.6)
+  end,
+  tboj_rune = true,
+}
+]]
+
+SMODS.Consumable {
+  key = "soul_of_the_keeper",
+  set = "tboj_loot",
+  pos = { x = 11, y = 1 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  soul_set = "tboj_loot",
+  soul_rate = soul_runes_rate,
+  config = { extra = {min = 1, max = 25}},
+  loc_vars = function(self, info_queue, card)
+    return { vars = {card.ability.extra.min, card.ability.extra.max}}
+  end,
+  can_use = function(self, card)
+    return true
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        play_sound('timpani')
+        card:juice_up(0.3, 0.5)
+        ease_dollars(pseudorandom("tboj_soul_of_the_keeper", card.ability.extra.min, card.ability.extra.max), true)
+        return true
+      end
+    }))
+    delay(0.6)
+  end,
+  tboj_rune = true,
 }

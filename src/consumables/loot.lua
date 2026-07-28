@@ -1,7 +1,7 @@
 -- Bomb
 SMODS.Consumable {
   key = "bomb",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 1, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -41,7 +41,7 @@ SMODS.Consumable {
 -- Lil' Battery
 SMODS.Consumable {
   key = "lil_battery",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 2, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -67,7 +67,7 @@ SMODS.Consumable {
 -- Pill
 SMODS.Consumable {
   key = "pill",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 3, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -99,7 +99,7 @@ SMODS.Consumable {
 -- Soul Heart
 SMODS.Consumable {
   key = "soul_heart",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 4, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -124,7 +124,7 @@ SMODS.Consumable {
 -- Black Heart
 SMODS.Consumable {
   key = "black_heart",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 8, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -150,7 +150,7 @@ SMODS.Consumable {
 -- Copied from Forager Nonessentials' Graffiti Artist
 SMODS.Consumable {
   key = "key",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 10, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -182,7 +182,7 @@ SMODS.Consumable {
 -- Poop Nugget
 SMODS.Consumable {
   key = "poop_nugget",
-  set = "Loot",
+  set = "tboj_loot",
   pos = { x = 11, y = 0 },
   atlas = "consumables",
   cost = 4,

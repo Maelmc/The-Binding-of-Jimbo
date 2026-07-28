@@ -93,7 +93,7 @@ TBOJ.Active {
       func = function()
         G.GAME.consumeable_buffer = 0
         play_sound('timpani')
-        SMODS.add_card({ set = 'Loot', key_append = "tboj_the_book_of_sin" })
+        SMODS.add_card({ set = "tboj_loot", key_append = "tboj_the_book_of_sin" })
         SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
         return true
       end
@@ -132,7 +132,7 @@ SMODS.Joker {
             G.E_MANAGER:add_event(Event({
               func = (function()
                 play_sound('timpani')
-                SMODS.add_card({ set = 'Loot', key = "c_tboj_soul_heart" })
+                SMODS.add_card({ set = "tboj_loot", key = "c_tboj_soul_heart" })
                 card:juice_up(0.3, 0.5)
                 G.GAME.consumeable_buffer = 0
                 return true

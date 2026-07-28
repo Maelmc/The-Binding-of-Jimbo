@@ -167,7 +167,7 @@ SMODS.Joker {
 
 -- Friend Fiender
 -- Inner Child
--- Glitch Crown
+-- Glitched Crown
 SMODS.Joker {
   key = "glitched_crown",
   atlas = "jokers",
@@ -193,7 +193,7 @@ SMODS.Joker {
       G.GAME.modifiers.tboj_cycling.seconds = card.ability.extra.every
       G.GAME.modifiers.tboj_cycling.sets["Joker"] = (G.GAME.modifiers.tboj_cycling.sets["Joker"] or 0) + 1
       G.GAME.modifiers.tboj_cycling.sets["tboj_active"] = (G.GAME.modifiers.tboj_cycling.sets["tboj_active"] or 0) + 1
-      
+
     else
       G.GAME.modifiers.tboj_cycling = {
         amount = card.ability.extra.between - 1,

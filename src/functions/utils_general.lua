@@ -13,7 +13,8 @@ function TBOJ.leftmost_or_selected_joker()
   return G.jokers.highlighted[1] or G.jokers.cards[1]
 end
 
--- Get a random key following parameters
+---@param args? {set?: string, seed?: string, banned_rarities?: table<string>, target_rarities?: table<string|number>, attributes?: table<string>}
+--- Get a random key based on arguments
 function TBOJ.get_random_key(args)
   local set = args.set
   local seed = args.seed
@@ -157,7 +158,7 @@ function TBOJ.juice_flip_cards(cards, source, second)
 end
 
 -- Flip all cards held in hand
-function TBOJ.juice_flip_hand(source, second)
+function TBOJ.juice_flip_hand(source, second, opposite_way)
   local sound = 'card1'
   local base_percent = 1.15
   local extra = nil
@@ -171,14 +172,26 @@ function TBOJ.juice_flip_hand(source, second)
       return true end })
     )
   end
-  for i=1, #G.hand.cards do
-    local percent = nil
-    if second then
-      percent = base_percent + (i-0.999)/(#G.hand.cards-0.998)*0.3
-    else
-      percent = base_percent - (i-0.999)/(#G.hand.cards-0.998)*0.3
+  if opposite_way then
+    for i=1, #G.hand.cards do
+      local percent = nil
+      if second then
+        percent = base_percent + (i-0.999)/(#G.hand.cards-0.998)*0.3
+      else
+        percent = base_percent - (i-0.999)/(#G.hand.cards-0.998)*0.3
+      end
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[(#G.hand.cards-i+1)]:flip();play_sound(sound, percent, extra);G.hand.cards[(#G.hand.cards-i+1)]:juice_up(0.3, 0.3);return true end }))
     end
-    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound(sound, percent, extra);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))
+  else
+    for i=1, #G.hand.cards do
+      local percent = nil
+      if second then
+        percent = base_percent + (i-0.999)/(#G.hand.cards-0.998)*0.3
+      else
+        percent = base_percent - (i-0.999)/(#G.hand.cards-0.998)*0.3
+      end
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound(sound, percent, extra);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))
+    end
   end
   delay(0.2)
 end

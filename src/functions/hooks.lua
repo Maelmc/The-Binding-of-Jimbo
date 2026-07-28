@@ -30,7 +30,7 @@ end
 local scu = set_consumeable_usage
 function set_consumeable_usage(card)
   if card.config.center_key and card.ability.consumeable then
-    if card.config.center.set == 'Loot' then 
+    if card.config.center.set == 'tboj_loot' then
       G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
         func = function()
