@@ -153,8 +153,9 @@ SMODS.Consumable {
   tboj_rune = true,
 }
 
-local soul_runes_rate = .045
+local soul_weight = 0.1
 
+--[[
 SMODS.Consumable {
   key = "soul_of_cain",
   set = "tboj_loot",
@@ -162,8 +163,7 @@ SMODS.Consumable {
   atlas = "consumables",
   cost = 4,
   unlocked = true,
-  soul_set = "tboj_loot",
-  soul_rate = soul_runes_rate,
+  weight = soul_weight,
   config = { extra = {min = 1, max = 25}},
   loc_vars = function(self, info_queue, card)
     return { vars = {card.ability.extra.min, card.ability.extra.max}}
@@ -216,6 +216,7 @@ SMODS.Consumable {
   end,
   tboj_rune = true,
 }
+]]
 
 --[[
 SMODS.Consumable {
@@ -225,8 +226,7 @@ SMODS.Consumable {
   atlas = "consumables",
   cost = 4,
   unlocked = true,
-  soul_set = "tboj_loot",
-  soul_rate = soul_runes_rate,
+  weight = soul_weight,
   config = { extra = {}},
   loc_vars = function(self, info_queue, card)
   end,
@@ -250,6 +250,7 @@ SMODS.Consumable {
 }
 ]]
 
+--[[
 SMODS.Consumable {
   key = "soul_of_the_keeper",
   set = "tboj_loot",
@@ -257,8 +258,7 @@ SMODS.Consumable {
   atlas = "consumables",
   cost = 4,
   unlocked = true,
-  soul_set = "tboj_loot",
-  soul_rate = soul_runes_rate,
+  weight = soul_weight,
   config = { extra = {min = 1, max = 25}},
   loc_vars = function(self, info_queue, card)
     return { vars = {card.ability.extra.min, card.ability.extra.max}}
@@ -280,4 +280,4 @@ SMODS.Consumable {
     delay(0.6)
   end,
   tboj_rune = true,
-}
+}]]

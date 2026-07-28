@@ -105,7 +105,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_book", "tboj_devil", "tboj_loot", "generation"}
+  attributes = {"tboj_book", "tboj_devil", "tboj_loot_attribute", "generation"}
 }
 
 -- The Relic
@@ -148,7 +148,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel", "tboj_familiar", "generation", "tboj_loot"}
+  attributes = {"tboj_angel", "tboj_familiar", "generation", "tboj_loot_attribute"}
 }
 
 -- Little Gish
