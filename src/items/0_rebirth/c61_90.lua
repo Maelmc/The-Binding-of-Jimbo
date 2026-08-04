@@ -64,8 +64,8 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.money}}
   end,
-  rarity = 3,
-  cost = 8,
+  rarity = 1,
+  cost = 5,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
