@@ -61,7 +61,7 @@ function SMODS.current_mod.custom_card_areas(game)
     0, 0.95*G.CARD_H + 0.3,
     2.3*G.CARD_W * 0.7,
     0.95*G.CARD_H,
-    {card_limit = 1, type = 'joker', highlight_limit = 1}
+    {card_limit = 1, type = 'joker', highlight_limit = 1, align_buttons = true}
   )
   game.actives.config.align_buttons = true
   game.actives.T.x = G.deck.T.x
@@ -72,7 +72,7 @@ function SMODS.current_mod.custom_card_areas(game)
     0, 0.95*G.CARD_H + 0.3,
     2.3*G.CARD_W * 0.7,
     0.95*G.CARD_H,
-    {card_limit = 1, type = 'joker', highlight_limit = 1}
+    {card_limit = 1, type = 'joker', highlight_limit = 1, align_buttons = true}
   )
   game.trinkets.config.align_buttons = true
   game.trinkets.T.x = G.deck.T.x
@@ -82,7 +82,7 @@ function SMODS.current_mod.custom_card_areas(game)
     0, 0.95*G.CARD_H + 0.3,
     4.9*G.CARD_W * 0.3,
     0.1,
-    {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR}
+    {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR, align_buttons = true}
   )
   game.flies.config.align_buttons = true
   game.flies.T.x = G.consumeables.T.x - 4.9*G.CARD_W*0.4
@@ -93,7 +93,7 @@ function SMODS.current_mod.custom_card_areas(game)
     0, 0.95*G.CARD_H + 0.3,
     4.9*G.CARD_W * 0.3,
     0.1,
-    {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR}
+    {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR, align_buttons = true}
   )
   game.spiders.config.align_buttons = true
   game.spiders.T.x = game.flies.T.x + game.flies.T.w + 0.1
