@@ -114,7 +114,7 @@ SMODS.Joker {
   pos = {x = 4, y = 35 },
   config = {extra = {chips = 0, chips_mod = 20, contained = false}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips_mod, localize((G.GAME.current_round.tboj_death_list_card or {}).rank or 'Ace', 'ranks'), card.ability.extra.chips}}
+    return {vars = {card.ability.extra.chips_mod, localize((G.GAME.current_round.tboj_death_list_card1 or {}).rank or 'Ace', 'ranks'), card.ability.extra.chips}}
   end,
   rarity = 1,
   cost = 5,
@@ -132,7 +132,7 @@ SMODS.Joker {
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       local contained = false
       for _, v in pairs (context.scoring_hand) do
-        if v:get_id() == G.GAME.current_round.tboj_death_list_card.id then contained = true break end
+        if v:get_id() == G.GAME.current_round.tboj_death_list_card1.id then contained = true break end
       end
       if contained then
         if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then

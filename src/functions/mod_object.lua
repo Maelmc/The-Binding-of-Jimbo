@@ -1,19 +1,37 @@
-local function reset_death_list_card()
-  G.GAME.current_round.tboj_death_list_card = { rank = 'Ace' }
-  local valid_mail_cards = {}
+local function reset_tboj_card(key, amount, unique_ranks)
+  if not key then return end
+  if not amount then amount = 1 end
+  for i = 1, amount do
+    G.GAME.current_round[key..i] = { rank = 'Ace', id = 14, suit = "Spades" }
+  end
+  local valid_cards = {}
   for _, playing_card in ipairs(G.playing_cards) do
     if not SMODS.has_no_rank(playing_card) then
-      valid_mail_cards[#valid_mail_cards + 1] = playing_card
+      valid_cards[#valid_cards + 1] = playing_card
     end
   end
-  local mail_card = pseudorandom_element(valid_mail_cards, 'tboj_death_list' .. G.GAME.round_resets.ante)
-  if mail_card then
-    G.GAME.current_round.tboj_death_list_card.rank = mail_card.base.value
-    G.GAME.current_round.tboj_death_list_card.id = mail_card.base.id
+  pseudoshuffle(valid_cards, key .. G.GAME.round_resets.ante)
+  local ranks = {}
+  for i = 1, amount do
+    local rank_diff = 0
+    if unique_ranks and valid_cards[i] then
+      while valid_cards[i+rank_diff] and TBOJ.table_contains(ranks, valid_cards[i+rank_diff].base.id) do
+        rank_diff = rank_diff + 1
+      end
+      while (rank_diff > 0) and not valid_cards[i+rank_diff] do
+        rank_diff = rank_diff - 1
+      end
+      ranks[#ranks+1] = valid_cards[i+rank_diff].base.id
+    end
+    print(ranks)
+    G.GAME.current_round[key..i].rank = valid_cards[i+rank_diff] and valid_cards[i+rank_diff].base.value or "Ace"
+    G.GAME.current_round[key..i].id = valid_cards[i+rank_diff] and valid_cards[i+rank_diff].base.id or 14
+
+    G.GAME.current_round[key..i].suit = valid_cards[i] and valid_cards[i].base.suit or "Spades"
   end
 end
 
-local function reset_fruity_plum_card()
+local function reset_fruity_plum_suit()
   local valid_suits = {}
   for _, v in pairs(SMODS.Suits) do
     if v.key ~= G.GAME.tboj_fruity_plum_suit then valid_suits[#valid_suits + 1] = v end
@@ -36,17 +54,19 @@ SMODS.current_mod.calculate = function(self, context)
 
   -- Change Fruity Plum's suit each hand
   if context.after then
-    reset_fruity_plum_card()
+    reset_fruity_plum_suit()
     TBOJ.save_last_hand(context)
   end
 end
 
 function SMODS.current_mod.reset_game_globals(run_start)
-  reset_death_list_card()
+  reset_tboj_card("tboj_death_list_card")
+  reset_tboj_card("tboj_marked_card", 3, true)
+  reset_tboj_card("tboj_eye_of_the_occult_card")
   if run_start then
     G.GAME.tboj_last_full_hand = {}
     G.GAME.tboj_last_scored_hand = {}
-    reset_fruity_plum_card()
+    reset_fruity_plum_suit()
   end
 end
 

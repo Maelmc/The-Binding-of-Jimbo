@@ -909,6 +909,15 @@ return {
           "for each scoring card"
         }
       },
+      j_tboj_pageant_boy = {
+        name = "Pageant Boy",
+        text = {
+          "Earn {C:money}$#1#{} for each",
+          "{C:attention}King{} in your {C:attention}full deck",
+          "at end of round",
+          "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
+        }
+      },
       j_tboj_the_peeper = {
         name = "The Peeper",
         text = {
@@ -1185,6 +1194,14 @@ return {
           "next card in {C:attention}poker hand",
         },
       },
+      j_tboj_marked = {
+        name = "Marked",
+        text = {
+          "Each played {C:attention}#1#{}, {C:attention}#2#{} and {C:attention}#3#",
+          "gives {C:chips}+#4#{} Chips when scored",
+          "{s:0.8}Rank changes each round"
+        },
+      },
       j_tboj_lusty_blood = {
         name = "Lusty Blood",
         text = {
@@ -1385,6 +1402,14 @@ return {
           "resets at end of round",
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
+      },
+      j_tboj_eye_of_the_occult = {
+        name = "Eye of the Occult",
+        text = {
+          "Each played {C:attention}#1#{} gives",
+          "{C:white,X:mult}X#2#{} Mult when scored",
+          "{s:0.8}Rank changes every round"
+        },
       },
       j_tboj_red_stew = {
         name = "Red Stew",
