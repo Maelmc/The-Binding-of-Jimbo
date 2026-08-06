@@ -2167,6 +2167,7 @@ return {
       tboj_links = "Links",
       tboj_discord = "Discord",
       tboj_wiki = "Wiki",
+      tboj_no_vanilla_joker = "Disable Vanilla Jokers",
     },
     labels = {
       k_tboj_transformation = "Transformation",

@@ -103,7 +103,7 @@ SMODS.Joker {
         if SMODS.has_enhancement(playing_card, 'm_tboj_poop') then poop_tally = poop_tally + 1 end
       end
       return {
-        Xmult = 1 + card.ability.extra.xmult * poop_tally,
+        Xmult = 1 + card.ability.extra.Xmult_mod * poop_tally,
       }
     end
   end,

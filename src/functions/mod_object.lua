@@ -118,3 +118,31 @@ function SMODS.current_mod.custom_card_areas(game)
   game.spiders.T.x = game.flies.T.x + game.flies.T.w + 0.1
   game.spiders.T.y = game.flies.T.y
 end
+
+SMODS.current_mod.config_tab = function()
+    return {
+      n = G.UIT.ROOT,
+      config = {
+        align = "cm",
+        padding = 0.05,
+        colour = G.C.CLEAR,
+      },
+      nodes = {
+        {
+          n = G.UIT.R,
+          config = {
+              align = "cm",
+              padding = 0.25,
+              colour = G.C.CLEAR,
+          },
+          nodes = {
+            create_toggle({
+              label = localize("tboj_no_vanilla_joker"),
+              ref_table = TBOJ.config,
+              ref_value = "no_vanilla_joker",
+            })
+          },
+        }
+      }
+    }
+end

@@ -1,6 +1,6 @@
 TBOJ = {}
 
-tboj_config = SMODS.current_mod.config
+TBOJ.config = SMODS.current_mod.config
 
 print("START OF TBOJ")
 
