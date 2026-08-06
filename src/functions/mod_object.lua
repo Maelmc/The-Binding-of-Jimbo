@@ -23,7 +23,6 @@ local function reset_tboj_card(key, amount, unique_ranks)
       end
       ranks[#ranks+1] = valid_cards[i+rank_diff].base.id
     end
-    print(ranks)
     G.GAME.current_round[key..i].rank = valid_cards[i+rank_diff] and valid_cards[i+rank_diff].base.value or "Ace"
     G.GAME.current_round[key..i].id = valid_cards[i+rank_diff] and valid_cards[i+rank_diff].base.id or 14
 
