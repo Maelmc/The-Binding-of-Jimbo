@@ -157,3 +157,39 @@ TBOJ.Active {
   end,
   attributes = {"hands", "discards", "tboj_guppy", "tboj_devil"}
 }
+
+-- Mom's Purse
+-- Bob's Curse
+
+-- Pageant Boy
+SMODS.Joker {
+  key = "pageant_boy",
+  pos = {x = 5, y = 9 },
+  config = { extra = { dollars = 1 } },
+  loc_vars = function(self, info_queue, card)
+    local king_tally = 0
+    if G.playing_cards then
+      for _, playing_card in ipairs(G.playing_cards) do
+        if playing_card:get_id() == 13 then king_tally = king_tally + 1 end
+      end
+    end
+    return { vars = { card.ability.extra.dollars, card.ability.extra.dollars * king_tally } }
+  end,
+  rarity = 2,
+  cost = 7,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calc_dollar_bonus = function(self, card)
+    local king_tally = 0
+    for _, playing_card in ipairs(G.playing_cards) do
+      if playing_card:get_id() == 13 then king_tally = king_tally + 1 end
+    end
+    return king_tally > 0 and card.ability.extra.dollars * king_tally or nil
+  end,
+  attributes = {"king", "economy", "full_deck", "rank"}
+}
+
+-- Scapular
+-- Speed Ball

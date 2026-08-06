@@ -411,3 +411,33 @@ SMODS.Joker {
 
 -- Stye
 -- Mom's Ring
+
+--[[
+SMODS.Joker {
+  key = "glitch",
+  pos = { x = 0, y = 0 },
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+  end,
+  rarity = 1,
+  cost = 1,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  --no_collection = true,
+  calculate = function(self, card, context)
+  end,
+  in_pool = function (self, args)
+    return false
+  end,
+  set_ability = function(self, card, initial, delay_sprites)
+    if initial then
+      self:set_sprites(card)
+    end
+  end,
+  set_sprites = function (self, card, front)
+    G.GAME.modifiers.tboj_glitch_count = (G.GAME.modifiers.tboj_glitch_count or 0) + 1
+    TBOJ.glitch_apply_merged_sprite(card, "tboj_vanilla_jokers")
+  end
+}]]
