@@ -2111,6 +2111,7 @@ return {
       k_tboj_angel_pack = "Angel Pack",
       k_tboj_spiderfly = "Fly/Spider",
       k_tboj_transformation = "Transformation",
+      k_plus_loot = "Loot",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",

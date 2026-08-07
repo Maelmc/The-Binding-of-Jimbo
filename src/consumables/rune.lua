@@ -71,12 +71,13 @@ SMODS.Consumable {
   can_use = function(self, card)
     local target = TBOJ.leftmost_or_selected_joker()
     if not target or not target.ability then return false end
+    if target.config.center.rarity == "tboj_transformation" then return false end
     local ab = target.ability
     if ab.perishable or ab.rental or ab.eternal or target.debuff then return true end
   end,
   use = function(self, card, area, copier)
     local target = TBOJ.leftmost_or_selected_joker()
-    if target.ability and target.ability.set == "Joker" then
+    if target.ability and target.ability.set == "Joker" and not (target.config.center.rarity == "tboj_transformation") then
       local ab = target.ability
       if ab.perishable or ab.rental or ab.eternal or target.debuff then
         G.E_MANAGER:add_event(Event({
@@ -98,10 +99,12 @@ SMODS.Consumable {
     local ok = false
     for i = 1, #G.jokers.cards do
       if G.jokers.cards[i].ability and G.jokers.cards[i].ability.set == "Joker" then
-        local ab = G.jokers.cards[i].ability
-        if ab.perishable or ab.rental or ab.eternal then
-          ok = true
-          break
+        if not target.config.center.rarity == "tboj_transformation" then
+          local ab = G.jokers.cards[i].ability
+          if ab.perishable or ab.rental or ab.eternal then
+            ok = true
+            break
+          end
         end
       end
     end

@@ -50,6 +50,7 @@ function TBOJ.get_random_key(args)
     and (not (v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag]))
     and ((not v.yes_pool_flag) or G.GAME.pool_flags[v.yes_pool_flag])
     and not G.GAME.banned_keys[v.key] -- not banned
+    and not (v.set == "Joker" and (not v.mod) and TBOJ.config and TBOJ.config.no_vanilla_joker)
     and not v.no_collection
     and (not _rarity or v.rarity == _rarity) then -- right rarity
       local all_attributes = true
