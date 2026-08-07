@@ -98,9 +98,10 @@ SMODS.Consumable {
   in_pool = function(self)
     local ok = false
     for i = 1, #G.jokers.cards do
-      if G.jokers.cards[i].ability and G.jokers.cards[i].ability.set == "Joker" then
+      local target = G.jokers.cards[i]
+      if target.ability and target.ability.set == "Joker" then
         if not target.config.center.rarity == "tboj_transformation" then
-          local ab = G.jokers.cards[i].ability
+          local ab = target.ability
           if ab.perishable or ab.rental or ab.eternal then
             ok = true
             break

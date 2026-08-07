@@ -2092,7 +2092,17 @@ return {
           "{s:0.8}All cards {C:attention,s:0.8}move{s:0.8}, and you now have {C:attention,s:0.8}2{s:0.8} and {C:attention,s:0.8}8{s:0.8}.",
           "{s:0.8}Then the {C:attention,s:0.8}second{s:0.8} card, the {C:attention,s:0.8}8{s:0.8} again, scores."
         }
-      }
+      },
+      tboj_cursed = {
+        name = "Cursed",
+        text = {
+          "Can't be sold",
+          "or destroyed,",
+          "self-destructs",
+          "after {C:attention}#1#{} round#2#",
+          "{C:inactive}({C:attention}#3#{C:inactive} remaining)"
+        }
+      },
     }
   },
   misc = {
@@ -2160,6 +2170,7 @@ return {
       tboj_growing_dot = "Growing...",
       tboj_angry_ex = "Angry!",
       tboj_tamed_ex = "Tamed!",
+      tboj_cursed_ex = "Cursed!",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
@@ -2171,6 +2182,7 @@ return {
     },
     labels = {
       k_tboj_transformation = "Transformation",
+      tboj_cursed = "Cursed",
     },
     poker_hands = {
 

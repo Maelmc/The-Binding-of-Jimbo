@@ -816,3 +816,9 @@ function TBOJ.is_in_collection(card)
   end
   return false
 end
+
+function TBOJ.apply_cursed(card, start, tally)
+  tally = tally or start
+  card:add_sticker("tboj_cursed", true)
+  card.ability.tboj_cursed = {perish_start = start, perish_tally = tally}
+end
