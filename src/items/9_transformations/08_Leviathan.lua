@@ -32,7 +32,7 @@ SMODS.Joker {
               return true
             end
           }))
-          SMODS.calculate_effect({message = localize('k_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
+          SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
         end
       end
     end
@@ -53,7 +53,7 @@ SMODS.Joker {
               return true
             end
           }))
-          SMODS.calculate_effect({message = localize('k_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
+          SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
         end
       end
     end
