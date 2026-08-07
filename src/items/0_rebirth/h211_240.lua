@@ -136,13 +136,13 @@ SMODS.Joker {
 -- Ball of Tar
 -- Stop Watch
 SMODS.Joker {
-  key = "stop_watch", 
+  key = "stop_watch",
   pos = {x = 6, y = 15},
   config = {extra = {}},
   loc_vars = function(self, info_queue, center)
     return {vars = {}}
   end,
-  rarity = 3, 
+  rarity = 3,
   cost = 8,
   atlas = "jokers",
   perishable_compat = true,
@@ -163,7 +163,7 @@ SMODS.Joker {
 
 -- Tiny Planet
 SMODS.Joker {
-  key = "tiny_planet", 
+  key = "tiny_planet",
   pos = {x = 7, y = 15},
   config = {extra = {}},
   loc_vars = function(self, info_queue, center)
@@ -177,8 +177,8 @@ SMODS.Joker {
     end
     return {vars = {_chips, _mult, localize(name, 'poker_hands'),}}
   end,
-  rarity = 1, 
-  cost = 6,
+  rarity = 1,
+  cost = 4,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
@@ -213,14 +213,14 @@ SMODS.Joker {
 -- Infestation 2
 -- E. Coli
 SMODS.Joker {
-  key = "e_coli", 
+  key = "e_coli",
   pos = {x = 10, y = 15},
   config = {extra = {}},
   loc_vars = function(self, info_queue, center)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_tboj_poop
     return {vars = {}}
   end,
-  rarity = 2, 
+  rarity = 2,
   cost = 5,
   atlas = "jokers",
   perishable_compat = true,
