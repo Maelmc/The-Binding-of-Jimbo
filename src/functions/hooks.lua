@@ -254,3 +254,13 @@ function SMODS.calculate_main_scoring(context, scoring_hand)
   end
   TBOJ.Continuum_flag = {check = false}
 end
+
+-- Cursed sticker is eternal
+local smods_is_eternal_ref = SMODS.is_eternal
+function SMODS.is_eternal(card, trigger, ...)
+  if card.ability.tboj_cursed then
+    if not card.config.center.eternal_compat then return false end
+    return true
+  end
+  return smods_is_eternal_ref(card, trigger, ...)
+end

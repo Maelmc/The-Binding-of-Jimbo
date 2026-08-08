@@ -37,8 +37,3 @@ SMODS.Sticker {
     end
   end
 }
-
-local smods_is_eternal_ref = SMODS.is_eternal
-function SMODS.is_eternal(card, trigger, ...)
-  return card.ability.tboj_cursed or smods_is_eternal_ref(card, trigger, ...)
-end

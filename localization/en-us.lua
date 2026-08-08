@@ -320,7 +320,7 @@ return {
           },
           {
             "Create a random {C:dark_edition}Negative{}",
-            "and {C:attention}Perishable{} Joker",
+            "and {C:attention}Cursed #3#{} Joker",
           }
         }
       },
@@ -2098,7 +2098,7 @@ return {
         text = {
           "Can't be sold",
           "or destroyed,",
-          "self-destructs",
+          "{C:red}self-destructs",
           "after {C:attention}#1#{} round#2#",
           "{C:inactive}({C:attention}#3#{C:inactive} remaining)"
         }
