@@ -13,14 +13,16 @@ function TBOJ.leftmost_or_selected_joker()
   return G.jokers.highlighted[1] or G.jokers.cards[1]
 end
 
----@param args? {set?: string, seed?: string, banned_rarities?: table<string>, target_rarities?: table<string|number>, attributes?: string|table<string>}
+---@param args? {set?: string, seed?: string, banned_rarities?: table<string>, target_rarities?: table<string|number>, attributes?: table<string,table<string>>}
 --- Get a random key based on arguments
 function TBOJ.get_random_key(args)
   local set = args.set
   local seed = args.seed
   local banned_rarities = args.banned_rarities
   local target_rarities = args.target_rarities
-  local attributes = args.attributes and (type(args.attributes) ~= "table" and {args.attributes} or args.attributes) or nil
+  local attributes = args.attributes and (type(args.attributes) ~= "table" and {"all", {args.attributes}} or args.attributes) or {}
+  local attribute_mode = attributes[1] or "any"
+  local attribute_list = attributes[2] or nil
   local _rarity = nil
   if set == "Joker" then
     if target_rarities then
@@ -53,16 +55,27 @@ function TBOJ.get_random_key(args)
     and not (v.set == "Joker" and (not v.mod) and TBOJ.config and TBOJ.config.no_vanilla_joker)
     and not v.no_collection
     and (not _rarity or v.rarity == _rarity) then -- right rarity
-      local all_attributes = true
-      if attributes then
-        for _, _attribute in pairs(attributes) do
-          if not TBOJ.center_has_attribute(v,_attribute) then
-            all_attributes = false
-            break
+      local attribute_check
+      if attribute_list then
+        if attribute_mode == "all" then -- must have all attributes
+          attribute_check = true
+          for _, _attribute in pairs(attribute_list) do
+            if not TBOJ.center_has_attribute(v,_attribute) then
+              attribute_check = false
+              break
+            end
+          end
+        else -- must have at least 1 attribute
+          attribute_check = false
+          for _, _attribute in pairs(attribute_list) do
+            if TBOJ.center_has_attribute(v,_attribute) then
+              attribute_check = true
+              break
+            end
           end
         end
       end
-      if all_attributes then
+      if attribute_check then
         if v.enhancement_gate then
           if G.playing_cards then
             for _, vv in pairs(G.playing_cards) do
@@ -642,12 +655,12 @@ function TBOJ.predict_pack(args)
     elseif pack == "Devil" then
       local center
       if i == 1 then
-        center = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_devil", seed = "tboj_devil_pack"}
+        center = TBOJ.get_random_key{set = "tboj_active", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, seed = "tboj_devil_pack"}
       else
         if pseudorandom('soul_devil'..G.GAME.round_resets.ante) > 0.997 then
-          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", target_rarities = {4, "Legendary"}, seed = "tboj_devil_pack"}
+          center = TBOJ.get_random_key{set = "Joker", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, target_rarities = {4, "Legendary"}, seed = "tboj_devil_pack"}
         else
-          center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", seed = "tboj_devil_pack"}
+          center = TBOJ.get_random_key{set = "Joker", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, seed = "tboj_devil_pack"}
         end
       end
 

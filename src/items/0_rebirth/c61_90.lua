@@ -477,7 +477,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil", "prevents_death", "tboj_guppy"}
+  attributes = {"prevents_death", "tboj_guppy"}
 }
 
 -- Lord of the Pit

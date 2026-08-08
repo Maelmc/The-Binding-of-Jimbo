@@ -155,7 +155,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"hands", "discards", "tboj_guppy", "tboj_devil"}
+  attributes = {"hands", "discards", "tboj_guppy"}
 }
 
 -- Mom's Purse
