@@ -38,14 +38,14 @@ SMODS.current_mod.custom_card_areas = function(game)
   if cca then
     cca(game)
   end
-  game.actives = CardArea(
+  game.tboj_actives = CardArea(
     0, CAI.consumeable_H + 0.3,
     CAI.consumeable_W / 2,
     CAI.consumeable_H, 
     {card_limit = 1, type = 'joker', highlight_limit = 1}
   )
-  game.actives.T.x = game.consumeables.T.x + game.consumeables.T.w - game.actives.T.w
-  game.actives.T.y = game.deck.T.y - game.deck.T.h * 2.25
+  game.tboj_actives.T.x = game.consumeables.T.x + game.consumeables.T.w - game.tboj_actives.T.w
+  game.tboj_actives.T.y = game.deck.T.y - game.deck.T.h * 2.25
 end]]
 
 local gigo = Game.init_game_object
@@ -58,8 +58,8 @@ end
 local cfbs = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
   if card.ability.set == "tboj_active" then
-    if #G.actives.cards >= G.actives.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
-      alert_no_space(card, G.actives)
+    if #G.tboj_actives.cards >= G.tboj_actives.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
+      alert_no_space(card, G.tboj_actives)
       return false
     else return true end
   else return cfbs(card) end
@@ -68,7 +68,7 @@ end
 local G_UIDEF_use_and_sell_buttons_ref = G.UIDEF.use_and_sell_buttons
 function G.UIDEF.use_and_sell_buttons(card)
   local buttons = G_UIDEF_use_and_sell_buttons_ref(card)
-  if card.config.center.set == "tboj_active" and (card.area == G.jokers or card.area == G.actives or card.area == G.consumeables or card.area == G.trinkets) then
+  if card.config.center.set == "tboj_active" and (card.area == G.jokers or card.area == G.tboj_actives or card.area == G.consumeables or card.area == G.tboj_trinkets) then
     sell = {n=G.UIT.C, config={align = "cr"}, nodes={
       {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'active_sell', func = 'can_sell_card'}, nodes={
         {n=G.UIT.B, config = {w=0.1,h=0.6}},

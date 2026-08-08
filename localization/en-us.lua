@@ -366,6 +366,14 @@ return {
           "{C:attention}appear again"
         }
       },
+      b_tboj_jacob_esau = {
+        name = "Jacob and Esau Deck",
+        text = {
+          "{C:attention}+#1#{} Active slot",
+          "{C:attention}+#2#{} Trinket slot",
+          "{C:red}#3#{} Joker slot"
+        }
+      },
     },
     Blind = {
       bl_tboj_siren = {
