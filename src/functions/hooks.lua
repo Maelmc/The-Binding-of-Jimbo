@@ -4,7 +4,7 @@ G.FUNCS.can_select_card = function(e)
   local card = e.config.ref_table
   local card_limit = card.ability.card_limit - card.ability.extra_slots_used
   if card.ability.set == 'tboj_active' then
-    if #G.actives.cards < G.actives.config.card_limit + card_limit then
+    if #G.tboj_actives.cards < G.tboj_actives.config.card_limit + card_limit then
       e.config.colour = G.C.GREEN
       e.config.button = 'use_card'
     else
@@ -14,7 +14,7 @@ G.FUNCS.can_select_card = function(e)
     return
   end
   if card.ability.set == 'tboj_trinket' then
-    if #G.trinkets.cards < G.trinkets.config.card_limit + card_limit then
+    if #G.tboj_trinkets.cards < G.tboj_trinkets.config.card_limit + card_limit then
       e.config.colour = G.C.GREEN
       e.config.button = 'use_card'
     else
@@ -253,4 +253,23 @@ function SMODS.calculate_main_scoring(context, scoring_hand)
     cms(context, scoring_hand)
   end
   TBOJ.Continuum_flag = {check = false}
+end
+
+-- Cursed sticker is eternal
+local smods_is_eternal_ref = SMODS.is_eternal
+function SMODS.is_eternal(card, trigger, ...)
+  if card.ability.tboj_cursed then
+    if not card.config.center.eternal_compat then return false end
+    return true
+  end
+  return smods_is_eternal_ref(card, trigger, ...)
+end
+
+-- Starting param for active and trinket slots
+local gsp = get_starting_params
+function get_starting_params()
+  local start = gsp()
+  start.tboj_active_slot = 1
+  start.tboj_trinket_slot = 1
+  return start
 end

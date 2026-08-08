@@ -13,12 +13,12 @@ SMODS.Consumable {
     return {vars = {}}
   end,
   can_use = function(self, card)
-    return G.trinkets and #G.trinkets.highlighted == 1
+    return G.tboj_trinkets and #G.tboj_trinkets.highlighted == 1
   end,
   use = function(self, card, area, copier)
     G.E_MANAGER:add_event(Event({
       func = function() 
-        local target = G.trinkets.highlighted[1]
+        local target = G.tboj_trinkets.highlighted[1]
         target:set_edition("e_negative",true)
         return true 
       end 

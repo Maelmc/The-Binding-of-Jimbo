@@ -104,12 +104,12 @@ end
 
 -- Get the selected active, or leftmost if none are selected
 function TBOJ.leftmost_or_selected_active()
-  return G.actives.highlighted[1] or G.actives.cards[1]
+  return G.tboj_actives.highlighted[1] or G.tboj_actives.cards[1]
 end
 
 -- Charge the active at the end of round
 function TBOJ.eor_charge(card,context)
-  if context.end_of_round and context.cardarea == G.actives then
+  if context.end_of_round and context.cardarea == G.tboj_actives then
     TBOJ.charge_active(card,1)
   end
 end

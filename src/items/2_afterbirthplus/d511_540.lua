@@ -232,22 +232,22 @@ SMODS.Joker {
   add_to_deck = function(self, card, from_debuff)
     local add = card.ability.extra.active_limit
     G.E_MANAGER:add_event(Event({func = function()
-      G.actives.config.card_limit = G.actives.config.card_limit + add
+      G.tboj_actives.config.card_limit = G.tboj_actives.config.card_limit + add
       return true end }))
   end,
   remove_from_deck = function(self, card, from_debuff)
     local remove = card.ability.extra.active_limit
     G.E_MANAGER:add_event(Event({func = function()
-      G.actives.config.card_limit = G.actives.config.card_limit - remove
+      G.tboj_actives.config.card_limit = G.tboj_actives.config.card_limit - remove
 
       G.E_MANAGER:add_event(Event({func = function()
         local not_neg = {}
-        for _, v in pairs(G.actives.cards) do
+        for _, v in pairs(G.tboj_actives.cards) do
           if not v.edition or (v.edition and not v.edition.negative) then
             table.insert(not_neg,v)
           end
         end
-        if #not_neg > 0 and #not_neg > G.actives.config.card_limit then
+        if #not_neg > 0 and #not_neg > G.tboj_actives.config.card_limit then
           local target = pseudorandom_element(not_neg,"schoolbag")
           SMODS.destroy_cards(target, {bypass_eternal = true})
         end

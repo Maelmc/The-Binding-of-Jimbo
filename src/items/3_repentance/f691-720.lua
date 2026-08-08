@@ -114,12 +114,13 @@ TBOJ.Active {
   key = "lemegeton",
   pos = { x = 6, y = 47 },
   cost = 8,
-  config = {extra = {max_charge = 6, curr_charge = 6}},
+  config = {extra = {max_charge = 6, curr_charge = 6, cursed = 5}},
   loc_vars = function(self, info_queue, card)
     if not card.edition or (card.edition and not card.edition.negative) then
       info_queue[#info_queue+1] = G.P_CENTERS.e_negative
     end
-    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_cursed', vars = {card.ability.extra.cursed, "s", card.ability.extra.cursed}}
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.cursed}}
   end,
   calculate = function(self, card, context)
     TBOJ.eor_charge(card,context)
@@ -132,7 +133,8 @@ TBOJ.Active {
       trigger = 'after',
       delay = 0.4,
       func = function()
-        local _card = SMODS.add_card { set = "Joker", edition = "e_negative", stickers = { 'perishable' }, force_stickers = true, key_append = "tboj_lemegeton" }
+        local _card = SMODS.add_card { set = "Joker", edition = "e_negative", force_stickers = true, key_append = "tboj_lemegeton" }
+        TBOJ.apply_cursed(_card, card.ability.extra.cursed)
         SMODS.calculate_effect({message = localize('k_plus_joker'), colour = G.C.BLUE}, _card)
         card:juice_up(0.3, 0.5)
         return true

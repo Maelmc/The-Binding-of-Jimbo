@@ -120,6 +120,13 @@ SMODS.Atlas({
     py = 34
 })
 
+SMODS.Atlas({
+    key = "stickers",
+    path = "stickers.png",
+    px = 71,
+    py = 95
+})
+
 -- Colors
 G.C.TBOJ = {
   FAMILIAR = HEX("E70000"),
@@ -135,6 +142,7 @@ G.C.TBOJ = {
   GUPPY = HEX("636363"),
   BOOK = HEX("6F5146"),
   SPIDER = HEX("557293"),
+  CURSED = HEX("8E54F2"),
 }
 
 local lc = loc_colour

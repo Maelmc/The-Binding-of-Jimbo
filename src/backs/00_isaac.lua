@@ -11,7 +11,7 @@ SMODS.Back {
   apply = function(self)
     G.E_MANAGER:add_event(Event({
       func = function()
-        SMODS.add_card { key = "active_tboj_the_d6", area = G.actives, set = "tboj_active" }
+        SMODS.add_card { key = "active_tboj_the_d6", area = G.tboj_actives, set = "tboj_active" }
         return true
       end
     }))

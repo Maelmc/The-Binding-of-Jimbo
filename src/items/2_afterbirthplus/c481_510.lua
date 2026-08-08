@@ -71,7 +71,7 @@ TBOJ.Active {
 SMODS.Joker {
   key = "greed_gullet",
   pos = {x = 5, y = 33},
-  config = {extra = {every = 100, max = 10}},
+  config = {extra = {every = 50, max = 10}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.every, SMODS.signed(card.ability.extra.max), card.ability.extra.every * card.ability.extra.max}}
   end,
