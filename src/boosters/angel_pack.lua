@@ -46,6 +46,6 @@ SMODS.Booster {
 	end,
   select_card = {
     ['Joker'] = 'jokers',
-    ['tboj_active'] = 'actives',
+    ['tboj_active'] = 'tboj_actives',
   }
 }

@@ -58,16 +58,16 @@ SMODS.Consumable {
     end
     for k, v in ipairs(G.P_CENTER_POOLS.Joker) do
       if v.key == target.config.center.key then
-        for l = k-1, 0, -1 do
+        for l = k-1, 1, -1 do
           local prev = G.P_CENTER_POOLS.Joker[l]
-          if (not prev.no_collection) and (not prev.rarity == "tboj_transformation") then
+          if (not prev.no_collection) and (prev.rarity ~= "tboj_transformation") then
             G.E_MANAGER:add_event(Event({
               trigger = 'after',
               delay = 0.4,
-              func = function() 
+              func = function()
                 TBOJ.reroll(target,prev.key)
-                return true 
-              end 
+                return true
+              end
             }))
             return
           end
