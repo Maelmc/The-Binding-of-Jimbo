@@ -1202,6 +1202,14 @@ return {
           "next card in {C:attention}poker hand",
         },
       },
+      j_tboj_zodiac = {
+        name = "Zodiac",
+        text = {
+          "Create a {C:planet}Planet{} card",
+          "when {C:attention}Blind{} is selected",
+          "{C:inactive}(Must have room)"
+        },
+      },
       j_tboj_marked = {
         name = "Marked",
         text = {
@@ -1418,6 +1426,14 @@ return {
           "{C:white,X:mult}X#1#{} Mult per hand lost,",
           "resets at end of round",
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+        }
+      },
+      j_tboj_orphan_socks = {
+        name = "Orphan Socks",
+        text = {
+          "This Joker gains {C:chips}+#1#{} Chips if",
+          "played hand contains a {C:attention}Pair{}",
+          "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
         }
       },
       j_tboj_eye_of_the_occult = {

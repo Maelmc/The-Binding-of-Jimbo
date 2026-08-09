@@ -1,8 +1,8 @@
 -- Orphan Socks
 SMODS.Joker {
-  key = "orphan socks",
+  key = "orphan_socks",
   pos = {x = 0, y = 38 },
-  config = {extra = {chips = 0, chips_mod = 2}},
+  config = {extra = {chips = 0, chips_mod = 6}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
   end,

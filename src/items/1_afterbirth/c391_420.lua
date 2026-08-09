@@ -1,4 +1,84 @@
+-- Betrayal
+SMODS.Joker {
+  key = "betrayal",
+  pos = {x = 0, y = 26},
+  config = {extra = {triggered = false}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.destroy_card and not context.blueprint and not card.ability.extra.triggered and G.GAME.current_round.hands_played == 0 then
+      local pos = 1
+      for k, v in ipairs(context.scoring_hand) do
+        if v == context.destroy_card then pos = k break end
+      end
+
+      if context.scoring_hand[pos+1] and TBOJ.total_chips(context.destroy_card) < TBOJ.total_chips(context.scoring_hand[pos+1]) then
+        card.ability.extra.triggered = true
+        return {
+          remove = true,
+          message = localize("tboj_betrayal_ex")
+        }
+      end
+    end
+
+    if context.setting_blind and not context.blueprint then card.ability.extra.triggered = false end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_devil", "destroy_card"}
+}
+
 -- Zodiac
+SMODS.Joker {
+  key = "zodiac",
+  pos = {x = 1, y = 26},
+  config = {extra = {triggered = false}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+      G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+      G.E_MANAGER:add_event(Event({
+        func = (function()
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              SMODS.add_card {
+                set = 'Planet',
+                key_append = 'tboj_zodiac' -- Optional, useful for manipulating the random seed and checking the source of the creation in `in_pool`.
+              }
+              G.GAME.consumeable_buffer = 0
+              return true
+            end
+          }))
+          SMODS.calculate_effect({ message = localize('k_plus_planet'), colour = G.C.BLUE },
+            context.blueprint_card or card)
+          return true
+        end)
+      }))
+      return nil, true -- This is for Joker retrigger purposes
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"planet", "generation"}
+}
+
 -- Serpent's Kiss
 -- Marked
 SMODS.Joker {
