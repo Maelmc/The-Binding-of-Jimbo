@@ -1278,6 +1278,15 @@ return {
           "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
         }
       },
+      j_tboj_camo_undies = {
+        name = "Camo Undies",
+        text = {
+          "This Joker gains {C:mult}+#1#{} Mult if",
+          "played hand contains a {C:attention}Two Pair{},",
+          "doubled on {C:attention}first hand{} of round",
+          "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+        }
+      },
       j_tboj_greed_gullet = {
         name = "Greed's Gullet",
         text = {
