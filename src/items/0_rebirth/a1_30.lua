@@ -336,7 +336,7 @@ SMODS.Joker {
         TBOJ.juice_flip_hand(card)
         for i=1, #G.hand.cards do
           G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function() G.hand.cards[i]:change_suit("Hearts");return true end }))
-        end 
+        end
         TBOJ.juice_flip_hand(card, true)
       end
     end
@@ -400,7 +400,7 @@ SMODS.Joker {
             func = (function()
               G.GAME.consumeable_buffer = 0
               play_sound('timpani')
-              SMODS.add_card({ set = 'Loot', key = "c_tboj_bomb" })
+              SMODS.add_card({ set = "tboj_loot", key = "c_tboj_bomb" })
               card:juice_up(0.3, 0.5)
               return true
             end)
@@ -412,7 +412,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"on_sell", "tboj_loot", "generation"}
+  attributes = {"on_sell", "tboj_loot_attribute", "generation"}
 }
 
 -- Transcendence

@@ -1,15 +1,10 @@
+-- Thanks Agarmons for this
 local function load_file(file, load_item)
   if file.init then
     file.init()
   end
   if file.list then
     for _, item in ipairs(file.list) do
-      if file.config_key then
-        item.agar_config_key = file.config_key
-        if not agarmons_config[item.agar_config_key] then
-          item.no_collection = true
-        end
-      end
       load_item(item)
     end
   end

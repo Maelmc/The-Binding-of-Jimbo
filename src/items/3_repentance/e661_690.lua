@@ -71,6 +71,51 @@ SMODS.Joker {
 -- Strawman
 -- Dad's Note
 
+-- C Section
+-- Lil Abaddon
+-- Montezuma's Revenge
+SMODS.Joker {
+  key = "montezuma_revenge",
+  pos = { x = 4, y = 45 },
+  config = {extra = {Xmult_mod = 0.15}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_tboj_poop
+
+    local poop_tally = 0
+    if G.playing_cards then
+      for _, playing_card in ipairs(G.playing_cards) do
+        if SMODS.has_enhancement(playing_card, 'm_tboj_poop') then poop_tally = poop_tally + 1 end
+      end
+    end
+    return { vars = { card.ability.extra.Xmult_mod, 1 + card.ability.extra.Xmult_mod * poop_tally } }
+  end,
+  rarity = 2,
+  cost = 7,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  enhancement_gate = "m_tboj_poop",
+  calculate = function(self, card, context)
+    if context.joker_main then
+      local poop_tally = 0
+      for _, playing_card in ipairs(G.playing_cards) do
+        if SMODS.has_enhancement(playing_card, 'm_tboj_poop') then poop_tally = poop_tally + 1 end
+      end
+      return {
+        Xmult = 1 + card.ability.extra.Xmult_mod * poop_tally,
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_poop", "xmult", "enhancements", "full_deck"},
+}
+
+-- Lil Portal
+-- Worm Friend
+
 -- Soul Locket
 SMODS.Joker {
   key = "soul_locket",
@@ -117,12 +162,12 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel", "tboj_loot", "chips", "mult"}
+  attributes = {"tboj_angel", "tboj_loot_attribute", "chips", "mult"}
 }
 
 -- Friend Fiender
 -- Inner Child
--- Glitch Crown
+-- Glitched Crown
 SMODS.Joker {
   key = "glitched_crown",
   atlas = "jokers",
@@ -148,7 +193,7 @@ SMODS.Joker {
       G.GAME.modifiers.tboj_cycling.seconds = card.ability.extra.every
       G.GAME.modifiers.tboj_cycling.sets["Joker"] = (G.GAME.modifiers.tboj_cycling.sets["Joker"] or 0) + 1
       G.GAME.modifiers.tboj_cycling.sets["tboj_active"] = (G.GAME.modifiers.tboj_cycling.sets["tboj_active"] or 0) + 1
-      
+
     else
       G.GAME.modifiers.tboj_cycling = {
         amount = card.ability.extra.between - 1,

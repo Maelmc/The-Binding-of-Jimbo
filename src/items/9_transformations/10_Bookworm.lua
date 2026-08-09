@@ -16,7 +16,7 @@ SMODS.Joker {
   blueprint_compat = false,
   rental_compat = false,
   calculate = function(self, card, context)
-    if context.repetition and context.cardarea == G.play
+    if context.repetition and (context.cardarea == G.play or context.cardarea == "unscored")
     and SMODS.pseudorandom_probability(card, "tboj_transformation_bookworm", card.ability.extra.num, card.ability.extra.den, "tboj_transformation_bookworm") then
       return {
         repetitions = card.ability.extra.repetitions

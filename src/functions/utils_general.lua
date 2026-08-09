@@ -13,7 +13,8 @@ function TBOJ.leftmost_or_selected_joker()
   return G.jokers.highlighted[1] or G.jokers.cards[1]
 end
 
--- Get a random key following parameters
+---@param args? {set?: string, seed?: string, banned_rarities?: table<string>, target_rarities?: table<string|number>, attributes?: string|table<string>}
+--- Get a random key based on arguments
 function TBOJ.get_random_key(args)
   local set = args.set
   local seed = args.seed
@@ -49,6 +50,7 @@ function TBOJ.get_random_key(args)
     and (not (v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag]))
     and ((not v.yes_pool_flag) or G.GAME.pool_flags[v.yes_pool_flag])
     and not G.GAME.banned_keys[v.key] -- not banned
+    and not (v.set == "Joker" and (not v.mod) and TBOJ.config and TBOJ.config.no_vanilla_joker)
     and not v.no_collection
     and (not _rarity or v.rarity == _rarity) then -- right rarity
       local all_attributes = true
@@ -157,7 +159,7 @@ function TBOJ.juice_flip_cards(cards, source, second)
 end
 
 -- Flip all cards held in hand
-function TBOJ.juice_flip_hand(source, second)
+function TBOJ.juice_flip_hand(source, second, opposite_way)
   local sound = 'card1'
   local base_percent = 1.15
   local extra = nil
@@ -171,14 +173,26 @@ function TBOJ.juice_flip_hand(source, second)
       return true end })
     )
   end
-  for i=1, #G.hand.cards do
-    local percent = nil
-    if second then
-      percent = base_percent + (i-0.999)/(#G.hand.cards-0.998)*0.3
-    else
-      percent = base_percent - (i-0.999)/(#G.hand.cards-0.998)*0.3
+  if opposite_way then
+    for i=1, #G.hand.cards do
+      local percent = nil
+      if second then
+        percent = base_percent + (i-0.999)/(#G.hand.cards-0.998)*0.3
+      else
+        percent = base_percent - (i-0.999)/(#G.hand.cards-0.998)*0.3
+      end
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[(#G.hand.cards-i+1)]:flip();play_sound(sound, percent, extra);G.hand.cards[(#G.hand.cards-i+1)]:juice_up(0.3, 0.3);return true end }))
     end
-    G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound(sound, percent, extra);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))
+  else
+    for i=1, #G.hand.cards do
+      local percent = nil
+      if second then
+        percent = base_percent + (i-0.999)/(#G.hand.cards-0.998)*0.3
+      else
+        percent = base_percent - (i-0.999)/(#G.hand.cards-0.998)*0.3
+      end
+      G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.cards[i]:flip();play_sound(sound, percent, extra);G.hand.cards[i]:juice_up(0.3, 0.3);return true end }))
+    end
   end
   delay(0.2)
 end
@@ -761,4 +775,50 @@ function TBOJ.get_scoring_hand()
   end
 
   return final_scoring_hand
+end
+
+function TBOJ.count_unique_suits(hand)
+  local suits = {}
+  local suit_count = 0
+
+  for k, v in pairs(hand) do
+    for x, y in pairs(SMODS.Suits) do
+      if not SMODS.has_any_suit(v) and v:is_suit(y.key, true) and not suits[y.key] then
+        suits[y.key] = true
+        suit_count = suit_count + 1
+        break
+      end
+    end
+  end
+
+  for k, v in pairs(hand) do
+    for x, y in pairs(SMODS.Suits) do
+      if SMODS.has_any_suit(v) and v:is_suit(y.key) and not suits[y.key] then
+        suits[y.key] = true
+        suit_count = suit_count + 1
+        break
+      end
+    end
+  end
+
+  return suit_count
+end
+
+function TBOJ.is_in_collection(card)
+  if not card.area and G.OVERLAY_MENU then return true end
+  if card.area and card.area.config.collection then return true end
+  if G.your_collection then
+    for k, v in pairs(G.your_collection) do
+      if card.area == v then
+        return true
+      end
+    end
+  end
+  return false
+end
+
+function TBOJ.apply_cursed(card, start, tally)
+  tally = tally or start
+  card:add_sticker("tboj_cursed", true)
+  card.ability.tboj_cursed = {perish_start = start, perish_tally = tally}
 end

@@ -1,4 +1,45 @@
--- 121
+-- Odd Mushroom (Large)
+SMODS.Joker {
+  key = "odd_mushroom_large",
+  atlas = "jokers",
+  pos = {x = 0, y = 8},
+  config = {extra = {Xmult_mod = 0.1, Xmult = 1, odd_requ = 3}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.odd_requ, card.ability.extra.Xmult}}
+  end,
+  rarity = 2,
+  cost = 6,
+  perishable_compat = false,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.before and not context.blueprint then
+      local odd_count = 0
+      for _, v in pairs(context.scoring_hand) do
+        local id = v:get_id()
+        if (id <= 10 and id >= 0 and id % 2 == 1) or (id == 14) then
+          odd_count = odd_count + 1
+        end
+      end
+      if odd_count >= card.ability.extra.odd_requ then
+        SMODS.scale_card(card, {
+          ref_value = 'Xmult',
+          scalar_value = 'Xmult_mod',
+        })
+
+        return nil, true
+      end
+    end
+
+    if context.joker_main then
+      return {
+        xmult = card.ability.extra.Xmult
+      }
+    end
+  end,
+  attributes = {"xmult", "scaling", "rank", "ace", "three", "five", "seven", "nine"}
+}
+
 -- Whore of Babylon
 SMODS.Joker {
   key = "whore_of_babylon",
@@ -116,3 +157,39 @@ TBOJ.Active {
   end,
   attributes = {"hands", "discards", "tboj_guppy", "tboj_devil"}
 }
+
+-- Mom's Purse
+-- Bob's Curse
+
+-- Pageant Boy
+SMODS.Joker {
+  key = "pageant_boy",
+  pos = {x = 5, y = 9 },
+  config = { extra = { dollars = 1 } },
+  loc_vars = function(self, info_queue, card)
+    local king_tally = 0
+    if G.playing_cards then
+      for _, playing_card in ipairs(G.playing_cards) do
+        if playing_card:get_id() == 13 then king_tally = king_tally + 1 end
+      end
+    end
+    return { vars = { card.ability.extra.dollars, card.ability.extra.dollars * king_tally } }
+  end,
+  rarity = 2,
+  cost = 7,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calc_dollar_bonus = function(self, card)
+    local king_tally = 0
+    for _, playing_card in ipairs(G.playing_cards) do
+      if playing_card:get_id() == 13 then king_tally = king_tally + 1 end
+    end
+    return king_tally > 0 and card.ability.extra.dollars * king_tally or nil
+  end,
+  attributes = {"king", "economy", "full_deck", "rank"}
+}
+
+-- Scapular
+-- Speed Ball

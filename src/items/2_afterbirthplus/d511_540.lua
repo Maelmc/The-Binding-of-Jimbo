@@ -76,10 +76,37 @@ SMODS.Joker {
     return TBOJ.in_pool(self, args)
   end,
   attributes = {"tboj_angel", "tboj_devil", "tboj_familiar", "seals", "seven", "modify_card", "discard"},
+  tboj_artist = "Maelmc",
 }
 
 -- Mr. ME!
 -- Angelic Prism
+SMODS.Joker {
+  key = "angelic_prism",
+  pos = {x = 2, y = 35 },
+  config = {extra = {repetitions = 1, unique_suits = 4}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.repetitions, card.ability.extra.unique_suits}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.repetition and context.cardarea == G.play and TBOJ.count_unique_suits(context.full_hand) >= card.ability.extra.unique_suits then
+      return {
+        repetitions = card.ability.extra.repetitions
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_angel", "suit", "retrigger"}
+}
+
 -- Pop!
 -- Death's List
 SMODS.Joker {
@@ -87,7 +114,7 @@ SMODS.Joker {
   pos = {x = 4, y = 35 },
   config = {extra = {chips = 0, chips_mod = 20, contained = false}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips_mod, localize((G.GAME.current_round.tboj_death_list_card or {}).rank or 'Ace', 'ranks'), card.ability.extra.chips}}
+    return {vars = {card.ability.extra.chips_mod, localize((G.GAME.current_round.tboj_death_list_card1 or {}).rank or 'Ace', 'ranks'), card.ability.extra.chips}}
   end,
   rarity = 1,
   cost = 5,
@@ -105,7 +132,7 @@ SMODS.Joker {
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       local contained = false
       for _, v in pairs (context.scoring_hand) do
-        if v:get_id() == G.GAME.current_round.tboj_death_list_card.id then contained = true break end
+        if v:get_id() == G.GAME.current_round.tboj_death_list_card1.id then contained = true break end
       end
       if contained then
         if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -116,7 +143,7 @@ SMODS.Joker {
             func = function()
               G.GAME.consumeable_buffer = 0
               play_sound('timpani')
-              SMODS.add_card({ set = "Loot", key_append = "tboj_death_list" })
+              SMODS.add_card({ set = "tboj_loot", key_append = "tboj_death_list" })
               SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
               return true
             end
@@ -132,7 +159,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil", "scaling", "chips", "rank", "tboj_loot"}
+  attributes = {"tboj_devil", "scaling", "chips", "rank", "tboj_loot_attribute"}
 }
 
 -- Haemolacria
@@ -205,24 +232,24 @@ SMODS.Joker {
   add_to_deck = function(self, card, from_debuff)
     local add = card.ability.extra.active_limit
     G.E_MANAGER:add_event(Event({func = function()
-      G.actives.config.card_limit = G.actives.config.card_limit + add
+      G.tboj_actives.config.card_limit = G.tboj_actives.config.card_limit + add
       return true end }))
   end,
   remove_from_deck = function(self, card, from_debuff)
     local remove = card.ability.extra.active_limit
     G.E_MANAGER:add_event(Event({func = function()
-      G.actives.config.card_limit = G.actives.config.card_limit - remove
+      G.tboj_actives.config.card_limit = G.tboj_actives.config.card_limit - remove
 
       G.E_MANAGER:add_event(Event({func = function()
         local not_neg = {}
-        for _, v in pairs(G.actives.cards) do
+        for _, v in pairs(G.tboj_actives.cards) do
           if not v.edition or (v.edition and not v.edition.negative) then
             table.insert(not_neg,v)
           end
         end
-        if #not_neg > 0 and #not_neg > G.actives.config.card_limit then
+        if #not_neg > 0 and #not_neg > G.tboj_actives.config.card_limit then
           local target = pseudorandom_element(not_neg,"schoolbag")
-          SMODS.destroy_cards(target,true)
+          SMODS.destroy_cards(target, {bypass_eternal = true})
         end
         return true end
       }))

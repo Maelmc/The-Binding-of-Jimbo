@@ -4,7 +4,7 @@ G.FUNCS.can_select_card = function(e)
   local card = e.config.ref_table
   local card_limit = card.ability.card_limit - card.ability.extra_slots_used
   if card.ability.set == 'tboj_active' then
-    if #G.actives.cards < G.actives.config.card_limit + card_limit then
+    if #G.tboj_actives.cards < G.tboj_actives.config.card_limit + card_limit then
       e.config.colour = G.C.GREEN
       e.config.button = 'use_card'
     else
@@ -14,7 +14,7 @@ G.FUNCS.can_select_card = function(e)
     return
   end
   if card.ability.set == 'tboj_trinket' then
-    if #G.trinkets.cards < G.trinkets.config.card_limit + card_limit then
+    if #G.tboj_trinkets.cards < G.tboj_trinkets.config.card_limit + card_limit then
       e.config.colour = G.C.GREEN
       e.config.button = 'use_card'
     else
@@ -30,7 +30,7 @@ end
 local scu = set_consumeable_usage
 function set_consumeable_usage(card)
   if card.config.center_key and card.ability.consumeable then
-    if card.config.center.set == 'Loot' then 
+    if card.config.center.set == 'tboj_loot' then
       G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
         func = function()
@@ -57,7 +57,7 @@ function Card:click()
       SMODS.draw_cards(1)
       self.ability.extra.to_draw = self.ability.extra.to_draw - 1
       if self.ability.extra.to_draw <= 0 then
-        SMODS.destroy_cards(self, true, nil, true)
+        SMODS.destroy_cards(self, {bypass_eternal = true, pinch_anim = true})
         SMODS.calculate_effect({message = localize('k_drank_ex'), colour = G.C.FILTER}, self)
       end
     end
@@ -203,8 +203,8 @@ end
 
 -- Context for when money is earned
 local ed = ease_dollars
-function ease_dollars(mod)
-  ed(mod)
+function ease_dollars(mod, instant)
+  ed(mod, instant)
   SMODS.calculate_context({tboj_money = mod})
 end
 
@@ -253,4 +253,23 @@ function SMODS.calculate_main_scoring(context, scoring_hand)
     cms(context, scoring_hand)
   end
   TBOJ.Continuum_flag = {check = false}
+end
+
+-- Cursed sticker is eternal
+local smods_is_eternal_ref = SMODS.is_eternal
+function SMODS.is_eternal(card, trigger, ...)
+  if card.ability.tboj_cursed then
+    if not card.config.center.eternal_compat then return false end
+    return true
+  end
+  return smods_is_eternal_ref(card, trigger, ...)
+end
+
+-- Starting param for active and trinket slots
+local gsp = get_starting_params
+function get_starting_params()
+  local start = gsp()
+  start.tboj_active_slot = 1
+  start.tboj_trinket_slot = 1
+  return start
 end

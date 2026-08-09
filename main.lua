@@ -1,12 +1,13 @@
 TBOJ = {}
 
-tboj_config = SMODS.current_mod.config
+TBOJ.config = SMODS.current_mod.config
 
 print("START OF TBOJ")
 
 SMODS.current_mod.optional_features = {
   --retrigger_joker = true,
   quantum_enhancements = true,
+  --object_weights = true,
 }
 
 assert(SMODS.load_file("src/assets.lua"))()
@@ -24,6 +25,8 @@ load_directory("src/consumables")
 load_directory("src/enhancements")
 load_directory("src/items")
 load_directory("src/stakes")
+load_directory("src/stickers")
+load_directory("src/tags")
 load_directory("src/trinkets")
 load_directory("src/ui")
 

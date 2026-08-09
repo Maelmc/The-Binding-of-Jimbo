@@ -55,7 +55,7 @@ SMODS.Joker {
       delay = 0.4,
       func = function()
         if card.ability.extra.money - card.ability.extra.m_minus <= 0 then
-          SMODS.destroy_cards(card, true, nil, true)
+          SMODS.destroy_cards(card, {bypass_eternal = true, pinch_anim = true})
           SMODS.calculate_effect({message = localize("k_eaten_ex"), colour = G.C.MONEY}, card)
         else
           card.ability.extra.money = card.ability.extra.money - card.ability.extra.m_minus
@@ -114,12 +114,13 @@ TBOJ.Active {
   key = "lemegeton",
   pos = { x = 6, y = 47 },
   cost = 8,
-  config = {extra = {max_charge = 6, curr_charge = 6}},
+  config = {extra = {max_charge = 6, curr_charge = 6, cursed = 5}},
   loc_vars = function(self, info_queue, card)
     if not card.edition or (card.edition and not card.edition.negative) then
       info_queue[#info_queue+1] = G.P_CENTERS.e_negative
     end
-    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_cursed', vars = {card.ability.extra.cursed, "s", card.ability.extra.cursed}}
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.cursed}}
   end,
   calculate = function(self, card, context)
     TBOJ.eor_charge(card,context)
@@ -132,7 +133,8 @@ TBOJ.Active {
       trigger = 'after',
       delay = 0.4,
       func = function()
-        local _card = SMODS.add_card { set = "Joker", edition = "e_negative", stickers = { 'perishable' }, force_stickers = true, key_append = "tboj_lemegeton" }
+        local _card = SMODS.add_card { set = "Joker", edition = "e_negative", force_stickers = true, key_append = "tboj_lemegeton" }
+        TBOJ.apply_cursed(_card, card.ability.extra.cursed)
         SMODS.calculate_effect({message = localize('k_plus_joker'), colour = G.C.BLUE}, _card)
         card:juice_up(0.3, 0.5)
         return true
@@ -161,7 +163,7 @@ SMODS.Joker {
   rarity = 2,
   cost = 5,
   atlas = "jokers",
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = false,
   blueprint_compat = false,
   calculate = function(self, card, context)
@@ -319,7 +321,7 @@ SMODS.Joker {
         local _c = context.other_card
         G.E_MANAGER:add_event(Event({
           func = function()
-            SMODS.destroy_cards(_c,true)
+            SMODS.destroy_cards(_c, {bypass_eternal = true})
             return true
           end
         }))
@@ -384,7 +386,7 @@ SMODS.Joker {
   rarity = 2,
   cost = 6,
   atlas = "jokers",
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
@@ -411,3 +413,33 @@ SMODS.Joker {
 
 -- Stye
 -- Mom's Ring
+
+--[[
+SMODS.Joker {
+  key = "glitch",
+  pos = { x = 0, y = 0 },
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+  end,
+  rarity = 1,
+  cost = 1,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  --no_collection = true,
+  calculate = function(self, card, context)
+  end,
+  in_pool = function (self, args)
+    return false
+  end,
+  set_ability = function(self, card, initial, delay_sprites)
+    if initial then
+      self:set_sprites(card)
+    end
+  end,
+  set_sprites = function (self, card, front)
+    G.GAME.modifiers.tboj_glitch_count = (G.GAME.modifiers.tboj_glitch_count or 0) + 1
+    TBOJ.glitch_apply_merged_sprite(card, "tboj_vanilla_jokers")
+  end
+}]]

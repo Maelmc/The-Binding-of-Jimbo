@@ -32,7 +32,7 @@ TBOJ.Spiderfly {
     if context.joker_main then
       G.E_MANAGER:add_event(Event({
         func = function()
-          SMODS.destroy_cards(card,true)
+          SMODS.destroy_cards(card, {bypass_eternal = true})
           return true
         end
       }))
@@ -63,7 +63,7 @@ TBOJ.Spiderfly {
     if context.joker_main then
       G.E_MANAGER:add_event(Event({
         func = function()
-          SMODS.destroy_cards(card,true)
+          SMODS.destroy_cards(card, {bypass_eternal = true})
           return true
         end
       }))
@@ -108,7 +108,7 @@ G.FUNCS.check_for_buy_space = function(card)
   else return cfbs(card) end
 end
 
-local G_UIDEF_use_and_sell_buttons_ref = G.UIDEF.use_and_sell_buttons
+--[[local G_UIDEF_use_and_sell_buttons_ref = G.UIDEF.use_and_sell_buttons
 function G.UIDEF.use_and_sell_buttons(card)
   local buttons = G_UIDEF_use_and_sell_buttons_ref(card)
   if (card.area == G.spiders or card.area == G.flies) and card.config.center.set == "tboj_spiderfly" then
@@ -129,4 +129,4 @@ function G.UIDEF.use_and_sell_buttons(card)
     }}
   end
   return buttons
-end
+end]]

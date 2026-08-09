@@ -64,8 +64,8 @@ SMODS.Joker {
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.money}}
   end,
-  rarity = 3,
-  cost = 8,
+  rarity = 1,
+  cost = 5,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
@@ -219,7 +219,7 @@ SMODS.Joker {
         if v.config.center.key == "j_tboj_cube_of_meat" and v ~= card and v.ability.extra.stage < 4 then
           v.ability.extra.stage = v.ability.extra.stage + 1
           self:set_sprites(v)
-          SMODS.destroy_cards(card,true)
+          SMODS.destroy_cards(card,{bypass_eternal = true})
           SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, v)
           return
         end
@@ -230,7 +230,9 @@ SMODS.Joker {
     return true, {allow_duplicates = true}
   end,
   set_sprites = function(self,card,front)
-    card.children.center:set_sprite_pos({x = (card.ability and card.ability.extra and card.ability.extra.stage or 1) - 1, y = 0})
+    if not (TBOJ.is_in_collection(card) and not card.discovered) then
+      card.children.center:set_sprite_pos({x = (card.ability and card.ability.extra and card.ability.extra.stage or 1) - 1, y = 0})
+    end
   end,
   attributes = {"tboj_familiar", "mult", "xmult"}
 }
@@ -345,7 +347,7 @@ TBOJ.Active {
             G.E_MANAGER:add_event(Event({
               func = (function()
                 play_sound('timpani')
-                SMODS.add_card({ set = 'Loot', key = "c_tboj_soul_heart" })
+                SMODS.add_card({ set = "tboj_loot", key = "c_tboj_soul_heart" })
                 card:juice_up(0.3, 0.5)
                 G.GAME.consumeable_buffer = 0
                 return true
@@ -362,7 +364,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_angel", "tboj_book", "tboj_loot", "generation"}
+  attributes = {"tboj_angel", "tboj_book", "tboj_loot_attribute", "generation"}
 }
 
 -- The Mark
@@ -457,7 +459,7 @@ SMODS.Joker {
             G.hand_text_area.game_chips:juice_up()
             play_sound('tarot1')
             if card.ability.extra.remaining == 1 then
-              SMODS.destroy_cards(card,true)
+              SMODS.destroy_cards(card,{bypass_eternal = true})
             else
               card.ability.extra.remaining = card.ability.extra.remaining - 1
             end

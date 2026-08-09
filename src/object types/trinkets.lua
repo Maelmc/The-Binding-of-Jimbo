@@ -38,17 +38,17 @@ end
 local cfbs = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
   if card.ability.set == "tboj_trinket" then
-    if #G.trinkets.cards >= G.trinkets.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
-      alert_no_space(card, G.trinkets)
+    if #G.tboj_trinkets.cards >= G.tboj_trinkets.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
+      alert_no_space(card, G.tboj_trinkets)
       return false
     else return true end
   else return cfbs(card) end
 end
 
-local G_UIDEF_use_and_sell_buttons_ref = G.UIDEF.use_and_sell_buttons
+--[[local G_UIDEF_use_and_sell_buttons_ref = G.UIDEF.use_and_sell_buttons
 function G.UIDEF.use_and_sell_buttons(card)
   local buttons = G_UIDEF_use_and_sell_buttons_ref(card)
-  if card.area == G.trinkets and card.config.center.set == "tboj_trinket" then
+  if card.area == G.tboj_trinkets then
     local sell = {n=G.UIT.C, config={align = "cr"}, nodes={
       {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'active_sell', func = 'can_sell_card'}, nodes={
         {n=G.UIT.B, config = {w=0.1,h=0.6}},
@@ -79,4 +79,4 @@ function G.UIDEF.use_and_sell_buttons(card)
     }}
   end
   return buttons
-end
+end]]

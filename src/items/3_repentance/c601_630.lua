@@ -74,7 +74,7 @@ SMODS.Joker {
 
     if context.after and not context.blueprint then
       if card.ability.extra.mult - card.ability.extra.mult_mod <= 0 then
-        SMODS.destroy_cards(card, nil, nil, true)
+        SMODS.destroy_cards(card, {bypass_eternal = true, pinch_anim = true})
         return {
           message = localize('k_drank_ex'),
           colour = G.C.MULT
@@ -127,7 +127,7 @@ TBOJ.Active {
     for _, v in pairs(G.jokers.cards) do
       G.E_MANAGER:add_event(Event({
         func = (function()
-          SMODS.destroy_cards(v,true)
+          SMODS.destroy_cards(v, {bypass_eternal = true})
           add_tag(Tag('tag_buffoon'))
           play_sound('generic1', 0.9 + math.random() * 0.1, 0.8)
           play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)

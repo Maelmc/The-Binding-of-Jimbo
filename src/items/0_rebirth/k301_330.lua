@@ -24,7 +24,7 @@ SMODS.Joker {
             G.hand_text_area.game_chips:juice_up()
             play_sound('tarot1')
             TBOJ.change_deck("b_tboj_judas",true)
-            SMODS.destroy_cards(card,true)
+            SMODS.destroy_cards(card,{bypass_eternal = true})
             return true
         end
         }))

@@ -18,3 +18,8 @@ SMODS.Back {
     end
   end
 }
+
+TBOJ.add_remove_deck("b_tboj_keeper", function()
+  G.GAME.round_resets.hands = G.GAME.round_resets.hands + 1
+  ease_hands_played(1)
+end)

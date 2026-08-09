@@ -49,7 +49,7 @@ SMODS.Joker {
   rarity = 2,
   cost = 6,
   atlas = "jokers",
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
@@ -173,7 +173,7 @@ SMODS.Joker {
   rarity = 2,
   cost = 7,
   atlas = "jokers",
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
@@ -265,7 +265,7 @@ SMODS.Joker {
         card.ability.extra.current = card.ability.extra.current + 1
         if card.ability.extra.current == card.ability.extra.every then
           card.ability.extra.current = 0
-          local _card = SMODS.add_card({ set = 'Loot', key = "c_tboj_bomb", edition = 'e_negative' })
+          local _card = SMODS.add_card({ set = "tboj_loot", key = "c_tboj_bomb", edition = 'e_negative' })
           _card.states.visible = nil
           _card.ability.extra.fused = true
           G.E_MANAGER:add_event(Event({
@@ -285,7 +285,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_poop", "enhancements", "generation", "tboj_loot", "edition"},
+  attributes = {"tboj_poop", "enhancements", "generation", "tboj_loot_attribute", "edition"},
 }
 
 -- Pupula Duplex
@@ -309,12 +309,13 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.pre_splash then
-      local _card = copy_card(G.play.cards[1])
+      local _card = SMODS.copy_card(G.play.cards[1], {area = G.play})
       _card.seraphim_target = true
       _card.states.visible = false
-      _card:add_to_deck()
-      G.deck.config.card_limit = G.deck.config.card_limit + 1
-      G.play:emplace(_card)
+      --_card:add_to_deck()
+      --G.deck.config.card_limit = G.deck.config.card_limit + 1
+      --G.play:emplace(_card)
+      --SMODS.add_to_deck(_card, {area = G.play})
       G.E_MANAGER:add_event(Event({
         func = function()
           _card:start_materialize()

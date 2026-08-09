@@ -44,6 +44,32 @@ SMODS.Joker {
 }
 
 -- Little C.H.A.D.
+SMODS.Joker {
+  key = "little_chad",
+  pos = { x = 5, y = 6 },
+  config = {extra = {mult_mod = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and context.other_card:is_suit("Hearts") then
+      return {
+        mult = card.ability.extra.mult_mod + card.ability.extra.mult_mod * G.GAME.current_round.hands_left
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "mult", "hearts", "hands", "suit"}
+}
+
 -- The Book of Sin
 TBOJ.Active {
   key = "the_book_of_sin",
@@ -67,7 +93,7 @@ TBOJ.Active {
       func = function()
         G.GAME.consumeable_buffer = 0
         play_sound('timpani')
-        SMODS.add_card({ set = 'Loot', key_append = "tboj_the_book_of_sin" })
+        SMODS.add_card({ set = "tboj_loot", key_append = "tboj_the_book_of_sin" })
         SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
         return true
       end
@@ -79,7 +105,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_book", "tboj_devil", "tboj_loot", "generation"}
+  attributes = {"tboj_book", "tboj_devil", "tboj_loot_attribute", "generation"}
 }
 
 -- The Relic
@@ -106,7 +132,7 @@ SMODS.Joker {
             G.E_MANAGER:add_event(Event({
               func = (function()
                 play_sound('timpani')
-                SMODS.add_card({ set = 'Loot', key = "c_tboj_soul_heart" })
+                SMODS.add_card({ set = "tboj_loot", key = "c_tboj_soul_heart" })
                 card:juice_up(0.3, 0.5)
                 G.GAME.consumeable_buffer = 0
                 return true
@@ -122,11 +148,64 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel", "tboj_familiar", "generation", "tboj_loot"}
+  attributes = {"tboj_angel", "tboj_familiar", "generation", "tboj_loot_attribute"}
 }
 
 -- Little Gish
+SMODS.Joker {
+  key = "little_gish",
+  pos = {x = 8, y = 6},
+  config = {extra = {mult_mod = 2, chips_mod = 8}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.chips_mod}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and context.other_card:is_suit("Spades") then
+      return {
+        mult = card.ability.extra.mult_mod,
+        chips = card.ability.extra.chips_mod
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "mult", "suit", "spades"}
+}
+
 -- Little Steven
+SMODS.Joker {
+  key = "little_steven",
+  pos = {x = 9, y = 6},
+  config = {extra = {mult = 10}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 3,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main and #context.full_hand > #context.scoring_hand then
+      return {
+        mult = card.ability.extra.mult,
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"mult", "tboj_familiar"}
+}
+
 -- The Halo 
 SMODS.Joker {
   key = "the_halo",
@@ -345,5 +424,39 @@ SMODS.Joker {
   attributes = {"tboj_devil", "xmult"}
 }
 
--- 119
--- 120
+-- Blood Bag
+-- Odd Mushroom (Thin)
+SMODS.Joker {
+  key = "odd_mushroom_thin",
+  atlas = "jokers",
+  pos = {x = 14, y = 7},
+  config = {extra = {chips_mod = 3, chips = 0}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+  end,
+  rarity = 2,
+  cost = 6,
+  perishable_compat = false,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and not context.blueprint then
+      local id = context.other_card:get_id()
+      if (id <= 10 and id >= 0 and id % 2 == 1) or (id == 14) then
+        SMODS.scale_card(card, {
+          ref_value = 'chips',
+          scalar_value = 'chips_mod',
+        })
+
+        return nil, true
+      end
+    end
+
+    if context.joker_main then
+      return {
+        chips = card.ability.extra.chips
+      }
+    end
+  end,
+  attributes = {"chips", "scaling", "rank", "ace", "three", "five", "seven", "nine"}
+}

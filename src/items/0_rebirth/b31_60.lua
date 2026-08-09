@@ -193,7 +193,7 @@ SMODS.Joker {
 -- Cupid's Arrow
 -- Shoot da Whoop!
 -- Steven
-SMODS.Joker {
+--[[SMODS.Joker {
   key = "steven",
   pos = {x = 4, y = 3},
   config = {extra = {mult = 15}},
@@ -217,7 +217,7 @@ SMODS.Joker {
     return TBOJ.in_pool(self, args)
   end,
   attributes = {"mult"}
-}
+}]]
 
 -- Pentagram
 SMODS.Joker {

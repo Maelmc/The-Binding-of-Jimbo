@@ -10,7 +10,7 @@ target = 'functions/button_callbacks.lua'
 pattern = 'if c1.ability.consumeable then'
 position = 'at'
 payload = '''if c1.ability.set == "tboj_trinket" then
-  G.trinkets:emplace(c1)
+  G.tboj_trinkets:emplace(c1)
 elseif c1.ability.consumeable then
 '''
 match_indent = true
@@ -53,8 +53,8 @@ target = '=[SMODS _ "src/utils.lua"]'
 pattern = "-- TARGET: add your own CardAreas for joker evaluation"
 position = "after"
 payload = '''
-if G.trinkets and G.trinkets.cards then
-    t[#t+1] = G.trinkets
+if G.tboj_trinkets and G.tboj_trinkets.cards then
+    t[#t+1] = G.tboj_trinkets
 end
 '''
 match_indent = true
@@ -67,7 +67,7 @@ pattern = "elseif _card.ability.consumeable then"
 position = "before"
 payload = '''
 elseif _card.ability.set == "tboj_trinket" then
-  _area = G.trinkets
+  _area = G.tboj_trinkets
 '''
 match_indent = true
 
@@ -108,7 +108,7 @@ target = 'card.lua'
 pattern = '''if not self.bypass_lock and self.config.center.unlocked ~= false and'''
 position = 'before'
 payload = '''if not self.bypass_lock and self.config.center.unlocked ~= false and (self.ability.set == 'tboj_trinket') and
-not self.config.center.discovered and ((self.area ~= G.trinkets and self.area) or not self.area) then
+not self.config.center.discovered and ((self.area ~= G.tboj_trinkets and self.area) or not self.area) then
   card_type = 'Undiscovered'
 end'''
 match_indent = true

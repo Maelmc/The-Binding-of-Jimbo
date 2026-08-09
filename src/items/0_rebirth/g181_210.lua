@@ -131,10 +131,10 @@ SMODS.Joker {
 SMODS.Joker {
   key = "iron_bar",
   pos = {x = 5, y = 13},
-  config = {extra = {Xmult_mult = 1.5}},
+  config = {extra = {Xmult_multi = 1.5}},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_steel
-    return {vars = {card.ability.extra.Xmult_mult}}
+    return {vars = {card.ability.extra.Xmult_multi}}
   end,
   rarity = 2,
   cost = 7,

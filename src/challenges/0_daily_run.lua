@@ -10,7 +10,7 @@ SMODS.Challenge {
   apply = function (self)
     G.E_MANAGER:add_event(Event({
       func = function()
-        SMODS.add_card { area = G.actives, set = "tboj_active" }
+        SMODS.add_card { area = G.tboj_actives, set = "tboj_active" }
         SMODS.add_card { area = G.jokers, set = "Joker" }
         return true
       end
