@@ -862,6 +862,14 @@ return {
           "{C:inactive}(Must have room)",
         }
       },
+      j_tboj_dead_bird = {
+        name = "Dead Bird",
+        text = {
+          "{C:mult}+#1#{} Mult after",
+          "{C:attention}first{} hand",
+          "of round"
+        }
+      },
       j_tboj_brimstone = {
         name = "Brimstone",
         text = {

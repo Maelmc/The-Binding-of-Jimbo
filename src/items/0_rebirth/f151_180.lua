@@ -9,7 +9,7 @@ SMODS.Joker {
     return {vars = {card.ability.extra.mult}}
   end,
   rarity = 1,
-  cost = 5,
+  cost = 4,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
