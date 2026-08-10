@@ -393,8 +393,34 @@ SMODS.Joker {
   attributes = {"tboj_devil", "generation", "spectral", "rank", "destroy_card"}
 }
 
--- 116
--- 117
+-- 9 Volt
+-- Dead Bird
+SMODS.Joker {
+  key = "dead_bird",
+  pos = {x = 11, y = 7},
+  config = {extra = {mult = 12}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main and G.GAME.current_round.hands_played ~= 0 then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"hands", "mult", "tboj_familiar"}
+}
+
 -- Brimstone
 SMODS.Joker {
   key = "brimstone",

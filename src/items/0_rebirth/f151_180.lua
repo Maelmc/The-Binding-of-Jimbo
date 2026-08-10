@@ -1,3 +1,32 @@
+-- Technology 2
+-- Mutant Spider
+-- Chemical Peel
+SMODS.Joker {
+  key = "chemical_peel",
+  pos = {x = 3, y = 10},
+  config = {extra = {mult = 15}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 4,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.joker_main and G.GAME.current_round.hands_left % 2 == 1 then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"hands", "mult"}
+}
+
 -- The Peeper
 SMODS.Joker {
   key = "the_peeper",

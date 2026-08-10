@@ -862,6 +862,14 @@ return {
           "{C:inactive}(Must have room)",
         }
       },
+      j_tboj_dead_bird = {
+        name = "Dead Bird",
+        text = {
+          "{C:mult}+#1#{} Mult after",
+          "{C:attention}first{} hand",
+          "of round"
+        }
+      },
       j_tboj_brimstone = {
         name = "Brimstone",
         text = {
@@ -924,6 +932,14 @@ return {
           "{C:attention}King{} in your {C:attention}full deck",
           "at end of round",
           "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
+        }
+      },
+      j_tboj_chemical_peel = {
+        name = "Chemical Peel",
+        text = {
+          "{C:mult}+#1#{} Mult when",
+          "amount of remaining",
+          "hands is {C:attention}odd"
         }
       },
       j_tboj_the_peeper = {
@@ -1202,6 +1218,14 @@ return {
           "next card in {C:attention}poker hand",
         },
       },
+      j_tboj_zodiac = {
+        name = "Zodiac",
+        text = {
+          "Create a {C:planet}Planet{} card",
+          "when {C:attention}Blind{} is selected",
+          "{C:inactive}(Must have room)"
+        },
+      },
       j_tboj_marked = {
         name = "Marked",
         text = {
@@ -1276,6 +1300,15 @@ return {
           "for each non-{C:clubs}Clubs{}",
           "scored this round",
           "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+        }
+      },
+      j_tboj_camo_undies = {
+        name = "Camo Undies",
+        text = {
+          "This Joker gains {C:mult}+#1#{} Mult if",
+          "played hand contains a {C:attention}Two Pair{},",
+          "doubled on {C:attention}first hand{} of round",
+          "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
         }
       },
       j_tboj_greed_gullet = {
@@ -1409,6 +1442,14 @@ return {
           "{C:white,X:mult}X#1#{} Mult per hand lost,",
           "resets at end of round",
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+        }
+      },
+      j_tboj_orphan_socks = {
+        name = "Orphan Socks",
+        text = {
+          "This Joker gains {C:chips}+#1#{} Chips if",
+          "played hand contains a {C:attention}Pair{}",
+          "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
         }
       },
       j_tboj_eye_of_the_occult = {

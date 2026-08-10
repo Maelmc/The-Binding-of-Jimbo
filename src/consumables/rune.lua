@@ -100,7 +100,7 @@ SMODS.Consumable {
     for i = 1, #G.jokers.cards do
       local target = G.jokers.cards[i]
       if target.ability and target.ability.set == "Joker" then
-        if not target.config.center.rarity == "tboj_transformation" then
+        if target.config.center.rarity ~= "tboj_transformation" then
           local ab = target.ability
           if ab.perishable or ab.rental or ab.eternal then
             ok = true
@@ -216,6 +216,48 @@ SMODS.Consumable {
         end,
       }))
     end
+    delay(0.6)
+  end,
+  tboj_rune = true,
+}
+]]
+
+--[[
+SMODS.Consumable {
+  key = "soul_of_eve",
+  set = "tboj_loot",
+  pos = { x = 4, y = 1 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  weight = soul_weight,
+  config = { extra = {amount = 30}},
+  loc_vars = function(self, info_queue, card)
+  end,
+  can_use = function(self, card)
+    return true
+  end,
+  use = function(self, card, area, copier)
+    for i = 1, card.ability.extra.amount do
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.4,
+        func = function()
+          play_sound('timpani')
+          local _bird = SMODS.add_card({ set = 'Joker', key = "j_tboj_dead_bird", edition = "e_negative" })
+          TBOJ.apply_cursed(_bird, 1)
+          return true
+        end
+      }))
+    end
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.4,
+        func = function()
+          card:juice_up(0.3, 0.5)
+          return true
+        end
+      }))
     delay(0.6)
   end,
   tboj_rune = true,

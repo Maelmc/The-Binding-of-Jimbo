@@ -1,4 +1,36 @@
 -- Orphan Socks
+SMODS.Joker {
+  key = "orphan_socks",
+  pos = {x = 0, y = 38 },
+  config = {extra = {chips = 0, chips_mod = 6}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = false,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.before and not context.blueprint and next(context.poker_hands['Pair']) then
+      SMODS.scale_card(card, {
+        ref_value = 'chips',
+        scalar_value = 'chips_mod',
+      })
+      return nil, true
+    end
+    if context.joker_main then
+      return {
+        chips = card.ability.extra.chips
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"chips", "hand_type", "scaling"},
+}
 
 -- Eye of the Occult
 SMODS.Joker {
