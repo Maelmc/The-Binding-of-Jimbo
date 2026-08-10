@@ -48,14 +48,14 @@ function TBOJ.get_random_key(args)
   local available = 0
   for _, v in pairs(G.P_CENTERS) do
     if v.set and v.set == set
-    and (not (type(v.in_pool) == 'function') or v:in_pool()) -- in pool
+    and (not v.in_pool or (type(v.in_pool) == 'function' and v:in_pool())) -- in pool
     and (not (v.no_pool_flag and G.GAME.pool_flags[v.no_pool_flag]))
     and ((not v.yes_pool_flag) or G.GAME.pool_flags[v.yes_pool_flag])
-    and not G.GAME.banned_keys[v.key] -- not banned
-    and not (v.set == "Joker" and (not v.mod) and TBOJ.config and TBOJ.config.no_vanilla_joker)
-    and not v.no_collection
+    and (not G.GAME.banned_keys[v.key]) -- not banned
+    and (set ~= "Joker" or not (not v.mod and TBOJ.config and TBOJ.config.no_vanilla_joker)) -- exclude vanilla
+    and (not v.no_collection)
     and (not _rarity or v.rarity == _rarity) then -- right rarity
-      local attribute_check
+      local attribute_check = true
       if attribute_list then
         if attribute_mode == "all" then -- must have all attributes
           attribute_check = true
