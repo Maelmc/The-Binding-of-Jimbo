@@ -926,6 +926,14 @@ return {
           "{C:inactive}(Currently {C:money}$#2#{C:inactive})"
         }
       },
+      j_tboj_chemical_peel = {
+        name = "Chemical Peel",
+        text = {
+          "{C:mult}+#1#{} Mult when",
+          "amount of remaining",
+          "hands is {C:attention}odd"
+        }
+      },
       j_tboj_the_peeper = {
         name = "The Peeper",
         text = {
