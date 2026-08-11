@@ -2170,6 +2170,8 @@ return {
       k_tboj_angel_pack = "Angel Pack",
       k_tboj_spiderfly = "Fly/Spider",
       k_tboj_transformation = "Transformation",
+      k_tboj_active_stickers = "Active Stickers",
+      k_tboj_trinket_stickers = "Trinket Stickers",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",
