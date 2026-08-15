@@ -82,7 +82,7 @@ TBOJ.Trinket {
       card.ability.extra.triggered = false
     end
   end,
-  attributes = {"enhancement"}
+  attributes = {"enhancements"}
 }
 
 -- Kid's Drawing

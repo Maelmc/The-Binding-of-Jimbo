@@ -1397,6 +1397,15 @@ return {
           "{C:white,X:red}X#1#{} Mult when scored"
         }
       },
+      j_tboj_brittle_bones = {
+          name = "Brittle Bones",
+          text = {
+            "This Joker gains {C:chips}+#1#{} Chips",
+            "for every {C:attention}Bone Card",
+            "that is destroyed",
+            "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+        },
+      },
       j_tboj_blood_puppy = {
         name = "Blood Puppy",
         text = {

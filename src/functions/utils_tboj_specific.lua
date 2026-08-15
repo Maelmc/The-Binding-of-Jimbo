@@ -253,3 +253,57 @@ function TBOJ.ease_dollars(mod, instant)
         tboj_from_counterfeit = true,
     })
 end
+
+function Card:tboj_bone_break()
+  if self.getting_sliced and not (self.ability.set == 'Default' or self.ability.set == 'Enhanced') then
+    local flags = SMODS.calculate_context({joker_type_destroyed = true, card = self})
+    if flags.no_destroy then self.getting_sliced = nil; return false end
+  end
+  local dissolve_time = 0.7
+  self.dissolve = 0
+  self.dissolve_colours = {{1,1,1,0.8}}
+  self:juice_up()
+  local childParts = Particles(0, 0, 0,0, {
+      timer_type = 'TOTAL',
+      timer = 0.007*dissolve_time,
+      scale = 0.3,
+      speed = 4,
+      lifespan = 0.5*dissolve_time,
+      attach = self,
+      colours = self.dissolve_colours,
+      fill = true
+  })
+  G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      blockable = false,
+      delay =  0.5*dissolve_time,
+      func = (function() childParts:fade(0.15*dissolve_time) return true end)
+  }))
+  G.E_MANAGER:add_event(Event({
+      blockable = false,
+      func = (function()
+              play_sound('tboj_bone_break_0'..math.random(1, 3), math.random()*0.2 + 0.9,0.5)
+              play_sound('generic1', math.random()*0.2 + 0.9,0.5)
+          return true end)
+  }))
+  G.E_MANAGER:add_event(Event({
+      trigger = 'ease',
+      blockable = false,
+      ref_table = self,
+      ref_value = 'dissolve',
+      ease_to = 1,
+      delay =  0.5*dissolve_time,
+      func = (function(t) return t end)
+  }))
+  G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      blockable = false,
+      delay =  0.55*dissolve_time,
+      func = (function() self:remove() return true end)
+  }))
+  G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      blockable = false,
+      delay =  0.51*dissolve_time,
+  }))
+end
