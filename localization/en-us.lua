@@ -521,6 +521,14 @@ return {
           "and {C:mult}Mult{} when scored"
         },
       },
+      m_tboj_bone = {
+        name="Bone Card",
+        text={
+          "{C:chips}+#1#{} Chips",
+          "{C:green}#2# in #3#{} chance to",
+          "destroy card",
+        },
+      },
     },
     Joker = {
       -- fixing vanilla localizations to be accurate with retriggers only being applied to scoring cards
@@ -1689,6 +1697,14 @@ return {
           "Enhances {C:attention}#1#",
           "selected cards to",
           "{C:attention}Poop Cards",
+        },
+      },
+      c_tboj_bone_heart = {
+        name = "Bone Heart",
+        text = {
+          "Enhances {C:attention}#1#",
+          "selected cards to",
+          "{C:attention}Bone Cards",
         },
       },
 

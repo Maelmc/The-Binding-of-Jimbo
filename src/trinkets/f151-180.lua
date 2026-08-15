@@ -47,7 +47,7 @@ TBOJ.Trinket {
 -- Temporary Tattoo
 TBOJ.Trinket {
   key = "temporary_tattoo",
-  pos = { x = 1, y = 11 },
+  pos = { x = 11, y = 11 },
   cost = 5,
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
