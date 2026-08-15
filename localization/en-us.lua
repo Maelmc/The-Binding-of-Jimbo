@@ -2029,6 +2029,14 @@ return {
           "appear in {C:attention}Celestial Packs"
         }
       },
+      trinket_tboj_hollow_heart = {
+        name = "Hollow Heart",
+        text = {
+          "Enhance {C:attention}first unenhanced",
+          "drawn card each round",
+          "into a {C:attention}Bone Card"
+        }
+      },
       trinket_tboj_temporary_tattoo = {
         name = "Temporary Tattoo",
         text = {
