@@ -1,0 +1,79 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Add trinkets and actives to progress UI
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "for _, v in ipairs(protos) do"
+position = 'before'
+match_indent = true
+payload = '''
+if _profile_progress.tboj_active_stickers then
+  protos[#protos+1] = "tboj_active_stickers"
+  _profile_progress.overall_tally = _profile_progress.overall_tally + _profile_progress.tboj_active_stickers.tally/_profile_progress.tboj_active_stickers.of
+  _profile_progress.overall_of = _profile_progress.overall_of + 1
+end
+
+if _profile_progress.tboj_trinket_stickers then
+  protos[#protos+1] = "tboj_trinket_stickers"
+  _profile_progress.overall_tally = _profile_progress.overall_tally + _profile_progress.tboj_trinket_stickers.tally/_profile_progress.tboj_trinket_stickers.of
+  _profile_progress.overall_of = _profile_progress.overall_of + 1
+end
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "} or v == 'joker_stickers' and {"
+position = 'before'
+match_indent = true
+payload = '''
+} or v == 'tboj_active_stickers' and {
+  {n=G.UIT.O, config={object = DynaText({string = {math.floor(0.01+100*_profile_progress.tboj_active_stickers.tally/_profile_progress.tboj_active_stickers.of)..'%'}, colours = {G.C.WHITE},shadow = true, float = true, scale = 0.55*text_scale})}},
+  {n=G.UIT.T, config={text = " (".._profile_progress.tboj_active_stickers.tally..'/'.._profile_progress.tboj_active_stickers.of..")", scale = 0.35, colour = G.C.JOKER_GREY}}
+} or v == 'tboj_trinket_stickers' and {
+  {n=G.UIT.O, config={object = DynaText({string = {math.floor(0.01+100*_profile_progress.tboj_trinket_stickers.tally/_profile_progress.tboj_trinket_stickers.of)..'%'}, colours = {G.C.WHITE},shadow = true, float = true, scale = 0.55*text_scale})}},
+  {n=G.UIT.T, config={text = " (".._profile_progress.tboj_trinket_stickers.tally..'/'.._profile_progress.tboj_trinket_stickers.of..")", scale = 0.35, colour = G.C.JOKER_GREY}}
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+pattern = "elseif v == 'joker_stickers' then"
+position = 'before'
+match_indent = true
+payload = '''
+elseif v == 'tboj_active_stickers' then
+  tab, val, max = _profile_progress.tboj_active_stickers, 'tally', _profile_progress.tboj_active_stickers.of
+elseif v == 'tboj_trinket_stickers' then
+  tab, val, max = _profile_progress.tboj_trinket_stickers, 'tally', _profile_progress.tboj_trinket_stickers.of
+'''
+
+# Track progress
+# More of it in hooks
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+pattern = "for _, v in pairs(G.PROGRESS) do"
+position = 'before'
+match_indent = true
+payload = '''
+G.PROGRESS.tboj_active_stickers = {tally = 0, of = 0}
+G.PROGRESS.tboj_trinket_stickers = {tally = 0, of = 0}
+'''
+
+[[patches]]
+[patches.pattern]
+target = 'functions/misc_functions.lua'
+pattern = "if v.set == 'Joker' and not v.no_collection and not v.omit then"
+position = 'before'
+match_indent = true
+payload = '''
+if (v.set == 'tboj_active' or v.set == 'tboj_trinket') and not v.no_collection and not v.omit then
+  G.PROGRESS[string.lower(v.set).."_stickers"].of = G.PROGRESS[string.lower(v.set).."_stickers"].of + #G.P_CENTER_POOLS.Stake
+  G.PROGRESS[string.lower(v.set).."_stickers"].tally = G.PROGRESS[string.lower(v.set).."_stickers"].tally + get_joker_win_sticker(v, true)
+end
+'''

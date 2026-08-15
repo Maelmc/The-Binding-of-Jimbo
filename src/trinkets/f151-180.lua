@@ -42,12 +42,58 @@ TBOJ.Trinket {
 -- Torn Card
 -- Torn Pocket
 
+-- Modelin Clay
+-- Polished Bone
+-- Hollow Heart
+TBOJ.Trinket {
+  key = "hollow_heart",
+  pos = { x = 2, y = 11 },
+  cost = 5,
+  config = {extra = {triggered = false}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_tboj_bone
+    return { vars = {} }
+  end,
+  calculate = function(self, card, context)
+    if context.setting_blind then
+      card.ability.extra.triggered = false
+      local eval = function() return not card.ability.extra.triggered and not G.RESET_JIGGLES end
+      juice_card_until(card, eval, true)
+    end
+
+    if context.hand_drawn and not card.ability.extra.triggered then
+      for _, v in ipairs(context.hand_drawn) do
+        if v.config.center == G.P_CENTERS.c_base then
+          v:set_ability("m_tboj_bone")
+          card.ability.extra.triggered = true
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              v:juice_up()
+              play_sound("tboj_bone_heart", nil, 0.5)
+              return true
+            end
+          }))
+          return nil, true
+        end
+      end
+    end
+
+    if context.end_of_round then
+      card.ability.extra.triggered = false
+    end
+  end,
+  attributes = {"enhancements"}
+}
+
+-- Kid's Drawing
+-- Crystal Key
+
 -- Strange Key
 -- Lil Clot
 -- Temporary Tattoo
 TBOJ.Trinket {
   key = "temporary_tattoo",
-  pos = { x = 1, y = 11 },
+  pos = { x = 11, y = 11 },
   cost = 5,
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)

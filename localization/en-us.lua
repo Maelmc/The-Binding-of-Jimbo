@@ -521,6 +521,14 @@ return {
           "and {C:mult}Mult{} when scored"
         },
       },
+      m_tboj_bone = {
+        name="Bone Card",
+        text={
+          "{C:chips}+#1#{} Chips",
+          "{C:green}#2# in #3#{} chance to",
+          "destroy card",
+        },
+      },
     },
     Joker = {
       -- fixing vanilla localizations to be accurate with retriggers only being applied to scoring cards
@@ -1389,6 +1397,15 @@ return {
           "{C:white,X:red}X#1#{} Mult when scored"
         }
       },
+      j_tboj_brittle_bones = {
+          name = "Brittle Bones",
+          text = {
+            "This Joker gains {C:chips}+#1#{} Chips",
+            "for every {C:attention}Bone Card",
+            "that is destroyed",
+            "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+        },
+      },
       j_tboj_blood_puppy = {
         name = "Blood Puppy",
         text = {
@@ -1689,6 +1706,14 @@ return {
           "Enhances {C:attention}#1#",
           "selected cards to",
           "{C:attention}Poop Cards",
+        },
+      },
+      c_tboj_bone_heart = {
+        name = "Bone Heart",
+        text = {
+          "Enhances {C:attention}#1#",
+          "selected cards to",
+          "{C:attention}Bone Cards",
         },
       },
 
@@ -2013,6 +2038,14 @@ return {
           "appear in {C:attention}Celestial Packs"
         }
       },
+      trinket_tboj_hollow_heart = {
+        name = "Hollow Heart",
+        text = {
+          "Enhance {C:attention}first unenhanced",
+          "drawn card each round",
+          "into a {C:attention}Bone Card"
+        }
+      },
       trinket_tboj_temporary_tattoo = {
         name = "Temporary Tattoo",
         text = {
@@ -2170,6 +2203,8 @@ return {
       k_tboj_angel_pack = "Angel Pack",
       k_tboj_spiderfly = "Fly/Spider",
       k_tboj_transformation = "Transformation",
+      k_tboj_active_stickers = "Active Stickers",
+      k_tboj_trinket_stickers = "Trinket Stickers",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",

@@ -160,3 +160,23 @@ SMODS.Sound({
     key = "transformation",
     path = "transformation.wav"
 })
+
+SMODS.Sound({
+    key = "bone_break_01",
+    path = "bone_break_01.wav"
+})
+
+SMODS.Sound({
+    key = "bone_break_02",
+    path = "bone_break_02.wav"
+})
+
+SMODS.Sound({
+    key = "bone_break_03",
+    path = "bone_break_03.wav"
+})
+
+SMODS.Sound({
+    key = "bone_heart",
+    path = "bone_heart.wav"
+})

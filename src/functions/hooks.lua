@@ -126,6 +126,33 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
 end]]
 
 -- cycle through cards
+-- Show stake stickers
+local gjws = get_joker_win_sticker
+function get_joker_win_sticker(_center, index)
+  if (_center.set == "tboj_active" or _center.set == "tboj_trinket") then
+    local joker_usage = G.PROFILES[G.SETTINGS.profile][string.lower(_center.set).."_usage"][_center.key] or {}
+    if joker_usage.wins then
+      local applied = {}
+      local _count = 0
+      local _stake = nil
+      for k, v in pairs(joker_usage.wins_by_key or {}) do
+        SMODS.build_stake_chain(G.P_STAKES[k], applied)
+      end
+      for i, v in ipairs(G.P_CENTER_POOLS.Stake) do
+        if applied[v.order] then
+          _count = _count+1
+          if (v.stake_level or 0) > (_stake and G.P_STAKES[_stake].stake_level or 0) then
+            _stake = G.sticker_map[v.key] and v.key or _stake
+          end
+        end
+      end
+      if index then return _count end
+      if _count > 0 then return G.sticker_map[_stake] end
+    end
+    if index then return 0 end
+  else return gjws(_center, index) end
+end
+
 local cardupdate = Card.update
 function Card:update(dt, real_dt)
 
@@ -161,6 +188,10 @@ function Card:update(dt, real_dt)
   if ((not G.GAME.modifiers.tboj_cycling) or G.GAME.modifiers.tboj_cycling.seconds <= 0) and self.ability.tboj_cycling then
     self.ability.tboj_cycling = nil
     self.ability.tboj_cycle = nil
+  end
+
+  if (self.ability.set == 'tboj_active' or self.ability.set == 'tboj_trinket') and not self.sticker_run then
+    self.sticker_run = get_joker_win_sticker(self.config.center) or 'NONE'
   end
 
   return cardupdate(self, dt, real_dt)
@@ -272,4 +303,52 @@ function get_starting_params()
   start.tboj_active_slot = 1
   start.tboj_trinket_slot = 1
   return start
+end
+
+-- Stake stickers on trinkets and actives
+local sjw = set_joker_win
+function set_joker_win()
+  sjw()
+  for k, v in pairs(G.jokers.cards) do
+    if v.config.center_key and (v.ability.set == 'tboj_active' or v.ability.set == 'tboj_trinket') then
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"] = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"] or {}
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] or {count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
+
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] or {}
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins or {}
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins[G.GAME.stake] = (G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins[G.GAME.stake] or 0) + 1
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] = (G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
+    end
+  end
+  for k, v in pairs(G.tboj_actives.cards) do
+    if v.config.center_key and (v.ability.set == 'Joker' or v.ability.set == 'tboj_active' or v.ability.set == 'tboj_trinket') then
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"] = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"] or {}
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] or {count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
+
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] or {}
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins or {}
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins[G.GAME.stake] = (G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins[G.GAME.stake] or 0) + 1
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] = (G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
+    end
+  end
+  for k, v in pairs(G.tboj_trinkets.cards) do
+    if v.config.center_key and (v.ability.set == 'Joker' or v.ability.set == 'tboj_active' or v.ability.set == 'tboj_trinket') then
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"] = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"] or {}
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] or {count = 1, order = v.config.center.order, wins = {}, losses = {}, wins_by_key = {}, losses_by_key = {}}
+
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key] or {}
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins = G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins or {}
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins[G.GAME.stake] = (G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins[G.GAME.stake] or 0) + 1
+      G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] = (G.PROFILES[G.SETTINGS.profile][string.lower(v.ability.set).."_usage"][v.config.center_key].wins_by_key[SMODS.stake_from_index(G.GAME.stake)] or 0) + 1
+    end
+  end
+  G:save_settings()
+end
+
+-- Track actives and trinkets stake progress
+local spp = set_profile_progress
+function set_profile_progress()
+  spp()
+  G.PROFILES[G.SETTINGS.profile].progress.tboj_active_stickers = copy_table(G.PROGRESS.tboj_active_stickers)
+  G.PROFILES[G.SETTINGS.profile].progress.tboj_trinket_stickers = copy_table(G.PROGRESS.tboj_trinket_stickers)
 end
