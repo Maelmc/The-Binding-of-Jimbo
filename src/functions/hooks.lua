@@ -352,3 +352,12 @@ function set_profile_progress()
   G.PROFILES[G.SETTINGS.profile].progress.tboj_active_stickers = copy_table(G.PROGRESS.tboj_active_stickers)
   G.PROFILES[G.SETTINGS.profile].progress.tboj_trinket_stickers = copy_table(G.PROGRESS.tboj_trinket_stickers)
 end
+
+-- Break bones properly
+local csd = Card.start_dissolve
+function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
+  if SMODS.has_enhancement(self, "m_tboj_bone") then
+    return self:tboj_bone_break()
+  end
+  return csd(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
+end
