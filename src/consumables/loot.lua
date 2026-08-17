@@ -56,7 +56,7 @@ SMODS.Consumable {
   atlas = "consumables",
   cost = 4,
   unlocked = true,
-  config = { extra = {max_highlighted = 2}},
+  config = { extra = {max_highlighted = 1}},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_tboj_bone
     return {vars = {card.ability.extra.max_highlighted}}
