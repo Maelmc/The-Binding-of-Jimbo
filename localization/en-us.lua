@@ -628,8 +628,8 @@ return {
       j_tboj_halo_of_flies = {
         name = "Halo of Flies",
         text = {
-          "Sell this card to",
-          "create {C:attention}#1# Pretty Flies",
+          "Create {C:attention}#1# Pretty Flies",
+          "when {C:attention}Blind{} is selected"
         }
       },
       j_tboj_heart = {
