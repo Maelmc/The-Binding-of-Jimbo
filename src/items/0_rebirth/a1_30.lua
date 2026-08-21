@@ -293,7 +293,7 @@ SMODS.Joker {
   eternal_compat = false,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.selling_self and not context.blueprint then
+    if context.setting_blind then
       for _ = 1, card.ability.extra.flies do
         local _card = SMODS.create_card {
           set = "tboj_spiderfly",
@@ -309,7 +309,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_fly", "generation", "on_sell"}
+  attributes = {"tboj_fly", "generation"}
 }
 
 -- 1up!
