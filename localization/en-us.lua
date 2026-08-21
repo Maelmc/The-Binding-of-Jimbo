@@ -1718,9 +1718,9 @@ return {
       c_tboj_bone_heart = {
         name = "Bone Heart",
         text = {
-          "Enhances {C:attention}#1#",
-          "selected cards to",
-          "{C:attention}Bone Cards",
+          "Enhances {C:attention}#1#{} selected",
+          "card into a",
+          "{C:attention}Bone Card",
         },
       },
 
