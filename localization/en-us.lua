@@ -628,8 +628,8 @@ return {
       j_tboj_halo_of_flies = {
         name = "Halo of Flies",
         text = {
-          "Sell this card to",
-          "create {C:attention}#1# Pretty Flies",
+          "Create {C:attention}#1# Pretty Flies",
+          "when {C:attention}Blind{} is selected"
         }
       },
       j_tboj_heart = {
@@ -670,6 +670,13 @@ return {
           "{C:inactive}(Remaining to draw: {C:attention}#1#{C:inactive})"
         }
       },
+      j_tboj_mom_heels = {
+        name = "Mom's Heels",
+        text = {
+          "Played {C:attention}Queens{} give",
+          "{C:mult}+#1#{} mult when scored"
+        }
+      },
       j_tboj_lucky_foot = {
         name = "Lucky Foot",
         text = {
@@ -679,14 +686,14 @@ return {
           "a poker hand's {C:attention}level"
         }
       },
-      --[[j_tboj_steven = {
+      j_tboj_steven = {
         name = "Steven",
         text = {
-          "{C:mult}+#1#{} Mult if played",
+          "{X:mult,C:white}X#1#{} Mult if played",
           "hand contains at least",
           "1 {C:attention}unscoring{} card"
         }
-      },]]
+      },
       j_tboj_pentagram = {
         name = "Pentagram",
         text = {
@@ -1711,9 +1718,9 @@ return {
       c_tboj_bone_heart = {
         name = "Bone Heart",
         text = {
-          "Enhances {C:attention}#1#",
-          "selected cards to",
-          "{C:attention}Bone Cards",
+          "Enhances {C:attention}#1#{} selected",
+          "card into a",
+          "{C:attention}Bone Card",
         },
       },
 

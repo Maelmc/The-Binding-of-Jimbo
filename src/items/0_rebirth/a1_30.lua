@@ -293,7 +293,7 @@ SMODS.Joker {
   eternal_compat = false,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.selling_self and not context.blueprint then
+    if context.setting_blind then
       for _ = 1, card.ability.extra.flies do
         local _card = SMODS.create_card {
           set = "tboj_spiderfly",
@@ -309,7 +309,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_fly", "generation", "on_sell"}
+  attributes = {"tboj_fly", "generation"}
 }
 
 -- 1up!
@@ -507,3 +507,29 @@ SMODS.Joker {
 -- The Belt
 -- Mom's Underwear
 -- Mom's Heels
+SMODS.Joker {
+  key = "mom_heels",
+  pos = {x = 14, y = 1},
+  config = {extra = {mult = 12}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and
+      context.other_card:get_id() == 12 then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"mult", "rank", "queen"}
+}

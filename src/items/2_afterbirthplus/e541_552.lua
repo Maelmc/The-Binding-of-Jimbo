@@ -48,7 +48,7 @@ SMODS.Joker {
   rarity = 2,
   cost = 6,
   atlas = "jokers",
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = true,
   blueprint_compat = true,
   enhancement_gate = "m_tboj_bone",
