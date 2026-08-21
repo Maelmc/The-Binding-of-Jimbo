@@ -670,6 +670,13 @@ return {
           "{C:inactive}(Remaining to draw: {C:attention}#1#{C:inactive})"
         }
       },
+      j_tboj_mom_heels = {
+        name = "Mom's Heels",
+        text = {
+          "Played {C:attention}Queens{} give",
+          "{C:mult}+#1#{} mult when scored"
+        }
+      },
       j_tboj_lucky_foot = {
         name = "Lucky Foot",
         text = {
