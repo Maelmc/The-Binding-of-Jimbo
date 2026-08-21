@@ -193,15 +193,15 @@ SMODS.Joker {
 -- Cupid's Arrow
 -- Shoot da Whoop!
 -- Steven
---[[SMODS.Joker {
+SMODS.Joker {
   key = "steven",
   pos = {x = 4, y = 3},
-  config = {extra = {mult = 15}},
+  config = {extra = {Xmult = 2}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.mult}}
+    return {vars = {card.ability.extra.Xmult}}
   end,
-  rarity = 1,
-  cost = 4,
+  rarity = 2,
+  cost = 6,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
@@ -209,15 +209,15 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.joker_main and #context.full_hand > #context.scoring_hand then
       return {
-        mult = card.ability.extra.mult,
+        xmult = card.ability.extra.Xmult,
       }
     end
   end,
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"mult"}
-}]]
+  attributes = {"xmult"}
+}
 
 -- Pentagram
 SMODS.Joker {
