@@ -674,7 +674,7 @@ return {
         name = "Mom's Heels",
         text = {
           "Played {C:attention}Queens{} give",
-          "{C:mult}+#1#{} mult when scored"
+          "{C:mult}+#1#{} Mult when scored"
         }
       },
       j_tboj_lucky_foot = {
