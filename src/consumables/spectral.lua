@@ -17,11 +17,11 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     G.E_MANAGER:add_event(Event({
-      func = function() 
+      func = function()
         local target = G.tboj_Trinkets.highlighted[1]
         target:set_edition("e_negative",true)
-        return true 
-      end 
+        return true
+      end
     }))
   end,
   attributes = {"editions"},
@@ -49,10 +49,10 @@ SMODS.Consumable {
       G.E_MANAGER:add_event(Event({
         trigger = 'after',
         delay = 0.4,
-        func = function() 
+        func = function()
           SMODS.destroy_cards(target,{bypass_eternal = true})
-          return true 
-        end 
+          return true
+        end
       }))
       return
     end

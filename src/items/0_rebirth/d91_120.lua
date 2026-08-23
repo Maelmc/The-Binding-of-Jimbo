@@ -89,7 +89,6 @@ TBOJ.Active {
     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
     G.E_MANAGER:add_event(Event({
       trigger = 'after',
-      delay = 0.4,
       func = function()
         G.GAME.consumeable_buffer = 0
         play_sound('timpani')
