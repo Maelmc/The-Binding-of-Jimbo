@@ -159,7 +159,6 @@ SMODS.Consumable {
 
 local soul_weight = 3
 
---[[
 SMODS.Consumable {
   key = "soul_of_cain",
   set = "tboj_Loot",
@@ -220,7 +219,6 @@ SMODS.Consumable {
   end,
   tboj_rune = true,
 }
-]]
 
 --[[
 SMODS.Consumable {
