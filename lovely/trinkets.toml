@@ -9,8 +9,8 @@ priority = 0
 target = 'functions/button_callbacks.lua'
 pattern = 'if c1.ability.consumeable then'
 position = 'at'
-payload = '''if c1.ability.set == "tboj_trinket" then
-  G.tboj_trinkets:emplace(c1)
+payload = '''if c1.ability.set == "tboj_Trinket" then
+  G.tboj_Trinkets:emplace(c1)
 elseif c1.ability.consumeable then
 '''
 match_indent = true
@@ -31,7 +31,7 @@ times = 1
 target = 'functions/UI_definitions.lua'
 pattern = 'for _, v in ipairs(rates) do'
 position = 'before'
-payload = '''table.insert(rates, { type = "tboj_trinket", val = G.GAME.tboj_trinket_rate  })'''
+payload = '''table.insert(rates, { type = "tboj_Trinket", val = G.GAME.tboj_trinket_rate  })'''
 match_indent = true
 times = 1
 
@@ -42,7 +42,7 @@ target = 'card.lua'
 pattern = '''if self.ability.consumeable or self.ability.set == 'Joker' or (self.area and self.area == G.pack_cards) then'''
 position = 'at'
 payload = '''if self.ability.consumeable or self.ability.set == 'Joker' or (self.area and self.area == G.pack_cards)
-or self.ability.set == "tboj_trinket"'''
+or self.ability.set == "tboj_Trinket"'''
 match_indent = true
 times = 1
 
@@ -53,8 +53,8 @@ target = '=[SMODS _ "src/utils.lua"]'
 pattern = "-- TARGET: add your own CardAreas for joker evaluation"
 position = "after"
 payload = '''
-if G.tboj_trinkets and G.tboj_trinkets.cards then
-    t[#t+1] = G.tboj_trinkets
+if G.tboj_Trinkets and G.tboj_Trinkets.cards then
+    t[#t+1] = G.tboj_Trinkets
 end
 '''
 match_indent = true
@@ -66,8 +66,8 @@ target = '=[lovely debugplus.core "debugplus/core.lua"]'
 pattern = "elseif _card.ability.consumeable then"
 position = "before"
 payload = '''
-elseif _card.ability.set == "tboj_trinket" then
-  _area = G.tboj_trinkets
+elseif _card.ability.set == "tboj_Trinket" then
+  _area = G.tboj_Trinkets
 '''
 match_indent = true
 
@@ -78,7 +78,7 @@ target = '=[SMODS _ "src/overrides.lua"]'
 pattern = "elseif _center.set == 'Joker' or _center.consumeable or _center.set == 'Voucher' then"
 position = "before"
 payload = '''
-elseif not self.params.bypass_discovery_center and _center.set == 'tboj_trinket' and (not _center.discovered) and (not TBOJ.table_contains({
+elseif not self.params.bypass_discovery_center and _center.set == 'tboj_Trinket' and (not _center.discovered) and (not TBOJ.table_contains({
     G.STATES.SMODS_BOOSTER_OPENED,
     G.STATES.SMODS_REDEEM_VOUCHER,
     G.STATES.SELECTING_HAND,
@@ -107,8 +107,8 @@ match_indent = true
 target = 'card.lua'
 pattern = '''if not self.bypass_lock and self.config.center.unlocked ~= false and'''
 position = 'before'
-payload = '''if not self.bypass_lock and self.config.center.unlocked ~= false and (self.ability.set == 'tboj_trinket') and
-not self.config.center.discovered and ((self.area ~= G.tboj_trinkets and self.area) or not self.area) then
+payload = '''if not self.bypass_lock and self.config.center.unlocked ~= false and (self.ability.set == 'tboj_Trinket') and
+not self.config.center.discovered and ((self.area ~= G.tboj_Trinkets and self.area) or not self.area) then
   card_type = 'Undiscovered'
 end'''
 match_indent = true

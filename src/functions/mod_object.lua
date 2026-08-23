@@ -76,26 +76,26 @@ SMODS.current_mod.set_debuff = function(card)
 end
 
 function SMODS.current_mod.custom_card_areas(game)
-  game.tboj_actives = CardArea(
+  game.tboj_Actives = CardArea(
     0, 0.95*G.CARD_H + 0.3,
     2.3*G.CARD_W * 0.7,
     0.95*G.CARD_H,
     {card_limit = G.GAME.starting_params.tboj_active_slot, type = 'joker', highlight_limit = 1, align_buttons = true}
   )
-  game.tboj_actives.config.align_buttons = true
-  game.tboj_actives.T.x = G.deck.T.x
-  game.tboj_actives.T.y = G.deck.T.y - G.deck.T.h * 2.25
+  game.tboj_Actives.config.align_buttons = true
+  game.tboj_Actives.T.x = G.deck.T.x
+  game.tboj_Actives.T.y = G.deck.T.y - G.deck.T.h * 2.25
 
 
-  game.tboj_trinkets = CardArea(
+  game.tboj_Trinkets = CardArea(
     0, 0.95*G.CARD_H + 0.3,
     2.3*G.CARD_W * 0.7,
     0.95*G.CARD_H,
     {card_limit = G.GAME.starting_params.tboj_trinket_slot, type = 'joker', highlight_limit = 1, align_buttons = true}
   )
-  game.tboj_trinkets.config.align_buttons = true
-  game.tboj_trinkets.T.x = G.deck.T.x
-  game.tboj_trinkets.T.y = G.deck.T.y - G.deck.T.h * 1.125
+  game.tboj_Trinkets.config.align_buttons = true
+  game.tboj_Trinkets.T.x = G.deck.T.x
+  game.tboj_Trinkets.T.y = G.deck.T.y - G.deck.T.h * 1.125
 
   game.flies = CardArea(
     0, 0.95*G.CARD_H + 0.3,

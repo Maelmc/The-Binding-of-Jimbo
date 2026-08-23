@@ -70,7 +70,7 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.joker_main and G.GAME.current_round.hands_left == 0 then
-      if G.tboj_actives.cards[1] and G.tboj_actives.cards[1].ability.extra.curr_charge then
+      if G.tboj_Actives.cards[1] and G.tboj_Actives.cards[1].ability.extra.curr_charge then
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.4,
@@ -79,7 +79,7 @@ SMODS.Joker {
             return true
           end
         }))
-        TBOJ.charge_active(G.tboj_actives.cards[1],card.ability.extra.charge)
+        TBOJ.charge_active(G.tboj_Actives.cards[1],card.ability.extra.charge)
       end
     end
   end,

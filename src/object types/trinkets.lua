@@ -1,5 +1,5 @@
 SMODS.ObjectType {
-  key = "tboj_trinket",
+  key = "tboj_Trinket",
   default = "trinket_tboj_swallowed_penny",
 }
 
@@ -8,7 +8,7 @@ TBOJ.Trinket = SMODS.Center:extend {
   discovered = false,
   pos = {x = 0, y = 0},
   cost = 4,
-  set = "tboj_trinket",
+  set = "tboj_Trinket",
   atlas = "tboj_trinkets",
   class_prefix = "trinket",
   required_params = {
@@ -20,13 +20,13 @@ TBOJ.Trinket = SMODS.Center:extend {
 }
 
 SMODS.UndiscoveredSprite {
-  key = 'tboj_trinket',
+  key = 'tboj_Trinket',
   atlas = 'tboj_undiscovered',
   pos = { x = 2, y = 0 },
   overlay_pos = { x = 4, y = 0 },
 }
 
-G.C.SECONDARY_SET.tboj_trinket = HEX("B741B6")
+G.C.SECONDARY_SET.tboj_Trinket = HEX("B741B6")
 
 local gigo = Game.init_game_object
 function Game:init_game_object()
@@ -37,9 +37,9 @@ end
 
 local cfbs = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
-  if card.ability.set == "tboj_trinket" then
-    if #G.tboj_trinkets.cards >= G.tboj_trinkets.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
-      alert_no_space(card, G.tboj_trinkets)
+  if card.ability.set == "tboj_Trinket" then
+    if #G.tboj_Trinkets.cards >= G.tboj_Trinkets.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
+      alert_no_space(card, G.tboj_Trinkets)
       return false
     else return true end
   else return cfbs(card) end
@@ -48,7 +48,7 @@ end
 --[[local G_UIDEF_use_and_sell_buttons_ref = G.UIDEF.use_and_sell_buttons
 function G.UIDEF.use_and_sell_buttons(card)
   local buttons = G_UIDEF_use_and_sell_buttons_ref(card)
-  if card.area == G.tboj_trinkets then
+  if card.area == G.tboj_Trinkets then
     local sell = {n=G.UIT.C, config={align = "cr"}, nodes={
       {n=G.UIT.C, config={ref_table = card, align = "cr",padding = 0.1, r=0.08, minw = 1.25, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'active_sell', func = 'can_sell_card'}, nodes={
         {n=G.UIT.B, config = {w=0.1,h=0.6}},

@@ -1,6 +1,6 @@
 return {
   descriptions = {
-    tboj_active = {
+    tboj_Active = {
       active_tboj_the_bible = {
         name = "The Bible",
         text = {
@@ -1779,6 +1779,13 @@ return {
           "at random"
         }
       },
+      c_tboj_soul_of_jacob_esau = {
+        name = "Soul of Jacob and Esau",
+        text = {
+          "Create a {C:attention}Cursed #1#",
+          "copy of a random {C:attention}Joker"
+        }
+      },
     },
     Spectral = {
       c_tboj_smelter = {
@@ -1833,7 +1840,7 @@ return {
         }
       },
     },
-    tboj_trinket = {
+    tboj_Trinket = {
       trinket_tboj_swallowed_penny = {
         name = "Swallowed Penny",
         text = {
@@ -2146,7 +2153,7 @@ return {
           "{C:attention}Stake{} difficulty",
         },
       },
-      undiscovered_tboj_active={
+      undiscovered_tboj_Active={
           name="Not Discovered",
           text={
               "Purchase or use",
@@ -2155,7 +2162,7 @@ return {
               "learn what it does",
           },
       },
-      undiscovered_tboj_trinket={
+      undiscovered_tboj_Trinket={
           name="Not Discovered",
           text={
               "Purchase or use",
@@ -2201,9 +2208,9 @@ return {
     },
     dictionary = {
       k_tboj_active = "Active",
-      k_tboj_actives = "Actives",
+      k_tboj_Actives = "Actives",
       k_tboj_trinket = "Trinket",
-      k_tboj_trinkets = "Trinkets",
+      k_tboj_Trinkets = "Trinkets",
       k_poop = "Poop",
       k_laser = "Laser",
       k_tboj_devil_pack = "Devil Pack",

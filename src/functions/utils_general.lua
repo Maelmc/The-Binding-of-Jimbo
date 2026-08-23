@@ -110,8 +110,8 @@ function TBOJ.get_random_key(args)
     end
     return elem
   elseif set == "Joker" then return "j_tboj_breakfast"
-  elseif set == "tboj_active" then return "active_tboj_the_d6"
-  elseif set == "tboj_trinket" then return "trinket_tboj_swallowed_penny"
+  elseif set == "tboj_Active" then return "active_tboj_the_d6"
+  elseif set == "tboj_Trinket" then return "trinket_tboj_swallowed_penny"
   elseif SMODS.ObjectTypes[set] and SMODS.ObjectTypes[set].default and G.P_CENTERS[SMODS.ObjectTypes[set].default] then return SMODS.ObjectTypes[set].default
   end
 end
@@ -629,7 +629,7 @@ function TBOJ.predict_pack(args)
     elseif pack == "Angel" then
       local center
       if i == 1 then
-        center = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_angel", seed = "tboj_angel_pack"}
+        center = TBOJ.get_random_key{set = "tboj_Active", attributes = "tboj_angel", seed = "tboj_angel_pack"}
       else
         if pseudorandom('soul_angel'..G.GAME.round_resets.ante) > 0.997 then
           center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", target_rarities = {4, "Legendary"}, seed = "tboj_angel_pack"}
@@ -655,7 +655,7 @@ function TBOJ.predict_pack(args)
     elseif pack == "Devil" then
       local center
       if i == 1 then
-        center = TBOJ.get_random_key{set = "tboj_active", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, seed = "tboj_devil_pack"}
+        center = TBOJ.get_random_key{set = "tboj_Active", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, seed = "tboj_devil_pack"}
       else
         if pseudorandom('soul_devil'..G.GAME.round_resets.ante) > 0.997 then
           center = TBOJ.get_random_key{set = "Joker", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, target_rarities = {4, "Legendary"}, seed = "tboj_devil_pack"}

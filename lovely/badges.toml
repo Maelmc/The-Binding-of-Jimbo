@@ -44,5 +44,5 @@ end
 #position = 'after'
 #match_indent = true
 #payload = '''
-#if AUT.card_type == 'tboj_active' then card_type = SMODS.Rarity:get_rarity_badge(card.config.center.rarity) end
+#if AUT.card_type == 'tboj_Active' then card_type = SMODS.Rarity:get_rarity_badge(card.config.center.rarity) end
 #'''

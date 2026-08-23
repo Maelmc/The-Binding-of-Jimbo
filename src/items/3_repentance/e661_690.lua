@@ -192,7 +192,7 @@ SMODS.Joker {
       card.ability.extra.prev_every = G.GAME.modifiers.tboj_cycling.seconds
       G.GAME.modifiers.tboj_cycling.seconds = card.ability.extra.every
       G.GAME.modifiers.tboj_cycling.sets["Joker"] = (G.GAME.modifiers.tboj_cycling.sets["Joker"] or 0) + 1
-      G.GAME.modifiers.tboj_cycling.sets["tboj_active"] = (G.GAME.modifiers.tboj_cycling.sets["tboj_active"] or 0) + 1
+      G.GAME.modifiers.tboj_cycling.sets["tboj_Active"] = (G.GAME.modifiers.tboj_cycling.sets["tboj_Active"] or 0) + 1
 
     else
       G.GAME.modifiers.tboj_cycling = {
@@ -200,7 +200,7 @@ SMODS.Joker {
         seconds = card.ability.extra.every,
         sets = {
           Joker = 1,
-          tboj_active = 1,
+          tboj_Active = 1,
         },
       }
     end
@@ -214,7 +214,7 @@ SMODS.Joker {
     end
     G.GAME.modifiers.tboj_cycling.seconds = card.ability.extra.prev_every
     G.GAME.modifiers.tboj_cycling.sets["Joker"] = G.GAME.modifiers.tboj_cycling.sets["Joker"] - 1
-    G.GAME.modifiers.tboj_cycling.sets["tboj_active"] = G.GAME.modifiers.tboj_cycling.sets["tboj_active"] - 1
+    G.GAME.modifiers.tboj_cycling.sets["tboj_Active"] = G.GAME.modifiers.tboj_cycling.sets["tboj_Active"] - 1
   end,
   attributes = {"joker"}
 }

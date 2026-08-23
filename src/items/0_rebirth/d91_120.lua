@@ -262,13 +262,13 @@ TBOJ.Active {
   use = function(self, card, area, copier)
     if G.pack_cards and G.pack_cards.cards and #G.pack_cards.cards > 0 then
       for _, v in pairs(G.pack_cards.cards) do
-        if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
+        if v.ability.set == "Joker" or v.ability.set == "tboj_Active" then
           TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
         end
       end
     else
       for _, v in pairs(G.shop_jokers.cards) do
-        if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
+        if v.ability.set == "Joker" or v.ability.set == "tboj_Active" then
           TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
         end
       end

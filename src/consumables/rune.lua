@@ -129,7 +129,7 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do
-      if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
+      if v.ability.set == "Joker" or v.ability.set == "tboj_Active" then
         TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
       end
     end
@@ -157,7 +157,7 @@ SMODS.Consumable {
   tboj_rune = true,
 }
 
-local soul_weight = 1
+local soul_weight = 3
 
 --[[
 SMODS.Consumable {
@@ -296,7 +296,6 @@ SMODS.Consumable {
 }
 ]]
 
---[[
 SMODS.Consumable {
   key = "soul_of_the_keeper",
   set = "tboj_Loot",
@@ -326,10 +325,10 @@ SMODS.Consumable {
     delay(0.6)
   end,
   tboj_rune = true,
-}]]
+}
 
---[[SMODS.Consumable {
-  key = "soul_of_jacon_esau",
+SMODS.Consumable {
+  key = "soul_of_jacob_esau",
   set = "tboj_Loot",
   pos = { x = 1, y = 2 },
   atlas = "consumables",
@@ -338,7 +337,8 @@ SMODS.Consumable {
   weight = soul_weight,
   config = { extra = {cursed = 3}},
   loc_vars = function(self, info_queue, card)
-    return { vars = {card.ability.extra.min, card.ability.extra.max}}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_cursed', vars = {card.ability.extra.cursed, "s", card.ability.extra.cursed}}
+    return { vars = {card.ability.extra.cursed}}
   end,
   can_use = function(self, card)
     return G.jokers and #G.jokers.cards > 0 and #G.jokers.cards < G.jokers.config.card_limit
@@ -352,4 +352,4 @@ SMODS.Consumable {
     SMODS.calculate_effect({ message = localize('k_duplicated_ex') }, copied_joker)
   end,
   tboj_rune = true,
-}]]
+}

@@ -115,7 +115,7 @@ TBOJ.Active {
   config = {extra = {max_charge = 1, curr_charge = 1, Xmult = 2, active = false}},
   loc_vars = function(self, info_queue, card)
     return {vars = {
-      card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.Xmult, card.ability.extra.active and localize("tboj_active") or localize("tboj_inactive")
+      card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.Xmult, card.ability.extra.active and localize("tboj_Active") or localize("tboj_inactive")
     }}
   end,
   calculate = function(self, card, context)
