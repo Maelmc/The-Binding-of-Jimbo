@@ -30,14 +30,14 @@ end
 local scu = set_consumeable_usage
 function set_consumeable_usage(card)
   if card.config.center_key and card.ability.consumeable then
-    if card.config.center.set == 'tboj_loot' then
+    if card.config.center.set == 'tboj_Loot' then
       G.E_MANAGER:add_event(Event({
         trigger = 'immediate',
         func = function()
           G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = function()
-              G.GAME.last_tboj_loot = card.config.center_key
+              G.GAME.last_tboj_Loot = card.config.center_key
                 return true
             end
           }))

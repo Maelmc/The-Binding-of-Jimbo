@@ -925,14 +925,6 @@ return {
           "{C:chips}+#1#{} Chips when scored"
         }
       },
-      j_tboj_piggy_bank = {
-        name = "Piggy Bank",
-        text = {
-          "This Joker gains {C:money}$#1#",
-          "of sell value whenever",
-          "{C:money}money{} is earned"
-        }
-      },
       j_tboj_a_lump_of_coal = {
         name = "A Lump of Coal",
         text = {
@@ -1018,6 +1010,14 @@ return {
           "{C:white,X:mult}X#1#{} Mult",
           "All {C:attention}Big Blinds{} are",
           "{C:attention}Deadly Sins"
+        }
+      },
+      j_tboj_piggy_bank = {
+        name = "Piggy Bank",
+        text = {
+          "This Joker gains {C:money}$#1#",
+          "of sell value whenever",
+          "{C:money}money{} is earned"
         }
       },
       j_tboj_monstro_lung = {
@@ -1246,7 +1246,7 @@ return {
         text = {
           "Each played {C:attention}#1#{}, {C:attention}#2#{} and {C:attention}#3#",
           "gives {C:chips}+#4#{} Chips when scored",
-          "{s:0.8}Rank changes each round"
+          "{s:0.8}Ranks change every round"
         },
       },
       j_tboj_lusty_blood = {
@@ -1659,7 +1659,7 @@ return {
         }
       },
     },
-    tboj_loot = {
+    tboj_Loot = {
       -- STANDARD LOOT
       c_tboj_bomb = {
         name = "Bomb",

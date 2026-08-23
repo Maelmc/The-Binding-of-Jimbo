@@ -185,7 +185,7 @@ SMODS.Joker {
         return nil, true
       end
     end
-    
+
     if context.joker_main then
       return {
         mult = card.ability.extra.mult
@@ -234,10 +234,10 @@ SMODS.Joker {
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.1,
-          func = function() 
+          func = function()
             _card:start_materialize()
-            return true 
-          end 
+            return true
+          end
         }))
         return {
           message = localize('tboj_corn'),
@@ -268,10 +268,10 @@ SMODS.Joker {
           G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.1,
-          func = function() 
+          func = function()
             v:set_ability("m_tboj_poop")
-            return true 
-          end 
+            return true
+          end
           }))
         end
         TBOJ.juice_flip_cards(to_change)
@@ -285,10 +285,10 @@ SMODS.Joker {
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.1,
-          func = function() 
+          func = function()
             SMODS.change_base(_c,"Spades",nil)
-            return true 
-          end 
+            return true
+          end
         }))
         TBOJ.juice_flip_cards({context.other_card})
         return {
@@ -307,10 +307,10 @@ SMODS.Joker {
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.1,
-          func = function() 
+          func = function()
             _c:set_ability("m_stone")
-            return true 
-          end 
+            return true
+          end
         }))
         TBOJ.juice_flip_cards({context.other_card})
         return {

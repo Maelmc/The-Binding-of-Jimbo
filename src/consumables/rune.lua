@@ -1,14 +1,14 @@
 SMODS.Consumable {
   key = "jera",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 5, y = 0 },
   atlas = "consumables",
   cost = 4,
   unlocked = true,
   config = { extra = {}},
   loc_vars = function(self, info_queue, card)
-    local jera_c = G.GAME.last_tboj_loot and G.P_CENTERS[G.GAME.last_tboj_loot] or nil
-    local last_tboj_loot = jera_c and localize { type = 'name_text', key = jera_c.key, set = jera_c.set } or
+    local jera_c = G.GAME.last_tboj_Loot and G.P_CENTERS[G.GAME.last_tboj_Loot] or nil
+    local last_tboj_Loot = jera_c and localize { type = 'name_text', key = jera_c.key, set = jera_c.set } or
         localize('k_none')
     local colour = (not jera_c or jera_c.name == 'c_tboj_jera') and G.C.RED or G.C.GREEN
 
@@ -25,19 +25,19 @@ SMODS.Consumable {
                     n = G.UIT.C,
                     config = { align = "m", colour = colour, r = 0.05, padding = 0.05 },
                     nodes = {
-                        { n = G.UIT.T, config = { text = ' ' .. last_tboj_loot .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } },
+                        { n = G.UIT.T, config = { text = ' ' .. last_tboj_Loot .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } },
                     }
                 }
             }
         }
     }
 
-    return { vars = { last_tboj_loot }, main_end = main_end }
+    return { vars = { last_tboj_Loot }, main_end = main_end }
   end,
   can_use = function(self, card)
     return (#G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables) and
-            G.GAME.last_tboj_loot and
-            G.GAME.last_tboj_loot ~= 'c_tboj_jera'
+            G.GAME.last_tboj_Loot and
+            G.GAME.last_tboj_Loot ~= 'c_tboj_jera'
   end,
   use = function(self, card, area, copier)
     G.E_MANAGER:add_event(Event({
@@ -46,7 +46,7 @@ SMODS.Consumable {
       func = function()
         if G.consumeables.config.card_limit > #G.consumeables.cards then
           play_sound('timpani')
-          SMODS.add_card({ key = G.GAME.last_tboj_loot })
+          SMODS.add_card({ key = G.GAME.last_tboj_Loot })
           card:juice_up(0.3, 0.5)
         end
         return true
@@ -59,7 +59,7 @@ SMODS.Consumable {
 
 SMODS.Consumable {
   key = "dagaz",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 6, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -115,7 +115,7 @@ SMODS.Consumable {
 
 SMODS.Consumable {
   key = "perthro",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 7, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -139,7 +139,7 @@ SMODS.Consumable {
 
 SMODS.Consumable {
   key = "algiz",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 9, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -162,7 +162,7 @@ local soul_weight = 1
 --[[
 SMODS.Consumable {
   key = "soul_of_cain",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 1, y = 1 },
   atlas = "consumables",
   cost = 4,
@@ -225,7 +225,7 @@ SMODS.Consumable {
 --[[
 SMODS.Consumable {
   key = "soul_of_eve",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 4, y = 1 },
   atlas = "consumables",
   cost = 4,
@@ -267,7 +267,7 @@ SMODS.Consumable {
 --[[
 SMODS.Consumable {
   key = "soul_of_lilith",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 10, y = 1 },
   atlas = "consumables",
   cost = 4,
@@ -299,7 +299,7 @@ SMODS.Consumable {
 --[[
 SMODS.Consumable {
   key = "soul_of_the_keeper",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 11, y = 1 },
   atlas = "consumables",
   cost = 4,
@@ -330,7 +330,7 @@ SMODS.Consumable {
 
 --[[SMODS.Consumable {
   key = "soul_of_jacon_esau",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 1, y = 2 },
   atlas = "consumables",
   cost = 4,

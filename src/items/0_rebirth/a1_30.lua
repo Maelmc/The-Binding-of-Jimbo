@@ -124,13 +124,13 @@ SMODS.Joker {
 
 -- My Reflection
 SMODS.Joker {
-  key = "my_reflection", 
+  key = "my_reflection",
   pos = {x = 4, y = 0},
   config = {extra = {set_odds = 0}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.set_odds}}
   end,
-  rarity = 2, 
+  rarity = 2,
   cost = 4,
   atlas = "jokers",
   perishable_compat = true,
@@ -261,11 +261,11 @@ SMODS.Joker {
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.1,
-          func = function() 
+          func = function()
             _card:start_materialize()
             card:juice_up()
-            return true 
-          end 
+            return true
+          end
         }))
         SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, context.other_card)
       end
@@ -400,7 +400,7 @@ SMODS.Joker {
             func = (function()
               G.GAME.consumeable_buffer = 0
               play_sound('timpani')
-              SMODS.add_card({ set = "tboj_loot", key = "c_tboj_bomb" })
+              SMODS.add_card({ set = "tboj_Loot", key = "c_tboj_bomb" })
               card:juice_up(0.3, 0.5)
               return true
             end)

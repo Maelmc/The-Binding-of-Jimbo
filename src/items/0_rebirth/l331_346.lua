@@ -25,14 +25,14 @@ SMODS.Joker {
 
 -- The Body
 SMODS.Joker {
-  key = "the_body", 
+  key = "the_body",
   pos = {x = 3, y = 22},
   config = {extra = {d_size = 3}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.d_size}}
   end,
-  rarity = 3, 
-  cost = 8, 
+  rarity = 3,
+  cost = 8,
   atlas = "jokers",
   blueprint_compat = false,
   eternal_compat = true,

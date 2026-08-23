@@ -83,7 +83,7 @@ SMODS.Joker {
               return true
           end
         }))
-    
+
         return {
           dollars = -card.ability.extra.money_minus,
           card = card

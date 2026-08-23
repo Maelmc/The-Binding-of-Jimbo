@@ -71,7 +71,7 @@ end
 
 SMODS.current_mod.set_debuff = function(card)
    if (G.GAME and G.GAME.blind and G.GAME.blind.name == "bl_tboj_siren" and not G.GAME.blind.disabled) and card.config and card.config.center and card.config.center.familiar then return true end
-   if (G.GAME and G.GAME.blind and G.GAME.blind.name == "bl_tboj_monstro" and not G.GAME.blind.disabled) and card.tboj_monstro then return true end
+   if (G.GAME and G.GAME.blind and G.GAME.blind.name == "bl_tboj_monstro" and not G.GAME.blind.disabled) and card.ability.tboj_monstro then return true end
    return false
 end
 
