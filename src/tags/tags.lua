@@ -1,7 +1,7 @@
 SMODS.Tag {
     key = "blessed",
     min_ante = 2,
-	  atlas = "tags",
+	atlas = "tags",
     pos = { x = 0, y = 0 },
     loc_vars = function(self, info_queue, tag)
         info_queue[#info_queue + 1] = G.P_CENTERS.p_tboj_angel_pack_1

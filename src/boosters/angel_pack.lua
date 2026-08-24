@@ -12,8 +12,8 @@ SMODS.Booster {
   discovered = false,
 	create_card = function(self, card, i)
     if i == 1 then -- first card is an active
-      local _k = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_angel", seed = "tboj_angel_pack"}
-      return SMODS.create_card { set = "tboj_active", area = G.pack_cards, skip_materialize = true, key = _k }
+      local _k = TBOJ.get_random_key{set = "tboj_Active", attributes = "tboj_angel", seed = "tboj_angel_pack"}
+      return SMODS.create_card { set = "tboj_Active", area = G.pack_cards, skip_materialize = true, key = _k }
     else
       if pseudorandom('soul_angel'..G.GAME.round_resets.ante) > 0.997 then
         local _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", target_rarities = {4, "Legendary"}, seed = "tboj_angel_pack"}

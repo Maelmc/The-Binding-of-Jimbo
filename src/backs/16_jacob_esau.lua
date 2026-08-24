@@ -15,20 +15,20 @@ SMODS.Back {
 }
 
 TBOJ.add_remove_deck("b_jacob_esau", function()
-  G.tboj_actives.config.card_limit = G.tboj_actives.config.card_limit - 1
-  G.tboj_trinkets.config.card_limit = G.tboj_trinkets.config.card_limit - 1
+  G.tboj_Actives.config.card_limit = G.tboj_Actives.config.card_limit - 1
+  G.tboj_Trinkets.config.card_limit = G.tboj_Trinkets.config.card_limit - 1
   G.jokers.config.card_limit = G.jokers.config.card_limit + 1
 
   -- schoolbag effect of removing extra active
   G.E_MANAGER:add_event(Event({func = function()
     G.E_MANAGER:add_event(Event({func = function()
       local not_neg = {}
-      for _, v in pairs(G.tboj_actives.cards) do
+      for _, v in pairs(G.tboj_Actives.cards) do
         if not v.edition or (v.edition and not v.edition.negative) then
           table.insert(not_neg,v)
         end
       end
-      if #not_neg > 0 and #not_neg > G.tboj_actives.config.card_limit then
+      if #not_neg > 0 and #not_neg > G.tboj_Actives.config.card_limit then
         local target = pseudorandom_element(not_neg,"schoolbag")
         SMODS.destroy_cards(target, {bypass_eternal = true})
       end

@@ -1,6 +1,6 @@
 return {
   descriptions = {
-    tboj_active = {
+    tboj_Active = {
       active_tboj_the_bible = {
         name = "The Bible",
         text = {
@@ -674,7 +674,7 @@ return {
         name = "Mom's Heels",
         text = {
           "Played {C:attention}Queens{} give",
-          "{C:mult}+#1#{} mult when scored"
+          "{C:mult}+#1#{} Mult when scored"
         }
       },
       j_tboj_lucky_foot = {
@@ -925,14 +925,6 @@ return {
           "{C:chips}+#1#{} Chips when scored"
         }
       },
-      j_tboj_piggy_bank = {
-        name = "Piggy Bank",
-        text = {
-          "This Joker gains {C:money}$#1#",
-          "of sell value whenever",
-          "{C:money}money{} is earned"
-        }
-      },
       j_tboj_a_lump_of_coal = {
         name = "A Lump of Coal",
         text = {
@@ -1018,6 +1010,14 @@ return {
           "{C:white,X:mult}X#1#{} Mult",
           "All {C:attention}Big Blinds{} are",
           "{C:attention}Deadly Sins"
+        }
+      },
+      j_tboj_piggy_bank = {
+        name = "Piggy Bank",
+        text = {
+          "This Joker gains {C:money}$#1#",
+          "of sell value whenever",
+          "{C:money}money{} is earned"
         }
       },
       j_tboj_monstro_lung = {
@@ -1246,7 +1246,7 @@ return {
         text = {
           "Each played {C:attention}#1#{}, {C:attention}#2#{} and {C:attention}#3#",
           "gives {C:chips}+#4#{} Chips when scored",
-          "{s:0.8}Rank changes each round"
+          "{s:0.8}Ranks change every round"
         },
       },
       j_tboj_lusty_blood = {
@@ -1659,7 +1659,7 @@ return {
         }
       },
     },
-    tboj_loot = {
+    tboj_Loot = {
       -- STANDARD LOOT
       c_tboj_bomb = {
         name = "Bomb",
@@ -1757,11 +1757,21 @@ return {
           "gain {C:blue}+#1#{} hand this round"
         }
       },
+
+      -- SOUL STONES
       c_tboj_soul_of_cain = {
         name = "Soul of Cain",
         text = {
           "Creates this Ante's",
           "{C:attention}Skip Tags",
+        }
+      },
+      c_tboj_soul_of_judas = {
+        name = "Soul of Judas",
+        text = {
+          "Destroys {C:attention}#1#{} selected",
+          "cards, other cards held in",
+          "hand permanently gain {C:mult}+#2#{} Mult",
         }
       },
       c_tboj_soul_of_lilith = {
@@ -1776,7 +1786,13 @@ return {
         name = "Soul of The Keeper",
         text = {
           "Earn between {C:money}$#1#{} and {C:money}$#2#{}",
-          "at random"
+        }
+      },
+      c_tboj_soul_of_jacob_esau = {
+        name = "Soul of Jacob and Esau",
+        text = {
+          "Create a {C:attention}Cursed #1#",
+          "copy of a random {C:attention}Joker"
         }
       },
     },
@@ -1833,7 +1849,7 @@ return {
         }
       },
     },
-    tboj_trinket = {
+    tboj_Trinket = {
       trinket_tboj_swallowed_penny = {
         name = "Swallowed Penny",
         text = {
@@ -2146,7 +2162,7 @@ return {
           "{C:attention}Stake{} difficulty",
         },
       },
-      undiscovered_tboj_active={
+      undiscovered_tboj_Active={
           name="Not Discovered",
           text={
               "Purchase or use",
@@ -2155,7 +2171,7 @@ return {
               "learn what it does",
           },
       },
-      undiscovered_tboj_trinket={
+      undiscovered_tboj_Trinket={
           name="Not Discovered",
           text={
               "Purchase or use",
@@ -2201,9 +2217,9 @@ return {
     },
     dictionary = {
       k_tboj_active = "Active",
-      k_tboj_actives = "Actives",
+      k_tboj_Actives = "Actives",
       k_tboj_trinket = "Trinket",
-      k_tboj_trinkets = "Trinkets",
+      k_tboj_Trinkets = "Trinkets",
       k_poop = "Poop",
       k_laser = "Laser",
       k_tboj_devil_pack = "Devil Pack",

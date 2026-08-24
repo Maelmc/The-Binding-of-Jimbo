@@ -1,5 +1,5 @@
 SMODS.ConsumableType {
-  key = "tboj_loot",
+  key = "tboj_Loot",
   primary_colour = HEX("C3D5D5"),
   secondary_colour = HEX("95ACAD"),
   loc_txt =  	{
@@ -12,7 +12,7 @@ SMODS.ConsumableType {
 }
 
 SMODS.UndiscoveredSprite {
-  key = 'tboj_loot',
+  key = 'tboj_Loot',
   atlas = 'undiscovered',
   pos = { x = 0, y = 0 },
   overlay_pos = { x = 1, y = 0},

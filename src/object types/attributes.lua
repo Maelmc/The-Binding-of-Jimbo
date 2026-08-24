@@ -26,7 +26,7 @@ SMODS.Attribute({
     key = "tboj_familiar",
 })
 SMODS.Attribute({
-    key = "tboj_loot",
+    key = "tboj_loot_attribute",
 })
 
 SMODS.Attribute({

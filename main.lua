@@ -7,7 +7,7 @@ print("START OF TBOJ")
 SMODS.current_mod.optional_features = {
   --retrigger_joker = true,
   quantum_enhancements = true,
-  --object_weights = true,
+  object_weights = true,
 }
 
 assert(SMODS.load_file("src/assets.lua"))()

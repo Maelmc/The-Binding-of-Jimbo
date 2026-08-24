@@ -1,14 +1,14 @@
 SMODS.Consumable {
   key = "jera",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 5, y = 0 },
   atlas = "consumables",
   cost = 4,
   unlocked = true,
   config = { extra = {}},
   loc_vars = function(self, info_queue, card)
-    local jera_c = G.GAME.last_tboj_loot and G.P_CENTERS[G.GAME.last_tboj_loot] or nil
-    local last_tboj_loot = jera_c and localize { type = 'name_text', key = jera_c.key, set = jera_c.set } or
+    local jera_c = G.GAME.last_tboj_Loot and G.P_CENTERS[G.GAME.last_tboj_Loot] or nil
+    local last_tboj_Loot = jera_c and localize { type = 'name_text', key = jera_c.key, set = jera_c.set } or
         localize('k_none')
     local colour = (not jera_c or jera_c.name == 'c_tboj_jera') and G.C.RED or G.C.GREEN
 
@@ -25,19 +25,19 @@ SMODS.Consumable {
                     n = G.UIT.C,
                     config = { align = "m", colour = colour, r = 0.05, padding = 0.05 },
                     nodes = {
-                        { n = G.UIT.T, config = { text = ' ' .. last_tboj_loot .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } },
+                        { n = G.UIT.T, config = { text = ' ' .. last_tboj_Loot .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } },
                     }
                 }
             }
         }
     }
 
-    return { vars = { last_tboj_loot }, main_end = main_end }
+    return { vars = { last_tboj_Loot }, main_end = main_end }
   end,
   can_use = function(self, card)
     return (#G.consumeables.cards < G.consumeables.config.card_limit or card.area == G.consumeables) and
-            G.GAME.last_tboj_loot and
-            G.GAME.last_tboj_loot ~= 'c_tboj_jera'
+            G.GAME.last_tboj_Loot and
+            G.GAME.last_tboj_Loot ~= 'c_tboj_jera'
   end,
   use = function(self, card, area, copier)
     G.E_MANAGER:add_event(Event({
@@ -46,7 +46,7 @@ SMODS.Consumable {
       func = function()
         if G.consumeables.config.card_limit > #G.consumeables.cards then
           play_sound('timpani')
-          SMODS.add_card({ key = G.GAME.last_tboj_loot })
+          SMODS.add_card({ key = G.GAME.last_tboj_Loot })
           card:juice_up(0.3, 0.5)
         end
         return true
@@ -59,7 +59,7 @@ SMODS.Consumable {
 
 SMODS.Consumable {
   key = "dagaz",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 6, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -115,7 +115,7 @@ SMODS.Consumable {
 
 SMODS.Consumable {
   key = "perthro",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 7, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -129,7 +129,7 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do
-      if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
+      if v.ability.set == "Joker" or v.ability.set == "tboj_Active" then
         TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
       end
     end
@@ -139,7 +139,7 @@ SMODS.Consumable {
 
 SMODS.Consumable {
   key = "algiz",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 9, y = 0 },
   atlas = "consumables",
   cost = 4,
@@ -157,20 +157,20 @@ SMODS.Consumable {
   tboj_rune = true,
 }
 
-local soul_weight = 1
+local soul_weight = 3
 
---[[
+-- Soul of Cain
 SMODS.Consumable {
   key = "soul_of_cain",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 1, y = 1 },
   atlas = "consumables",
   cost = 4,
   unlocked = true,
   weight = soul_weight,
-  config = { extra = {min = 1, max = 25}},
+  config = { extra = {}},
   loc_vars = function(self, info_queue, card)
-    return { vars = {card.ability.extra.min, card.ability.extra.max}}
+    return { vars = {}}
   end,
   can_use = function(self, card)
     return true
@@ -220,12 +220,63 @@ SMODS.Consumable {
   end,
   tboj_rune = true,
 }
-]]
+
+-- Soul of Judas
+SMODS.Consumable {
+  key = "soul_of_judas",
+  set = "tboj_Loot",
+  pos = { x = 2, y = 1 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  weight = soul_weight,
+  config = { extra = {select = 2, mult = 1}},
+  loc_vars = function(self, info_queue, card)
+    return { vars = {card.ability.extra.select, card.ability.extra.mult}}
+  end,
+  can_use = function(self, card)
+    return G.hand and G.hand.highlighted and #G.hand.highlighted == card.ability.extra.select
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        play_sound('tarot1')
+        card:juice_up(0.3, 0.5)
+        return true
+      end
+    }))
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.2,
+      func = function()
+        SMODS.destroy_cards(G.hand.highlighted)
+        return true
+      end
+    }))
+    for i = 1, #G.hand.cards do
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+          local target = G.hand.cards[i]
+          if not target.getting_sliced then
+            target.ability.perma_mult = (target.ability.perma_mult or 0) + card.ability.extra.mult
+            SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, target)
+          end
+          return true
+        end
+      }))
+    end
+    card:juice_up(0.3, 0.5)
+  end,
+  tboj_rune = true,
+}
 
 --[[
 SMODS.Consumable {
   key = "soul_of_eve",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 4, y = 1 },
   atlas = "consumables",
   cost = 4,
@@ -267,7 +318,7 @@ SMODS.Consumable {
 --[[
 SMODS.Consumable {
   key = "soul_of_lilith",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 10, y = 1 },
   atlas = "consumables",
   cost = 4,
@@ -296,10 +347,10 @@ SMODS.Consumable {
 }
 ]]
 
---[[
+-- Soul of The Keeper
 SMODS.Consumable {
   key = "soul_of_the_keeper",
-  set = "tboj_loot",
+  set = "tboj_Loot",
   pos = { x = 11, y = 1 },
   atlas = "consumables",
   cost = 4,
@@ -326,11 +377,12 @@ SMODS.Consumable {
     delay(0.6)
   end,
   tboj_rune = true,
-}]]
+}
 
---[[SMODS.Consumable {
-  key = "soul_of_jacon_esau",
-  set = "tboj_loot",
+-- Soul of Jacob and Esau
+SMODS.Consumable {
+  key = "soul_of_jacob_esau",
+  set = "tboj_Loot",
   pos = { x = 1, y = 2 },
   atlas = "consumables",
   cost = 4,
@@ -338,7 +390,8 @@ SMODS.Consumable {
   weight = soul_weight,
   config = { extra = {cursed = 3}},
   loc_vars = function(self, info_queue, card)
-    return { vars = {card.ability.extra.min, card.ability.extra.max}}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_cursed', vars = {card.ability.extra.cursed, "s", card.ability.extra.cursed}}
+    return { vars = {card.ability.extra.cursed}}
   end,
   can_use = function(self, card)
     return G.jokers and #G.jokers.cards > 0 and #G.jokers.cards < G.jokers.config.card_limit
@@ -352,4 +405,4 @@ SMODS.Consumable {
     SMODS.calculate_effect({ message = localize('k_duplicated_ex') }, copied_joker)
   end,
   tboj_rune = true,
-}]]
+}

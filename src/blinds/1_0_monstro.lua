@@ -18,18 +18,18 @@ SMODS.Blind {
       if #available == 0 then break end
       local idx = pseudorandom('tboj_monstro', 1, #available)
       local card = table.remove(available, idx)
-      card.tboj_monstro = true
+      card.ability.tboj_monstro = true
     end
   end,
   defeat = function(self)
     for _, v in pairs(G.playing_cards) do
-      v.tboj_monstro = nil
+      v.ability.tboj_monstro = nil
     end
   end,
   disable = function(self)
     self.config.disabled = true
     for _, v in pairs(G.playing_cards) do
-      v.tboj_monstro = nil
+      v.ability.tboj_monstro = nil
     end
   end,
   tboj_artist = "Maelmc"

@@ -129,10 +129,10 @@ SMODS.Joker {
           G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.1,
-            func = function() 
+            func = function()
               G.play.cards = moved
-              return true 
-            end 
+              return true
+            end
           }))
           SMODS.calculate_effect({
             message = localize("tboj_shift_ex"),
@@ -265,17 +265,17 @@ SMODS.Joker {
         card.ability.extra.current = card.ability.extra.current + 1
         if card.ability.extra.current == card.ability.extra.every then
           card.ability.extra.current = 0
-          local _card = SMODS.add_card({ set = "tboj_loot", key = "c_tboj_bomb", edition = 'e_negative' })
+          local _card = SMODS.add_card({ set = "tboj_Loot", key = "c_tboj_bomb", edition = 'e_negative' })
           _card.states.visible = nil
           _card.ability.extra.fused = true
           G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.1,
-            func = function() 
+            func = function()
               _card:start_materialize()
               card:juice_up()
-              return true 
-            end 
+              return true
+            end
           }))
           SMODS.calculate_effect({message = localize('tboj_oops_dot'),}, context.other_card)
         end

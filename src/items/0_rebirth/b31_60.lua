@@ -95,7 +95,7 @@ TBOJ.Active {
           return true
         end
       }))
-    end 
+    end
     TBOJ.juice_flip_highlighted(card, true)
   end,
   keep_on_use = function(self, card)
@@ -115,7 +115,7 @@ TBOJ.Active {
   config = {extra = {max_charge = 1, curr_charge = 1, Xmult = 2, active = false}},
   loc_vars = function(self, info_queue, card)
     return {vars = {
-      card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.Xmult, card.ability.extra.active and localize("tboj_active") or localize("tboj_inactive")
+      card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.Xmult, card.ability.extra.active and localize("tboj_Active") or localize("tboj_inactive")
     }}
   end,
   calculate = function(self, card, context)
@@ -158,14 +158,14 @@ TBOJ.Active {
 -- Yum Heart
 -- Lucky Foot
 SMODS.Joker {
-  key = "lucky_foot", 
+  key = "lucky_foot",
   pos = {x = 0, y = 3},
   config = {extra = {plus_odds = 1}},
   loc_vars = function(self, info_queue, center)
     info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_pill
     return {vars = {center.ability.extra.plus_odds}}
   end,
-  rarity = 2, 
+  rarity = 2,
   cost = 4,
   atlas = "jokers",
   perishable_compat = true,

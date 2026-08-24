@@ -89,11 +89,10 @@ TBOJ.Active {
     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
     G.E_MANAGER:add_event(Event({
       trigger = 'after',
-      delay = 0.4,
       func = function()
         G.GAME.consumeable_buffer = 0
         play_sound('timpani')
-        SMODS.add_card({ set = "tboj_loot", key_append = "tboj_the_book_of_sin" })
+        SMODS.add_card({ set = "tboj_Loot", key_append = "tboj_the_book_of_sin" })
         SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
         return true
       end
@@ -132,7 +131,7 @@ SMODS.Joker {
             G.E_MANAGER:add_event(Event({
               func = (function()
                 play_sound('timpani')
-                SMODS.add_card({ set = "tboj_loot", key = "c_tboj_soul_heart" })
+                SMODS.add_card({ set = "tboj_Loot", key = "c_tboj_soul_heart" })
                 card:juice_up(0.3, 0.5)
                 G.GAME.consumeable_buffer = 0
                 return true
@@ -206,7 +205,7 @@ SMODS.Joker {
   attributes = {"mult", "tboj_familiar"}
 }
 
--- The Halo 
+-- The Halo
 SMODS.Joker {
   key = "the_halo",
   pos = { x = 10, y = 6 },
@@ -262,13 +261,13 @@ TBOJ.Active {
   use = function(self, card, area, copier)
     if G.pack_cards and G.pack_cards.cards and #G.pack_cards.cards > 0 then
       for _, v in pairs(G.pack_cards.cards) do
-        if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
+        if v.ability.set == "Joker" or v.ability.set == "tboj_Active" then
           TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
         end
       end
     else
       for _, v in pairs(G.shop_jokers.cards) do
-        if v.ability.set == "Joker" or v.ability.set == "tboj_active" then
+        if v.ability.set == "Joker" or v.ability.set == "tboj_Active" then
           TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
         end
       end

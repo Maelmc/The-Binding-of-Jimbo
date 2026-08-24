@@ -8,7 +8,7 @@ TBOJ.Active {
     return {vars = {
       card.ability.extra.curr_charge, card.ability.extra.max_charge,
       card.ability.extra.Xmult_mod, card.ability.extra.Xmult_mod * card.ability.extra.curr_charge,
-      card.ability.extra.active and localize("tboj_active") or localize("tboj_inactive")
+      card.ability.extra.active and localize("tboj_Active") or localize("tboj_inactive")
     }}
   end,
   calculate = function(self, card, context)

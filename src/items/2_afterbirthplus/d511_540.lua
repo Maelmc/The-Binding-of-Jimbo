@@ -143,7 +143,7 @@ SMODS.Joker {
             func = function()
               G.GAME.consumeable_buffer = 0
               play_sound('timpani')
-              SMODS.add_card({ set = "tboj_loot", key_append = "tboj_death_list" })
+              SMODS.add_card({ set = "tboj_Loot", key_append = "tboj_death_list" })
               SMODS.calculate_effect({message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT}, card)
               return true
             end
@@ -219,7 +219,7 @@ SMODS.Joker {
 
 -- Schoolbag
 SMODS.Joker {
-  key = "schoolbag", 
+  key = "schoolbag",
   pos = {x = 8, y = 35},
   config = {extra = {active_limit = 1}},
   loc_vars = function(self, info_queue, card)
@@ -232,22 +232,22 @@ SMODS.Joker {
   add_to_deck = function(self, card, from_debuff)
     local add = card.ability.extra.active_limit
     G.E_MANAGER:add_event(Event({func = function()
-      G.tboj_actives.config.card_limit = G.tboj_actives.config.card_limit + add
+      G.tboj_Actives.config.card_limit = G.tboj_Actives.config.card_limit + add
       return true end }))
   end,
   remove_from_deck = function(self, card, from_debuff)
     local remove = card.ability.extra.active_limit
     G.E_MANAGER:add_event(Event({func = function()
-      G.tboj_actives.config.card_limit = G.tboj_actives.config.card_limit - remove
+      G.tboj_Actives.config.card_limit = G.tboj_Actives.config.card_limit - remove
 
       G.E_MANAGER:add_event(Event({func = function()
         local not_neg = {}
-        for _, v in pairs(G.tboj_actives.cards) do
+        for _, v in pairs(G.tboj_Actives.cards) do
           if not v.edition or (v.edition and not v.edition.negative) then
             table.insert(not_neg,v)
           end
         end
-        if #not_neg > 0 and #not_neg > G.tboj_actives.config.card_limit then
+        if #not_neg > 0 and #not_neg > G.tboj_Actives.config.card_limit then
           local target = pseudorandom_element(not_neg,"schoolbag")
           SMODS.destroy_cards(target, {bypass_eternal = true})
         end

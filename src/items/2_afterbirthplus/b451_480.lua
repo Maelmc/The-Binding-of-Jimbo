@@ -31,10 +31,10 @@ SMODS.Joker {
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.1,
-          func = function() 
+          func = function()
             _card:start_materialize()
-            return true 
-          end 
+            return true
+          end
         }))
         SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, context.other_card)
       end
@@ -51,11 +51,11 @@ SMODS.Joker {
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.1,
-          func = function() 
+          func = function()
             _card:start_materialize()
             card:juice_up()
-            return true 
-          end 
+            return true
+          end
         }))
         SMODS.calculate_effect({message = localize('tboj_spiders_ex'),}, context.other_card)
       end
@@ -186,10 +186,10 @@ TBOJ.Active {
     TBOJ.eor_charge(card,context)
   end,
   can_use = function(self, card)
-    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.tboj_trinkets and #G.tboj_trinkets.highlighted == 1
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.tboj_Trinkets and #G.tboj_Trinkets.highlighted == 1
   end,
   use = function(self, card, area, copier)
-    local target = G.tboj_trinkets.highlighted[1]
+    local target = G.tboj_Trinkets.highlighted[1]
     target:set_edition("e_negative",true)
     card:juice_up(0.3, 0.5)
   end,

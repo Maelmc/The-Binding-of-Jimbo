@@ -13,6 +13,25 @@ function TBOJ.leftmost_or_selected_joker()
   return G.jokers.highlighted[1] or G.jokers.cards[1]
 end
 
+-- https://www.reddit.com/r/lua/comments/8t0mlf/comment/e13xk1m/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+function TBOJ.weighted_random(pool,seed)
+   local poolsize = 0
+   for k,v in pairs(pool) do
+      poolsize = poolsize + v["weight"]
+   end
+   if seed then
+    if type(seed) == 'string' then seed = pseudoseed(seed) end
+    math.randomseed(seed)
+  end
+   local selection = math.random(1,poolsize)
+   for k,v in pairs(pool) do
+      selection = selection - v["weight"]
+      if (selection <= 0) then
+         return v
+      end
+   end
+end
+
 ---@param args? {set?: string, seed?: string, banned_rarities?: table<string>, target_rarities?: table<string|number>, attributes?: table<string,table<string>>}
 --- Get a random key based on arguments
 function TBOJ.get_random_key(args)
@@ -81,10 +100,10 @@ function TBOJ.get_random_key(args)
             for _, vv in pairs(G.playing_cards) do
               if SMODS.has_enhancement(vv, v.enhancement_gate) then
                 if SMODS.showman(v.key) or not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key)))) then
-                  table.insert(candidates, v.key)
-                  available = available + 1
+                  table.insert(candidates, {key = v.key, weight = v.weight or 10})
+                  available = available + (v.weight or 10)
                 else
-                  table.insert(candidates,"UNAVAILABLE")
+                  table.insert(candidates, {key = "UNAVAILABLE", weight = v.weight or 10})
                 end
                 break
               end
@@ -92,26 +111,26 @@ function TBOJ.get_random_key(args)
           end
         else
           if SMODS.showman(v.key) or not ((G.GAME.used_jokers[v.key] or next(SMODS.find_card(v.key)))) then
-            table.insert(candidates, v.key)
+            table.insert(candidates, {key = v.key, weight = v.weight or 10})
             available = available + 1
           else
-            table.insert(candidates,"UNAVAILABLE")
+            table.insert(candidates, {key = "UNAVAILABLE", weight = v.weight or 10})
           end
         end
       end
     end
   end
   if available > 0 then
-    local elem, _ = pseudorandom_element(candidates, pseudoseed(seed))
+    local elem, _ = TBOJ.weighted_random(candidates, seed)
     local it = 1
-    while elem == 'UNAVAILABLE' do
+    while elem["key"] == 'UNAVAILABLE' do
       it = it + 1
-      elem = pseudorandom_element(candidates, pseudoseed(seed..'_resample'..it))
+      elem = pseudorandom_element(candidates, seed..'_resample'..it)
     end
-    return elem
+    return elem["key"]
   elseif set == "Joker" then return "j_tboj_breakfast"
-  elseif set == "tboj_active" then return "active_tboj_the_d6"
-  elseif set == "tboj_trinket" then return "trinket_tboj_swallowed_penny"
+  elseif set == "tboj_Active" then return "active_tboj_the_d6"
+  elseif set == "tboj_Trinket" then return "trinket_tboj_swallowed_penny"
   elseif SMODS.ObjectTypes[set] and SMODS.ObjectTypes[set].default and G.P_CENTERS[SMODS.ObjectTypes[set].default] then return SMODS.ObjectTypes[set].default
   end
 end
@@ -629,7 +648,7 @@ function TBOJ.predict_pack(args)
     elseif pack == "Angel" then
       local center
       if i == 1 then
-        center = TBOJ.get_random_key{set = "tboj_active", attributes = "tboj_angel", seed = "tboj_angel_pack"}
+        center = TBOJ.get_random_key{set = "tboj_Active", attributes = "tboj_angel", seed = "tboj_angel_pack"}
       else
         if pseudorandom('soul_angel'..G.GAME.round_resets.ante) > 0.997 then
           center = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", target_rarities = {4, "Legendary"}, seed = "tboj_angel_pack"}
@@ -655,7 +674,7 @@ function TBOJ.predict_pack(args)
     elseif pack == "Devil" then
       local center
       if i == 1 then
-        center = TBOJ.get_random_key{set = "tboj_active", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, seed = "tboj_devil_pack"}
+        center = TBOJ.get_random_key{set = "tboj_Active", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, seed = "tboj_devil_pack"}
       else
         if pseudorandom('soul_devil'..G.GAME.round_resets.ante) > 0.997 then
           center = TBOJ.get_random_key{set = "Joker", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, target_rarities = {4, "Legendary"}, seed = "tboj_devil_pack"}
