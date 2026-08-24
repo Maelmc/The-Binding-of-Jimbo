@@ -130,6 +130,7 @@ end]]
 local gjws = get_joker_win_sticker
 function get_joker_win_sticker(_center, index)
   if (_center.set == "tboj_Active" or _center.set == "tboj_Trinket") then
+    G.PROFILES[G.SETTINGS.profile][string.lower(_center.set).."_usage"] = G.PROFILES[G.SETTINGS.profile][string.lower(_center.set).."_usage"] or {}
     local joker_usage = G.PROFILES[G.SETTINGS.profile][string.lower(_center.set).."_usage"][_center.key] or {}
     if joker_usage.wins then
       local applied = {}
