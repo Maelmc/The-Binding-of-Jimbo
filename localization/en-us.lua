@@ -1757,11 +1757,21 @@ return {
           "gain {C:blue}+#1#{} hand this round"
         }
       },
+
+      -- SOUL STONES
       c_tboj_soul_of_cain = {
         name = "Soul of Cain",
         text = {
           "Creates this Ante's",
           "{C:attention}Skip Tags",
+        }
+      },
+      c_tboj_soul_of_judas = {
+        name = "Soul of Judas",
+        text = {
+          "Destroys {C:attention}#1#{} selected",
+          "cards, other cards held in",
+          "hand permanently gain {C:mult}+#2#{} Mult",
         }
       },
       c_tboj_soul_of_lilith = {

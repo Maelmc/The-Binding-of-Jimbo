@@ -159,6 +159,7 @@ SMODS.Consumable {
 
 local soul_weight = 3
 
+-- Soul of Cain
 SMODS.Consumable {
   key = "soul_of_cain",
   set = "tboj_Loot",
@@ -167,9 +168,9 @@ SMODS.Consumable {
   cost = 4,
   unlocked = true,
   weight = soul_weight,
-  config = { extra = {min = 1, max = 25}},
+  config = { extra = {}},
   loc_vars = function(self, info_queue, card)
-    return { vars = {card.ability.extra.min, card.ability.extra.max}}
+    return { vars = {}}
   end,
   can_use = function(self, card)
     return true
@@ -216,6 +217,58 @@ SMODS.Consumable {
       }))
     end
     delay(0.6)
+  end,
+  tboj_rune = true,
+}
+
+-- Soul of Judas
+SMODS.Consumable {
+  key = "soul_of_judas",
+  set = "tboj_Loot",
+  pos = { x = 2, y = 1 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  weight = soul_weight,
+  config = { extra = {select = 2, mult = 1}},
+  loc_vars = function(self, info_queue, card)
+    return { vars = {card.ability.extra.select, card.ability.extra.mult}}
+  end,
+  can_use = function(self, card)
+    return G.hand and G.hand.highlighted and #G.hand.highlighted == card.ability.extra.select
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        play_sound('tarot1')
+        card:juice_up(0.3, 0.5)
+        return true
+      end
+    }))
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.2,
+      func = function()
+        SMODS.destroy_cards(G.hand.highlighted)
+        return true
+      end
+    }))
+    for i = 1, #G.hand.cards do
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+          local target = G.hand.cards[i]
+          if not target.getting_sliced then
+            target.ability.perma_mult = (target.ability.perma_mult or 0) + card.ability.extra.mult
+            SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, target)
+          end
+          return true
+        end
+      }))
+    end
+    card:juice_up(0.3, 0.5)
   end,
   tboj_rune = true,
 }
@@ -294,6 +347,7 @@ SMODS.Consumable {
 }
 ]]
 
+-- Soul of The Keeper
 SMODS.Consumable {
   key = "soul_of_the_keeper",
   set = "tboj_Loot",
@@ -325,6 +379,7 @@ SMODS.Consumable {
   tboj_rune = true,
 }
 
+-- Soul of Jacob and Esau
 SMODS.Consumable {
   key = "soul_of_jacob_esau",
   set = "tboj_Loot",
