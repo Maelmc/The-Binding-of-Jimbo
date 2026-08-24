@@ -1786,7 +1786,6 @@ return {
         name = "Soul of The Keeper",
         text = {
           "Earn between {C:money}$#1#{} and {C:money}$#2#{}",
-          "at random"
         }
       },
       c_tboj_soul_of_jacob_esau = {
