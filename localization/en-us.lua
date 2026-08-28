@@ -1759,6 +1759,14 @@ return {
       },
 
       -- SOUL STONES
+      c_tboj_soul_of_isaac = {
+        name = "Soul of Isaac",
+        text = {
+          "{C:attention}Reroll{} all {C:blue}Common{} and",
+          "{C:green}Uncommon {C:attention}Jokers{} in the shop",
+          "into ones of a {C:attention}higher rarity",
+        }
+      },
       c_tboj_soul_of_cain = {
         name = "Soul of Cain",
         text = {
