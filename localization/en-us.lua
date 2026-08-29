@@ -1672,7 +1672,7 @@ return {
       c_tboj_lil_battery = {
         name = "Lil' Battery",
         text = {
-          "Add up to {C:attention}#1# charges",
+          "Adds up to {C:attention}#1# charges",
           "to leftmost or",
           "selected {C:attention}Active"
         }
@@ -1689,14 +1689,14 @@ return {
       c_tboj_soul_heart = {
         name = "Soul Heart",
         text = {
-          "Permanently add {C:chips}+#1#{} Chips",
+          "Permanently adds {C:chips}+#1#{} Chips",
           "to {C:attention}#2#{} selected card"
         }
       },
       c_tboj_black_heart = {
         name = "Black Heart",
         text = {
-          "Permanently add {C:mult}+#1#{} Mult",
+          "Permanently adds {C:mult}+#1#{} Mult",
           "to {C:attention}#2#{} selected card"
         }
       },
@@ -1728,7 +1728,7 @@ return {
       c_tboj_jera = {
         name = "Jera",
         text = {
-          "Create the last {C:tboj_loot}Loot{} card",
+          "Creates the last {C:tboj_loot}Loot{} card",
           "used during this run",
           "{C:tboj_loot,s:0.8}Jera{} excluded"
         }
@@ -1745,7 +1745,7 @@ return {
       c_tboj_perthro = {
         name = "Perthro",
         text = {
-          "{C:attention}Reroll{} all {C:attention}Jokers",
+          "{C:attention}Rerolls{} all {C:attention}Jokers",
           "and {C:attention}Actives{} in the shop",
           "into ones of the same {C:attention}rarity"
         }
@@ -1761,10 +1761,11 @@ return {
       -- SOUL STONES
       c_tboj_soul_of_isaac = {
         name = "Soul of Isaac",
-        text = {
-          "{C:attention}Reroll{} all {C:blue}Common{} and",
-          "{C:green}Uncommon {C:attention}Jokers{} in the shop",
-          "into ones of a {C:attention}higher rarity",
+        text =
+        {
+          "{C:attention}Rerolls{} all {C:attention}Jokers{} in the shop,",
+          "{C:blue}Commons{} and {C:green}Uncommons",
+          "increase in {C:attention}rarity"
         }
       },
       c_tboj_soul_of_cain = {
@@ -1799,7 +1800,7 @@ return {
       c_tboj_soul_of_jacob_esau = {
         name = "Soul of Jacob and Esau",
         text = {
-          "Create a {C:attention}Cursed #1#",
+          "Creates a {C:attention}Cursed #1#",
           "copy of a random {C:attention}Joker"
         }
       },
