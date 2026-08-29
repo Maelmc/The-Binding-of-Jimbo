@@ -125,7 +125,7 @@ SMODS.Consumable {
     return {}
   end,
   can_use = function(self, card)
-    return G.shop_jokers and G.shop_jokers.cards
+    return G.shop_jokers and G.shop_jokers.cards and #G.shop_jokers.cards > 0 and G.STATE == G.STATES.SHOP
   end,
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do
@@ -158,6 +158,39 @@ SMODS.Consumable {
 }
 
 local soul_weight = 3
+
+-- Soul of Isaac
+SMODS.Consumable {
+  key = "soul_of_isaac",
+  set = "tboj_Loot",
+  pos = { x = 13, y = 0 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  config = { extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {}
+  end,
+  can_use = function(self, card)
+    return G.shop_jokers and G.shop_jokers.cards and #G.shop_jokers.cards > 0 and G.STATE == G.STATES.SHOP
+  end,
+  use = function(self, card, area, copier)
+    for _, v in pairs(G.shop_jokers.cards) do
+      if v.ability.set == "Joker" then
+        local _rarity
+        if v:is_rarity("Common") then
+          _rarity = 2
+        elseif v:is_rarity("Uncommon") then
+          _rarity = 3
+        else
+          _rarity = v.config.center.rarity
+        end
+        TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {_rarity}}))
+      end
+    end
+  end,
+  tboj_rune = true,
+}
 
 -- Soul of Cain
 SMODS.Consumable {

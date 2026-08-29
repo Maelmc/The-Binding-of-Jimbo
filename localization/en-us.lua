@@ -1759,6 +1759,14 @@ return {
       },
 
       -- SOUL STONES
+      c_tboj_soul_of_isaac = {
+        name = "Soul of Isaac",
+        text = {
+          "{C:attention}Reroll{} all {C:blue}Common{} and",
+          "{C:green}Uncommon {C:attention}Jokers{} in the shop",
+          "into ones of a {C:attention}higher rarity",
+        }
+      },
       c_tboj_soul_of_cain = {
         name = "Soul of Cain",
         text = {
@@ -2105,7 +2113,7 @@ return {
             "the same {C:attention}set"
         }
       },
-      undiscovered_loot = {
+      undiscovered_tboj_loot = {
           name = "Not Discovered",
           text = {
               "Purchase or use",
@@ -2162,7 +2170,7 @@ return {
           "{C:attention}Stake{} difficulty",
         },
       },
-      undiscovered_tboj_Active={
+      undiscovered_tboj_active={
           name="Not Discovered",
           text={
               "Purchase or use",
@@ -2171,7 +2179,7 @@ return {
               "learn what it does",
           },
       },
-      undiscovered_tboj_Trinket={
+      undiscovered_tboj_trinket={
           name="Not Discovered",
           text={
               "Purchase or use",
