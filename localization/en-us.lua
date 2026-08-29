@@ -2113,7 +2113,7 @@ return {
             "the same {C:attention}set"
         }
       },
-      undiscovered_loot = {
+      undiscovered_tboj_loot = {
           name = "Not Discovered",
           text = {
               "Purchase or use",
@@ -2170,7 +2170,7 @@ return {
           "{C:attention}Stake{} difficulty",
         },
       },
-      undiscovered_tboj_Active={
+      undiscovered_tboj_active={
           name="Not Discovered",
           text={
               "Purchase or use",
@@ -2179,7 +2179,7 @@ return {
               "learn what it does",
           },
       },
-      undiscovered_tboj_Trinket={
+      undiscovered_tboj_trinket={
           name="Not Discovered",
           text={
               "Purchase or use",
