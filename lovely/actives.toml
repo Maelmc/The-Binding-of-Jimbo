@@ -17,6 +17,7 @@ match_indent = true
 times = 1
 
 # Make them appear in the shop
+## this one does nothing as weights are enabled
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
@@ -26,12 +27,24 @@ payload = '''total_rate = total_rate + G.GAME.tboj_active_rate'''
 match_indent = true
 times = 1
 
+## this one does nothing as weights are enabled
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
 pattern = 'for _, v in ipairs(rates) do'
 position = 'before'
 payload = '''table.insert(rates, { type = "tboj_Active", val = G.GAME.tboj_active_rate  })'''
+match_indent = true
+times = 1
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils/weights.lua"]'
+pattern = '''        for _,v in ipairs(SMODS.ConsumableType.obj_buffer) do
+            args.types[#args.types + 1] = v
+        end'''
+position = 'after'
+payload = '''args.types[#args.types + 1] = "tboj_Active"'''
 match_indent = true
 times = 1
 
