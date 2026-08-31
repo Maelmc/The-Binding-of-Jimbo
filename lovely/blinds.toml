@@ -3,33 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 0
 
-# Both copied from Ortalab
-# Custom Small/Big Blinds
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''G.GAME.round_resets.blind_choices.Boss = get_new_boss()'''
-position = 'before'
-match_indent = true
-payload = '''
---G.GAME.round_resets.blind_choices.Small = TBOJ.get_new_small()
-G.GAME.round_resets.blind_choices.Big = TBOJ.get_new_big()
-'''
-
-# Add Custom Small/Big Blinds
-[[patches]]
-[patches.pattern]
-target = 'game.lua'
-match_indent = true
-position = 'before'
-pattern = '''
-self.GAME.round_resets.blind_choices.Boss = get_new_boss()
-'''
-payload = '''
---self.GAME.round_resets.blind_choices.Small = TBOJ.get_new_small()
-self.GAME.round_resets.blind_choices.Big = TBOJ.get_new_big()
-'''
-
 # Thanks Emma for the following 3 patches
 # end_round / new_round
 [[patches]]
