@@ -23,6 +23,10 @@ SMODS.Attribute({
 })
 
 SMODS.Attribute({
+    key = "tboj_locust",
+})
+
+SMODS.Attribute({
     key = "tboj_familiar",
 })
 SMODS.Attribute({

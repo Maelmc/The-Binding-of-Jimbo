@@ -412,6 +412,49 @@ SMODS.Consumable {
   tboj_rune = true,
 }
 
+-- Soul of Appolyon
+SMODS.Consumable {
+  key = "soul_of_appolyon",
+  set = "tboj_Loot",
+  pos = { x = 12, y = 1 },
+  atlas = "consumables",
+  cost = 4,
+  unlocked = true,
+  weight = soul_weight,
+  config = { extra = {create = 4}},
+  loc_vars = function(self, info_queue, card)
+    return { vars = {card.ability.extra.create}}
+  end,
+  can_use = function(self, card)
+    return true
+  end,
+  use = function(self, card, area, copier)
+    for _ = 1, card.ability.extra.create do
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.4,
+        func = function()
+          play_sound('timpani')
+          local _locust = SMODS.poll_object {
+            type = "tboj_spiderfly",
+            attributes = {"tboj_locust"},
+            allow_duplicates = true,
+            rarity = false,
+          }
+          local _card = SMODS.add_card {
+            set = "tboj_spiderfly",
+            key = _locust,
+            area = G.tboj_flies
+          }
+          return true
+        end
+      }))
+    end
+    delay(0.6)
+  end,
+  tboj_rune = true,
+}
+
 -- Soul of Jacob and Esau
 SMODS.Consumable {
   key = "soul_of_jacob_esau",

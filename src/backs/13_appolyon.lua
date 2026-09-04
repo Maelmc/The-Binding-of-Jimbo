@@ -1,5 +1,5 @@
 SMODS.Back {
-	key = "apollyon",
+	key = "apollyon", -- yes it's supposed to be appolyon i know im stupid but now that people have played with it on high stakes it's too late
   unlocked = true,
   discovered = true,
 	config = {  },

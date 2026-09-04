@@ -360,7 +360,7 @@ return {
         }
       },
       b_tboj_apollyon = {
-        name = "Apollyon Deck",
+        name = "Appolyon Deck",
         text = {
           "Jokers sold {C:attention}cannot",
           "{C:attention}appear again"
@@ -1346,7 +1346,9 @@ return {
         name = "7 Seals",
         text = {
           "Each discarded {C:attention}7",
-          "gains a random {C:attention}seal"
+          "gains a random {C:attention}seal",
+          "and creates the",
+          "associated {C:attention}Locust"
         }
       },
       j_tboj_angelic_prism = {
@@ -1797,6 +1799,12 @@ return {
           "Earn between {C:money}$#1#{} and {C:money}$#2#{}",
         }
       },
+      c_tboj_soul_of_appolyon = {
+        name = "Soul of Appolyon",
+        text = {
+          "Creates {C:attention}#1# Locusts{} at random",
+        }
+      },
       c_tboj_soul_of_jacob_esau = {
         name = "Soul of Jacob and Esau",
         text = {
@@ -2100,6 +2108,34 @@ return {
         text = {
           "{C:white,X:red}X#1#{} Mult then",
           "{C:red}self-destructs",
+        }
+      },
+      spiderfly_tboj_locust_of_war = {
+        name = "Locust of War",
+        text = {
+          "{C:white,X:red}X#1#{} Mult, {C:red}self-destructs{}",
+          "at end of round"
+        }
+      },
+      spiderfly_tboj_locust_of_pestilence = {
+        name = "Locust of Pestilence",
+        text = {
+          "Upgrades level of next played",
+          "{C:attention}poker hand{} then {C:red}self-destructs{}",
+        }
+      },
+      spiderfly_tboj_locust_of_famine = {
+        name = "Locust of Famine",
+        text = {
+          "Earn {C:money}$#1#{} when hand is played,",
+          "{C:red}self-destructs{} at end of round"
+        }
+      },
+      spiderfly_tboj_locust_of_death = {
+        name = "Locust of Death",
+        text = {
+          "Create a {C:purple}Tarot{} card when",
+          "{C:attention}discarding{} then {C:red}self-destructs{}"
         }
       },
     },
