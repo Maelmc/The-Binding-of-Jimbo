@@ -23,11 +23,11 @@ SMODS.Joker {
         local _card = SMODS.create_card {
           set = "tboj_spiderfly",
           key = "spiderfly_tboj_pretty_fly",
-          area = G.flies
+          area = G.tboj_flies
         }
         _card.states.visible = nil
         _card:add_to_deck()
-        G.flies:emplace(_card)
+        G.tboj_flies:emplace(_card)
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.1,
@@ -43,11 +43,11 @@ SMODS.Joker {
         local _card = SMODS.create_card {
             set = "tboj_spiderfly",
             key = "spiderfly_tboj_blue_spider",
-            area = G.spiders
+            area = G.tboj_spiders
           }
         _card.states.visible = nil
         _card:add_to_deck()
-        G.spiders:emplace(_card)
+        G.tboj_spiders:emplace(_card)
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.1,

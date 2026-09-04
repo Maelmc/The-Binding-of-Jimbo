@@ -97,26 +97,26 @@ function SMODS.current_mod.custom_card_areas(game)
   game.tboj_Trinkets.T.x = G.deck.T.x
   game.tboj_Trinkets.T.y = G.deck.T.y - G.deck.T.h * 1.125
 
-  game.flies = CardArea(
+  game.tboj_flies = CardArea(
     0, 0.95*G.CARD_H + 0.3,
     4.9*G.CARD_W * 0.3,
     0.1,
     {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR, align_buttons = true}
   )
-  game.flies.config.align_buttons = true
-  game.flies.T.x = G.consumeables.T.x - 4.9*G.CARD_W*0.4
-  game.flies.T.y = G.consumeables.T.y + G.consumeables.T.h + 0.35
+  game.tboj_flies.config.align_buttons = true
+  game.tboj_flies.T.x = G.consumeables.T.x - 4.9*G.CARD_W*0.4
+  game.tboj_flies.T.y = G.consumeables.T.y + G.consumeables.T.h + 0.35
 
 
-  game.spiders = CardArea(
+  game.tboj_spiders = CardArea(
     0, 0.95*G.CARD_H + 0.3,
     4.9*G.CARD_W * 0.3,
     0.1,
     {card_limit = 0, type = 'joker', highlight_limit = 0, bg_colour = G.C.CLEAR, align_buttons = true}
   )
-  game.spiders.config.align_buttons = true
-  game.spiders.T.x = game.flies.T.x + game.flies.T.w + 0.1
-  game.spiders.T.y = game.flies.T.y
+  game.tboj_spiders.config.align_buttons = true
+  game.tboj_spiders.T.x = game.tboj_flies.T.x + game.tboj_flies.T.w + 0.1
+  game.tboj_spiders.T.y = game.tboj_flies.T.y
 end
 
 SMODS.current_mod.config_tab = function()

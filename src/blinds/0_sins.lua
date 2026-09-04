@@ -2,8 +2,7 @@ SMODS.Blind {
   key = "envy",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("BBBBBB"),
   pos = { x = 0, y = 3 },
   atlas = "boss_blinds",
@@ -23,14 +22,16 @@ SMODS.Blind {
   defeat = function(self)
     G.GAME.modifiers.tboj_envy_defeated = true
   end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_allow_sin and not G.GAME.modifiers.tboj_envy_defeated
+  end
 }
 
 SMODS.Blind {
   key = "super_envy",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("8575E3"),
   pos = { x = 0, y = 4 },
   atlas = "boss_blinds",
@@ -48,7 +49,7 @@ SMODS.Blind {
     end
   end,
   in_pool = function (self)
-    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_envy_defeated
+    return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_envy_defeated
   end
 }
 
@@ -56,8 +57,7 @@ SMODS.Blind {
   key = "gluttony",
   dollars = 4,
   mult = 2,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = G.C.TBOJ.MOD_COLOR,
   pos = { x = 0, y = 5 },
   atlas = "boss_blinds",
@@ -67,14 +67,16 @@ SMODS.Blind {
   defeat = function(self)
     G.GAME.modifiers.tboj_glutonny_defeated = true
   end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_allow_sin and not G.GAME.modifiers.tboj_glutonny_defeated
+  end
 }
 
 SMODS.Blind {
   key = "super_gluttony",
   dollars = 4,
   mult = 3,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = G.C.TBOJ.MOD_COLOR,
   pos = { x = 0, y = 6 },
   atlas = "boss_blinds",
@@ -82,7 +84,7 @@ SMODS.Blind {
   debuff = { },
   config = {disabled = false},
   in_pool = function (self)
-    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_glutonny_defeated
+    return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_glutonny_defeated
   end
 }
 
@@ -90,8 +92,7 @@ SMODS.Blind {
   key = "wrath",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("BBBBBB"),
   pos = { x = 0, y = 7 },
   atlas = "boss_blinds",
@@ -110,14 +111,16 @@ SMODS.Blind {
   defeat = function(self)
     G.GAME.modifiers.tboj_wrath_defeated = true
   end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_allow_sin and not G.GAME.modifiers.tboj_wrath_defeated
+  end
 }
 
 SMODS.Blind {
   key = "super_wrath",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("7A7A7A"),
   pos = { x = 0, y = 8 },
   atlas = "boss_blinds",
@@ -135,7 +138,7 @@ SMODS.Blind {
     end
   end,
   in_pool = function (self)
-    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_wrath_defeated
+    return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_wrath_defeated
   end
 }
 
@@ -143,8 +146,7 @@ SMODS.Blind {
   key = "pride",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("BBBBBB"),
   pos = { x = 0, y = 9 },
   atlas = "boss_blinds",
@@ -180,14 +182,16 @@ SMODS.Blind {
   defeat = function(self)
     G.GAME.modifiers.tboj_pride_defeated = true
   end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_allow_sin and not G.GAME.modifiers.tboj_pride_defeated
+  end
 }
 
 SMODS.Blind {
   key = "super_pride",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("E280D8"),
   pos = { x = 0, y = 10 },
   atlas = "boss_blinds",
@@ -231,7 +235,7 @@ SMODS.Blind {
     return true
   end,
   in_pool = function (self)
-    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_pride_defeated
+    return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_pride_defeated
   end
 }
 
@@ -239,8 +243,7 @@ SMODS.Blind {
   key = "lust",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("DB9AE0"),
   pos = { x = 0, y = 12 },
   atlas = "boss_blinds",
@@ -272,14 +275,16 @@ SMODS.Blind {
   defeat = function(self)
     G.GAME.modifiers.tboj_lust_defeated = true
   end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_allow_sin and not G.GAME.modifiers.tboj_lust_defeated
+  end
 }
 
 SMODS.Blind {
   key = "super_lust",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("DB9AE0"),
   pos = { x = 0, y = 13 },
   atlas = "boss_blinds",
@@ -310,7 +315,7 @@ SMODS.Blind {
     return not (suit_count >= 3)
   end,
   in_pool = function (self)
-    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_lust_defeated
+    return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_lust_defeated
   end
 }
 
@@ -318,8 +323,7 @@ SMODS.Blind {
   key = "greed",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("DFCB00"),
   pos = { x = 0, y = 14 },
   atlas = "boss_blinds",
@@ -346,14 +350,16 @@ SMODS.Blind {
   defeat = function(self)
     G.GAME.modifiers.tboj_greed_defeated = true
   end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_allow_sin and not G.GAME.modifiers.tboj_greed_defeated
+  end
 }
 
 SMODS.Blind {
   key = "super_greed",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("DFCB00"),
   pos = { x = 0, y = 15 },
   atlas = "boss_blinds",
@@ -378,7 +384,7 @@ SMODS.Blind {
     end
   end,
   in_pool = function (self)
-    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_greed_defeated
+    return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_greed_defeated
   end
 }
 
@@ -386,8 +392,7 @@ SMODS.Blind {
   key = "sloth",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("A3D337"),
   pos = { x = 0, y = 16 },
   atlas = "boss_blinds",
@@ -401,14 +406,16 @@ SMODS.Blind {
   defeat = function(self)
     G.GAME.modifiers.tboj_sloth_defeated = true
   end,
+  in_pool = function (self)
+    return G.GAME.modifiers.tboj_allow_sin and not G.GAME.modifiers.tboj_sloth_defeated
+  end
 }
 
 SMODS.Blind {
   key = "super_sloth",
   dollars = 4,
   mult = 1.5,
-  big = true,
-  boss = false,
+  big = { min = 1 },
   boss_colour = HEX("A3D337"),
   pos = { x = 0, y = 17 },
   atlas = "boss_blinds",
@@ -421,6 +428,6 @@ SMODS.Blind {
     G.GAME.blind:juice_up()
   end,
   in_pool = function (self)
-    return G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_sloth_defeated
+    return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_sloth_defeated
   end
 }

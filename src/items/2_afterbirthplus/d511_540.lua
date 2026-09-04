@@ -53,6 +53,12 @@ SMODS.Joker {
 -- Technology Zero
 -- Leprosy
 -- 7 seals
+local seal_to_locust = {
+  Red = "war",
+  Gold = "famine",
+  Purple = "death",
+  Blue = "pestilence"
+}
 SMODS.Joker {
   key = "7_seals",
   pos = {x = 0, y = 35 },
@@ -68,7 +74,34 @@ SMODS.Joker {
   blueprint_compat = false,
   calculate = function(self, card, context)
     if context.discard and not context.blueprint and context.other_card:get_id() == 7 then
-      context.other_card:set_seal(SMODS.poll_seal({type_key = "tboj_7_seals", guaranteed = true}))
+      local _seal = SMODS.poll_seal({type_key = "tboj_7_seals", guaranteed = true})
+      context.other_card:set_seal(_seal)
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.4,
+        func = function()
+          local _locust = seal_to_locust[_seal]
+          local _key
+          if _locust then
+            _key = "spiderfly_tboj_locust_of_".._locust
+          else
+            _key = SMODS.poll_object {
+              type = "tboj_spiderfly",
+              attributes = {"tboj_locust"},
+              allow_duplicates = true,
+              rarity = false,
+            }
+          end
+          play_sound('timpani')
+          card:juice_up()
+          local _card = SMODS.add_card {
+            set = "tboj_spiderfly",
+            key = _key,
+            area = G.tboj_flies
+          }
+          return true
+        end
+      }))
       return nil, true
     end
   end,

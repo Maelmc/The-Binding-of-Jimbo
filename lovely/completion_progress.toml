@@ -68,11 +68,11 @@ G.PROGRESS.tboj_trinket_stickers = {tally = 0, of = 0}
 [[patches]]
 [patches.pattern]
 target = 'functions/misc_functions.lua'
-pattern = "if v.set == 'Joker' and not v.no_collection and not v.omit then"
+pattern = "if v.set == 'Joker' and (not SMODS.hide_from_collection(v)) and not v.omit then"
 position = 'before'
 match_indent = true
 payload = '''
-if (v.set == 'tboj_Active' or v.set == 'tboj_Trinket') and not v.no_collection and not v.omit then
+if (v.set == 'tboj_Active' or v.set == 'tboj_Trinket') and (not SMODS.hide_from_collection(v)) and not v.omit then
   G.PROGRESS[string.lower(v.set).."_stickers"].of = G.PROGRESS[string.lower(v.set).."_stickers"].of + #G.P_CENTER_POOLS.Stake
   G.PROGRESS[string.lower(v.set).."_stickers"].tally = G.PROGRESS[string.lower(v.set).."_stickers"].tally + get_joker_win_sticker(v, true)
 end

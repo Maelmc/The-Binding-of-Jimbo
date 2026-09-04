@@ -10,7 +10,7 @@ target = 'cardarea.lua'
 pattern = '--if self.config.highlighted_limit <= #self.highlighted then return end'
 position = 'before'
 payload = '''
-if self == G.spiders or self == G.flies then return end
+if self == G.tboj_spiders or self == G.tboj_flies then return end
 '''
 match_indent = true
 times = 1
@@ -23,9 +23,9 @@ pattern = 'elseif c1.ability.consumeable then'
 position = 'at'
 payload = '''elseif c1.config.center.set == "tboj_spiderfly" then
   if c1.config.center.key == "spiderfly_tboj_blue_spider" then
-    G.spiders:emplace(c1)
+    G.tboj_spiders:emplace(c1)
   else
-    G.flies:emplace(c1)
+    G.tboj_flies:emplace(c1)
   end
 elseif c1.ability.consumeable then
 '''
@@ -39,11 +39,11 @@ target = '=[SMODS _ "src/utils.lua"]'
 pattern = "-- TARGET: add your own CardAreas for joker evaluation"
 position = "after"
 payload = '''
-if G.flies and G.flies.cards then
-  t[#t+1] = G.flies
+if G.tboj_flies and G.tboj_flies.cards then
+  t[#t+1] = G.tboj_flies
 end
-if G.spiders and G.spiders.cards then
-  t[#t+1] = G.spiders
+if G.tboj_spiders and G.tboj_spiders.cards then
+  t[#t+1] = G.tboj_spiders
 end
 '''
 match_indent = true
@@ -57,9 +57,9 @@ position = "before"
 payload = '''
 elseif _card.ability.set == "tboj_spiderfly" then
   if _card.config.center.key == "spiderfly_tboj_blue_spider" then
-    _area = G.spiders
+    _area = G.tboj_spiders
   else
-    _area = G.flies
+    _area = G.tboj_flies
   end
 '''
 match_indent = true

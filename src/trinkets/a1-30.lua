@@ -205,7 +205,8 @@ TBOJ.Trinket {
   end,
   calculate = function(self, card, context)
     if context.check_enhancement then
-      if SMODS.has_enhancement(context.other_card, 'm_stone') then
+      if card.config.center.key == "m_stone" then
+      --if SMODS.has_enhancement(context.other_card, 'm_stone') then
           return {m_lucky = true}
       end
     end
