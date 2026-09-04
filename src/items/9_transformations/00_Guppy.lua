@@ -21,10 +21,10 @@ SMODS.Joker {
         local _card = SMODS.create_card {
           set = "tboj_spiderfly",
           key = "spiderfly_tboj_pretty_fly",
-          area = G.flies
+          area = G.tboj_flies
         }
         _card:add_to_deck()
-        G.flies:emplace(_card)
+        G.tboj_flies:emplace(_card)
       end
       SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, card)
     end
@@ -34,10 +34,10 @@ SMODS.Joker {
         local _card = SMODS.create_card {
           set = "tboj_spiderfly",
           key = "spiderfly_tboj_pretty_fly",
-          area = G.flies
+          area = G.tboj_flies
         }
         _card:add_to_deck()
-        G.flies:emplace(_card)
+        G.tboj_flies:emplace(_card)
       end
       SMODS.calculate_effect({message = localize('tboj_flies_ex'),}, card)
     end

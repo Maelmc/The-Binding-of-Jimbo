@@ -42,10 +42,10 @@ TBOJ.Spiderfly {
     end
   end,
   add_to_deck = function(self, card, from_debuff)
-    G.flies:change_size(1)
+    G.tboj_flies:change_size(1)
   end,
   remove_from_deck = function(self, card, from_debuff)
-    G.flies:change_size(-1)
+    G.tboj_flies:change_size(-1)
   end,
   attributes = {"tboj_fly"},
   tboj_designer = "Thor's Girdle"
@@ -73,10 +73,10 @@ TBOJ.Spiderfly {
     end
   end,
   add_to_deck = function(self, card, from_debuff)
-    G.spiders:change_size(1)
+    G.tboj_spiders:change_size(1)
   end,
   remove_from_deck = function(self, card, from_debuff)
-    G.spiders:change_size(-1)
+    G.tboj_spiders:change_size(-1)
   end,
   spider = true,
   tboj_designer = "Thor's Girdle"
@@ -95,13 +95,13 @@ local cfbs = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
   if card.ability.set == "tboj_spiderfly" then
     if card.config.center.key == "spiderfly_tboj_blue_spider" then
-      if #G.spiders.cards >= G.spiders.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
-        alert_no_space(card, G.spiders)
+      if #G.tboj_spiders.cards >= G.tboj_spiders.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
+        alert_no_space(card, G.tboj_spiders)
         return false
       else return true end
     else
-      if #G.flies.cards >= G.flies.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
-        alert_no_space(card, G.flies)
+      if #G.tboj_flies.cards >= G.tboj_flies.config.card_limit + card.ability.card_limit - card.ability.extra_slots_used then
+        alert_no_space(card, G.tboj_flies)
         return false
       else return true end
     end
@@ -111,7 +111,7 @@ end
 --[[local G_UIDEF_use_and_sell_buttons_ref = G.UIDEF.use_and_sell_buttons
 function G.UIDEF.use_and_sell_buttons(card)
   local buttons = G_UIDEF_use_and_sell_buttons_ref(card)
-  if (card.area == G.spiders or card.area == G.flies) and card.config.center.set == "tboj_spiderfly" then
+  if (card.area == G.tboj_spiders or card.area == G.tboj_flies) and card.config.center.set == "tboj_spiderfly" then
     local sell = nil
 
     local use = nil
