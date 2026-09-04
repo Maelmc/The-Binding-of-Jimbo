@@ -26,7 +26,7 @@ function TBOJ.glitch_apply_merged_sprite(card, atlas_key)
         joker_pool = G.GAME.tboj_joker_list
     else
         for _, joker_center in ipairs(G.P_CENTER_POOLS["Joker"] or {}) do
-            if not joker_center.no_collection then
+            if not SMODS.hide_from_collection(joker_center) then
                 table.insert(joker_pool, joker_center)
             end
         end

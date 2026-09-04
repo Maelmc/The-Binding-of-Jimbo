@@ -60,7 +60,7 @@ SMODS.Consumable {
       if v.key == target.config.center.key then
         for l = k-1, 1, -1 do
           local prev = G.P_CENTER_POOLS.Joker[l]
-          if (not prev.no_collection) and (prev.rarity ~= "tboj_transformation") then
+          if (not SMODS.hide_from_collection(prev)) and (prev.rarity ~= "tboj_transformation") then
             G.E_MANAGER:add_event(Event({
               trigger = 'after',
               delay = 0.4,
