@@ -14,12 +14,22 @@ SMODS.Blind {
       if G.GAME.chips >= G.GAME.blind.chips then
         blind.triggered = true
         G.GAME.chips = 0
-        TBOJ.modify_blind_size({mult = 0.1, source = blind})
+        if not G.GAME.modifiers.tboj_envy_first_phase then
+          TBOJ.modify_blind_size({mult = 0.1, source = blind})
+        end
+        G.GAME.modifiers.tboj_envy_first_phase = true
+      end
+    end
+
+    if not blind.disabled then
+      if context.drawing_cards and G.GAME.modifiers.tboj_envy_first_phase then
+        G.GAME.modifiers.tboj_envy_first_phase = nil
         blind:disable()
       end
     end
   end,
   defeat = function(self)
+    G.GAME.modifiers.tboj_envy_first_phase = nil
     G.GAME.modifiers.tboj_envy_defeated = true
   end,
   in_pool = function (self)
@@ -43,10 +53,22 @@ SMODS.Blind {
       if G.GAME.chips >= G.GAME.blind.chips then
         blind.triggered = true
         G.GAME.chips = 0
-        TBOJ.modify_blind_size({mult = 0.25, source = blind})
+        if not G.GAME.modifiers.tboj_envy_first_phase then
+          TBOJ.modify_blind_size({mult = 0.25, source = blind})
+        end
+        G.GAME.modifiers.tboj_envy_first_phase = true
+      end
+    end
+
+    if not blind.disabled then
+      if context.drawing_cards and G.GAME.modifiers.tboj_envy_first_phase then
+        G.GAME.modifiers.tboj_envy_first_phase = nil
         blind:disable()
       end
     end
+  end,
+  defeat = function(self)
+    G.GAME.modifiers.tboj_envy_first_phase = nil
   end,
   in_pool = function (self)
     return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_envy_defeated
