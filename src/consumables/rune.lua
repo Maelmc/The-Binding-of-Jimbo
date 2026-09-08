@@ -412,9 +412,9 @@ SMODS.Consumable {
   tboj_rune = true,
 }
 
--- Soul of Appolyon
+-- Soul of Apollyon
 SMODS.Consumable {
-  key = "soul_of_appolyon",
+  key = "soul_of_apollyon",
   set = "tboj_Loot",
   pos = { x = 12, y = 1 },
   atlas = "consumables",

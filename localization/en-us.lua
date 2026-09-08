@@ -360,7 +360,7 @@ return {
         }
       },
       b_tboj_apollyon = {
-        name = "Appolyon Deck",
+        name = "Apollyon Deck",
         text = {
           "Jokers sold {C:attention}cannot",
           "{C:attention}appear again"
@@ -1799,8 +1799,8 @@ return {
           "Earn between {C:money}$#1#{} and {C:money}$#2#{}",
         }
       },
-      c_tboj_soul_of_appolyon = {
-        name = "Soul of Appolyon",
+      c_tboj_soul_of_apollyon = {
+        name = "Soul of Apollyon",
         text = {
           "Creates {C:attention}#1# Locusts{} at random",
         }
