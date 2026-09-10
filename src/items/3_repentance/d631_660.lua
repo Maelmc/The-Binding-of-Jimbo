@@ -130,9 +130,9 @@ SMODS.Joker {
 SMODS.Joker {
   key = "fruity_plum",
   pos = {x = 3, y = 43},
-  config = {extra = {chips_mod = 2, chips = 0}},
+  config = {extra = {chip_mod = 2, chips = 0}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips_mod, localize(G.GAME.tboj_fruity_plum_suit or "Spades",'suits_singular'), card.ability.extra.chips,
+    return {vars = {card.ability.extra.chip_mod, localize(G.GAME.tboj_fruity_plum_suit or "Spades",'suits_singular'), card.ability.extra.chips,
             colours = {G.C.SUITS[G.GAME.tboj_fruity_plum_suit or "Spades"]},}}
   end,
   rarity = 1,
@@ -145,7 +145,7 @@ SMODS.Joker {
     if context.individual and context.cardarea == G.play and context.other_card:is_suit(G.GAME.tboj_fruity_plum_suit) and not context.blueprint then
       SMODS.scale_card(card, {
         ref_value = 'chips',
-        scalar_value = 'chips_mod',
+        scalar_value = 'chip_mod',
       })
       return nil, true
     end

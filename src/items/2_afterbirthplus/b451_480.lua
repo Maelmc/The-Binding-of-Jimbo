@@ -78,9 +78,9 @@ SMODS.Joker {
 SMODS.Joker {
   key = "hushy",
   pos = { x = 4, y = 31 },
-  config = {extra = {chips = 0, chips_mod = 8}},
+  config = {extra = {chips = 0, chip_mod = 8}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+    return {vars = {card.ability.extra.chip_mod, card.ability.extra.chips}}
   end,
   rarity = 1,
   cost = 5,
@@ -97,7 +97,7 @@ SMODS.Joker {
       elseif not context.blueprint then
         SMODS.scale_card(card, {
           ref_value = 'chips',
-          scalar_value = 'chips_mod',
+          scalar_value = 'chip_mod',
         })
         return nil, true
       end

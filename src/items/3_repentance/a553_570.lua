@@ -158,9 +158,9 @@ SMODS.Joker {
 SMODS.Joker {
   key = "paschal_candle",
   pos = {x = 11, y = 37 },
-  config = {extra = {chips = 0, chips_mod = 30}},
+  config = {extra = {chips = 0, chip_mod = 30}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+    return {vars = {card.ability.extra.chip_mod, card.ability.extra.chips}}
   end,
   rarity = 1,
   cost = 4,
@@ -186,7 +186,7 @@ SMODS.Joker {
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint and G.GAME.current_round.hands_played == 1 then
       SMODS.scale_card(card, {
         ref_value = 'chips',
-        scalar_value = 'chips_mod',
+        scalar_value = 'chip_mod',
       })
     end
   end,

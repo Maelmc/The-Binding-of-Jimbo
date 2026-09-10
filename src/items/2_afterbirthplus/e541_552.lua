@@ -40,10 +40,10 @@ SMODS.Joker {
 SMODS.Joker {
   key = "brittle_bones",
   pos = {x = 8, y = 36 },
-  config = {extra = {chips = 0, chips_mod = 75}},
+  config = {extra = {chips = 0, chip_mod = 75}},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = G.P_CENTERS.m_tboj_bone
-    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+    return {vars = {card.ability.extra.chip_mod, card.ability.extra.chips}}
   end,
   rarity = 2,
   cost = 6,
@@ -61,7 +61,7 @@ SMODS.Joker {
       if bones > 0 then
         SMODS.scale_card(card, {
           ref_value = 'chips',
-          scalar_value = 'chips_mod',
+          scalar_value = 'chip_mod',
           operation = function(ref_table, ref_value, initial, change)
             ref_table[ref_value] = initial + bones*change
           end,

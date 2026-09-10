@@ -2,9 +2,9 @@
 SMODS.Joker {
   key = "orphan_socks",
   pos = {x = 0, y = 38 },
-  config = {extra = {chips = 0, chips_mod = 6}},
+  config = {extra = {chips = 0, chip_mod = 6}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+    return {vars = {card.ability.extra.chip_mod, card.ability.extra.chips}}
   end,
   rarity = 2,
   cost = 6,
@@ -16,7 +16,7 @@ SMODS.Joker {
     if context.before and not context.blueprint and next(context.poker_hands['Pair']) then
       SMODS.scale_card(card, {
         ref_value = 'chips',
-        scalar_value = 'chips_mod',
+        scalar_value = 'chip_mod',
       })
       return nil, true
     end
