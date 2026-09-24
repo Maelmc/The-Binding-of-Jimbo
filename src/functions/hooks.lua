@@ -347,11 +347,26 @@ function set_profile_progress()
 end
 
 -- Break bones properly
+-- Uranus turns destroyed non-glass to glass
+-- More in the patch
 local csd = Card.start_dissolve
 function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
   if SMODS.has_enhancement(self, "m_tboj_bone") then
     return self:tboj_bone_break()
   end
+
+  if next(SMODS.find_card("j_tboj_uranus")) and SMODS.is_playing_card(self) and not SMODS.has_enhancement(self, "m_glass") then
+    TBOJ.juice_flip_cards({self})
+    G.E_MANAGER:add_event(Event({
+      func = function()
+        self:set_ability(G.P_CENTERS.m_glass)
+        return true
+      end
+    }))
+    TBOJ.juice_flip_cards({self}, nil, true)
+    return
+  end
+
   return csd(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
 end
 

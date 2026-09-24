@@ -1,0 +1,47 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+## Thanks Agarmons for this
+## More in hooks
+
+# SMODS.calculate_destroying_cards
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+position = "after"
+match_indent = true
+pattern = '''-- TARGET: card destroyed'''
+payload = '''
+if destroyed and next(SMODS.find_card("j_tboj_uranus")) and SMODS.is_playing_card(card) and not SMODS.has_enhancement(card, "m_glass") then
+  destroyed = false
+  TBOJ.juice_flip_cards({card})
+  G.E_MANAGER:add_event(Event({
+    func = function()
+      card:set_ability(G.P_CENTERS.m_glass)
+      return true
+    end
+  }))
+  TBOJ.juice_flip_cards({card}, nil, true)
+end
+'''
+
+# G.FUNCS.discard_cards_from_highlighted
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+position = "after"
+match_indent = true
+pattern = '''if key == 'remove' or (type(eval2) == 'table' and eval2.remove) then removed = true end'''
+payload = '''if removed and next(SMODS.find_card("j_tboj_uranus")) and SMODS.is_playing_card(G.hand.highlighted[i]) and not SMODS.has_enhancement(G.hand.highlighted[i], "m_glass") then
+  removed = false
+  TBOJ.juice_flip_cards({G.hand.highlighted[i]})
+  G.E_MANAGER:add_event(Event({
+    func = function()
+      G.hand.highlighted[i]:set_ability(G.P_CENTERS.m_glass)
+      return true
+    end
+  }))
+  TBOJ.juice_flip_cards({G.hand.highlighted[i]}, nil, true)
+end'''
