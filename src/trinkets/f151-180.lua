@@ -1,15 +1,14 @@
 -- Flat File
 -- Telescope Lens
---[[TBOJ.Trinket {
+TBOJ.Trinket {
   key = "telescope_lens",
   pos = { x = 1, y = 10 },
   cost = 4,
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
-    return { vars = { card.ability.extra.hands } }
   end,
   attributes = {"space"}
-}]]
+}
 
 -- Mom's Lock
 -- Dice Bag

@@ -145,9 +145,9 @@ SMODS.Joker {
 SMODS.Joker {
   key = "death_list",
   pos = {x = 4, y = 35 },
-  config = {extra = {chips = 0, chips_mod = 20, contained = false}},
+  config = {extra = {chips = 0, chip_mod = 20, contained = false}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips_mod, localize((G.GAME.current_round.tboj_death_list_card1 or {}).rank or 'Ace', 'ranks'), card.ability.extra.chips}}
+    return {vars = {card.ability.extra.chip_mod, localize((G.GAME.current_round.tboj_death_list_card1 or {}).rank or 'Ace', 'ranks'), card.ability.extra.chips}}
   end,
   rarity = 1,
   cost = 5,
@@ -184,7 +184,7 @@ SMODS.Joker {
         end
         SMODS.scale_card(card, {
           ref_value = 'chips',
-          scalar_value = 'chips_mod',
+          scalar_value = 'chip_mod',
         })
       end
     end

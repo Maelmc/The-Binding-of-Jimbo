@@ -360,7 +360,7 @@ return {
         }
       },
       b_tboj_apollyon = {
-        name = "Appolyon Deck",
+        name = "Apollyon Deck",
         text = {
           "Jokers sold {C:attention}cannot",
           "{C:attention}appear again"
@@ -1486,6 +1486,82 @@ return {
           "{s:0.8}Rank changes every round"
         },
       },
+      j_tboj_sol = {
+        name = "Sol",
+        text = {
+          "This Joker gains {C:white,X:mult}X#1#{} Mult",
+          "for each {C:attention}unique{} poker",
+          "hand played this ante",
+          "when {C:attention}Boss Blind{} is defeated",
+          "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
+        },
+      },
+      j_tboj_luna = {
+        name = "Luna",
+        text = {
+          "If played hand is a",
+          "{C:attention}#1#{},",
+          "{C:attention}#2#{}",
+          "or {C:attention}#3#{},",
+          "upgrade it by {C:attention}#4#{} levels"
+        },
+      },
+      j_tboj_mercurius = {
+        name = "Mercurius",
+        text = {
+          "If played hand is a {C:attention}Pair{},",
+          "gain {C:attention}+#1#{} hand size this round,",
+          "increases by {C:attention}#2#{} when",
+          "skipping a {C:attention}Blind"
+        },
+      },
+      j_tboj_venus = {
+        name = "Venus",
+        text = {
+          "If played hand is a",
+          "{C:attention}Three of a Kind{}, played",
+          "{C:spades}Spades{} give {C:chips}+#1#{} Chips,",
+          "{C:hearts}Hearts{} give {C:white,X:mult}X#2#{} Mult,",
+          "{C:clubs}Clubs{} give {C:mult}+#3#{} Mult and",
+          "{C:diamonds}Diamonds{} give {C:money}$#4#{}",
+          "when scored"
+        },
+      },
+      j_tboj_uranus = {
+        name = "Uranus",
+        text = {
+          {
+          "If played hand is a {C:attention}Two Pair{},",
+          "destroy all cards in {C:attention}poker hand",
+          "after scoring"
+          },
+          {
+            "Destroyed non-{C:attention}Glass{} cards",
+            "turn into {C:attention}Glass Cards{} instead"
+          }
+        },
+      },
+      j_tboj_neptunus = {
+        name = "Neptunus",
+        text = {
+          "If played hand is a {C:attention}Straight Flush{},",
+          "retrigger all played cards used",
+          "in scoring {C:attention}#1#{} additional time,",
+          "{C:attention}+1{} for each remaining {C:blue}hand",
+          "{C:inactive}({C:attention}#2#{C:inactive} retrigger#3# on the next hand)"
+        },
+      },
+      j_tboj_pluto = {
+        name = "Pluto",
+        text = {
+          "If played hand is a {C:attention}High Card{},",
+          "{C:attention}lowest{} rank scores instead of",
+          "{C:attention}highest{} and gives {C:white,X:mult}XMult",
+          "equal to the {C:attention}cube root{} of other",
+          "played cards' total {C:chips}Chips",
+          "{C:inactive}(Currently {C:white,X:mult}X#1#{C:inactive} Mult)"
+        },
+      },
       j_tboj_red_stew = {
         name = "Red Stew",
         text = {
@@ -1799,8 +1875,8 @@ return {
           "Earn between {C:money}$#1#{} and {C:money}$#2#{}",
         }
       },
-      c_tboj_soul_of_appolyon = {
-        name = "Soul of Appolyon",
+      c_tboj_soul_of_apollyon = {
+        name = "Soul of Apollyon",
         text = {
           "Creates {C:attention}#1# Locusts{} at random",
         }
@@ -2253,6 +2329,12 @@ return {
           "{C:inactive}({C:attention}#3#{C:inactive} remaining)"
         }
       },
+      tboj_element = {
+        name = "#1#",
+        text = {
+          "{element:1}"
+        }
+      }
     }
   },
   misc = {
@@ -2323,6 +2405,8 @@ return {
       tboj_angry_ex = "Angry!",
       tboj_tamed_ex = "Tamed!",
       tboj_cursed_ex = "Cursed!",
+      tboj_unique = "Unique",
+      tboj_hands_played = "Hands played",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

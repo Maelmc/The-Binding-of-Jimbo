@@ -120,11 +120,11 @@ SMODS.Joker {
 SMODS.Joker {
   key = "soul_locket",
   pos = { x = 10, y = 45 },
-  config = {extra = {chips = 0, mult = 0, chips_mod = 20, mult_mod = 3}},
+  config = {extra = {chips = 0, mult = 0, chip_mod = 20, mult_mod = 3}},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_soul_heart
     info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_black_heart
-    return {vars = {card.ability.extra.chips_mod, card.ability.extra.mult_mod, card.ability.extra.chips, card.ability.extra.mult}}
+    return {vars = {card.ability.extra.chip_mod, card.ability.extra.mult_mod, card.ability.extra.chips, card.ability.extra.mult}}
   end,
   rarity = 1,
   cost = 6,
@@ -146,7 +146,7 @@ SMODS.Joker {
       else
         SMODS.scale_card(card, {
           ref_value = 'chips',
-          scalar_value = 'chips_mod',
+          scalar_value = 'chip_mod',
           message_colour = G.C.CHIPS,
         })
       end

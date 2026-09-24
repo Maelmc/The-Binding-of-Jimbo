@@ -84,7 +84,7 @@ SMODS.Joker {
 SMODS.Joker {
   key = "marked",
   pos = {x = 3, y = 26 },
-  config = { extra = { chips_mod = 40 } },
+  config = { extra = { chip_mod = 40 } },
   loc_vars = function(self, info_queue, card)
     local targets = {G.GAME.current_round.tboj_marked_card1, G.GAME.current_round.tboj_marked_card2, G.GAME.current_round.tboj_marked_card3}
     table.sort(targets, function(a,b) return a.id > b.id end)
@@ -92,7 +92,7 @@ SMODS.Joker {
       localize((targets[1] or {}).rank or 'Ace', 'ranks'),
       localize((targets[2] or {}).rank or 'King', 'ranks'),
       localize((targets[3] or {}).rank or 'Queen', 'ranks'),
-      card.ability.extra.chips_mod
+      card.ability.extra.chip_mod
     } }
   end,
   rarity = 1,
@@ -107,7 +107,7 @@ SMODS.Joker {
     context.other_card:get_id() == G.GAME.current_round.tboj_marked_card2.id or
     context.other_card:get_id() == G.GAME.current_round.tboj_marked_card3.id) then
       return {
-        chips = card.ability.extra.chips_mod
+        chips = card.ability.extra.chip_mod
       }
     end
   end,

@@ -154,9 +154,9 @@ SMODS.Joker {
 SMODS.Joker {
   key = "little_gish",
   pos = {x = 8, y = 6},
-  config = {extra = {mult_mod = 2, chips_mod = 8}},
+  config = {extra = {mult_mod = 2, chip_mod = 8}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.mult_mod, card.ability.extra.chips_mod}}
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.chip_mod}}
   end,
   rarity = 1,
   cost = 5,
@@ -168,7 +168,7 @@ SMODS.Joker {
     if context.individual and context.cardarea == G.play and context.other_card:is_suit("Spades") then
       return {
         mult = card.ability.extra.mult_mod,
-        chips = card.ability.extra.chips_mod
+        chips = card.ability.extra.chip_mod
       }
     end
   end,
@@ -455,9 +455,9 @@ SMODS.Joker {
   key = "odd_mushroom_thin",
   atlas = "jokers",
   pos = {x = 14, y = 7},
-  config = {extra = {chips_mod = 3, chips = 0}},
+  config = {extra = {chip_mod = 3, chips = 0}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+    return {vars = {card.ability.extra.chip_mod, card.ability.extra.chips}}
   end,
   rarity = 2,
   cost = 6,
@@ -470,7 +470,7 @@ SMODS.Joker {
       if (id <= 10 and id >= 0 and id % 2 == 1) or (id == 14) then
         SMODS.scale_card(card, {
           ref_value = 'chips',
-          scalar_value = 'chips_mod',
+          scalar_value = 'chip_mod',
         })
 
         return nil, true

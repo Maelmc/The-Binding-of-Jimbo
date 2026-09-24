@@ -2,9 +2,9 @@
 SMODS.Joker {
   key = "the_sad_onion",
   pos = {x = 0, y = 0},
-  config = {extra = {chips = 0, chips_mod = 3}},
+  config = {extra = {chips = 0, chip_mod = 3}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.chips_mod, card.ability.extra.chips}}
+    return {vars = {card.ability.extra.chip_mod, card.ability.extra.chips}}
   end,
   rarity = 1,
   cost = 4,
@@ -16,7 +16,7 @@ SMODS.Joker {
     if context.before and not context.blueprint then
       SMODS.scale_card(card, {
         ref_value = 'chips',
-        scalar_value = 'chips_mod',
+        scalar_value = 'chip_mod',
       })
     end
 

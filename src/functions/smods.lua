@@ -112,7 +112,7 @@ end
 
 SMODS.Booster:take_ownership_by_kind('Celestial', {
   create_card = function(self, card, i)
-    if next(SMODS.find_card("trinket_tboj_telescope_lens")) and pseudorandom('tboj_telescope_lens') > 0 then
+    if next(SMODS.find_card("trinket_tboj_telescope_lens")) and pseudorandom('tboj_telescope_lens') > 0.8 then
       local _k = TBOJ.get_random_key{set = "Joker", attributes = "space", seed = "tboj_telescope_lens_gen"}
       return { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
     end
