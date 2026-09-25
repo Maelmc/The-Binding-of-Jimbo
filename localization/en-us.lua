@@ -5,7 +5,7 @@ return {
         name = "The Bible",
         text = {
           {
-            "#1#/#2# {C:attention}charge",
+            "#1#/#2# {C:attention}charges",
             "Must be fully charged to use",
             "Recharges at end of round"
           },
@@ -307,6 +307,21 @@ return {
             "cards with {C:attention}half{} its rank",
             "{C:attention,s:0.8}Kings{s:0.8}, {C:attention,s:0.8}Queens{s:0.8} and {C:attention,s:0.8}Jacks{s:0.8} count as {C:attention,s:0.8}10",
             "{C:attention,s:0.8}Aces{s:0.8} count as {C:attention,s:0.8}11"
+          }
+        }
+      },
+      active_tboj_dark_arts = {
+        name = "Dark Arts",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges when a card is scored"
+          },
+          {
+            "Destroys {C:attention}#3#{} selected",
+            "cards, other cards held in",
+            "hand permanently gain {C:mult}+#4#{} Mult",
           }
         }
       },
@@ -2407,6 +2422,8 @@ return {
       tboj_cursed_ex = "Cursed!",
       tboj_unique = "Unique",
       tboj_hands_played = "Hands played",
+      tboj_charging_dot = "Charging...",
+      tboj_dark_arts_flavor = "One With The Shadows",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
