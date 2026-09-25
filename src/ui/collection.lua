@@ -59,7 +59,7 @@ end
 function G.FUNCS.your_collection_tboj_Trinket()
   G.SETTINGS.paused = true
   G.FUNCS.overlay_menu {
-    definition = SMODS.card_collection_UIBox(G.P_CENTER_POOLS.tboj_Trinket, { 5, 5 }, {
+    definition = SMODS.card_collection_UIBox(G.P_CENTER_POOLS.tboj_Trinket, { 5, 5, 5 }, {
       snap_back = true,
       infotip = nil, --localize('k_BakeryCharmInfo'),
       hide_single_page = true,
@@ -71,7 +71,7 @@ end
 function G.FUNCS.your_collection_tboj_Active()
   G.SETTINGS.paused = true
   G.FUNCS.overlay_menu {
-    definition = SMODS.card_collection_UIBox(G.P_CENTER_POOLS.tboj_Active, { 5, 5 }, {
+    definition = SMODS.card_collection_UIBox(G.P_CENTER_POOLS.tboj_Active, { 5, 5, 5 }, {
       snap_back = true,
       infotip = nil, --localize('k_BakeryCharmInfo'),
       hide_single_page = true,
@@ -83,7 +83,7 @@ end
 function G.FUNCS.your_collection_tboj_spiderfly()
   G.SETTINGS.paused = true
   G.FUNCS.overlay_menu {
-    definition = SMODS.card_collection_UIBox(G.P_CENTER_POOLS.tboj_spiderfly, { 5, 5 }, {
+    definition = SMODS.card_collection_UIBox(G.P_CENTER_POOLS.tboj_spiderfly, { 5, 5, 5 }, {
       snap_back = true,
       infotip = nil, --localize('k_BakeryCharmInfo'),
       hide_single_page = true,
