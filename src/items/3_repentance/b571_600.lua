@@ -270,6 +270,32 @@ SMODS.Joker {
         remove = true
       }
     end
+
+    if context.remove_playing_cards and context.removed then
+      local _r = context.removed
+      G.E_MANAGER:add_event(Event({
+      func = function()
+        for _, v in ipairs(_r) do
+          G.E_MANAGER:add_event(Event({
+            func = function()
+              if not SMODS.has_enhancement(v,"m_glass") then
+                TBOJ.juice_flip_cards({v})
+                G.E_MANAGER:add_event(Event({
+                  func = function()
+                    v:set_ability(G.P_CENTERS.m_glass)
+                    return true
+                  end
+                }))
+                TBOJ.juice_flip_cards({v}, nil, true)
+              end
+              return true
+            end
+          }))
+        end
+        return true
+      end
+    }))
+    end
   end,
   attributes = {"space", "hand_type", "glass", "destroy_card"}
 }
