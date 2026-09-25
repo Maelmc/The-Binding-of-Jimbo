@@ -10,8 +10,7 @@ return {
             "Recharges at end of round"
           },
           {
-            "{C:attention}+#3#{} hand size",
-            "this round"
+            "{C:attention}+#3#{} hand size this round"
           }
         }
       },
@@ -2238,7 +2237,8 @@ return {
         text = {
             "{C:attention}Transform{} into a",
             "different card of",
-            "the same {C:attention}set"
+            "the same {C:attention}kind",
+            "{C:inactive,s:0.8}(A Joker into another Joker)"
         }
       },
       undiscovered_tboj_loot = {
