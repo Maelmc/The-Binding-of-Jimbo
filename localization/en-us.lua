@@ -200,6 +200,21 @@ return {
           }
         }
       },
+      active_tboj_d1 = {
+        name = "D1",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Create a {C:attention}consumable{} of",
+            "the same {C:attention}kind{} as one owned",
+            "{C:inactive}(Must have room)"
+          }
+        }
+      },
       active_tboj_void = {
         name = "Void",
         text = {
@@ -2424,6 +2439,7 @@ return {
       tboj_hands_played = "Hands played",
       tboj_charging_dot = "Charging...",
       tboj_dark_arts_flavor = "One With The Shadows",
+      tboj_plus_consumable = "+1 Consumable",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

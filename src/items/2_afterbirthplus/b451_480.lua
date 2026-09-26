@@ -122,6 +122,44 @@ SMODS.Joker {
 
 -- Plan C
 -- D1
+TBOJ.Active {
+  key = "d1",
+  pos = { x = 10, y = 31 },
+  cost = 5,
+  config = {extra = {max_charge = 1, curr_charge = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and #G.consumeables.cards > 0 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+  end,
+  use = function(self, card, area, copier)
+    local _target = pseudorandom_element(G.consumeables.cards, "tboj_d1")
+    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        G.GAME.consumeable_buffer = 0
+        play_sound('timpani')
+        SMODS.add_card({ set = _target.config.center.set, key_append = "tboj_d1" })
+        SMODS.calculate_effect({message = localize('tboj_plus_consumable')}, card)
+        return true
+      end
+    }))
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {"generation", "consumable"}
+}
+
 -- Void
 TBOJ.Active {
   key = "void",
