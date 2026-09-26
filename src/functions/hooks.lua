@@ -355,7 +355,7 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
     return self:tboj_bone_break()
   end
 
-  if next(SMODS.find_card("j_tboj_uranus")) and SMODS.is_playing_card(self) and not SMODS.has_enhancement(self, "m_glass") then
+  if next(SMODS.find_card("j_tboj_uranus")) and SMODS.is_playing_card(self) and not SMODS.has_enhancement(self, "m_glass") and not self == G.screenwipecard then
     TBOJ.juice_flip_cards({self})
     G.E_MANAGER:add_event(Event({
       func = function()
