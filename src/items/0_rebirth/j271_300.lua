@@ -38,7 +38,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"rank", "suit"}
+  attributes = {"rank", "suit", "modify_card"}
 }
 
 -- Blank Card

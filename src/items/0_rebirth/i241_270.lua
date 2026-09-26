@@ -231,7 +231,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil", "tboj_familiar", "mult", "perma_bonus"}
+  attributes = {"tboj_devil", "tboj_familiar", "mult", "perma_bonus", "modify_card"}
 }
 
 -- Leech

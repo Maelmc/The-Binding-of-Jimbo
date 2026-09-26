@@ -297,7 +297,7 @@ SMODS.Joker {
     }))
     end
   end,
-  attributes = {"space", "hand_type", "glass", "destroy_card"}
+  attributes = {"space", "hand_type", "enhancements", "destroy_card", "modify_card"}
 }
 
 -- Neptunus

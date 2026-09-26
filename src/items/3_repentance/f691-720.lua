@@ -95,7 +95,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_devil", "mult", "perma_bonus"}
+  attributes = {"tboj_devil", "mult", "perma_bonus", "modify_card"}
 }
 
 -- Abyss

@@ -142,6 +142,21 @@ return {
           }
         }
       },
+      active_tboj_d10 = {
+        name = "D10",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "{C:attention}Reduce{} the rank of all cards",
+            "held in hand by {C:attention}#3#{} and",
+            "randomize their {C:attention}suit"
+          }
+        }
+      },
       active_tboj_box_of_spiders = {
         name = "Box of Spiders",
         text = {
@@ -155,18 +170,17 @@ return {
           }
         }
       },
-      active_tboj_d10 = {
-        name = "D10",
+      active_tboj_d12 = {
+        name = "D12",
         text = {
           {
-            "#1#/#2# {C:attention}charges",
+            "#1#/#2# {C:attention}charge",
             "Must be fully charged to use",
             "Recharges at end of round"
           },
           {
-            "{C:attention}Reduce{} the rank of all cards",
-            "held in hand by {C:attention}#3#{} and",
-            "randomize their {C:attention}suit"
+            "{C:attention}Reroll{} held in hand",
+            "cards' {C:attention}enhancements"
           }
         }
       },

@@ -63,7 +63,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_book", "tboj_devil", "perma_bonus"}
+  attributes = {"tboj_book", "tboj_devil", "perma_bonus", "modify_card"}
 }
 
 -- The Necronomicon
@@ -104,7 +104,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_poop", "enhancements"},
+  attributes = {"tboj_poop", "enhancements", "modify_card"},
 }
 
 -- Mr. Boom

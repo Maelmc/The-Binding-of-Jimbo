@@ -37,7 +37,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"enhancements", "editions", "tboj_poop"},
+  attributes = {"enhancements", "editions", "tboj_poop", "modify_card"},
 }
 
 -- Broken Modem
