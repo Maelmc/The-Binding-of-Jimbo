@@ -142,6 +142,21 @@ return {
           }
         }
       },
+      active_tboj_d20 = {
+        name = "D20",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "{C:attention}Reroll{} all {C:attention}consumables{},",
+            "{C:attention}Trinkets{} and {C:attention}Booster Packs{} in";
+            "the {C:attention}shop{} or current {C:attention}booster pack",
+          }
+        }
+      },
       active_tboj_d10 = {
         name = "D10",
         text = {

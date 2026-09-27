@@ -32,7 +32,7 @@ function TBOJ.weighted_random(pool,seed)
    end
 end
 
----@param args? {set?: string, seed?: string, banned_rarities?: table<string>, target_rarities?: table<string|number>, attributes?: table<string,table<string>>}
+---@param args? {set?: string, seed?: string, banned_rarities?: table<string>, target_rarities?: table<string|number>, attributes?: string|table<string,table<string>>}
 --- Get a random key based on arguments
 function TBOJ.get_random_key(args)
   local set = args.set

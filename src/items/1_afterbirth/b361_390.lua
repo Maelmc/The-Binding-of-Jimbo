@@ -334,7 +334,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"enhancements", "modify_card"}
+  attributes = {"enhancements", "modify_card", "tboj_dice"}
 }
 
 -- Key Bum

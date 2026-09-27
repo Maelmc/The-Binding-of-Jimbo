@@ -279,7 +279,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"joker"}
+  attributes = {"joker", "tboj_dice"}
 }
 
 -- 106

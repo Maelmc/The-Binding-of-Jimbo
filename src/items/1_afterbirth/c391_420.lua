@@ -179,7 +179,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"hands", "discards", "hand_size"},
+  attributes = {"hands", "discards", "hand_size", "tboj_dice"},
   tboj_designer = "hagma1"
 }
 

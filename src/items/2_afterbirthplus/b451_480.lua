@@ -157,7 +157,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"generation", "consumable"}
+  attributes = {"generation", "consumable", "tboj_dice"}
 }
 
 -- Void
