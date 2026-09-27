@@ -182,13 +182,15 @@ SMODS.Consumable {
       if v.ability.set == "Joker" then
         local _rarity
         if v:is_rarity("Common") then
-          _rarity = 2
-        elseif v:is_rarity("Uncommon") then
-          _rarity = 3
+          _rarity = "Uncommon"
+        elseif v:is_rarity("Uncommon") or v:is_rarity("Rare") then
+          _rarity = "Rare"
+        elseif v:is_rarity("Legendary") then
+          _rarity = "Legendary"
         else
           _rarity = v.config.center.rarity
         end
-        local _k = TBOJ.get_random_key({set = v.ability.set, seed = "tboj_soul_of_isaac" .. G.GAME.round_resets.ante, target_rarities = {_rarity}}) --SMODS.poll_object({type = "Joker", seed = "tboj_soul_of_isaac" .. G.GAME.round_resets.ante, rarities = {_rarity}})
+        local _k = SMODS.poll_object({type = "Joker", seed = "tboj_soul_of_isaac" .. G.GAME.round_resets.ante, rarities = {_rarity}}) --TBOJ.get_random_key({set = v.ability.set, seed = "tboj_soul_of_isaac" .. G.GAME.round_resets.ante, target_rarities = {_rarity}})
         TBOJ.reroll(v, _k)
       end
     end

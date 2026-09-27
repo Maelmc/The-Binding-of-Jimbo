@@ -15,7 +15,7 @@ SMODS.Booster {
       local _k = SMODS.poll_object({ type = "tboj_Active", attributes = {"tboj_devil", "tboj_guppy"}, union = true, seed = "tboj_devil_pack"..G.GAME.round_resets.ante}) --TBOJ.get_random_key{set = "tboj_Active", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, seed = "tboj_devil_pack"}
       return SMODS.create_card { set = "tboj_Active", area = G.pack_cards, skip_materialize = true, key = _k }
     else
-      local _k = SMODS.poll_object({ type = "Joker", attributes = {"tboj_devil", "tboj_guppy"}, union = true, rarity = (pseudorandom('tboj_devil_soul') < 1/4) and 4 or nil, allow_legendaries = true, seed = "tboj_devil_pack"..G.GAME.round_resets.ante}) --TBOJ.get_random_key{set = "Joker", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, seed = "tboj_devil_pack"}
+      local _k = SMODS.poll_object({ type = "Joker", attributes = {"tboj_devil", "tboj_guppy"}, union = true, rarity = (pseudorandom('tboj_devil_soul') < 1/333) and 4 or nil, allow_legendaries = true, seed = "tboj_devil_pack"..G.GAME.round_resets.ante}) --TBOJ.get_random_key{set = "Joker", attributes = {"any", {"tboj_devil", "tboj_guppy"}}, seed = "tboj_devil_pack"}
       return SMODS.create_card { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
     end
   end,
