@@ -1,0 +1,72 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+# Set ability before sprite, for stuff like Cube of Meat
+# This fix has a visual glitch when debugging but works as intended under normal circumstances
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''    if delay_sprites then 
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if not self.REMOVED then
+                        SMODS.clean_up_children(self.children)
+                        if self.canvas_text then SMODS.clean_up_canvas_text(self) end
+                        if self.ability and (center.set == 'Enhanced' or center.set == 'Default') and not self:should_hide_front() then self:set_sprites(nil, self.config.card) end
+                        self:set_sprites(center)
+                        if self.ability and not initial then
+                          self.delay_center = nil
+                          self.front_hidden = self:should_hide_front()
+                        end
+                end
+                return true
+            end
+        })) 
+    else
+            SMODS.clean_up_children(self.children)
+            if self.canvas_text then SMODS.clean_up_canvas_text(self) end
+            if self.ability and (center.set == 'Enhanced' or center.set == 'Default') and not self:should_hide_front() then self:set_sprites(nil, self.config.card) end
+            self:set_sprites(center)
+            if self.ability and not initial then
+              self.delay_center = nil
+              self.front_hidden = self:should_hide_front()
+            end
+    end'''
+position = "at"
+payload = ''''''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''-- handles card_limit/extra_slots_used changes'''
+position = "before"
+payload = '''    if delay_sprites then 
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if not self.REMOVED then
+                        SMODS.clean_up_children(self.children)
+                        if self.canvas_text then SMODS.clean_up_canvas_text(self) end
+                        if self.ability and (center.set == 'Enhanced' or center.set == 'Default') and not self:should_hide_front() then self:set_sprites(nil, self.config.card) end
+                        self:set_sprites(center)
+                        if self.ability and not initial then
+                          self.delay_center = nil
+                          self.front_hidden = self:should_hide_front()
+                        end
+                end
+                return true
+            end
+        })) 
+    else
+            SMODS.clean_up_children(self.children)
+            if self.canvas_text then SMODS.clean_up_canvas_text(self) end
+            if self.ability and (center.set == 'Enhanced' or center.set == 'Default') and not self:should_hide_front() then self:set_sprites(nil, self.config.card) end
+            self:set_sprites(center)
+            if self.ability and not initial then
+              self.delay_center = nil
+              self.front_hidden = self:should_hide_front()
+            end
+    end'''
+match_indent = false
