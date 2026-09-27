@@ -122,6 +122,7 @@ SMODS.Consumable {
   unlocked = true,
   config = { extra = {}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_reroll'}
     return {}
   end,
   can_use = function(self, card)
@@ -130,7 +131,8 @@ SMODS.Consumable {
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do
       if v.ability.set == "Joker" or v.ability.set == "tboj_Active" then
-        TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}}))
+        local _k = SMODS.poll_object({type = v.ability.set, seed = "tboj_d6" .. G.GAME.round_resets.ante, rarity = v.config.center.rarity, allow_legendaries = true})--TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}})
+        TBOJ.reroll(v, _k)
       end
     end
   end,
@@ -169,6 +171,7 @@ SMODS.Consumable {
   unlocked = true,
   config = { extra = {}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_reroll'}
     return {}
   end,
   can_use = function(self, card)
@@ -179,13 +182,16 @@ SMODS.Consumable {
       if v.ability.set == "Joker" then
         local _rarity
         if v:is_rarity("Common") then
-          _rarity = 2
-        elseif v:is_rarity("Uncommon") then
-          _rarity = 3
+          _rarity = "Uncommon"
+        elseif v:is_rarity("Uncommon") or v:is_rarity("Rare") then
+          _rarity = "Rare"
+        elseif v:is_rarity("Legendary") then
+          _rarity = "Legendary"
         else
           _rarity = v.config.center.rarity
         end
-        TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {_rarity}}))
+        local _k = SMODS.poll_object({type = "Joker", seed = "tboj_soul_of_isaac" .. G.GAME.round_resets.ante, rarities = {_rarity}}) --TBOJ.get_random_key({set = v.ability.set, seed = "tboj_soul_of_isaac" .. G.GAME.round_resets.ante, target_rarities = {_rarity}})
+        TBOJ.reroll(v, _k)
       end
     end
   end,
@@ -369,7 +375,8 @@ SMODS.Consumable {
       delay = 0.4,
       func = function()
         play_sound('timpani')
-        SMODS.add_card({ set = 'Joker', key = TBOJ.get_random_key({set = "Joker", attributes = {"tboj_familiar"}}) })
+        local _k = SMODS.poll_object({type = "Joker", seed = "tboj_soul_of_lilith" .. G.GAME.round_resets.ante, attributes = {"tboj_familiar"}}) --TBOJ.get_random_key({set = "Joker", attributes = {"tboj_familiar"}})
+        SMODS.add_card({ set = 'Joker', key = _k })
         card:juice_up(0.3, 0.5)
         return true
       end

@@ -77,7 +77,8 @@ TBOJ.Trinket {
   end,
   calculate = function(self, card, context)
     if context.using_active then
-      TBOJ.reroll(context.active,TBOJ.get_random_key({set = context.active.ability.set, seed = "m" .. G.GAME.round_resets.ante}))
+      local _k = SMODS.poll_object({set = context.active.ability.set, seed = "tboj_m" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = context.active.ability.set, seed = "m" .. G.GAME.round_resets.ante})
+      TBOJ.reroll(context.active, _k)
       if context.active.ability.extra.curr_charge then context.active.ability.extra.curr_charge = 0 end
     end
   end,

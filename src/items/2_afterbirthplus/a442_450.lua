@@ -86,7 +86,7 @@ SMODS.Joker {
 
         return {
           dollars = -card.ability.extra.money_minus,
-          card = card
+          message_card = card
         }
       end
     end

@@ -89,11 +89,11 @@ SMODS.Booster:take_ownership_by_kind('Buffoon', {
   create_card = function(self, card, i)
     if i == 1 and next(SMODS.find_card("j_tboj_pentagram")) then
       local _k
-      local rand = pseudorandom("tboj_pentagram")
+      local rand = pseudorandom("tboj_pentagram"..G.GAME.round_resets.ante)
       if rand < 0.5 then
-        _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", seed = "tboj_pentagram"}
+        _k = SMODS.poll_object({ type = "Joker", attributes = {"tboj_angel"}, seed = "tboj_pentagram_gen"..G.GAME.round_resets.ante}) --TBOJ.get_random_key{set = "Joker", attributes = "tboj_angel", seed = "tboj_pentagram"}
       else
-        _k = TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", seed = "tboj_pentagram"}
+        _k = SMODS.poll_object({ type = "Joker", attributes = {"tboj_devil"}, seed = "tboj_pentagram_gen"..G.GAME.round_resets.ante}) --TBOJ.get_random_key{set = "Joker", attributes = "tboj_devil", seed = "tboj_pentagram"}
       end
       return { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
     end
@@ -112,8 +112,8 @@ end
 
 SMODS.Booster:take_ownership_by_kind('Celestial', {
   create_card = function(self, card, i)
-    if next(SMODS.find_card("trinket_tboj_telescope_lens")) and pseudorandom('tboj_telescope_lens') > 0.8 then
-      local _k = TBOJ.get_random_key{set = "Joker", attributes = "space", seed = "tboj_telescope_lens_gen"}
+    if next(SMODS.find_card("trinket_tboj_telescope_lens")) and pseudorandom('tboj_telescope_lens'..G.GAME.round_resets.ante) > 0.8 then
+      local _k = SMODS.poll_object({ type = "Joker", attributes = {"space"}, seed = "tboj_telescope_lens_gen"..G.GAME.round_resets.ante}) --TBOJ.get_random_key{set = "Joker", attributes = "space", seed = "tboj_telescope_lens"}
       return { set = "Joker", area = G.pack_cards, skip_materialize = true, key = _k }
     end
     return celestia_create(self, card, i)

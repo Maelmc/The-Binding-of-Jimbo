@@ -27,15 +27,16 @@ function TBOJ.reroll(card, to_key, silent, from_cycling)
   if not new_card then return end
   if card.config.center == new_card then return end
 
+  if from_cycling then card.children.tboj_from_cycle = true end
+  card:set_ability(new_card, true)
+  card.children.tboj_from_cycle = nil
+  card:set_cost()
+
   card.children.center.atlas = SMODS.get_atlas((new_card.atlas or (new_card.set == 'Joker' or new_card.consumeable or new_card.set == 'Voucher') and new_card.set) or 'centers')
   card.children.center:set_sprite_pos(new_card.pos)
   --if card.config.center.set_sprites then
   --  card.config.center:set_sprites(card, card.children.front, true)
   --end
-  if from_cycling then card.children.tboj_from_cycle = true end
-  card:set_ability(new_card, true)
-  card.children.tboj_from_cycle = nil
-  card:set_cost()
 
   if new_card.soul_pos then
     card.children.floating_sprite = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS[new_card.atlas or "Joker"], new_card.soul_pos)
@@ -109,7 +110,7 @@ end
 
 -- Charge the active at the end of round
 function TBOJ.eor_charge(card,context)
-  if context.end_of_round and context.cardarea == G.tboj_Actives then
+  if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint and card.ability.set == "tboj_Active" then
     TBOJ.charge_active(card,1)
   end
 end

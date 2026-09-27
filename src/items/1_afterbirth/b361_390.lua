@@ -291,6 +291,52 @@ SMODS.Joker {
 -- Pupula Duplex
 -- Pay To Play
 
+-- Lil Gurdy
+-- Bumbo
+-- D12
+TBOJ.Active {
+  key = "d12",
+  pos = {x = 10, y = 25},
+  cost = 4,
+  config = {extra = {max_charge = 1, curr_charge = 1}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_reroll'}
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    return G.hand and G.hand.cards and #G.hand.cards > 0
+  end,
+  use = function(self, card, area, copier)
+    local _targets = {}
+    for _, v in ipairs(G.hand.cards) do
+      if v.config.center ~= G.P_CENTERS.c_base then
+        _targets[#_targets+1] = v
+      end
+    end
+    TBOJ.juice_flip_cards(_targets, card)
+    for i=1, #_targets do
+      local _enh = {}
+      for k, v in pairs(get_current_pool("Enhanced")) do
+        if _targets[i].config.center.key ~= v then
+          _enh[#_enh+1] = v
+        end
+      end
+      _targets[i]:set_ability(G.P_CENTERS[SMODS.poll_enhancement({options = _enh, guaranteed = true})], nil, true)
+    end
+    TBOJ.juice_flip_cards(_targets, nil, true)
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {"enhancements", "modify_card", "tboj_dice"}
+}
+
 -- Key Bum
 -- Rune Bag
 -- Seraphim

@@ -18,11 +18,13 @@ SMODS.Joker {
     if context.modify_shop_card then
       if context.card.config and context.card.config.center then
         if context.card.config.center.rarity == 1 or context.card.config.center.rarity == "Common" then
-          TBOJ.reroll(context.card, TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}}), true)
+          local _k = SMODS.poll_object({type = "Joker", seed = "tboj_sacred_orb"..G.GAME.round_resets.ante, rarities = {"Uncommon", "Rare"}}) --TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}})
+          TBOJ.reroll(context.card, _k, true)
         end
 
-        if (context.card.config.center.rarity == 2 or context.card.config.center.rarity == "Uncommon") and SMODS.pseudorandom_probability(card, "tboj_sacred_orb", card.ability.extra.num, card.ability.extra.den, "tboj_sacred_orb") then
-          TBOJ.reroll(context.card, TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}}), true)
+        if (context.card.config.center.rarity == 2 or context.card.config.center.rarity == "Uncommon") and SMODS.pseudorandom_probability(card, "tboj_sacred_orb_uncommon"..G.GAME.round_resets.ante, card.ability.extra.num, card.ability.extra.den, "tboj_sacred_orb_uncommon"..G.GAME.round_resets.ante) then
+          local _k = SMODS.poll_object({type = "Joker", seed = "tboj_sacred_orb"..G.GAME.round_resets.ante, rarities = {"Uncommon", "Rare"}}) --TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}})
+          TBOJ.reroll(context.card, _k, true)
         end
       end
     end
@@ -33,7 +35,71 @@ SMODS.Joker {
   attributes = {"tboj_angel", "passive", "chance"}
 }
 
+-- Esau Jr.
+-- Berserk!
 -- Dark Arts
+TBOJ.Active {
+  key = "dark_arts",
+  pos = { x = 14, y = 46 },
+  cost = 5,
+  config = {extra = {max_charge = 30, curr_charge = 30, select = 2, mult = 1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.select, card.ability.extra.mult}}
+  end,
+  calculate = function(self, card, context)
+    if context.individual and context.cardarea == G.play and card.ability.extra.curr_charge < card.ability.extra.max_charge then
+      card.ability.extra.curr_charge = card.ability.extra.curr_charge + 1
+      return {
+        message = card.ability.extra.curr_charge >= card.ability.extra.max_charge and localize("tboj_dark_arts_flavor") or localize("tboj_charging_dot"),
+        message_card = card
+      }
+    end
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and (G.hand and G.hand.highlighted and #G.hand.highlighted == card.ability.extra.select)
+  end,
+  use = function(self, card, area, copier)
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.4,
+      func = function()
+        play_sound('tarot1')
+        card:juice_up(0.3, 0.5)
+        return true
+      end
+    }))
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.2,
+      func = function()
+        SMODS.destroy_cards(G.hand.highlighted)
+        return true
+      end
+    }))
+    for i = 1, #G.hand.cards do
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+          local target = G.hand.cards[i]
+          if not target.getting_sliced then
+            target.ability.perma_mult = (target.ability.perma_mult or 0) + card.ability.extra.mult
+            SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.MULT}, target)
+          end
+          return true
+        end
+      }))
+    end
+    card:juice_up(0.3, 0.5)
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {"tboj_devil", "mult", "perma_bonus", "modify_card"}
+}
+
 -- Abyss
 -- Supper
 SMODS.Joker {
@@ -133,7 +199,7 @@ TBOJ.Active {
       trigger = 'after',
       delay = 0.4,
       func = function()
-        local _card = SMODS.add_card { set = "Joker", edition = "e_negative", force_stickers = true, key_append = "tboj_lemegeton" }
+        local _card = SMODS.add_card { set = "Joker", edition = "e_negative", key_append = "tboj_lemegeton" }
         TBOJ.apply_cursed(_card, card.ability.extra.cursed)
         SMODS.calculate_effect({message = localize('k_plus_joker'), colour = G.C.BLUE}, _card)
         card:juice_up(0.3, 0.5)

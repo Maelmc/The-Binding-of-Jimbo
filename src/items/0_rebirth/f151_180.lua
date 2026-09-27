@@ -89,7 +89,65 @@ SMODS.Joker {
   attributes = {"tboj_angel", "hands"}
 }
 
--- Many
+-- Blue Candle
+-- Cat-o-nine-tails
+-- D20
+TBOJ.Active {
+  key = "d20",
+  pos = {x = 0, y = 11},
+  cost = 6,
+  config = {extra = {max_charge = 2, curr_charge = 2}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_reroll'}
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and
+    ((G.shop_jokers and G.shop_jokers.cards and #G.shop_jokers.cards > 0 and G.STATE == G.STATES.SHOP)
+    or (G.pack_cards and G.pack_cards.cards and #G.pack_cards.cards > 0))
+  end,
+  use = function(self, card, area, copier)
+    if G.pack_cards and G.pack_cards.cards and #G.pack_cards.cards > 0 then
+      for _, v in pairs(G.pack_cards.cards) do
+        if v.ability.consumeable or v.ability.set == "tboj_Trinket" or v.ability.set == "Booster" then
+          local _k = SMODS.poll_object({type = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante})
+          TBOJ.reroll(v, _k)
+        end
+      end
+    else
+      for _, v in pairs(G.shop_jokers.cards) do
+        if v.ability.consumeable or v.ability.set == "tboj_Trinket" or v.ability.set == "Booster" then
+          local _k = SMODS.poll_object({type = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante})
+          TBOJ.reroll(v, _k)
+        end
+      end
+
+      for _, v in pairs(G.shop_booster.cards) do
+        if v.ability.consumeable or v.ability.set == "tboj_Trinket" or v.ability.set == "Booster" then
+          local _k = SMODS.poll_object({type = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante})
+          TBOJ.reroll(v, _k)
+        else
+        end
+      end
+    end
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {"consumable", "booster", "tboj_dice"}
+}
+
+-- Harlequin Baby
+-- Epic Fetus
+
+-- Stem Cells
+-- Portable Slot
 -- Holy Water
 SMODS.Joker {
   key = "holy_water",
@@ -117,3 +175,6 @@ SMODS.Joker {
   end,
   attributes = {"tboj_angel", "tboj_familiar", "modify_card", "perma_bonus", "chips"}
 }
+
+-- Fate
+-- The Black Bean

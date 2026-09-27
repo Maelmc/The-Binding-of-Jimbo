@@ -321,7 +321,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"editions"}
+  attributes = {"editions", "modify_card"}
 }
 
 -- Book of Revelations

@@ -157,7 +157,7 @@ function Card:update(dt, real_dt)
     elseif G.GAME.modifiers.tboj_cycling and (not self.ability.tboj_cycling) and G.GAME.modifiers.tboj_cycling.sets[self.config.center.set] then
       self.ability.tboj_cycling = {}
       for _ = 1, G.GAME.modifiers.tboj_cycling.amount do
-        local key = TBOJ.get_random_key({set = self.config.center.set, seed = "tboj_cycling"})
+        local key = SMODS.poll_object({type = self.config.center.set, seed = "tboj_cycling"..G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = self.config.center.set, seed = "tboj_cycling"})
         self.ability.tboj_cycling[#self.ability.tboj_cycling+1] = key
         self.ability.tboj_cycle = 0
         G.GAME.used_jokers[key] = true
@@ -355,7 +355,7 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
     return self:tboj_bone_break()
   end
 
-  if next(SMODS.find_card("j_tboj_uranus")) and SMODS.is_playing_card(self) and not SMODS.has_enhancement(self, "m_glass") then
+  if next(SMODS.find_card("j_tboj_uranus")) and SMODS.is_playing_card(self) and not SMODS.has_enhancement(self, "m_glass") and not self == G.screenwipecard then
     TBOJ.juice_flip_cards({self})
     G.E_MANAGER:add_event(Event({
       func = function()

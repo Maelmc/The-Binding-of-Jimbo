@@ -5,13 +5,12 @@ return {
         name = "The Bible",
         text = {
           {
-            "#1#/#2# {C:attention}charge",
+            "#1#/#2# {C:attention}charges",
             "Must be fully charged to use",
             "Recharges at end of round"
           },
           {
-            "{C:attention}+#3#{} hand size",
-            "this round"
+            "{C:attention}+#3#{} hand size this round"
           }
         }
       },
@@ -143,8 +142,8 @@ return {
           }
         }
       },
-      active_tboj_box_of_spiders = {
-        name = "Box of Spiders",
+      active_tboj_d20 = {
+        name = "D20",
         text = {
           {
             "#1#/#2# {C:attention}charges",
@@ -152,7 +151,9 @@ return {
             "Recharges at end of round"
           },
           {
-            "Create {C:attention}#3#{} to {C:attention}#4# Blue Spiders"
+            "{C:attention}Reroll{} all {C:attention}consumables{},",
+            "{C:attention}Trinkets{} and {C:attention}Booster Packs{} in";
+            "the {C:attention}shop{} or current {C:attention}booster pack",
           }
         }
       },
@@ -168,6 +169,33 @@ return {
             "{C:attention}Reduce{} the rank of all cards",
             "held in hand by {C:attention}#3#{} and",
             "randomize their {C:attention}suit"
+          }
+        }
+      },
+      active_tboj_box_of_spiders = {
+        name = "Box of Spiders",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Create {C:attention}#3#{} to {C:attention}#4# Blue Spiders"
+          }
+        }
+      },
+      active_tboj_d12 = {
+        name = "D12",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "{C:attention}Reroll{} held in hand",
+            "cards' {C:attention}enhancements"
           }
         }
       },
@@ -198,6 +226,21 @@ return {
           {
             "Create a {C:attention}Pretty Fly",
             "for each charge when used"
+          }
+        }
+      },
+      active_tboj_d1 = {
+        name = "D1",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Create a {C:attention}consumable{} of",
+            "the same {C:attention}kind{} as one owned",
+            "{C:inactive}(Must have room)"
           }
         }
       },
@@ -307,6 +350,21 @@ return {
             "cards with {C:attention}half{} its rank",
             "{C:attention,s:0.8}Kings{s:0.8}, {C:attention,s:0.8}Queens{s:0.8} and {C:attention,s:0.8}Jacks{s:0.8} count as {C:attention,s:0.8}10",
             "{C:attention,s:0.8}Aces{s:0.8} count as {C:attention,s:0.8}11"
+          }
+        }
+      },
+      active_tboj_dark_arts = {
+        name = "Dark Arts",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges when a card is scored"
+          },
+          {
+            "Destroys {C:attention}#3#{} selected",
+            "cards, other cards held in",
+            "hand permanently gain {C:mult}+#4#{} Mult",
           }
         }
       },
@@ -2141,17 +2199,26 @@ return {
           "{C:attention}#1#{} additional time"
         }
       },
-      trinket_tboj_mother_kiss = {
-        name = "Mother's Kiss",
-        text = {
-          "{C:blue}+#1#{} hand"
-        }
-      },
       trinket_tboj_telescope_lens = {
         name = "Telescope Lens",
         text = {
           "{C:attention}Space{}-related Jokers may",
           "appear in {C:attention}Celestial Packs"
+        }
+      },
+      trinket_tboj_dice_bag = {
+        name = "Dice Bag",
+        text = {
+          "{C:green}#1# in #2#{} chance to",
+          "create a random {C:dark_edition}Negative{}",
+          "and {C:attention}Cursed #3# Dice Active",
+          "at end of round"
+        }
+      },
+      trinket_tboj_mother_kiss = {
+        name = "Mother's Kiss",
+        text = {
+          "{C:blue}+#1#{} hand"
         }
       },
       trinket_tboj_hollow_heart = {
@@ -2223,7 +2290,8 @@ return {
         text = {
             "{C:attention}Transform{} into a",
             "different card of",
-            "the same {C:attention}set"
+            "the same {C:attention}kind",
+            "{C:inactive,s:0.8}(A Joker into another Joker)"
         }
       },
       undiscovered_tboj_loot = {
@@ -2407,6 +2475,10 @@ return {
       tboj_cursed_ex = "Cursed!",
       tboj_unique = "Unique",
       tboj_hands_played = "Hands played",
+      tboj_charging_dot = "Charging...",
+      tboj_dark_arts_flavor = "One With The Shadows",
+      tboj_plus_consumable = "+1 Consumable",
+      tboj_plus_dice = "+1 Dice",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
