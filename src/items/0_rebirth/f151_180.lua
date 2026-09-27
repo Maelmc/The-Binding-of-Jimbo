@@ -113,19 +113,22 @@ TBOJ.Active {
     if G.pack_cards and G.pack_cards.cards and #G.pack_cards.cards > 0 then
       for _, v in pairs(G.pack_cards.cards) do
         if v.ability.consumeable or v.ability.set == "tboj_Trinket" or v.ability.set == "Booster" then
-          TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante}))
+          local _k = SMODS.poll_object({type = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante})
+          TBOJ.reroll(v, _k)
         end
       end
     else
       for _, v in pairs(G.shop_jokers.cards) do
         if v.ability.consumeable or v.ability.set == "tboj_Trinket" or v.ability.set == "Booster" then
-          TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante}))
+          local _k = SMODS.poll_object({type = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante})
+          TBOJ.reroll(v, _k)
         end
       end
 
       for _, v in pairs(G.shop_booster.cards) do
         if v.ability.consumeable or v.ability.set == "tboj_Trinket" or v.ability.set == "Booster" then
-          TBOJ.reroll(v,TBOJ.get_random_key({set = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante}))
+          local _k = SMODS.poll_object({type = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = v.ability.set, seed = "d20" .. G.GAME.round_resets.ante})
+          TBOJ.reroll(v, _k)
         else
         end
       end

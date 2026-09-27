@@ -157,7 +157,7 @@ function Card:update(dt, real_dt)
     elseif G.GAME.modifiers.tboj_cycling and (not self.ability.tboj_cycling) and G.GAME.modifiers.tboj_cycling.sets[self.config.center.set] then
       self.ability.tboj_cycling = {}
       for _ = 1, G.GAME.modifiers.tboj_cycling.amount do
-        local key = TBOJ.get_random_key({set = self.config.center.set, seed = "tboj_cycling"})
+        local key = SMODS.poll_object({type = self.config.center.set, seed = "tboj_cycling"..G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = self.config.center.set, seed = "tboj_cycling"})
         self.ability.tboj_cycling[#self.ability.tboj_cycling+1] = key
         self.ability.tboj_cycle = 0
         G.GAME.used_jokers[key] = true

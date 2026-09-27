@@ -18,11 +18,13 @@ SMODS.Joker {
     if context.modify_shop_card then
       if context.card.config and context.card.config.center then
         if context.card.config.center.rarity == 1 or context.card.config.center.rarity == "Common" then
-          TBOJ.reroll(context.card, TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}}), true)
+          local _k = TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}}) --SMODS.poll_object({type = "Joker", seed = "tboj_sacred_orb"..G.GAME.round_resets.ante, rarity = SMODS.poll_rarity({2, 3}, "tboj_sacred_orb_rarity"..G.GAME.round_resets.ante)})
+          TBOJ.reroll(context.card, _k, true)
         end
 
-        if (context.card.config.center.rarity == 2 or context.card.config.center.rarity == "Uncommon") and SMODS.pseudorandom_probability(card, "tboj_sacred_orb", card.ability.extra.num, card.ability.extra.den, "tboj_sacred_orb") then
-          TBOJ.reroll(context.card, TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}}), true)
+        if (context.card.config.center.rarity == 2 or context.card.config.center.rarity == "Uncommon") and SMODS.pseudorandom_probability(card, "tboj_sacred_orb_uncommon"..G.GAME.round_resets.ante, card.ability.extra.num, card.ability.extra.den, "tboj_sacred_orb_uncommon"..G.GAME.round_resets.ante) then
+          local _k = TBOJ.get_random_key({set = "Joker", seed = "tboj_sacred_orb", banned_rarities = {1, 4, "Common", "Legendary"}}) --SMODS.poll_object({type = "Joker", seed = "tboj_sacred_orb"..G.GAME.round_resets.ante, rarity = SMODS.poll_rarity({2, 3}, "tboj_sacred_orb_rarity"..G.GAME.round_resets.ante)})
+          TBOJ.reroll(context.card, _k, true)
         end
       end
     end
