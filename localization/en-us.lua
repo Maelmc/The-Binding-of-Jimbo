@@ -2199,17 +2199,26 @@ return {
           "{C:attention}#1#{} additional time"
         }
       },
-      trinket_tboj_mother_kiss = {
-        name = "Mother's Kiss",
-        text = {
-          "{C:blue}+#1#{} hand"
-        }
-      },
       trinket_tboj_telescope_lens = {
         name = "Telescope Lens",
         text = {
           "{C:attention}Space{}-related Jokers may",
           "appear in {C:attention}Celestial Packs"
+        }
+      },
+      trinket_tboj_dice_bag = {
+        name = "Dice Bag",
+        text = {
+          "{C:green}#1# in #2#{} chance to",
+          "create a random {C:dark_edition}Negative{}",
+          "and {C:attention}Cursed #3# Dice Active",
+          "at end of round"
+        }
+      },
+      trinket_tboj_mother_kiss = {
+        name = "Mother's Kiss",
+        text = {
+          "{C:blue}+#1#{} hand"
         }
       },
       trinket_tboj_hollow_heart = {
@@ -2469,6 +2478,7 @@ return {
       tboj_charging_dot = "Charging...",
       tboj_dark_arts_flavor = "One With The Shadows",
       tboj_plus_consumable = "+1 Consumable",
+      tboj_plus_dice = "+1 Dice",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

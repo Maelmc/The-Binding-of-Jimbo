@@ -197,7 +197,7 @@ TBOJ.Active {
       trigger = 'after',
       delay = 0.4,
       func = function()
-        local _card = SMODS.add_card { set = "Joker", edition = "e_negative", force_stickers = true, key_append = "tboj_lemegeton" }
+        local _card = SMODS.add_card { set = "Joker", edition = "e_negative", key_append = "tboj_lemegeton" }
         TBOJ.apply_cursed(_card, card.ability.extra.cursed)
         SMODS.calculate_effect({message = localize('k_plus_joker'), colour = G.C.BLUE}, _card)
         card:juice_up(0.3, 0.5)

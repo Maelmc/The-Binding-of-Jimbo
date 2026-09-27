@@ -12,6 +12,33 @@ TBOJ.Trinket {
 
 -- Mom's Lock
 -- Dice Bag
+TBOJ.Trinket {
+  key = "dice_bag",
+  pos = { x = 3, y = 10 },
+  cost = 6,
+  config = {extra = {num = 1, den = 2, cursed = 1}},
+  loc_vars = function(self, info_queue, card)
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_dice_bag")
+    return {vars = {num, den, card.ability.extra.cursed}}
+  end,
+  calculate = function(self, card, context)
+    if context.end_of_round and context.game_over == false and context.main_eval and SMODS.pseudorandom_probability(card, "tboj_dice_bag", card.ability.extra.num, card.ability.extra.den, "tboj_dice_bag") then
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.4,
+        func = function()
+          local _card = SMODS.add_card { area = G.tboj_Actives, set = "tboj_Active", edition = "e_negative", key_append = "tboj_dice_bag", attributes = {"tboj_dice"} }
+          TBOJ.apply_cursed(_card, card.ability.extra.cursed)
+          SMODS.calculate_effect({message = localize('tboj_plus_dice'), colour = G.C.YELLOW}, _card)
+          card:juice_up(0.3, 0.5)
+          return true
+        end
+      }))
+    end
+  end,
+  attributes = {"generation"}
+}
+
 -- Holy Crown
 -- Mother's Kiss
 TBOJ.Trinket {

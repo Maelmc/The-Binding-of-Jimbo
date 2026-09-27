@@ -109,7 +109,7 @@ end
 
 -- Charge the active at the end of round
 function TBOJ.eor_charge(card,context)
-  if context.end_of_round and context.cardarea == G.tboj_Actives then
+  if context.end_of_round and card.ability.set == "tboj_Active" then
     TBOJ.charge_active(card,1)
   end
 end

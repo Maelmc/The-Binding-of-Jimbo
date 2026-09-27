@@ -1,15 +1,9 @@
 SMODS.ObjectType {
   key = "tboj_Active",
-  default = "active_tboj_the_d6",
-  --[[rarities = {
-    {key = "Common"},
-    {key = "Uncommon"},
-    {key = "Rare"},
-  }]]
+  default = "active_tboj_the_d6"
 }
 
 TBOJ.Active = SMODS.Center:extend {
-  --rarity = "Common",
   unlocked = true,
   discovered = false,
   pos = {x = 0, y = 0},
@@ -17,6 +11,8 @@ TBOJ.Active = SMODS.Center:extend {
   set = "tboj_Active",
   atlas = "tboj_jokers",
   class_prefix = "active",
+  eternal_compat = true,
+  perishable_compat = true,
   required_params = {
     "key"
   },

@@ -11,6 +11,8 @@ TBOJ.Trinket = SMODS.Center:extend {
   set = "tboj_Trinket",
   atlas = "tboj_trinkets",
   class_prefix = "trinket",
+  eternal_compat = true,
+  perishable_compat = true,
   required_params = {
     "key"
   },
