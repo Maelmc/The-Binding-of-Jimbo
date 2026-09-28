@@ -185,7 +185,7 @@ TBOJ.Active {
     if not card.edition or (card.edition and not card.edition.negative) then
       info_queue[#info_queue+1] = G.P_CENTERS.e_negative
     end
-    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_cursed', vars = {card.ability.extra.cursed, "s", card.ability.extra.cursed}}
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_cursed', vars = {card.ability.extra.cursed, card.ability.extra.cursed > 1 and "s" or "", card.ability.extra.cursed}}
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.cursed}}
   end,
   calculate = function(self, card, context)

@@ -3,7 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 0
 
-# Pokemon only functionality
+# TBOJ only functionality
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"

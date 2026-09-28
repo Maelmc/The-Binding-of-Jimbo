@@ -18,6 +18,10 @@ TBOJ.Trinket {
   cost = 6,
   config = {extra = {num = 1, den = 2, cursed = 1}},
   loc_vars = function(self, info_queue, card)
+    if not card.edition or (card.edition and not card.edition.negative) then
+      info_queue[#info_queue+1] = G.P_CENTERS.e_negative
+    end
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_cursed', vars = {card.ability.extra.cursed, card.ability.extra.cursed > 1 and "s" or "", card.ability.extra.cursed}}
     local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_dice_bag")
     return {vars = {num, den, card.ability.extra.cursed}}
   end,

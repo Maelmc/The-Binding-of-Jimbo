@@ -146,6 +146,7 @@ function get_joker_win_sticker(_center, index)
   else return gjws(_center, index) end
 end
 
+-- cycle through cards
 local cardupdate = Card.update
 function Card:update(dt, real_dt)
 
