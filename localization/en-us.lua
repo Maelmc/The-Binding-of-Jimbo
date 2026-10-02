@@ -451,8 +451,8 @@ return {
       bl_tboj_siren = {
         name = "The Siren",
         text = {
-          "Familiar Jokers",
-          "are debuffed"
+          "One random Familiar Joker",
+          "disabled every hand"
         },
       },
       bl_tboj_monstro = {
