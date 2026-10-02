@@ -47,7 +47,7 @@ SMODS.Joker {
 SMODS.Joker {
   key = "monstro_lung",
   pos = {x = 3, y = 15},
-  config = {extra = {min = 1, max = 4}},
+  config = {extra = {min = 2, max = 4}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.min, card.ability.extra.max}}
   end,
