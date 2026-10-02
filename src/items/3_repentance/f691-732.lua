@@ -263,7 +263,35 @@ SMODS.Joker {
 
 -- Keeper's Kin
 -- Keeper's Box
+TBOJ.Active {
+  key = "keeper_box",
+  pos = { x = 13, y = 47 },
+  cost = 6,
+  config = {extra = {max_charge = 6, curr_charge = 6}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.STATE == G.STATES.SHOP
+  end,
+  use = function(self, card, area, copier)
+    SMODS.add_voucher_to_shop()
+    SMODS.calculate_effect({message = localize('tboj_plus_voucher')}, card)
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+}
 
+-- Everything Jar
+-- TMTRAINER
+-- Anima Sola
 -- Spindown Dice = Spectral
 -- Hypercoagulation
 -- IBS

@@ -47,9 +47,9 @@ SMODS.Joker {
 -- Buddy in a Box
 -- Lil Delirium
 -- Jumper Cables
--- 521
--- 522
--- 523
+-- Coupon
+-- Telekinesis
+-- Moving Box
 -- Technology Zero
 -- Leprosy
 -- 7 seals

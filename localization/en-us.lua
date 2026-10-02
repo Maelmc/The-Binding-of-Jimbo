@@ -382,6 +382,20 @@ return {
           }
         }
       },
+      active_tboj_keeper_box = {
+        name = "Keeper's Box",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Add a random {C:attention}Voucher",
+            "to the shop"
+          }
+        }
+      },
     },
     Back = {
       b_tboj_isaac = {
@@ -2479,6 +2493,7 @@ return {
       tboj_dark_arts_flavor = "One With The Shadows",
       tboj_plus_consumable = "+1 Consumable",
       tboj_plus_dice = "+1 Dice",
+      tboj_plus_voucher = "+1 Voucher",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
