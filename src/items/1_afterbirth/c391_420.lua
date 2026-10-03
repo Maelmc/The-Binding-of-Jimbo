@@ -52,6 +52,7 @@ SMODS.Joker {
   blueprint_compat = false,
   calculate = function(self, card, context)
     if context.setting_blind and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+      local bp = context.blueprint_card
       G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
       G.E_MANAGER:add_event(Event({
         func = (function()
@@ -66,7 +67,7 @@ SMODS.Joker {
             end
           }))
           SMODS.calculate_effect({ message = localize('k_plus_planet'), colour = G.C.BLUE },
-            context.blueprint_card or card)
+            bp or card)
           return true
         end)
       }))

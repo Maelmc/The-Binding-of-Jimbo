@@ -1104,8 +1104,8 @@ return {
       j_tboj_abaddon = {
         name = "Abaddon",
         text = {
-          "When acquired, permanently {C:red}lose{} all {C:blue}Hands",
-          "but {C:attention}1{} and gain {C:attention}twice{} as many {C:red}Discards",
+          "When {C:attention}Blind{} is selected, {C:red}lose{} all {C:blue}Hands",
+          "but {C:attention}1{} and gain {C:attention}twice{} as many {C:red}Discards{},",
           "{C:white,X:mult}X#1#{} Mult per remaining discard",
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
