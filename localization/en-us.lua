@@ -304,6 +304,19 @@ return {
           }
         }
       },
+      active_tboj_mom_bracelet = {
+        name = "Mom's Bracelet",
+        text = {
+          {
+            "Use to {C:attention}move{} a selected card",
+            "to your {C:attention}Active{} area"
+          },
+          {
+            "Use again to",
+            "{C:attention}retrieve{} the card"
+          }
+        }
+      },
       active_tboj_larynx = {
         name = "Larynx",
         text = {

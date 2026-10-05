@@ -1,3 +1,49 @@
+-- Mom's Bracelet
+TBOJ.Active {
+  key = "mom_bracelet",
+  pos = { x = 3, y = 40 },
+  cost = 4,
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {}}
+  end,
+  can_use = function(self, card)
+    if not (G.hand and #G.hand.cards > 0) then return false end
+    for _, v in ipairs(G.tboj_Actives.cards) do
+      if SMODS.is_playing_card(v) then return true end
+    end
+    return G.hand.highlighted and #G.hand.highlighted == 1
+  end,
+  use = function(self, card, area, copier)
+    for _, v in ipairs(G.tboj_Actives.cards) do
+      if SMODS.is_playing_card(v) then
+        draw_card(G.tboj_Actives, G.hand, 1, 'up', false, v)
+        return
+      end
+    end
+
+    draw_card(G.hand, G.tboj_Actives, 1, 'up', false, G.hand.highlighted[1])
+  end,
+  remove_from_deck = function(self, card, from_debuff)
+    if not from_debuff then
+      for _, v in ipairs(G.tboj_Actives.cards) do
+        if SMODS.is_playing_card(v) then
+          draw_card(G.tboj_Actives, G.hand, 1, 'up', false, v)
+        end
+      end
+    end
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {},
+}
+
+-- The Scooper
+
 -- Larynx
 TBOJ.Active {
   key = "larynx",
