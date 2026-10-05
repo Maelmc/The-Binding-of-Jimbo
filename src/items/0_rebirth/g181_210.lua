@@ -55,6 +55,7 @@ SMODS.Joker {
       while real_curr >= card.ability.extra.to_draw do
         real_curr = real_curr - card.ability.extra.to_draw
         if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+          local bp = context.blueprint_card
           G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
           G.E_MANAGER:add_event(Event({
             trigger = 'after',
@@ -66,7 +67,7 @@ SMODS.Joker {
               return true
             end
           }))
-          SMODS.calculate_effect({message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral}, context.blueprint_card or card)
+          SMODS.calculate_effect({message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral}, bp or card)
         end
       end
 

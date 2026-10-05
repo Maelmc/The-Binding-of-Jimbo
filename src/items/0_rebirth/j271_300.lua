@@ -66,10 +66,10 @@ TBOJ.Active {
       local _card = SMODS.create_card {
         set = "tboj_spiderfly",
         key = "spiderfly_tboj_blue_spider",
-        area = G.spiders
+        area = G.tboj_spiders
       }
       _card:add_to_deck()
-      G.spiders:emplace(_card)
+      G.tboj_spiders:emplace(_card)
     end
     SMODS.calculate_effect({message = localize('tboj_spiders_ex'),}, card)
   end,

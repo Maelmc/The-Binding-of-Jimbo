@@ -60,12 +60,13 @@ SMODS.Joker {
 
         for i = 1, todestroy do destroyed_cards[#destroyed_cards + 1] = temp_hand[i] end
 
+        local bp = context.blueprint_card
         G.E_MANAGER:add_event(Event({
           trigger = 'after',
           delay = 0.4,
           func = function()
             play_sound('tarot1')
-            local target = context.blueprint_card or card
+            local target = bp or card
             target:juice_up(0.3, 0.5)
             return true
           end

@@ -123,8 +123,9 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.end_of_round and context.game_over == false and context.main_eval then 
+    if context.end_of_round and context.game_over == false and context.main_eval then
       if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+        local bp = context.blueprint_card
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
         G.E_MANAGER:add_event(Event({
           func = (function()
@@ -137,7 +138,7 @@ SMODS.Joker {
                 return true
               end)
             }))
-            SMODS.calculate_effect({ message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT }, context.blueprint_card or card)
+            SMODS.calculate_effect({ message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT }, bp or card)
             return true
           end)
         }))

@@ -304,6 +304,19 @@ return {
           }
         }
       },
+      active_tboj_mom_bracelet = {
+        name = "Mom's Bracelet",
+        text = {
+          {
+            "Use to {C:attention}move{} a selected card",
+            "to your {C:attention}Active{} area"
+          },
+          {
+            "Use again to",
+            "{C:attention}retrieve{} the card"
+          }
+        }
+      },
       active_tboj_larynx = {
         name = "Larynx",
         text = {
@@ -382,6 +395,20 @@ return {
           }
         }
       },
+      active_tboj_keeper_box = {
+        name = "Keeper's Box",
+        text = {
+          {
+            "#1#/#2# {C:attention}charges",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Add a random {C:attention}Voucher",
+            "to the shop"
+          }
+        }
+      },
     },
     Back = {
       b_tboj_isaac = {
@@ -437,8 +464,8 @@ return {
       bl_tboj_siren = {
         name = "The Siren",
         text = {
-          "Familiar Jokers",
-          "are debuffed"
+          "One random Familiar Joker",
+          "disabled every hand"
         },
       },
       bl_tboj_monstro = {
@@ -1082,7 +1109,7 @@ return {
         name = "Monstro's Lung",
         text = {
           "Randomly add {C:attention}#1#{} to {C:attention}#2#{}",
-          "cards to your {C:attention}played hand",
+          "random cards to your {C:attention}played hand",
           "before determining the {C:attention}poker hand{},",
           "then {C:attention}destroy{} them after scoring"
         }
@@ -1090,8 +1117,8 @@ return {
       j_tboj_abaddon = {
         name = "Abaddon",
         text = {
-          "When acquired, permanently {C:red}lose{} all {C:blue}Hands",
-          "but {C:attention}1{} and gain {C:attention}twice{} as many {C:red}Discards",
+          "When {C:attention}Blind{} is selected, {C:red}lose{} all {C:blue}Hands",
+          "but {C:attention}1{} and gain {C:attention}twice{} as many {C:red}Discards{},",
           "{C:white,X:mult}X#1#{} Mult per remaining discard",
           "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
@@ -2479,6 +2506,7 @@ return {
       tboj_dark_arts_flavor = "One With The Shadows",
       tboj_plus_consumable = "+1 Consumable",
       tboj_plus_dice = "+1 Dice",
+      tboj_plus_voucher = "+1 Voucher",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

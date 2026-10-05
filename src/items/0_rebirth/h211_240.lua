@@ -47,7 +47,7 @@ SMODS.Joker {
 SMODS.Joker {
   key = "monstro_lung",
   pos = {x = 3, y = 15},
-  config = {extra = {min = 1, max = 4}},
+  config = {extra = {min = 2, max = 4}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.min, card.ability.extra.max}}
   end,
@@ -114,6 +114,20 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
+    if context.setting_blind then
+      local bp = context.blueprint_card
+      G.E_MANAGER:add_event(Event({
+        func = function()
+          local diff = G.GAME.round_resets.hands - 1
+          ease_hands_played(-diff)
+          ease_discard(diff*2, nil, true)
+          SMODS.calculate_effect({ message = localize { type = 'variable', key = 'tboj_discards', vars = {diff*2} } }, bp or card)
+          return true
+        end
+      }))
+      return nil, true
+    end
+
     if context.joker_main then
       return {
         xmult = 1 + card.ability.extra.Xmult * G.GAME.current_round.discards_left
@@ -124,11 +138,6 @@ SMODS.Joker {
     return TBOJ.in_pool(self, args)
   end,
   add_to_deck = function(self, card, from_debuff)
-    local diff = G.GAME.round_resets.hands - 1
-    G.GAME.round_resets.hands = 1
-    ease_hands_played(-diff)
-    G.GAME.round_resets.discards = G.GAME.round_resets.discards + diff*2
-    ease_discard(diff*2)
   end,
   attributes = {"tboj_devil", "hands", "discards", "xmult"},
 }
