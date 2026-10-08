@@ -300,6 +300,25 @@ function TBOJ.add_to_shop(card,text)
   end
 end
 
+-- Save the current state of seeds
+function TBOJ.save_seeds()
+    local og_seed = {}
+    for k, v in pairs(G.GAME.pseudorandom) do
+      og_seed[k] = v
+    end
+    return og_seed
+end
+
+-- Restore the current state of seeds
+function TBOJ.restore_seeds(seeds)
+  for k, _ in pairs(G.GAME.pseudorandom) do
+    G.GAME.pseudorandom[k] = nil
+  end
+  for k, v in pairs(seeds) do
+    G.GAME.pseudorandom[k] = v
+  end
+end
+
 -- Predict the next result of an rng call
 function TBOJ.predict_seed(key)
   local pkey = G.GAME.pseudorandom[key]
@@ -313,77 +332,109 @@ end
 
 -- Predict the next boss blind
 function TBOJ.predict_next_boss()
-  if G.GAME.modifiers.tboj_aprils_fool then return "bl_tboj_bloat" end
-  local real_ante = G.GAME.round_resets.ante
-  G.GAME.round_resets.ante = G.GAME.round_resets.ante + 1
-  G.GAME.perscribed_bosses = G.GAME.perscribed_bosses or {
-  }
-  if G.GAME.perscribed_bosses and G.GAME.perscribed_bosses[G.GAME.round_resets.ante] then
-    local ret_boss = G.GAME.perscribed_bosses[G.GAME.round_resets.ante]
-    G.GAME.round_resets.ante = real_ante
-    return ret_boss
-  end
-  if G.FORCE_BOSS then
-    G.GAME.round_resets.ante = real_ante
-    return G.FORCE_BOSS
-  end
-
-  local eligible_bosses = {}
-  for k, v in pairs(G.P_BLINDS) do
-    if G.GAME.round_resets.blind_choices.Boss ~= v.key then
-      local res, options = SMODS.add_to_pool(v)
-      options = options or {}
-      if not v.boss then
-
-      elseif options.ignore_showdown_check then
-        eligible_bosses[k] = res and true or nil
-      elseif v.in_pool and type(v.in_pool) == 'function' then
-        if
-          (
-            ((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2) ==
-            (v.boss.showdown or false)
-          )
-        then
-          eligible_bosses[k] = res and true or nil
-        end
-      elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
-        eligible_bosses[k] = res and true or nil
-      elseif v.boss.showdown and (G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
-        eligible_bosses[k] = res and true or nil
+  local game = G.GAME
+  local round_resets = game.round_resets
+  local choices = round_resets.blind_choices
+  if MP and MP.get_active_gamemode and MP.Gamemodes then
+    local gamemode_key = MP.get_active_gamemode()
+    local gamemode = gamemode_key and MP.Gamemodes[gamemode_key]
+    if gamemode and gamemode.get_blinds_by_ante then
+      local pvp_choices = round_resets.pvp_blind_choices
+      local saved_pvp_choices = {}
+      for k, v in pairs(pvp_choices or {}) do
+        saved_pvp_choices[k] = v
       end
-    end
-  end
-  for k, v in pairs(G.GAME.banned_keys) do
-    if eligible_bosses[k] then eligible_bosses[k] = nil end
-  end
-
-  local min_use = 100
-  for k, v in pairs(G.GAME.bosses_used) do
-    if eligible_bosses[k] then
-      if G.GAME.round_resets.blind_choices.Boss ~= k then
-        eligible_bosses[k] = v
-        if eligible_bosses[k] <= min_use then
-          min_use = eligible_bosses[k]
+      local ok, mp_small, mp_big, boss = pcall(gamemode.get_blinds_by_ante, gamemode, round_resets.ante + 1)
+      if pvp_choices then
+        for k in pairs(pvp_choices) do
+          pvp_choices[k] = nil
+        end
+        for k, v in pairs(saved_pvp_choices) do
+          pvp_choices[k] = v
         end
       end
+      if not ok then error(mp_small, 0) end
+      if boss then return boss end
     end
   end
-  --local tot_elig = 0
-  for k, v in pairs(eligible_bosses) do
-    if eligible_bosses[k] then
-      if eligible_bosses[k] > min_use then
-        eligible_bosses[k] = nil
-      elseif G.GAME.round_resets.blind_choices.Boss == eligible_bosses[k] then
-        eligible_bosses[k] = nil
-      --else
-        --print(k)
-        --tot_elig = tot_elig + 1
-      end
+  local seeds = TBOJ.save_seeds()
+  local real_ante = round_resets.ante
+  local saved_choices = {}
+  local saved_used = {}
+  local blind_states = round_resets.blind_states
+  local saved_blind_states = {}
+  local paused = G.SETTINGS.paused
+
+  for k, v in pairs(choices) do
+    saved_choices[k] = v
+  end
+  for k, v in pairs(blind_states or {}) do
+    saved_blind_states[k] = v
+  end
+  for _, blind_type in ipairs({'boss', 'small', 'big'}) do
+    saved_used[blind_type] = {}
+    for k, v in pairs(game.bosses_used[blind_type]) do
+      saved_used[blind_type][k] = v
     end
   end
-  --print("eligible bosses: "..tot_elig)
-  local _, boss = pseudorandom_element(eligible_bosses, TBOJ.predict_seed('boss'))
-  G.GAME.round_resets.ante = real_ante
+  local saved_blind_order = round_resets.blind_order
+  local blind_on_deck = game.blind_on_deck
+  local boss_rerolled = round_resets.boss_rerolled
+  local allow_sin = game.modifiers.tboj_allow_sin
+
+  local ok, boss = pcall(function()
+    G.SETTINGS.paused = false
+    round_resets.ante = real_ante + 1
+    round_resets.blind_states = round_resets.blind_states or {
+      Small = 'Select',
+      Big = 'Upcoming',
+      Boss = 'Upcoming',
+    }
+    round_resets.blind_states.Small = 'Upcoming'
+    round_resets.blind_states.Big = 'Upcoming'
+    round_resets.blind_states.Boss = 'Upcoming'
+    game.blind_on_deck = 'Small'
+    round_resets.boss_rerolled = false
+    SMODS.get_next_vouchers()
+    get_next_tag_key()
+    get_next_tag_key()
+    SMODS.reset_blind_choices(choices)
+    return choices.Boss
+  end)
+
+  round_resets.ante = real_ante
+  G.SETTINGS.paused = paused
+  for k in pairs(choices) do
+    choices[k] = nil
+  end
+  for k, v in pairs(saved_choices) do
+    choices[k] = v
+  end
+  if blind_states then
+    for k in pairs(blind_states) do
+      blind_states[k] = nil
+    end
+    for k, v in pairs(saved_blind_states) do
+      blind_states[k] = v
+    end
+  end
+  round_resets.blind_states = blind_states
+  round_resets.blind_order = saved_blind_order
+  round_resets.boss_rerolled = boss_rerolled
+  game.blind_on_deck = blind_on_deck
+  game.modifiers.tboj_allow_sin = allow_sin
+  for _, blind_type in ipairs({'boss', 'small', 'big'}) do
+    local used = game.bosses_used[blind_type]
+    for k in pairs(used) do
+      used[k] = nil
+    end
+    for k, v in pairs(saved_used[blind_type]) do
+      used[k] = v
+    end
+  end
+  TBOJ.restore_seeds(seeds)
+
+  if not ok then error(boss, 0) end
   return boss
 end
 
@@ -395,10 +446,7 @@ function TBOJ.predict_pack(args)
   local create_card = args.create_card
   local pack_self = args.pack_self
 
-  local og_seed = {}
-  for k, v in pairs(G.GAME.pseudorandom) do
-    og_seed[k] = v
-  end
+  local og_seed = TBOJ.save_seeds()
 
   local og_used = {}
   for k, v in pairs(G.GAME.used_jokers) do
@@ -436,13 +484,7 @@ function TBOJ.predict_pack(args)
     end
   end
 
-  for k, _ in pairs(G.GAME.pseudorandom) do
-    if og_seed[k] then
-      G.GAME.pseudorandom[k] = og_seed[k]
-    else
-      G.GAME.pseudorandom[k] = nil
-    end
-  end
+  TBOJ.restore_seeds(og_seed)
 
   for k, _ in pairs(G.GAME.used_jokers) do
     if og_used[k] then
