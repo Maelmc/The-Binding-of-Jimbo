@@ -82,7 +82,10 @@ end]]
 -- Setting Bloat as the boss during Aprils Fool challenge
 local gnb = get_new_boss
 function get_new_boss()
-  if G.GAME.modifiers.tboj_aprils_fool then return "bl_tboj_bloat" end
+  if G.GAME.modifiers.tboj_aprils_fool then
+    G.GAME.bosses_used["bl_tboj_bloat"] = (G.GAME.bosses_used["bl_tboj_bloat"] or 0) + 1
+    return "bl_tboj_bloat"
+  end
   return gnb()
 end
 

@@ -1,0 +1,10 @@
+{
+    "name": "The_Binding_of_Jimbo",
+    "version_number": "1.4.0",
+    "website_url": "https://github.com/Maelmc/The-Binding-of-Jimbo",
+    "description": "A Binding of Isaac inspired mod",
+    "dependencies": [
+        "Steamodded-Steamodded-26.829.0",
+        "Thunderstore-lovely-0.9.0"
+    ]
+}

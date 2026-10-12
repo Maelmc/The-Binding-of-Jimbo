@@ -27,26 +27,28 @@ function TBOJ.reroll(card, to_key, silent, from_cycling)
   if not new_card then return end
   if card.config.center == new_card then return end
 
-  if from_cycling then card.children.tboj_from_cycle = true end
-  card:set_ability(new_card, true)
-  card.children.tboj_from_cycle = nil
-  card:set_cost()
-
-  card.children.center.atlas = SMODS.get_atlas((new_card.atlas or (new_card.set == 'Joker' or new_card.consumeable or new_card.set == 'Voucher') and new_card.set) or 'centers')
-  card.children.center:set_sprite_pos(new_card.pos)
+  card.children.center = SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, new_card.atlas or "Joker", new_card.pos)
+  card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
   --if card.config.center.set_sprites then
   --  card.config.center:set_sprites(card, card.children.front, true)
   --end
 
-  if new_card.soul_pos then
-    card.children.floating_sprite = Sprite(card.T.x, card.T.y, card.T.w, card.T.h, G.ASSET_ATLAS[new_card.atlas or "Joker"], new_card.soul_pos)
-    card.children.floating_sprite.role.draw_major = card
-    card.children.floating_sprite.states.hover.can = false
-    card.children.floating_sprite.states.click.can = false
-  elseif card.children.floating_sprite then
+  if card.children.floating_sprite then
     card.children.floating_sprite:remove()
     card.children.floating_sprite = nil
   end
+
+  if new_card.soul_pos then
+    card.children.floating_sprite = SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, new_card.atlas or "Joker", new_card.soul_pos)
+    card.children.floating_sprite.role.draw_major = card
+    card.children.floating_sprite.states.hover.can = false
+    card.children.floating_sprite.states.click.can = false
+  end
+
+  if from_cycling then card.children.tboj_from_cycle = true end
+  card:set_ability(new_card, true)
+  card.children.tboj_from_cycle = nil
+  card:set_cost()
 
   if card.area == G.shop_jokers or card.area == G.shop_booster or card.area == G.shop_vouchers then
     if not from_cycling then
