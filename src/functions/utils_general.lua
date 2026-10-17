@@ -629,3 +629,11 @@ function TBOJ.apply_cursed(card, start, tally)
   card:add_sticker("tboj_cursed", true)
   card.ability.tboj_cursed = {perish_start = start, perish_tally = tally}
 end
+
+function TBOJ.rarity_to_text(rarity)
+  if rarity == 1 then return "Common" end
+  if rarity == 2 then return "Uncommon" end
+  if rarity == 3 then return "Rare" end
+  if rarity == 4 then return "Legendary" end
+  return rarity
+end
