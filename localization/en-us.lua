@@ -1078,7 +1078,7 @@ return {
         text = {
           "{C:mult}+#1#{} Mult per",
           "remaining {C:blue}Hands",
-          "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+          "{C:inactive}({C:mult}+#2#{C:inactive} Mult next hand)"
         }
       },
       j_tboj_iron_bar = {

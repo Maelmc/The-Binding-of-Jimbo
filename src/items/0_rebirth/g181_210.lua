@@ -102,7 +102,7 @@ SMODS.Joker {
   pos = {x = 12, y = 12},
   config = {extra = {mult_mod = 5}},
   loc_vars = function(self, info_queue, card)
-    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult_mod * G.GAME.current_round.hands_left}}
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult_mod * (G.GAME.current_round.hands_left-1)}}
   end,
   rarity = 1,
   cost = 5,

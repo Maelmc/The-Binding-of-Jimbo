@@ -8,7 +8,7 @@ SMODS.Joker {
     return {vars = {num, den}}
   end,
   rarity = 1,
-  cost = 6,
+  cost = 4,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,

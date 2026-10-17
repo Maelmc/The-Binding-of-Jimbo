@@ -25,6 +25,7 @@ SMODS.Consumable {
     }))
   end,
   attributes = {"editions"},
+  tboj_artist = "Okronix"
 }
 
 -- Spindown Dice
