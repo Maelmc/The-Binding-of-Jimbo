@@ -180,3 +180,14 @@ SMODS.Sound({
     key = "bone_heart",
     path = "bone_heart.wav"
 })
+
+SMODS.Sound({
+  key = "planetarium_music",
+  path = "planetarium_music.ogg",
+	select_music_track = function()
+    return G.STATE and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER.label == "p_tboj_planetarium_pack_1"
+	end,
+  sync = false,
+  pitch = 1,
+  volume = 0.8,
+})

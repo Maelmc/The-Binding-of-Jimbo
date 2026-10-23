@@ -2229,8 +2229,14 @@ return {
       trinket_tboj_telescope_lens = {
         name = "Telescope Lens",
         text = {
-          "{C:attention}Space{}-related Jokers may",
-          "appear in {C:attention}Celestial Packs"
+          {
+            "{C:attention}Space{}-related Jokers may",
+            "appear in {C:attention}Celestial Packs"
+          },
+          {
+          "{C:attention}Planetarium Packs{} are",
+          "more likely to appear"
+        }
         }
       },
       trinket_tboj_dice_bag = {
@@ -2341,17 +2347,17 @@ return {
       p_tboj_devil_pack_1 = {
         name = "Devil Pack",
         text = {
-          "Choose {C:attention}#1#{} from among",
-          "{C:attention}#2# Devil Joker{} cards and",
-          "{C:attention}#3# Devil Active{} card",
+          "Choose {C:attention}#1#{} of up to",
+          "{C:attention}#3# Devil{} Active and",
+          "{C:attention}#2# Devil{} Joker cards",
         },
       },
       p_tboj_angel_pack_1 = {
         name = "Angel Pack",
         text = {
-          "Choose {C:attention}#1#{} from among",
-          "{C:attention}#2# Angel Joker{} cards and",
-          "{C:attention}#3# Angel Active{} card",
+          "Choose {C:attention}#1#{} of up to",
+          "{C:attention}#3# Angel{} Active and",
+          "{C:attention}#2# Angel{} Joker cards",
         },
       },
       tboj_corpse_stake_sticker = {
@@ -2429,7 +2435,14 @@ return {
         text = {
           "{element:1}"
         }
-      }
+      },
+      p_tboj_planetarium_pack_1 = {
+        name = "Planetarium Pack",
+        text = {
+          "Choose {C:attention}#1#{} of up to {C:attention}#2#",
+          "{C:attention}Planetarium{} Joker cards"
+        },
+      },
     }
   },
   misc = {
@@ -2450,6 +2463,7 @@ return {
       k_tboj_transformation = "Transformation",
       k_tboj_active_stickers = "Active Stickers",
       k_tboj_trinket_stickers = "Trinket Stickers",
+      k_tboj_planetarium_pack = "Planetarium Pack",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",

@@ -6,6 +6,13 @@ TBOJ.Trinket {
   cost = 4,
   config = {extra = {}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS["p_tboj_planetarium_pack_1"]
+  end,
+  add_to_deck = function(self, card, from_debuff)
+    if G.GAME.tboj_planetarium_rate ~= "fix" then G.GAME.tboj_planetarium_rate = G.GAME.tboj_planetarium_rate + 0.2 end
+  end,
+  remove_from_deck = function(self, card, from_debuff)
+    if not G.GAME.tboj_planetarium_rate ~= "fix" then G.GAME.tboj_planetarium_rate = G.GAME.tboj_planetarium_rate - 0.2 end
   end,
   attributes = {"space"}
 }

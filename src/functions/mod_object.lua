@@ -58,6 +58,43 @@ SMODS.current_mod.calculate = function(self, context)
     reset_fruity_plum_suit()
     TBOJ.save_last_hand(context)
   end
+
+  -- Adjust Planetarium odds
+  if G.GAME.tboj_planetarium_rate ~= "fix" then
+    if context.ending_shop then
+      G.GAME.tboj_planetarium_rate = G.GAME.tboj_planetarium_rate + 0.02
+    end
+
+    if context.open_booster then
+      G.GAME.tboj_planetarium_rate = G.GAME.tboj_planetarium_rate - 0.01
+    end
+
+    if context.skip_blind then
+      G.GAME.tboj_planetarium_rate = G.GAME.tboj_planetarium_rate + 0.2
+    end
+  end
+
+  -- Modify Planetarium weight
+  if context.modify_weights then
+    local total_w = 0
+    local planetarium_pos
+    for k, v in pairs(context.pool) do
+      if v.key == "p_tboj_planetarium_pack_1" then
+        planetarium_pos = k
+      else
+        total_w = total_w + v.weight
+      end
+    end
+    if planetarium_pos then
+      if G.GAME.tboj_planetarium_rate == "fix" or G.GAME.tboj_planetarium_rate < 0.01 then
+        context.pool[planetarium_pos].weight = 0.01 * total_w / (1 - 0.01)
+      elseif G.GAME.tboj_planetarium_rate >= 1 then
+        context.pool[planetarium_pos].weight = 9999999
+      else
+        context.pool[planetarium_pos].weight = G.GAME.tboj_planetarium_rate * total_w / (1 - G.GAME.tboj_planetarium_rate)
+      end
+    end
+  end
 end
 
 function SMODS.current_mod.reset_game_globals(run_start)
@@ -67,6 +104,7 @@ function SMODS.current_mod.reset_game_globals(run_start)
   if run_start then
     G.GAME.tboj_last_full_hand = {}
     G.GAME.tboj_last_scored_hand = {}
+    G.GAME.tboj_planetarium_rate = 0.01
     reset_fruity_plum_suit()
   end
 end

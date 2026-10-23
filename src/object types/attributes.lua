@@ -41,3 +41,7 @@ SMODS.Attribute({
 SMODS.Attribute({
     key = "tboj_dice"
 })
+
+SMODS.Attribute({
+    key = "tboj_planetarium"
+})

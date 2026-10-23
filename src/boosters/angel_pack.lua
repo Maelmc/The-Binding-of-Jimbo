@@ -20,7 +20,12 @@ SMODS.Booster {
     end
   end,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.choose + (G.GAME.modifiers.booster_choice_mod or 0), card.ability.extra - 1, 1 } }
+		return { vars = {
+        math.min(card.ability.choose + (G.GAME.modifiers.booster_choice_mod or 0), math.max(1, card.ability.extra + (G.GAME.modifiers.booster_size_mod or 0))),
+        math.max(1, card.ability.extra - 1 + (G.GAME.modifiers.booster_size_mod or 0)),
+        1
+      }
+    }
 	end,
 	group_key = "k_tboj_angel_pack",
   ease_background_colour = function(self)

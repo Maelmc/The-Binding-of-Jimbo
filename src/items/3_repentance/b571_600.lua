@@ -129,7 +129,7 @@ SMODS.Joker {
       end
     end
   end,
-  attributes = {"space", "hand_type", "xmult", "boss_blind", "scaling"}
+  attributes = {"tboj_planetarium", "space", "hand_type", "xmult", "boss_blind", "scaling"}
 }
 
 -- Luna
@@ -167,7 +167,7 @@ SMODS.Joker {
     end
     return false
   end,
-  attributes = {"space", "hand_type", "hand_level"}
+  attributes = {"tboj_planetarium", "space", "hand_type", "hand_level"}
 }
 
 -- Mercurius
@@ -202,7 +202,7 @@ SMODS.Joker {
       return nil, true
     end
   end,
-  attributes = {"space", "hand_type", "hand_size", "skip", "scaling"}
+  attributes = {"tboj_planetarium", "space", "hand_type", "hand_size", "skip", "scaling"}
 }
 
 -- Venus
@@ -242,7 +242,7 @@ SMODS.Joker {
       return res
     end
   end,
-  attributes = {"space", "hand_type", "suit", "spades", "hearts", "clubs", "diamonds", "chips", "mult", "xmult", "economy"}
+  attributes = {"tboj_planetarium", "space", "hand_type", "suit", "spades", "hearts", "clubs", "diamonds", "chips", "mult", "xmult", "economy"}
 }
 
 -- Terra
@@ -297,7 +297,7 @@ SMODS.Joker {
     }))
     end
   end,
-  attributes = {"space", "hand_type", "enhancements", "destroy_card", "modify_card"}
+  attributes = {"tboj_planetarium", "space", "hand_type", "enhancements", "destroy_card", "modify_card"}
 }
 
 -- Neptunus
@@ -323,7 +323,7 @@ SMODS.Joker {
       }
     end
   end,
-  attributes = {"space", "hand_type", "hands", "retrigger"}
+  attributes = {"tboj_planetarium", "space", "hand_type", "hands", "retrigger"}
 }
 
 -- Pluto
@@ -420,7 +420,7 @@ SMODS.Joker {
       end
     end
   end,
-  attributes = {"space", "hand_type", "hands", "xmult", "passive"}
+  attributes = {"tboj_planetarium", "space", "hand_type", "hands", "xmult", "passive"}
 }
 
 -- Voodoo Head
