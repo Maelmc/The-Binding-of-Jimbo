@@ -1375,6 +1375,14 @@ return {
           "{C:inactive}(Currently {C:mult}+#3#{C:inactive} Mult)"
         },
       },
+      j_tboj_dog_tooth = {
+        name = "Dog Tooth",
+        text = {
+          "This Joker gains {C:mult}+#1#{} Mult",
+          "when opening a {C:attention}Booster Pack",
+          "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+        },
+      },
       j_tboj_shard_of_glass = {
         name = "Shard of Glass",
         text = {

@@ -2,6 +2,40 @@
 -- Apple!
 -- Lead Pencil
 -- Dog Tooth
+SMODS.Joker {
+  key = "dog_tooth",
+  pos = {x = 9, y = 29},
+  config = {extra = {mult_mod = 2, mult = 0}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+     if context.joker_main then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+
+    if context.open_booster and not context.blueprint then
+      SMODS.scale_card(card, {
+        ref_value = 'mult',
+        scalar_value = 'mult_mod',
+        message_colour = G.C.MULT
+      })
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"mult", "scaling", "booster"}
+}
+
 -- Dead Tooth
 -- Linger Bean
 -- Shard of Glass
