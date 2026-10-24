@@ -221,7 +221,7 @@ return {
           {
             "#1#/#2# {C:attention}charges",
             "Must have at least 1 charge to use",
-            "Recharges at end of round",
+            "Recharges when hand is played",
           },
           {
             "Create a {C:attention}Pretty Fly",

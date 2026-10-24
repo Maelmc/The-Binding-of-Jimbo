@@ -50,7 +50,9 @@ TBOJ.Active {
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
   end,
   calculate = function(self, card, context)
-    TBOJ.eor_charge(card,context)
+    if context.before and not context.blueprint then
+      TBOJ.charge_active(card, 1)
+    end
   end,
   can_use = function(self, card)
     return card.ability.extra.curr_charge > 0
