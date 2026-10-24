@@ -1204,6 +1204,14 @@ return {
           "{C:mult}+#1#{} Mult when hand is played"
         }
       },
+      j_tboj_leech = {
+        name = "Leech",
+        text = {
+          "This Joker gains {C:mult}+#1#{} Mult for",
+          "each playing card {C:attention}destroyed",
+          "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
+        }
+      },
       j_tboj_judas_shadow = {
         name = "Judas' Shadow",
         text = {

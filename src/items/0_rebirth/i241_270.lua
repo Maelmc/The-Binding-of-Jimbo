@@ -236,3 +236,38 @@ SMODS.Joker {
 }
 
 -- Leech
+SMODS.Joker {
+  key = "leech",
+  pos = {x = 14, y = 17},
+  config = {extra = {mult_mod = 3, mult = 0}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult}}
+  end,
+  rarity = 1,
+  cost = 5,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+     if context.joker_main then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+
+    if context.remove_playing_cards and not context.blueprint then
+      for _, _ in ipairs(context.removed) do
+        SMODS.scale_card(card, {
+          ref_value = 'mult',
+          scalar_value = 'mult_mod',
+          message_colour = G.C.MULT
+        })
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_familiar", "mult", "scaling"}
+}
