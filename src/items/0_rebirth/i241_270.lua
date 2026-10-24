@@ -85,13 +85,13 @@ SMODS.Joker {
 SMODS.Joker {
   key = "missing_no",
   pos = {x = 2, y = 17},
-  config = {extra = {}},
+  config = {extra = {mult_mod = 2, mult = 0}},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_reroll'}
-    return {vars = {}}
+    return {vars = {card.ability.extra.mult_mod, card.ability.extra.mult}}
   end,
   rarity = 1,
-  cost = 4,
+  cost = 5,
   atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
@@ -100,10 +100,24 @@ SMODS.Joker {
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       for k, v in ipairs(G.jokers.cards) do
         if v.config.center.key ~= "j_tboj_missing_no" then
-          local _k = SMODS.poll_object({type = v.ability.set, seed = "tboj_missing_no" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante})
+          local _k = SMODS.poll_object({type = v.ability.set, seed = "tboj_missing_no" .. G.GAME.round_resets.ante})
           TBOJ.reroll(v, _k)
         end
       end
+    end
+
+    if context.joker_main then
+      return {
+        mult = card.ability.extra.mult
+      }
+    end
+
+    if context.tboj_reroll and not context.blueprint and not context.from_cycling then
+      SMODS.scale_card(card, {
+        ref_value = 'mult',
+        scalar_value = 'mult_mod',
+        message_colour = G.C.MULT
+      })
     end
   end,
   in_pool = function (self, args)

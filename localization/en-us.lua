@@ -1167,9 +1167,16 @@ return {
       j_tboj_missing_no = {
         name = "Missing No.",
         text = {
-          "{C:attention}Reroll{} all Jokers",
-          "at end of round",
-          "{s:0.8}Cannot reroll {C:attention,s:0.8}Missing No."
+          {
+            "This Joker gains {C:mult}+#1#{} Mult",
+            "when a card is {C:attention}rerolled",
+            "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)"
+          },
+          {
+            "{C:attention}Reroll{} all Jokers",
+            "at end of round",
+            "{s:0.8}Cannot reroll {C:attention,s:0.8}Missing No."
+          }
         }
       },
       j_tboj_black_candle = {
@@ -2005,8 +2012,7 @@ return {
           "{C:attention}Joker{} to the previous one",
           "in {C:attention}collection{} order",
           "{C:inactive,s:0.8}Destroys {C:attention,s:0.8}Joker {C:inactive,s:0.8}and {C:attention,s:0.8}The Sad Onion",
-          "{C:inactive,s:0.8}Cannot roll a {C:attention,s:0.8}Transformation",
-          "{C:inactive,s:0.8}or into a {C:attention,s:0.8}Transformation"
+          "{C:inactive,s:0.8}Cannot roll into a {C:attention,s:0.8}Transformation"
         }
       },
     },
@@ -2337,10 +2343,10 @@ return {
       tboj_reroll = {
         name = "Reroll",
         text = {
-            "{C:attention}Transform{} into a",
-            "different card of",
-            "the same {C:attention}kind",
-            "{C:inactive,s:0.8}(A Joker into another Joker)"
+            "{C:attention}Change{} into a different",
+            "card of the same {C:attention}category",
+            "{C:inactive,s:0.8}Example: a Joker into another Joker",
+            "{C:inactive,s:0.8}Cannot reroll a {C:attention,s:0.8}Transformation{C:inactive,s:0.8} Joker"
         }
       },
       undiscovered_tboj_loot = {

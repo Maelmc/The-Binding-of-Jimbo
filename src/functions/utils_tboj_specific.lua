@@ -23,81 +23,99 @@ end
 -- Stolen from Pokermon
 -- Transform a card into another card
 function TBOJ.reroll(card, to_key, silent, from_cycling)
+  if card.config.center.rarity == "tboj_transformation" then return end
+  local old_key = card.config.center.key
+  if old_key == to_key then return end
   local new_card = G.P_CENTERS[to_key]
   if not new_card then return end
   if card.config.center == new_card then return end
 
-  card.children.center = SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, new_card.atlas or "Joker", new_card.pos)
-  card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
-  --if card.config.center.set_sprites then
-  --  card.config.center:set_sprites(card, card.children.front, true)
-  --end
+  G.E_MANAGER:add_event(Event({
+    trigger = 'immediate',
+    func = function()
+      card.children.center = SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, new_card.atlas or "Joker", new_card.pos)
+      card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
+      --if card.config.center.set_sprites then
+      --  card.config.center:set_sprites(card, card.children.front, true)
+      --end
 
-  if card.children.floating_sprite then
-    card.children.floating_sprite:remove()
-    card.children.floating_sprite = nil
-  end
-
-  if new_card.soul_pos then
-    card.children.floating_sprite = SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, new_card.atlas or "Joker", new_card.soul_pos)
-    card.children.floating_sprite.role.draw_major = card
-    card.children.floating_sprite.states.hover.can = false
-    card.children.floating_sprite.states.click.can = false
-  end
-
-  if from_cycling then card.children.tboj_from_cycle = true end
-  card:set_ability(new_card, true)
-  card.children.tboj_from_cycle = nil
-  card:set_cost()
-
-  if card.area == G.shop_jokers or card.area == G.shop_booster or card.area == G.shop_vouchers then
-    if not from_cycling then
-      create_shop_card_ui(card)
-    end
-  end
-
-  if not silent then
-    if card.edition then
-      if card.edition.foil then play_sound('foil1', 1.2, 0.4) end
-      if card.edition.holo then play_sound('holo1', 1.2*1.58, 0.4) end
-      if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
-      if card.edition.negative then play_sound('negative', 1.5, 0.4) end
-      if card.edition.poke_shiny then
-        play_sound('poke_e_shiny', 1, 0.2)
-        G.P_CENTERS.e_poke_shiny.on_load(card)
+      if card.children.floating_sprite then
+        card.children.floating_sprite:remove()
+        card.children.floating_sprite = nil
       end
-    end
-    if not from_cycling then
-      SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
-    end
-  end
 
-  if card.states.hover.is then
-    card:stop_hover()
-    -- Card:hover() but without the juice
-    play_sound('paper1', math.random()*0.2 + 0.9, 0.35)
+      if new_card.soul_pos then
+        card.children.floating_sprite = SMODS.create_sprite(card.T.x, card.T.y, card.T.w, card.T.h, new_card.atlas or "Joker", new_card.soul_pos)
+        card.children.floating_sprite.role.draw_major = card
+        card.children.floating_sprite.states.hover.can = false
+        card.children.floating_sprite.states.click.can = false
+      end
 
-    --if this is the focused card
-    if card.states.focus.is and not card.children.focused_ui then
-        card.children.focused_ui = G.UIDEF.card_focus_ui(card)
-    end
+      if from_cycling then card.children.tboj_from_cycle = true end
+      card:set_ability(new_card, true)
+      card.children.tboj_from_cycle = nil
+      card:set_cost()
 
-    if card.facing == 'front' and (not card.states.drag.is or G.CONTROLLER.HID.touch) and not card.no_ui and not G.debug_tooltip_toggle then 
-        if card.children.alert and not card.config.center.alerted then
-            card.config.center.alerted = true
-            G:save_progress()
-        elseif card.children.alert and card.seal and not G.P_SEALS[card.seal].alerted then
-            G.P_SEALS[card.seal].alerted = true
-            G:save_progress()
+      if card.area == G.shop_jokers or card.area == G.shop_booster or card.area == G.shop_vouchers then
+        if not from_cycling then
+          create_shop_card_ui(card)
+        end
+      end
+
+      if not silent then
+        if card.edition then
+          if card.edition.foil then play_sound('foil1', 1.2, 0.4) end
+          if card.edition.holo then play_sound('holo1', 1.2*1.58, 0.4) end
+          if card.edition.polychrome then play_sound('polychrome1', 1.2, 0.7) end
+          if card.edition.negative then play_sound('negative', 1.5, 0.4) end
+          if card.edition.poke_shiny then
+            play_sound('poke_e_shiny', 1, 0.2)
+            G.P_CENTERS.e_poke_shiny.on_load(card)
+          end
+        end
+      end
+
+      if card.states.hover.is then
+        card:stop_hover()
+        -- Card:hover() but without the juice
+        play_sound('paper1', math.random()*0.2 + 0.9, 0.35)
+
+        --if this is the focused card
+        if card.states.focus.is and not card.children.focused_ui then
+            card.children.focused_ui = G.UIDEF.card_focus_ui(card)
         end
 
-        card.ability_UIBox_table = card:generate_UIBox_ability_table()
-        card.config.h_popup = G.UIDEF.card_h_popup(card)
-        card.config.h_popup_config = card:align_h_popup()
+        if card.facing == 'front' and (not card.states.drag.is or G.CONTROLLER.HID.touch) and not card.no_ui and not G.debug_tooltip_toggle then 
+            if card.children.alert and not card.config.center.alerted then
+                card.config.center.alerted = true
+                G:save_progress()
+            elseif card.children.alert and card.seal and not G.P_SEALS[card.seal].alerted then
+                G.P_SEALS[card.seal].alerted = true
+                G:save_progress()
+            end
 
-        Node.hover(card)
+            card.ability_UIBox_table = card:generate_UIBox_ability_table()
+            card.config.h_popup = G.UIDEF.card_h_popup(card)
+            card.config.h_popup_config = card:align_h_popup()
+
+            Node.hover(card)
+        end
+      end
+      return true
     end
+  }))
+
+  if (not silent) and not from_cycling then
+    SMODS.calculate_effect({message = localize('tboj_reroll_ex')}, card)
   end
+
+  SMODS.calculate_context({
+    tboj_reroll = true,
+    other_card = card,
+    from = old_key,
+    to = to_key,
+    from_cycling = from_cycling
+  })
 
   --[[if then
     card.area:remove_from_highlighted(card)
@@ -177,11 +195,11 @@ function TBOJ.ease_dollars(mod, instant)
         _mod(mod)
     else
         G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-            _mod(mod)
-            return true
-        end
+          trigger = 'immediate',
+          func = function()
+              _mod(mod)
+              return true
+          end
         }))
     end
 
