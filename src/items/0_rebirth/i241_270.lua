@@ -93,9 +93,9 @@ SMODS.Joker {
   rarity = 1,
   cost = 5,
   atlas = "jokers",
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = true,
-  blueprint_compat = false,
+  blueprint_compat = true,
   calculate = function(self, card, context)
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       for k, v in ipairs(G.jokers.cards) do
@@ -260,7 +260,7 @@ SMODS.Joker {
   rarity = 1,
   cost = 5,
   atlas = "jokers",
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)

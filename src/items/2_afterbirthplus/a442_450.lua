@@ -12,7 +12,7 @@ SMODS.Joker {
   rarity = 1,
   cost = 5,
   atlas = "jokers",
-  perishable_compat = true,
+  perishable_compat = false,
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
