@@ -4,7 +4,7 @@ SMODS.Booster {
 	atlas = "boosters",
 	pos = { x = 2, y = 0 },
 	config = { extra = 2, choose = 1 },
-	cost = 6,
+	cost = 4,
 	order = 1,
 	weight = 0,
   draw_hand = false,
