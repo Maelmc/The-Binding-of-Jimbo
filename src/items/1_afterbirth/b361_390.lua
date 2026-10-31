@@ -149,6 +149,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
+  attributes = {"position"}
 }
 
 -- Mr. Dolly
@@ -383,5 +384,5 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel", "tboj_familiar", "generation", "xmult"}
+  attributes = {"tboj_angel", "tboj_familiar", "generation", "xmult", "position"}
 }

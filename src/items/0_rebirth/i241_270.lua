@@ -184,7 +184,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"xmult"},
+  attributes = {"xmult", "position"},
   tboj_artist = "Maelmc",
 }
 

@@ -95,7 +95,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_familiar", "tboj_fly", "chips"}
+  attributes = {"tboj_familiar", "tboj_fly", "chips", "position"}
 }
 
 -- Bucket of Lard

@@ -142,7 +142,7 @@ TBOJ.Trinket {
       }
     end
   end,
-  attributes = {"tboj_worm", "retrigger"}
+  attributes = {"tboj_worm", "retrigger", "position"}
 }
 
 -- Ring Worm
@@ -162,7 +162,7 @@ TBOJ.Trinket {
       }
     end
   end,
-  attributes = {"tboj_worm", "retrigger"}
+  attributes = {"tboj_worm", "retrigger", "position"}
 }
 
 -- Store Credit
@@ -240,7 +240,7 @@ TBOJ.Trinket {
       }
     end
   end,
-  attributes = {"tboj_worm", "retrigger"}
+  attributes = {"tboj_worm", "retrigger", "position"}
 }
 
 -- Whip Worm

@@ -172,7 +172,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"xmult", "scaling", "reset"}
+  attributes = {"xmult", "scaling", "reset", "position"}
 }
 
 -- Growth Hormones
