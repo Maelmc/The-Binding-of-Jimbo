@@ -4,7 +4,7 @@ SMODS.Joker {
   pos = {x = 0, y = 16},
   config = {extra = {num = 1, den = 3}},
   loc_vars = function(self, info_queue, card)
-    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_pill")
+    local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_contract_from_below")
     return {vars = {num, den}}
   end,
   rarity = 1,
