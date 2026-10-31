@@ -434,6 +434,13 @@ return {
           "{C:blue}#2#{} hand every round"
         }
       },
+      b_tboj_eve = {
+        name = "Eve Deck",
+        text = {
+          "Every hand is played as",
+          "if you had {C:attention}no hands left"
+        }
+      },
       b_tboj_keeper = {
         name = "Keeper Deck",
         text = {
@@ -1975,6 +1982,13 @@ return {
           "Destroys {C:attention}#1#{} selected",
           "cards, other cards held in",
           "hand permanently gain {C:mult}+#2#{} Mult",
+        }
+      },
+      c_tboj_soul_of_eve = {
+        name = "Soul of Eve",
+        text = {
+          "Creates {C:attention}#1# Cursed #2#",
+          "{C:dark_edition}Negative {C:attention}Dead Bird"
         }
       },
       c_tboj_soul_of_lilith = {

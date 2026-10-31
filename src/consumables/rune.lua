@@ -321,8 +321,14 @@ SMODS.Consumable {
   cost = 4,
   unlocked = true,
   weight = soul_weight,
-  config = { extra = {amount = 30}},
+  config = { extra = {amount = 3, cursed = 1}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.j_tboj_dead_bird
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_cursed', vars = {card.ability.extra.cursed, "s", card.ability.extra.cursed}}
+    if not card.edition or (card.edition and not card.edition.negative) then
+      info_queue[#info_queue+1] = G.P_CENTERS.e_negative
+    end
+    return { vars = {card.ability.extra.amount, card.ability.extra.cursed}}
   end,
   can_use = function(self, card)
     return true
@@ -335,7 +341,7 @@ SMODS.Consumable {
         func = function()
           play_sound('timpani')
           local _bird = SMODS.add_card({ set = 'Joker', key = "j_tboj_dead_bird", edition = "e_negative" })
-          TBOJ.apply_cursed(_bird, 1)
+          TBOJ.apply_cursed(_bird, card.ability.extra.cursed)
           return true
         end
       }))
