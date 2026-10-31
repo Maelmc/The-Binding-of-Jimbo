@@ -35,6 +35,156 @@ SMODS.Joker {
   attributes = {"tboj_angel", "passive", "chance"}
 }
 
+-- Sauguine Bond
+-- The Swarm
+
+-- Salvation
+-- Vanishing Twin
+-- Twisted Pair
+SMODS.Joker {
+  key = "twisted_pair",
+  pos = { x = 7, y = 46 },
+  config = {extra = {reduce = 0.75}},
+  loc_vars = function(self, info_queue, card)
+    if card.area and card.area == G.jokers then
+      local left_joker
+      local right_joker
+      for i = 1, #G.jokers.cards do
+        if G.jokers.cards[i] == card then
+          left_joker = G.jokers.cards[i - 1]
+          right_joker = G.jokers.cards[i + 1]
+        end
+      end
+      local compat_left = left_joker and left_joker ~= card and left_joker.config.center.blueprint_compat
+      local compat_right = right_joker and right_joker ~= card and right_joker.config.center.blueprint_compat
+      local main_end = {
+        {
+          n = G.UIT.C,
+          config = { align = "bm", minh = 0.4 },
+          nodes = {
+            {
+              n = G.UIT.R,
+              config = { ref_table = card, align = "m", colour = compat_left and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+              nodes = {
+                { n = G.UIT.T, config = { text = ' ' .. localize("tboj_left") .. ': ' .. localize('k_' .. (compat_left and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+              }
+            },
+            {
+              n = G.UIT.R,
+              config = { ref_table = card, align = "m", colour = G.C.UI.TEXT_LIGHT, padding = G.t_p or 0.025 },
+              nodes = {
+                {},
+              }
+            },
+            {
+              n = G.UIT.R,
+              config = { ref_table = card, align = "m", colour = compat_right and mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8) or mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8), r = 0.05, padding = 0.06 },
+              nodes = {
+                { n = G.UIT.T, config = { text = ' ' .. localize("tboj_right") .. ': ' .. localize('k_' .. (compat_right and 'compatible' or 'incompatible')) .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.32 * 0.8 } },
+              }
+            },
+          }
+        }
+      }
+      return { vars = {card.ability.extra.reduce}, main_end = main_end }
+    end
+    return { vars = {card.ability.extra.reduce}}
+  end,
+  rarity = 4,
+  cost = 20,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    local left_joker
+    local right_joker
+    for i = 1, #G.jokers.cards do
+      if G.jokers.cards[i] == card then
+        left_joker = G.jokers.cards[i - 1]
+        right_joker = G.jokers.cards[i + 1]
+      end
+    end
+    local ret_left = SMODS.blueprint_effect(card, left_joker, context)
+    -- Vanilla jokers return their own message with the original value, so we remove it to display the correct message
+    if ret_left and left_joker and not left_joker.config.center.mod then
+      for k, v in pairs(ret_left) do
+        local start_, _ = string.find(k, "_mod")
+        if start_ then
+          ret_left.message = nil
+          ret_left[string.sub(k, 1, start_ -1)] = v
+          ret_left[k] = nil
+        end
+      end
+    end
+    local ret_right = SMODS.blueprint_effect(card, right_joker, context)
+    -- Vanilla jokers return their own message with the original value, so we remove it to display the correct message
+    if ret_right and left_joker and not left_joker.config.center.mod then
+      for k, v in pairs(ret_right) do
+        local start_, _ = string.find(k, "_mod")
+        if start_ then
+          ret_right.message = nil
+          ret_right[string.sub(k, 1, start_ -1)] = v
+          ret_right[k] = nil
+        end
+      end
+    end
+
+    -- nest results: first left joker then right joker
+    if ret_left then
+      if ret_right then
+        local target = ret_left
+        while true do
+          if target.extra then target = target.extra
+          else
+            target.extra = ret_right
+            break
+          end
+        end
+      end
+    elseif ret_right then
+      ret_left = SMODS.shallow_copy(ret_right)
+      ret_right = nil
+    else return end
+
+    -- x0.75 chips, mult, xmult, money
+    local to_reduce = {
+      'chips', 'h_chips', 'chip_mod',
+      'mult', 'h_mult', 'mult_mod',
+      'p_dollars', 'dollars', 'h_dollars',
+    }
+
+    local xmult_names = {
+      'x_mult', 'Xmult', 'xmult', 'x_mult_mod', 'Xmult_mod',
+    }
+
+    local function reduce_values(ret)
+      if ret then
+        ret.colour = G.C.BLACK
+        for _, v in pairs(to_reduce) do
+          if ret[v] then ret[v] = ret[v] * card.ability.extra.reduce end
+        end
+        for _, v in pairs(xmult_names) do
+          if ret[v] then ret[v] = (ret[v] - 1) * 0.75 + 1 end -- only reduce what's above 1
+        end
+        if ret.extra then ret.extra = reduce_values(ret.extra) end
+        return SMODS.shallow_copy(ret)
+      end
+      return {}
+    end
+    ret_left = reduce_values(ret_left)
+    print(ret_left)
+    return ret_left
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_devil", "tboj_devil", "tboj_familiar", "copying", "position"}
+}
+
+-- Azazel's Rage
+-- Echo Chamber
+
 -- Esau Jr.
 -- Berserk!
 -- Dark Arts

@@ -1740,6 +1740,14 @@ return {
           "to be {C:attention}rerolled"
         }
       },
+      j_tboj_twisted_pair = {
+        name = "Twisted Pair",
+        text = {
+          "Copies ability of adjacent",
+          "{C:attention}Jokers{}, reduces copied {C:chips}Chips{},",
+          "{C:mult}Mult{}, {C:white,X:mult}XMult{} and {C:money}${} by {C:white,X:mult}X#1#"
+        },
+      },
       j_tboj_supper = {
         name = "Supper",
         text = {
@@ -2543,6 +2551,8 @@ return {
       tboj_plus_consumable = "+1 Consumable",
       tboj_plus_dice = "+1 Dice",
       tboj_plus_voucher = "+1 Voucher",
+      tboj_left = "Left",
+      tboj_right = "Right",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
