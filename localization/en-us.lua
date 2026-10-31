@@ -238,8 +238,8 @@ return {
             "Recharges at end of round"
           },
           {
-            "Create a {C:attention}consumable{} of",
-            "the same {C:attention}kind{} as one owned",
+            "Create a {C:attention}consumable{} of the",
+            "same {C:attention}category{} as one owned",
             "{C:inactive}(Must have room)"
           }
         }
