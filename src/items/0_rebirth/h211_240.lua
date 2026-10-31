@@ -73,14 +73,11 @@ SMODS.Joker {
         _card:add_to_deck()
         G.deck.config.card_limit = G.deck.config.card_limit + 1
         G.play:emplace(_card)
+        local bp = context.blueprint_card or card
         G.E_MANAGER:add_event(Event({
           func = function()
             _card:start_materialize()
-            if context.blueprint_card then
-              context.blueprint_card:juice_up()
-            else
-              card:juice_up()
-            end
+            bp:juice_up()
             return true
           end
         }))
@@ -115,13 +112,13 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.setting_blind then
-      local bp = context.blueprint_card
+      local bp = context.blueprint_card or card
       G.E_MANAGER:add_event(Event({
         func = function()
           local diff = G.GAME.round_resets.hands - 1
           ease_hands_played(-diff)
           ease_discard(diff*2, nil, true)
-          SMODS.calculate_effect({ message = localize { type = 'variable', key = 'tboj_discards', vars = {diff*2} } }, bp or card)
+          SMODS.calculate_effect({ message = localize { type = 'variable', key = 'tboj_discards', vars = {diff*2} } }, bp)
           return true
         end
       }))

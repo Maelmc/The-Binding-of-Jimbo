@@ -123,15 +123,13 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.setting_blind then
-      local bp = context.blueprint_card
+      local bp = context.blueprint_card or card
       G.E_MANAGER:add_event(Event({
         func = function()
           local hands = math.min(card.ability.extra.max,math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.every))
           if hands >= 1 then
             ease_hands_played(hands)
-            SMODS.calculate_effect(
-              { message = localize { type = 'variable', key = 'a_hands', vars = { hands } } },
-              bp or card)
+            SMODS.calculate_effect( { message = localize { type = 'variable', key = 'a_hands', vars = { hands } } }, bp)
           end
           return true
         end

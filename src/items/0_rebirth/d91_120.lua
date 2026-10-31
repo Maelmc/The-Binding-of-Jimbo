@@ -20,17 +20,14 @@ SMODS.Joker {
           _card.playing_card = G.playing_card
           table.insert(G.playing_cards, _card)
 
+          local bp = context.blueprint_card or card
           G.E_MANAGER:add_event(Event({
               func = function()
                   G.hand:emplace(_card)
                   _card:start_materialize()
                   G.GAME.blind:debuff_card(_card)
                   G.hand:sort()
-                  if context.blueprint_card then
-                      context.blueprint_card:juice_up()
-                  else
-                      card:juice_up()
-                  end
+                  bp:juice_up()
                   SMODS.calculate_context({ playing_card_added = true, cards = { _card } })
                   save_run()
                   return true
@@ -125,7 +122,7 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.end_of_round and context.game_over == false and context.main_eval then
       if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-        local bp = context.blueprint_card
+        local bp = context.blueprint_card or card
         G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
         G.E_MANAGER:add_event(Event({
           func = (function()
@@ -138,7 +135,7 @@ SMODS.Joker {
                 return true
               end)
             }))
-            SMODS.calculate_effect({ message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT }, bp or card)
+            SMODS.calculate_effect({ message = localize('tboj_plus_loot'), colour = G.C.TBOJ.LOOT }, bp)
             return true
           end)
         }))

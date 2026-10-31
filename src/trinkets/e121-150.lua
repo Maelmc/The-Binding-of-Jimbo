@@ -47,7 +47,7 @@ TBOJ.Trinket {
         end
       end
       if #targets > 0 then
-        local bp = context.blueprint_card
+        local bp = context.blueprint_card or card
         G.GAME.consumeable_buffer = (G.GAME.consumeable_buffer or 0) + 1
         G.E_MANAGER:add_event(Event({
           func = function()
@@ -59,7 +59,7 @@ TBOJ.Trinket {
             return true
           end
         }))
-        SMODS.calculate_effect({ message = localize('tboj_forget_me_not_dot') }, bp or card)
+        SMODS.calculate_effect({ message = localize('tboj_forget_me_not_dot') }, bp)
       end
     end
   end,

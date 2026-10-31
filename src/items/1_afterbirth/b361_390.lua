@@ -358,18 +358,11 @@ SMODS.Joker {
       local _card = SMODS.copy_card(G.play.cards[1], {area = G.play})
       _card.seraphim_target = true
       _card.states.visible = false
-      --_card:add_to_deck()
-      --G.deck.config.card_limit = G.deck.config.card_limit + 1
-      --G.play:emplace(_card)
-      --SMODS.add_to_deck(_card, {area = G.play})
+      local bp = context.blueprint_card or card
       G.E_MANAGER:add_event(Event({
         func = function()
           _card:start_materialize()
-          if context.blueprint_card then
-            context.blueprint_card:juice_up()
-          else
-            card:juice_up()
-          end
+          bp:juice_up()
           return true
         end
       }))
