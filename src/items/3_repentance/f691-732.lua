@@ -43,7 +43,10 @@ SMODS.Joker {
 -- Twisted Pair
 SMODS.Joker {
   key = "twisted_pair",
+  atlas = "jokers",
   pos = { x = 7, y = 46 },
+  soul_atlas = "soul_jokers",
+  soul_pos = {x = 7, y = 46},
   config = {extra = {reduce = 0.75}},
   loc_vars = function(self, info_queue, card)
     if card.area and card.area == G.jokers then
@@ -92,7 +95,6 @@ SMODS.Joker {
   end,
   rarity = 4,
   cost = 20,
-  atlas = "jokers",
   perishable_compat = true,
   eternal_compat = true,
   blueprint_compat = true,
