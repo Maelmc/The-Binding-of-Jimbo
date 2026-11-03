@@ -20,6 +20,7 @@ TBOJ.Spiderfly = SMODS.Center:extend {
   end
 }
 
+-- Pretty Fly
 TBOJ.Spiderfly {
   key = "pretty_fly",
   pos = { x = 0, y = 1 },
@@ -51,6 +52,7 @@ TBOJ.Spiderfly {
   tboj_designer = "Thor's Girdle"
 }
 
+-- Blue Spider
 TBOJ.Spiderfly {
   key = "blue_spider",
   pos = { x = 0, y = 0 },
@@ -81,6 +83,7 @@ TBOJ.Spiderfly {
   attributes = {"tboj_spider"}
 }
 
+-- Locust of War
 TBOJ.Spiderfly {
   key = "locust_of_war",
   pos = { x = 1, y = 0 },
@@ -114,6 +117,7 @@ TBOJ.Spiderfly {
   attributes = {"tboj_fly", "tboj_locust"},
 }
 
+-- Locust of Pestilence
 TBOJ.Spiderfly {
   key = "locust_of_pestilence",
   pos = { x = 1, y = 1 },
@@ -145,6 +149,7 @@ TBOJ.Spiderfly {
   attributes = {"tboj_fly", "tboj_locust"},
 }
 
+-- Locust of Famine
 TBOJ.Spiderfly {
   key = "locust_of_famine",
   pos = { x = 2, y = 0 },
@@ -178,6 +183,7 @@ TBOJ.Spiderfly {
   attributes = {"tboj_fly", "tboj_locust"},
 }
 
+-- Locust of Death
 TBOJ.Spiderfly {
   key = "locust_of_death",
   pos = { x = 2, y = 1 },
@@ -187,7 +193,7 @@ TBOJ.Spiderfly {
     return {vars = {}}
   end,
   calculate = function(self, card, context)
-    if context.discard and not context.blueprint and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+    if context.discard and not context.blueprint and context.other_card == context.full_hand[#context.full_hand] and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
       G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
       G.E_MANAGER:add_event(Event({
         func = function()
