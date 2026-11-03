@@ -101,7 +101,7 @@ TBOJ.Active {
   in_pool = function(self)
     return TBOJ.in_pool(self)
   end,
-  attributes = {"tboj_book", "tboj_devil", "tboj_loot_attribute", "generation"}
+  attributes = {"tboj_book", "tboj_devil", "generation"}
 }
 
 -- The Relic
@@ -145,7 +145,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_angel", "tboj_familiar", "generation", "tboj_loot_attribute"}
+  attributes = {"tboj_angel", "tboj_familiar", "generation"}
 }
 
 -- Little Gish
@@ -304,11 +304,7 @@ SMODS.Joker {
       if context.joker_main then
         local Xmult = 1 + card.ability.extra.Xmult*math.floor((G.GAME.dollars + (G.GAME.dollar_buffer or 0))/card.ability.extra.money_threshold)
         local can_score = nil
-        if (SMODS.Mods["Talisman"] or {}).can_load then
-          can_score = to_big(Xmult) > to_big(1)
-        else
-          can_score = Xmult > 1
-        end
+        can_score = to_big(Xmult) > to_big(1)
         if can_score then
           return {
             message = localize{type = 'variable', key = 'a_xmult', vars = {Xmult}}, 

@@ -1,3 +1,11 @@
+-- Fuck you Talisman
+to_big = to_big or function(x)
+	return x
+end
+to_number = to_number or function(x)
+	return tonumber(x)
+end
+
 -- Fix money with Talisman
 function TBOJ.ease_money(amt, calc_only)
   local earned = amt

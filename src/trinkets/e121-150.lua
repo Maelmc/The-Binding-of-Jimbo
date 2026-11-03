@@ -26,7 +26,7 @@ TBOJ.Trinket {
       end
     end
   end,
-  attributes = {"booster", "tboj_loot_attribute"},
+  attributes = {"booster"},
 }
 
 -- Myosotis

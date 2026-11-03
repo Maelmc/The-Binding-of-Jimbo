@@ -165,8 +165,8 @@ function TBOJ.ease_dollars(mod, instant)
         local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
         mod2 = mod2 or 0
         local text = '+'..localize('$')
-                local col = G.C.MONEY
-                if to_big(mod2) < to_big(0) then
+        local col = G.C.MONEY
+        if to_big(mod2) < to_big(0) then
             text = '-'..localize('$')
             col = G.C.RED
         else

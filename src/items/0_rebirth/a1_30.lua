@@ -371,7 +371,7 @@ SMODS.Joker {
     end
   end,
   in_pool = function (self, args)
-    return TBOJ.in_pool(self, args)
+    return false
   end,
   attributes = {"economy", "on_sell"}
 }
@@ -412,7 +412,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"on_sell", "tboj_loot_attribute", "generation"}
+  attributes = {"on_sell", "generation"}
 }
 
 -- Transcendence

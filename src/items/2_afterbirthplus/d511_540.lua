@@ -192,7 +192,7 @@ SMODS.Joker {
   in_pool = function (self, args)
     return TBOJ.in_pool(self, args)
   end,
-  attributes = {"tboj_devil", "scaling", "chips", "rank", "tboj_loot_attribute"}
+  attributes = {"tboj_devil", "scaling", "chips", "rank"}
 }
 
 -- Haemolacria

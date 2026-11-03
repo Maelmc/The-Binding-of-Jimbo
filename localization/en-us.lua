@@ -157,6 +157,19 @@ return {
           }
         }
       },
+      active_tboj_portable_slot = {
+        name = "Portable Slot",
+        text = {
+          "Spend {C:money}$#1#{} to try",
+          "to win a {C:attention}prize{}!",
+          "{C:inactive,s:0.8}50% - Nothing",
+          "{C:inactive,s:0.8}19.5% - 1-3 {C:attention,s:0.8}Pretty Flies",
+          "{C:inactive,s:0.8}10% - Random {C:planet,s:0.8}Planet",
+          "{C:inactive,s:0.8}10% - Random {C:tarot,s:0.8}Tarot",
+          "{C:inactive,s:0.8}10% - Random {C:tboj_loot,s:0.8}Loot",
+          "{C:inactive,s:0.8}0.5% - {C:dark_edition,s:0.8}Negative{C:attention,s:0.8} A Dollar",
+        }
+      },
       active_tboj_d10 = {
         name = "D10",
         text = {
@@ -2567,6 +2580,7 @@ return {
       tboj_plus_voucher = "+1 Voucher",
       tboj_left = "Left",
       tboj_right = "Right",
+      tboj_jackpot_ex = "Jackpot!",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
