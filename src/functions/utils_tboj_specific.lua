@@ -160,7 +160,7 @@ function TBOJ.charge_active(card,amount)
 end
 
 function TBOJ.ease_dollars(mod, instant)
-    local handy_ease_muted = (Handy and Handy.animation_skip.mute_ease_dollars > 0) or false
+    local handy_ease_muted = (Handy and Handy.animation_skip and Handy.animation_skip.mute_ease_dollars > 0) or false
     local function _mod(mod2)
         local dollar_UI = G.HUD:get_UIE_by_ID('dollar_text_UI')
         mod2 = mod2 or 0
