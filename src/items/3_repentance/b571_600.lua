@@ -265,7 +265,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = false,
   calculate = function(self, card, context)
-    if context.destroying_card and context.scoring_name == "Two Pair" and not SMODS.has_enhancement(context.destroying_card,"m_glass") and not context.blueprint then
+    if context.destroying_card and context.scoring_name == "Two Pair" and not context.blueprint then
       return {
         remove = true
       }
