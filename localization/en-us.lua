@@ -2506,6 +2506,7 @@ return {
     challenge_names = {
       c_tboj_daily_run = "Daily Run",
       c_tboj_aprils_fool = "April's Fool",
+      c_tboj_pay_to_play = "PAY TO PLAY",
     },
     dictionary = {
       k_tboj_active = "Active",
@@ -2615,6 +2616,8 @@ return {
         ch_c_tboj_daily_run = {"Play a random seed every day"},
         ch_c_tboj_daily_run2 = {"Resets at {C:attention}"..tostring(os.date("%I:%M %p", 0))},
         ch_c_tboj_aprils_fool = {"{C:inactive}None :)"},
+        ch_c_tboj_empty_shop = {"No cards, Booster Packs and Vouchers in the shop"},
+        ch_c_tboj_portable_slot = {"Start with {C:attention,T:active_tboj_portable_slot}Portable Slot"}
     },
   }
 }
