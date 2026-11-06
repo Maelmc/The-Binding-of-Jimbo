@@ -1,3 +1,48 @@
+-- Old Bandage
+-- Sad Bombs
+-- Rubber Cement
+SMODS.Joker {
+  key = "rubber_cement",
+  pos = {x = 10, y = 14},
+  config = {extra = {}},
+  loc_vars = function(self, info_queue, card)
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = false,
+  calculate = function(self, card, context)
+    if context.tboj_pre_splash then
+      for i, v in ipairs(context.full_hand) do
+        -- this is for the visual
+        draw_card(G.hand, G.play, i * 100 / #context.full_hand, "up", nil, v)
+      end
+    end
+
+    if context.tboj_post_play then
+      local to_draw = {}
+      for _, v in ipairs(G.play.cards) do
+        to_draw[#to_draw+1] = v
+      end
+      for i, v in ipairs(to_draw) do
+        -- this is for calc
+        G.play:remove_card(v)
+        G.hand:emplace(v)
+        -- this is for the visual
+        draw_card(G.play, G.hand, i * 100 / #to_draw, "up", nil, v)
+      end
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end
+}
+
+-- Anti-Gravity
+-- Pyromaniac
+
 -- Gimpy
 -- Black Lotus
 -- Piggy Bank

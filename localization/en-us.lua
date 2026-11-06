@@ -1117,6 +1117,14 @@ return {
           "{C:attention}Deadly Sins"
         }
       },
+      j_tboj_rubber_cement = {
+        name = "Rubber Cement",
+        text = {
+          "Played cards {C:attention}return{}",
+          "to your hand after",
+          "hand is scored"
+        }
+      },
       j_tboj_piggy_bank = {
         name = "Piggy Bank",
         text = {
