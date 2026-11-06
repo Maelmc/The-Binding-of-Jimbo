@@ -355,7 +355,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.pre_splash then
+    if context.tboj_pre_splash then
       local _card = SMODS.copy_card(G.play.cards[1], {area = G.play})
       _card.seraphim_target = true
       _card.states.visible = false

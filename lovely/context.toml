@@ -3,7 +3,7 @@ version = "1.0.0"
 dump_lua = true
 priority = 0
 
-# pre_splash context
+# tboj_pre_splash context
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -11,10 +11,10 @@ pattern = "G.GAME.hands[text].visible = true"
 position = 'after'
 match_indent = true
 payload = '''
-SMODS.calculate_context({pre_splash = true, full_hand = G.play.cards, scoring_hand = scoring_hand, in_scoring = true, ignore_other_debuff = true}, effects)
+SMODS.calculate_context({tboj_pre_splash = true, full_hand = G.play.cards, scoring_hand = scoring_hand, in_scoring = true, ignore_other_debuff = true}, effects)
 '''
 
-# determine_hand context
+# tboj_determine_hand context
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -22,5 +22,16 @@ pattern = "local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.F
 position = 'before'
 match_indent = true
 payload = '''
-SMODS.calculate_context({determine_hand = true, full_hand = G.play.cards, scoring_hand = scoring_hand, in_scoring = true, ignore_other_debuff = true}, effects)
+SMODS.calculate_context({tboj_determine_hand = true, full_hand = G.play.cards, scoring_hand = scoring_hand, in_scoring = true, ignore_other_debuff = true}, effects)
+'''
+
+# tboj_post_play context
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+pattern = "SMODS.calculate_main_scoring({cardarea = v, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands}, v == G.play and scoring_hand or nil)"
+position = 'after'
+match_indent = true
+payload = '''
+if v == G.play then SMODS.calculate_context({tboj_post_play = true}, effects) end
 '''

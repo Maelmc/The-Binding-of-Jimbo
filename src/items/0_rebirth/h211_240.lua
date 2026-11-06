@@ -58,7 +58,7 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = true,
   calculate = function(self, card, context)
-    if context.determine_hand then
+    if context.tboj_determine_hand then
       local cards_added = {}
       local to_add = pseudorandom('tboj_montro_lung', card.ability.extra.min, card.ability.extra.max)
       for _ = 1, to_add do
@@ -155,11 +155,11 @@ SMODS.Joker {
   eternal_compat = true,
   blueprint_compat = false,
   calculate = function(self, card, context)
-  end,
-  calc_scaling = function(self, card, scaling_card, initial, scalar_value, args)
-    return {
-        override_scalar_value = {value = scalar_value * 2}
-    }
+    if context.scaling_card then
+      return {
+        override_scalar = context.scalar * 2
+      }
+    end
   end,
   in_pool = function(self)
     return TBOJ.in_pool(self)
