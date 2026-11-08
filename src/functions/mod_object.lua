@@ -102,6 +102,7 @@ function SMODS.current_mod.reset_game_globals(run_start)
   reset_tboj_card("tboj_marked_card", 3, true)
   reset_tboj_card("tboj_eye_of_the_occult_card")
   if run_start then
+    G.GAME.tboj_bosses_defeated = {}
     G.GAME.tboj_last_full_hand = {}
     G.GAME.tboj_last_scored_hand = {}
     G.GAME.tboj_planetarium_rate = 0.01
@@ -109,9 +110,8 @@ function SMODS.current_mod.reset_game_globals(run_start)
   end
 end
 
-SMODS.current_mod.set_debuff = function(card)
-  --if (G.GAME and G.GAME.blind and G.GAME.blind.name == "bl_tboj_siren" and not G.GAME.blind.disabled) and card.config and card.config.center and card.config.center.familiar then return true end
-  if (G.GAME and G.GAME.blind and G.GAME.blind.name == "bl_tboj_monstro" and not G.GAME.blind.disabled) and card.ability.tboj_monstro then return true end
+function SMODS.current_mod.set_debuff(card)
+  if card.ability.tboj_monstro then return true end
   return false
 end
 

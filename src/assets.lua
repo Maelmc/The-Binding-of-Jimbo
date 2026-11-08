@@ -127,6 +127,13 @@ SMODS.Atlas({
     py = 95
 })
 
+SMODS.Atlas({
+  key = "the_beast",
+  path = "the_beast.png",
+  px = 140,
+  py = 188
+})
+
 -- Colors
 G.C.TBOJ = {
   FAMILIAR = HEX("E70000"),
@@ -181,6 +188,7 @@ SMODS.Sound({
     path = "bone_heart.wav"
 })
 
+-- Music
 SMODS.Sound({
   key = "planetarium_music",
   path = "planetarium_music.ogg",
@@ -188,6 +196,177 @@ SMODS.Sound({
     return G.STATE and G.STATE == G.STATES.SMODS_BOOSTER_OPENED and SMODS.OPENED_BOOSTER.label == "p_tboj_planetarium_pack_1"
 	end,
   sync = false,
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "the_end_beast_music",
+  path = "the_end_beast_music.ogg",
+  select_music_track = function()
+    if G.GAME.blind and G.GAME.blind.name == "bl_tboj_the_beast" and next(SMODS.find_card("j_tboj_the_beast")) then
+      return 1
+    end
+  end,
+  sync = {
+    ['tboj_the_end_death_music'] = true,
+    ['tboj_the_end_famine_music'] = true,
+    ['tboj_the_end_pestilence_music'] = true,
+    ['tboj_the_end_war_music'] = true,
+  },
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "the_end_death_music",
+  path = "the_end_death_music.ogg",
+  select_music_track = function()
+    if G.GAME.blind and G.GAME.blind.name == "bl_tboj_the_beast" and next(SMODS.find_card("j_tboj_ultra_death")) then
+      return 1
+    end
+  end,
+  sync = {
+    ['tboj_the_end_beast_music'] = true,
+    ['tboj_the_end_famine_music'] = true,
+    ['tboj_the_end_pestilence_music'] = true,
+    ['tboj_the_end_war_music'] = true,
+  },
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "the_end_famine_music",
+  path = "the_end_famine_music.ogg",
+  select_music_track = function()
+    if G.GAME.blind and G.GAME.blind.name == "bl_tboj_the_beast" and next(SMODS.find_card("j_tboj_ultra_famine")) then
+      return 1
+    end
+  end,
+  sync = {
+    ['tboj_the_end_beast_music'] = true,
+    ['tboj_the_end_death_music'] = true,
+    ['tboj_the_end_pestilence_music'] = true,
+    ['tboj_the_end_war_music'] = true,
+  },
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "the_end_pestilence_music",
+  path = "the_end_pestilence_music.ogg",
+  select_music_track = function()
+    if G.GAME.blind and G.GAME.blind.name == "bl_tboj_the_beast" and next(SMODS.find_card("j_tboj_ultra_pestilence")) then
+      return 1
+    end
+  end,
+  sync = {
+    ['tboj_the_end_beast_music'] = true,
+    ['tboj_the_end_death_music'] = true,
+    ['tboj_the_end_famine_music'] = true,
+    ['tboj_the_end_war_music'] = true,
+  },
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "the_end_war_music",
+  path = "the_end_war_music.ogg",
+  select_music_track = function()
+    if G.GAME.blind and G.GAME.blind.name == "bl_tboj_the_beast" and next(SMODS.find_card("j_tboj_ultra_war")) then
+      return 1
+    end
+  end,
+  sync = {
+    ['tboj_the_end_beast_music'] = true,
+    ['tboj_the_end_death_music'] = true,
+    ['tboj_the_end_famine_music'] = true,
+    ['tboj_the_end_pestilence_music'] = true,
+  },
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "delirium_fight_music",
+  path = "delirium_fight_music.ogg",
+  select_music_track = function()
+    if G.GAME.blind and G.GAME.blind.name == "bl_tboj_delirium" then
+      return 1
+    end
+  end,
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "satan_fight_music",
+  path = "satan_fight_music.ogg",
+  select_music_track = function()
+    if G.GAME.blind and (G.GAME.blind.name == "bl_tboj_satan" or G.GAME.blind.name == "bl_tboj_mega_satan") then
+      return 1
+    end
+  end,
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "morituros_intro_music",
+  path = "morituros_intro_music.ogg",
+  select_music_track = function()
+    if G.GAME.blind and G.GAME.blind.name == "bl_tboj_hush" then
+      if not TBOJ.music.hush then
+        TBOJ.music.hush = G.TIMERS.REAL
+      end
+      return 1
+    end
+  end,
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "morituros_loop_music",
+  path = "morituros_loop_music.ogg",
+  select_music_track = function()
+    if G.GAME.blind and G.GAME.blind.name == "bl_tboj_hush" then
+      if TBOJ.music.hush then
+        local elapsed = G.TIMERS.REAL - TBOJ.music.hush
+        if elapsed > 6.36666 then
+          return 2
+        end
+        return false
+      end
+    end
+  end,
+  pitch = 1,
+  volume = 0.8,
+})
+
+SMODS.Sound({
+  key = "morituros_outro_music",
+  path = "morituros_outro_music.ogg",
+  select_music_track = function()
+    if ((not G.GAME.blind) or (G.GAME.blind and G.GAME.blind.name ~= "bl_tboj_hush")) and (TBOJ.music.hush or TBOJ.music.hush_outro) then
+      TBOJ.music.hush = nil
+      if TBOJ.music.hush_outro then
+        local elapsed = G.TIMERS.REAL - TBOJ.music.hush_outro
+        if elapsed <= 4.9 then
+          return 1
+        else
+          TBOJ.music.hush_outro = nil
+          return false
+        end
+      else
+        TBOJ.music.hush_outro = G.TIMERS.REAL
+        return 1
+      end
+    end
+  end,
   pitch = 1,
   volume = 0.8,
 })

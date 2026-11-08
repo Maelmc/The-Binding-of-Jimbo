@@ -522,7 +522,7 @@ return {
       bl_tboj_gluttony = {
         name = "Gluttony",
         text = {
-          "Extra large blind",
+          "Larger blind",
         },
       },
       bl_tboj_super_gluttony = {
@@ -605,6 +605,33 @@ return {
           "Held cards' rank randomly",
           "increases or decreases",
           "when hand is played"
+        },
+      },
+      bl_tboj_hush = {
+        name = "Hush",
+        text = {
+          "Ultra large blind"
+        },
+      },
+      bl_tboj_delirium = {
+        name = "Delirium",
+        text = {
+          "Applies all previously",
+          "defeated Boss Blinds"
+        },
+      },
+      bl_tboj_mega_satan = {
+        name = "Mega Satan",
+        text = {
+          "When defeated,",
+          "fight again",
+        },
+      },
+      bl_tboj_the_beast = {
+        name = "The Beast",
+        text = {
+          "Defeat The Beast and",
+          "her Ultra Harbingers",
         },
       },
     },
@@ -1880,6 +1907,59 @@ return {
           }
         }
       },
+
+      -- THE BEAST JOKERS
+      j_tboj_ultra_famine = {
+        name = "Ultra Famine",
+        text = {
+          "Lose {C:red}$#1#{} when",
+          "a card is scored",
+          '{C:inactive,s:0.7}"I looked up and saw a black horse, and',
+          '{C:inactive,s:0.7}its rider was holding a pair of scales in his hand."',
+          "{C:inactive,s:0.7}- Revelation 6-5"
+        }
+      },
+      j_tboj_ultra_pestilence = {
+        name = "Ultra Pestilence",
+        text = {
+          "Downgrade all hands by",
+          "{C:attention}#1#{} levels when",
+          "hand is played",
+          '{C:inactive,s:0.7}"I\'m sending four of my most destructive judgments - military invasion,',
+          '{C:inactive,s:0.7}famine, wild animals, and pestilence - into Jerusalem',
+          '{C:inactive,s:0.7}to destroy both human beings and livestock in it."',
+          "{C:inactive,s:0.7}- Ezekiel 14-21 "
+        }
+      },
+      j_tboj_ultra_war = {
+        name = "Ultra War",
+        text = {
+          "{C:white,X:mult}X#1#{} Mult",
+          '{C:inactive,s:0.7}"Its rider was given power to take peace from',
+          '{C:inactive,s:0.7}the earth and to make people kill each other."',
+          "{C:inactive,s:0.7}- Revelation 6-4"
+        }
+      },
+      j_tboj_ultra_death = {
+        name = "Ultra Death",
+        text = {
+          "{C:white,X:mult}X#1#{} Mult per {C:tarot}Tarot",
+          "card used this run",
+          "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)",
+          '{C:inactive,s:0.7}"And its rider\'s name was Death, and Hades followed him."',
+          "{C:inactive,s:0.7}- Revelation 6-8"
+        }
+      },
+      j_tboj_the_beast = {
+        name = "The Beast",
+        text = {
+          "Destroys a random {C:attention}Joker{} when hand is played",
+          '{C:inactive,s:0.7}"And I saw a beast coming out of the sea.',
+          '{C:inactive,s:0.7}It had ten horns and seven heads, with ten crowns on its horns,',
+          '{C:inactive,s:0.7}and on each head a blasphemous name."',
+          "{C:inactive,s:0.7}- Revelation 13-1"
+        }
+      },
     },
     tboj_Loot = {
       -- STANDARD LOOT
@@ -2078,7 +2158,8 @@ return {
         stake_tboj_home_stake = {
           name = "Home Stake",
           text = {
-            "{X:gray,C:attention}+1{} Ante win requirement",
+            "{C:attention}Showdown Blind{} before the final Ante",
+            "{C:attention}Final Boss{} at the final Ante",
             "{s:0.8}Applies all previous Stakes",
           },
         },
@@ -2530,6 +2611,7 @@ return {
       k_tboj_active_stickers = "Active Stickers",
       k_tboj_trinket_stickers = "Trinket Stickers",
       k_tboj_planetarium_pack = "Planetarium Pack",
+      k_tboj_the_beast = "The Beast",
 
       tboj_reroll_ex = "Reroll!",
       tboj_familiar = "Familiar",
@@ -2590,6 +2672,7 @@ return {
       tboj_left = "Left",
       tboj_right = "Right",
       tboj_jackpot_ex = "Jackpot!",
+      tboj_blasphemous_ex = "Blasphemous!",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",
@@ -2602,6 +2685,7 @@ return {
     labels = {
       k_tboj_transformation = "Transformation",
       tboj_cursed = "Cursed",
+      k_tboj_the_beast = "The Beast",
     },
     poker_hands = {
 

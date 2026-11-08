@@ -1,6 +1,7 @@
 TBOJ = {}
 
 TBOJ.config = SMODS.current_mod.config
+TBOJ.music = {}
 
 print("START OF TBOJ")
 

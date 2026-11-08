@@ -89,6 +89,12 @@ SMODS.Blind {
   defeat = function(self)
     G.GAME.modifiers.tboj_glutonny_defeated = true
   end,
+  calculate = function(self, blind, context)
+    if context.blind_disabled then
+      G.GAME.blind.chips = G.GAME.blind.chips / (self.mult/1.5)
+      G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+    end
+  end,
   in_pool = function (self)
     return G.GAME.modifiers.tboj_allow_sin and not G.GAME.modifiers.tboj_glutonny_defeated
   end
@@ -105,6 +111,12 @@ SMODS.Blind {
   discovered = false,
   debuff = { },
   config = {disabled = false},
+  calculate = function(self, blind, context)
+    if context.blind_disabled then
+      G.GAME.blind.chips = G.GAME.blind.chips / (self.mult/1.5)
+      G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+    end
+  end,
   in_pool = function (self)
     return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_glutonny_defeated
   end

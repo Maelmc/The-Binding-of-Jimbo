@@ -374,76 +374,100 @@ function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_jui
   return csd(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
 end
 
--- Get a Big Blind
---function TBOJ.get_new_big()
-  --[[G.GAME.perscribed_big = G.GAME.perscribed_big or {}
-  if G.GAME.perscribed_big and G.GAME.perscribed_big[G.GAME.round_resets.ante] then
-    local ret_big = G.GAME.perscribed_big[G.GAME.round_resets.ante]
-    G.GAME.perscribed_big[G.GAME.round_resets.ante] = nil
-    G.GAME.bosses_used[ret_big] = G.GAME.bosses_used[ret_big] + 1
-    return ret_big
-  end
-  if G.FORCE_BIG then return G.FORCE_BIG end]]
+-- Force sin odds at 25%
+-- Also force final bosses on ante 9 home stake
 local scbp = SMODS.create_blind_pool
 function SMODS.create_blind_pool(blind_type, skip_cull)
-  if blind_type ~= "big" then
-    return scbp(blind_type, skip_cull)
-  end
+  local eligible = {}
+  local count = 0
+  -- Home Stake ante 9 boss
+  if blind_type == "boss"
+    and G.GAME.modifiers.tboj_final_boss
+    and G.GAME.round_resets.ante > 0
+    and G.GAME.round_resets.ante % G.GAME.win_ante == 0
+  then
+    for k, v in pairs(G.P_BLINDS) do
+      if v.mod and v.boss and v.boss.tboj_final_boss then
+        local res, _ = SMODS.add_to_pool(v)
+        if res then
+          eligible[k] = true
+          count = count + 1
+        end
+      end
+    end
 
-  if not next(SMODS.find_card("j_tboj_champion_belt")) then
-    if G.GAME.modifiers.tboj_more_sins then
-      if pseudorandom("tboj_big",1,3) == 1 then -- 66% for sin under corpse+ stake
+  -- Big Blind is a sin or not
+  elseif blind_type == "big" then
+    if not next(SMODS.find_card("j_tboj_champion_belt")) then
+      if G.GAME.modifiers.tboj_more_sins then
+        if pseudorandom("tboj_big",1,3) == 1 then -- 66% for sin under corpse+ stake
+          return scbp(blind_type, skip_cull)
+        end
+      elseif pseudorandom("tboj_big",1,4) > 1 then --25% for sin
         return scbp(blind_type, skip_cull)
       end
-    elseif pseudorandom("tboj_big",1,4) > 1 then --25% for sin
-      return scbp(blind_type, skip_cull)
     end
-  end
 
-  local eligible_big = {}
-  G.GAME.modifiers.tboj_allow_sin = true
-  for k, v in pairs(G.P_BLINDS) do
-    if v.big and v.mod and v.mod.prefix == "tboj" then
-      local res, options = SMODS.add_to_pool(v)
-      options = options or {}
-      if not v.big then
-      elseif not v.in_pool then
-        eligible_big[k] = true
-      elseif v.in_pool and type(v.in_pool) == 'function' then
-        eligible_big[k] = res and true or nil
-      end
-    end
-  end
-  G.GAME.modifiers.tboj_allow_sin = nil
-  for k, _ in pairs(G.GAME.banned_keys) do
-    if eligible_big[k] then eligible_big[k] = nil end
-  end
-
-  local min_use = 100
-    for k, v in pairs(G.GAME.bosses_used[blind_type] or G.GAME.bosses_used) do
-        if eligible_big[k] then
-            eligible_big[k] = v
-            if eligible_big[k] <= min_use then
-                min_use = eligible_big[k]
-            end
+    G.GAME.modifiers.tboj_allow_sin = true
+    for k, v in pairs(G.P_BLINDS) do
+      if v.big and v.mod and v.mod.prefix == "tboj" then
+        local res, _ = SMODS.add_to_pool(v)
+        if res then
+          eligible[k] = true
+          count = count + 1
         end
-    end
-  for k, v in pairs(eligible_big) do
-    if eligible_big[k] then
-      if eligible_big[k] > min_use then
-        eligible_big[k] = nil
       end
     end
+    G.GAME.modifiers.tboj_allow_sin = nil
   end
 
-  local output = {}
-  for k, _ in pairs(eligible_big) do
-    output[#output + 1] = k
+  if count > 0 then
+    for k, _ in pairs(G.GAME.banned_keys) do
+      if eligible[k] then eligible[k] = nil end
+    end
+
+    local min_use = 100
+    for k, v in pairs(G.GAME.bosses_used[blind_type] or G.GAME.bosses_used) do
+      if eligible[k] then
+        eligible[k] = v
+        if eligible[k] <= min_use then
+          min_use = eligible[k]
+        end
+      end
+    end
+    for k, v in pairs(eligible) do
+      if eligible[k] then
+        if eligible[k] > min_use then
+          eligible[k] = nil
+        end
+      end
+    end
+
+    local output = {}
+    for k, _ in pairs(eligible) do
+      output[#output + 1] = k
+    end
+
+    return output
   end
 
-  return output
-  --[[local _, big = pseudorandom_element(eligible_big, pseudoseed('big'))
-  G.GAME.bosses_used[big] = G.GAME.bosses_used[big] + 1
+  return scbp(blind_type, skip_cull)
+end
 
-  return big]]
+-- Home Stake rework
+local is_showdown_ante_ref = SMODS.is_showdown_ante
+function SMODS.is_showdown_ante(...)
+  return (G.GAME.modifiers.tboj_final_boss
+    and G.GAME.round_resets.ante > 0
+    and G.GAME.round_resets.ante % G.GAME.win_ante == G.GAME.win_ante - 1)
+    or is_showdown_ante_ref(...)
+end
+
+-- Save all defeated bosses for Delirium
+local b_defeat = Blind.defeat
+function Blind:defeat(silent)
+  if self.config.blind.boss then
+    G.GAME.tboj_bosses_defeated[self.config.blind.key] = true
+  end
+  b_defeat(self, silent)
 end

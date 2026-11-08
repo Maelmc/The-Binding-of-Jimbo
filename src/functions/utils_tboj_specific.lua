@@ -24,6 +24,7 @@ end
 -- Transform a card into another card
 function TBOJ.reroll(card, to_key, silent, from_cycling)
   if card.config.center.rarity == "tboj_transformation" then return end
+  if card.config.center.rarity == "tboj_the_beast" then return end
   local old_key = card.config.center.key
   if old_key == to_key then return end
   local new_card = G.P_CENTERS[to_key]

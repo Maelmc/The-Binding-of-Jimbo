@@ -7,7 +7,7 @@ SMODS.Stake {
       applied_stakes = {mod = false}
     },
     modifiers = function()
-        G.GAME.win_ante = (G.GAME.win_ante + 1)
+        G.GAME.modifiers.tboj_final_boss = true
     end,
     pos = {x = 2, y = 0},
     sticker_pos = {x = 2, y = 0},
