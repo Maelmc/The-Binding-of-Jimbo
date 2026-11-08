@@ -99,7 +99,7 @@ SMODS.Joker {
   calculate = function(self, card, context)
     if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
       for k, v in ipairs(G.jokers.cards) do
-        if v.config.center.key ~= "j_tboj_missing_no" then
+        if (v.config.center.key ~= "j_tboj_missing_no") and TBOJ.can_reroll(v) then
           local _k = SMODS.poll_object({type = v.ability.set, seed = "tboj_missing_no" .. G.GAME.round_resets.ante})
           TBOJ.reroll(v, _k)
         end

@@ -77,13 +77,12 @@ TBOJ.Trinket {
     return {vars = {}}
   end,
   calculate = function(self, card, context)
-    if context.using_active then
-      local _k = SMODS.poll_object({set = context.active.ability.set, seed = "tboj_m" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = context.active.ability.set, seed = "m" .. G.GAME.round_resets.ante})
+    if context.using_active and TBOJ.can_reroll(context.active) then
+      local _k = SMODS.poll_object({set = context.active.ability.set, seed = "tboj_m" .. G.GAME.round_resets.ante})
       TBOJ.reroll(context.active, _k)
       if context.active.ability.extra.curr_charge then context.active.ability.extra.curr_charge = 0 end
     end
   end,
-  --attributes = {"passive"},
 }
 
 -- Teardrop Charm

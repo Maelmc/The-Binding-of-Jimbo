@@ -2469,8 +2469,8 @@ return {
         text = {
             "{C:attention}Change{} into a different",
             "card of the same {C:attention}category",
-            "{C:inactive,s:0.8}Example: a Joker into another Joker",
-            "{C:inactive,s:0.8}Cannot reroll a {C:attention,s:0.8}Transformation{C:inactive,s:0.8} Joker"
+            "{C:inactive}(ex: a Joker into another Joker)",
+            "{C:inactive,s:0.8}Cannot reroll an {C:attention,s:0.8}Eternal{C:inactive,s:0.8} card"
         }
       },
       undiscovered_tboj_loot = {

@@ -42,10 +42,11 @@ SMODS.Consumable {
   end,
   can_use = function(self, card)
     local target = TBOJ.leftmost_or_selected_joker()
-    return target and target.config and target.config.center and target.config.center.key and not target:is_rarity("tboj_transformation") and not target:is_rarity("tboj_the_beast")
+    return target and target.config and target.config.center and target.config.center.key and TBOJ.can_reroll(target)
   end,
   use = function(self, card, area, copier)
     local target = TBOJ.leftmost_or_selected_joker()
+    if not TBOJ.can_reroll(target) then return end
     if target.config.center.key == "j_joker" or target.config.center.key == "j_tboj_the_sad_onion" then
       G.E_MANAGER:add_event(Event({
         trigger = 'after',

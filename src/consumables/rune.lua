@@ -72,12 +72,13 @@ SMODS.Consumable {
     local target = TBOJ.leftmost_or_selected_joker()
     if not target or not target.ability then return false end
     if target.config.center.rarity == "tboj_transformation" then return false end
+    if target.config.center.rarity == "tboj_the_beast" then return false end
     local ab = target.ability
     if ab.perishable or ab.rental or ab.eternal or target.debuff then return true end
   end,
   use = function(self, card, area, copier)
     local target = TBOJ.leftmost_or_selected_joker()
-    if target.ability and target.ability.set == "Joker" and not (target.config.center.rarity == "tboj_transformation") then
+    if target.ability and target.ability.set == "Joker" and target.config.center.rarity ~= "tboj_transformation" and target.config.center.rarity ~= "tboj_the_beast" then
       local ab = target.ability
       if ab.perishable or ab.rental or ab.eternal or target.debuff then
         G.E_MANAGER:add_event(Event({
@@ -130,8 +131,8 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do
-      if v.ability.set == "Joker" or v.ability.set == "tboj_Active" then
-        local _k = SMODS.poll_object({type = v.ability.set, seed = "tboj_d6" .. G.GAME.round_resets.ante, rarities = {TBOJ.rarity_to_text(v.config.center.rarity)}})--TBOJ.get_random_key({set = v.ability.set, seed = "d6" .. G.GAME.round_resets.ante, target_rarities = {v.config.center.rarity}})
+      if (v.ability.set == "Joker" or v.ability.set == "tboj_Active") and TBOJ.can_reroll(v) then
+        local _k = SMODS.poll_object({type = v.ability.set, seed = "tboj_d6" .. G.GAME.round_resets.ante, rarities = {TBOJ.rarity_to_text(v.config.center.rarity)}})
         TBOJ.reroll(v, _k)
       end
     end
@@ -179,7 +180,7 @@ SMODS.Consumable {
   end,
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do
-      if v.ability.set == "Joker" then
+      if v.ability.set == "Joker" and TBOJ.can_reroll(v) then
         local _rarity
         if v:is_rarity("Common") then
           _rarity = "Uncommon"
