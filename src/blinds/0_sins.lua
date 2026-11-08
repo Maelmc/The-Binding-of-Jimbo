@@ -12,7 +12,6 @@ SMODS.Blind {
   calculate = function(self, blind, context)
     if not blind.disabled then
       if G.GAME.chips >= G.GAME.blind.chips then
-        blind.triggered = true
         G.GAME.chips = 0
         if not G.GAME.modifiers.tboj_envy_first_phase then
           TBOJ.modify_blind_size({mult = 0.1, source = blind})
@@ -51,7 +50,6 @@ SMODS.Blind {
   calculate = function(self, blind, context)
     if not blind.disabled then
       if G.GAME.chips >= G.GAME.blind.chips then
-        blind.triggered = true
         G.GAME.chips = 0
         if not G.GAME.modifiers.tboj_envy_first_phase then
           TBOJ.modify_blind_size({mult = 0.25, source = blind})
@@ -136,7 +134,6 @@ SMODS.Blind {
   calculate = function(self, blind, context)
     if not blind.disabled then
       if context.modify_hand then
-          blind.triggered = true -- This won't trigger Matador in this context due to a Vanilla bug (a workaround is setting it in context.debuff_hand)
           mult = mod_mult(math.max(math.floor(mult * 0.75 + 0.5), 1))
           update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
         end
@@ -164,7 +161,6 @@ SMODS.Blind {
   calculate = function(self, blind, context)
     if not blind.disabled then
       if context.modify_hand then
-          blind.triggered = true -- This won't trigger Matador in this context due to a Vanilla bug (a workaround is setting it in context.debuff_hand)
           mult = mod_mult(math.max(math.floor(mult * 0.75 + 0.5), 1))
           hand_chips = mod_chips(math.max(math.floor(hand_chips * 0.75 + 0.5), 0))
           update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
@@ -367,7 +363,6 @@ SMODS.Blind {
   calculate = function(self, blind, context)
     if not blind.disabled then
       if context.press_play then
-        blind.triggered = true
         G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 2
         G.E_MANAGER:add_event(Event({
           func = function()
@@ -403,7 +398,6 @@ SMODS.Blind {
   calculate = function(self, blind, context)
     if not blind.disabled then
       if context.press_play or (context.pre_discard and not context.hook) then
-        blind.triggered = true
         G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 2
         G.E_MANAGER:add_event(Event({
           func = function()
