@@ -8,13 +8,19 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {percent = 10},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.percent}}
+  end,
+  loc_vars = function (self)
+    return { vars = {self.config.percent}}
+  end,
   calculate = function(self, blind, context)
     if not blind.disabled then
       if G.GAME.chips >= G.GAME.blind.chips then
         G.GAME.chips = 0
         if not G.GAME.modifiers.tboj_envy_first_phase then
-          TBOJ.modify_blind_size({mult = 0.1, source = blind})
+          TBOJ.modify_blind_size({mult = blind.effect.percent / 100, source = blind})
         end
         G.GAME.modifiers.tboj_envy_first_phase = true
       end
@@ -46,13 +52,19 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {percent = 25},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.percent}}
+  end,
+  loc_vars = function (self)
+    return { vars = {self.config.percent}}
+  end,
   calculate = function(self, blind, context)
     if not blind.disabled then
       if G.GAME.chips >= G.GAME.blind.chips then
         G.GAME.chips = 0
         if not G.GAME.modifiers.tboj_envy_first_phase then
-          TBOJ.modify_blind_size({mult = 0.25, source = blind})
+          TBOJ.modify_blind_size({mult = blind.effect.percent / 100, source = blind})
         end
         G.GAME.modifiers.tboj_envy_first_phase = true
       end
@@ -130,11 +142,17 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {mult = 0.75},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.mult}}
+  end,
+  loc_vars = function (self)
+    return {vars = {self.config.mult}}
+  end,
   calculate = function(self, blind, context)
     if not blind.disabled then
       if context.modify_hand then
-          mult = mod_mult(math.max(math.floor(mult * 0.75 + 0.5), 1))
+          mult = mod_mult(math.max(math.floor(mult * blind.effect.mult + 0.5), 1))
           update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
         end
     end
@@ -157,12 +175,18 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {mult = 0.75},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.mult}}
+  end,
+  loc_vars = function (self)
+    return {vars = {self.config.mult}}
+  end,
   calculate = function(self, blind, context)
     if not blind.disabled then
       if context.modify_hand then
-          mult = mod_mult(math.max(math.floor(mult * 0.75 + 0.5), 1))
-          hand_chips = mod_chips(math.max(math.floor(hand_chips * 0.75 + 0.5), 0))
+          mult = mod_mult(math.max(math.floor(mult * blind.effect.mult + 0.5), 1))
+          hand_chips = mod_chips(math.max(math.floor(hand_chips * blind.effect.mult + 0.5), 0))
           update_hand_text({ sound = 'chips2', modded = true }, { chips = hand_chips, mult = mult })
         end
     end
@@ -193,21 +217,32 @@ SMODS.Blind {
         for _, v in ipairs(context.full_hand) do
           if not SMODS.has_no_rank(v) then
             local id = tostring(v:get_id())
-            G.GAME.modifiers.tboj_pride[id] = true
+            G.GAME.modifiers.tboj_pride[id] = (G.GAME.modifiers.tboj_pride[id] or 0) + 1
           end
         end
       end
-    end
-  end,
-  debuff_hand = function (self, cards, hand, handname, check)
-    if not G.GAME.modifiers.tboj_pride then return false end
-    for _, v in pairs(cards) do
-      local id = tostring(v:get_id())
-      for k, _ in pairs(G.GAME.modifiers.tboj_pride) do
-        if k == id then return false end
+
+      if context.debuff_hand then
+        if not G.GAME.modifiers.tboj_pride then return end
+        for _, v in pairs(context.full_hand) do
+          local id = tostring(v:get_id())
+          for k, _ in pairs(G.GAME.modifiers.tboj_pride) do
+            if k == id then return end
+          end
+        end
+        local ranks = ""
+        for k, v in pairs(G.GAME.modifiers.tboj_pride) do
+          for i = 1, v do
+            ranks = ranks .. k .. ", "
+          end
+        end
+        ranks = string.sub(ranks, 1, #ranks - 2)
+        return {
+          debuff = true,
+          debuff_text = localize {type = 'variable', key = 'tboj_last_played_hand_singular', vars = { ranks }}
+        }
       end
     end
-    return true
   end,
   defeat = function(self)
     G.GAME.modifiers.tboj_pride_defeated = true
@@ -227,7 +262,13 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {amount = 2},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.amount}}
+  end,
+  loc_vars = function (self)
+    return { vars = {self.config.amount}}
+  end,
   set_blind = function(self)
     G.GAME.modifiers.tboj_pride = nil
   end,
@@ -242,27 +283,37 @@ SMODS.Blind {
           end
         end
       end
-    end
-  end,
-  debuff_hand = function (self, cards, hand, handname, check)
-    if not G.GAME.modifiers.tboj_pride then return false end
-    local common = 0
-    local used = {}
-    for _, v in pairs(cards) do
-      local id = tostring(v:get_id())
-      for k, vv in pairs(G.GAME.modifiers.tboj_pride) do
-        if k == id then
-          if TBOJ.table_contains(used,id) then
-            if vv >= 2 then return false end
-          else
-            common = common + 1
-            if common >= 2 then return false end
-            used[#used+1] = id
+
+      if context.debuff_hand then
+        if not G.GAME.modifiers.tboj_pride then return end
+        local common = 0
+        local used = {}
+        for _, v in pairs(context.full_hand) do
+          local id = tostring(v:get_id())
+          for k, vv in pairs(G.GAME.modifiers.tboj_pride) do
+            if k == id then
+              if vv >= blind.effect.amount then return end
+              if not TBOJ.table_contains(used,id) then
+                common = common + vv
+                if common >= blind.effect.amount then return end
+                used[#used+1] = id
+              end
+            end
           end
         end
+        local ranks = ""
+        for k, v in pairs(G.GAME.modifiers.tboj_pride) do
+          for i = 1, v do
+            ranks = ranks .. k .. ", "
+          end
+        end
+        ranks = string.sub(ranks, 1, #ranks - 2)
+        return {
+          debuff = true,
+          debuff_text = localize {type = 'variable', key = 'tboj_last_played_hand_var', vars = { blind.effect.amount, blind.effect.amount ~= 1 and "s" or "", ranks }}
+        }
       end
     end
-    return true
   end,
   in_pool = function (self)
     return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_pride_defeated
@@ -279,7 +330,13 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {amount = 2},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.amount}}
+  end,
+  loc_vars = function (self)
+    return { vars = {self.config.amount}}
+  end,
   debuff_hand = function (self, cards, hand, handname, check)
     local suits = {}
     local suit_count = 0
@@ -300,7 +357,7 @@ SMODS.Blind {
     for _, _ in pairs(suits) do
       suit_count = suit_count + 1
     end
-    return not (suit_count >= 2)
+    return not (suit_count >= self.config.amount)
   end,
   defeat = function(self)
     G.GAME.modifiers.tboj_lust_defeated = true
@@ -320,7 +377,13 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {amount = 3},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.amount}}
+  end,
+  loc_vars = function (self)
+    return { vars = {self.config.amount}}
+  end,
   debuff_hand = function (self, cards, hand, handname, check)
     local suits = {}
     local suit_count = 0
@@ -342,7 +405,7 @@ SMODS.Blind {
     for _, _ in pairs(suits) do
       suit_count = suit_count + 1
     end
-    return not (suit_count >= 3)
+    return not (suit_count >= self.config.amount)
   end,
   in_pool = function (self)
     return G.GAME.modifiers.tboj_allow_sin and G.GAME.modifiers.tboj_more_sins and G.GAME.modifiers.tboj_lust_defeated
@@ -359,11 +422,17 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {amount = 2},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.amount}}
+  end,
+  loc_vars = function (self)
+    return { vars = {self.config.amount}}
+  end,
   calculate = function(self, blind, context)
     if not blind.disabled then
       if context.press_play then
-        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 2
+        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - blind.effect.amount
         G.E_MANAGER:add_event(Event({
           func = function()
             G.GAME.dollar_buffer = 0
@@ -371,7 +440,7 @@ SMODS.Blind {
           end
         }))
         return {
-          dollars = -2
+          dollars = -blind.effect.amount
         }
       end
     end
@@ -394,11 +463,17 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {amount = 2},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.amount}}
+  end,
+  loc_vars = function (self)
+    return { vars = {self.config.amount}}
+  end,
   calculate = function(self, blind, context)
     if not blind.disabled then
       if context.press_play or (context.pre_discard and not context.hook) then
-        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - 2
+        G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - blind.effect.amount
         G.E_MANAGER:add_event(Event({
           func = function()
             G.GAME.dollar_buffer = 0
@@ -406,7 +481,7 @@ SMODS.Blind {
           end
         }))
         return {
-          dollars = -2
+          dollars = -blind.effect.amount
         }
       end
     end
@@ -426,9 +501,15 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {amount = 1},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.amount}}
+  end,
+  loc_vars = function (self)
+    return { vars = {self.config.amount}}
+  end,
   set_blind = function(self)
-    ease_hands_played(-1)
+    ease_hands_played(-self.config.amount)
     G.GAME.blind:juice_up()
   end,
   defeat = function(self)
@@ -449,10 +530,16 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
+  config = {amount = 1},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.amount}}
+  end,
+  loc_vars = function (self)
+    return { vars = {self.config.amount}}
+  end,
   set_blind = function(self)
-    ease_hands_played(-1)
-    ease_discard(-1)
+    ease_hands_played(-self.config.amount)
+    ease_discard(-self.config.amount)
     G.GAME.blind:juice_up()
   end,
   in_pool = function (self)

@@ -646,6 +646,34 @@ SMODS.Blind {
   debuff = { },
   config = {disabled = false},
   modifies_draw = true,
+  loc_vars = function (self)
+    local lines = {"", "", ""}
+    local count = 0
+    local total = 0
+    for _, _ in pairs(G.GAME.tboj_bosses_defeated) do
+      total = total + 1
+    end
+    for k, _ in pairs(G.GAME.tboj_bosses_defeated) do
+      count = count + 1
+      if count <= total / 3 then
+        lines[1] = lines[1] .. localize{set = "Blind", key = k, type = "name_text"} .. ","
+        if count + 1 < total / 3 then
+          lines[1] = lines[1] .. " "
+        end
+      elseif count <= total / 3 * 2 then
+        lines[2] = lines[2] .. localize{set = "Blind", key = k, type = "name_text"} .. ","
+        if count + 1 < total / 3 * 2 then
+          lines[2] = lines[2] .. " "
+        end
+      else
+        lines[3] = lines[3] .. localize{set = "Blind", key = k, type = "name_text"}
+        if count ~= total then
+        lines[3] = lines[3] .. ", "
+        end
+      end
+    end
+    return {set = 'Blind', key = 'bl_tboj_delirium_bosses', vars = {lines[1], lines[2], lines[3]}}
+  end,
   calc_dollar_bonus = function(self, blind)
     local res = {}
     for k, v in pairs(G.GAME.tboj_bosses_defeated) do
@@ -659,33 +687,92 @@ SMODS.Blind {
     return res[1]
   end,
   calculate = function(self, blind, context)
-    if context.setting_blind then
-      for k, v in pairs(G.GAME.tboj_bosses_defeated) do
-        if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].config then
-          for kk, vv in pairs(G.P_BLINDS[k].config) do
-            if blind.effect[kk] == nil then
-              blind.effect[kk] = vv
+    if not blind.disabled then
+
+      if context.setting_blind then
+        for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+          if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].config then
+            for kk, vv in pairs(G.P_BLINDS[k].config) do
+              if blind.effect[kk] == nil then
+                blind.effect[kk] = vv
+              end
             end
           end
         end
       end
-    end
 
-    local res = {}
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
-      if k ~= "bl_tboj_delirium" then
-        if vanilla_bosses[k] and vanilla_bosses[k].calculate then
-          res[#res+1] = vanilla_bosses[k].calculate(self, blind, context)
-        elseif G.P_BLINDS[k].calculate and type(G.P_BLINDS[k].calculate) == "function" then
-          res[#res+1] = G.P_BLINDS[k]:calculate(blind, context)
+      -- specific calculate part for debuffing hands to show the blind that debuffs the hand, if any
+      if context.debuff_hand then
+        local res = {}
+        local source = {}
+        for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+          if k ~= "bl_tboj_delirium" then
+            if vanilla_bosses[k] and vanilla_bosses[k].debuff_hand then
+              local temp = vanilla_bosses[k].debuff_hand(self, context.full_hand, context.scoring_hand, context.scoring_name, context.check)
+              if temp then
+                res[#res+1] = temp
+                source[#source+1] = k
+              end
+            elseif vanilla_bosses[k] and vanilla_bosses[k].calculate then
+              local temp = vanilla_bosses[k].calculate(self, blind, context)
+              if temp then
+                res[#res+1] = temp
+                source[#source+1] = k
+              end
+            elseif G.P_BLINDS[k].debuff_hand and type(G.P_BLINDS[k].debuff_hand) == "function" then
+              local temp = G.P_BLINDS[k]:debuff_hand(self, context.full_hand, context.scoring_hand, context.scoring_name, context.check)
+              if temp then
+                res[#res+1] = temp
+                source[#source+1] = k
+              end
+            elseif G.P_BLINDS[k].calculate and type(G.P_BLINDS[k].calculate) == "function" then
+              local temp = G.P_BLINDS[k]:calculate(blind, context)
+              if temp then
+                res[#res+1] = temp
+                source[#source+1] = k
+              end
+            end
+          end
+        end
+
+        for i, v in ipairs(res) do
+          if v == true then
+            local boss = localize{set = "Blind", key = source[i], type = "name_text"}
+            res[i] = {
+              debuff = true,
+              debuff_text = localize {type = 'variable', key = 'tboj_element_prevents_hand', vars = { boss }}
+            }
+          elseif type(v) == "table" and v.debuff then
+            local boss = localize{set = "Blind", key = source[i], type = "name_text"}
+            res[i].debuff_text = localize {type = 'variable', key = 'tboj_element_prevents_hand', vars = { boss }}
+          end
+        end
+
+        for i = #res, 1, -1 do
+          if res[i-1] then add_extra(res[i], res[i-1]) end
+        end
+        return res[1]
+      end
+
+      -- all other contexts
+      local res = {}
+      for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+        if k ~= "bl_tboj_delirium" then
+          if vanilla_bosses[k] and vanilla_bosses[k].calculate then
+            res[#res+1] = vanilla_bosses[k].calculate(self, blind, context)
+          elseif G.P_BLINDS[k].calculate and type(G.P_BLINDS[k].calculate) == "function" then
+            res[#res+1] = G.P_BLINDS[k]:calculate(blind, context)
+          end
         end
       end
+      for i = #res, 1, -1 do
+        if res[i-1] then add_extra(res[i], res[i-1]) end
+      end
+      return res[1]
+
     end
-    for i = #res, 1, -1 do
-      if res[i-1] then add_extra(res[i], res[i-1]) end
-    end
-    return res[1]
   end,
+  --[[
   debuff_hand = function(self, cards, hand, handname, check)
     local res = false
     for k, v in pairs(G.GAME.tboj_bosses_defeated) do
@@ -699,7 +786,7 @@ SMODS.Blind {
       if res then break end
     end
     return res
-  end,
+  end,]]
   defeat = function(self)
     for k, v in pairs(G.GAME.tboj_bosses_defeated) do
       if k ~= "bl_tboj_delirium" then

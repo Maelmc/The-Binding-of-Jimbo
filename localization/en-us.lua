@@ -491,7 +491,7 @@ return {
       bl_tboj_monstro = {
         name = "Monstro",
         text = {
-          "14 random cards",
+          "#1# random cards",
           "are debuffed"
         },
       },
@@ -508,7 +508,7 @@ return {
         text = {
           "When defeated,",
           "fight again at",
-          "10% Blind Size"
+          "#1#% Blind Size"
         },
       },
       bl_tboj_super_envy = {
@@ -516,7 +516,7 @@ return {
         text = {
           "When defeated,",
           "fight again at",
-          "25% Blind Size"
+          "#1#% Blind Size"
         },
       },
       bl_tboj_gluttony = {
@@ -534,13 +534,13 @@ return {
       bl_tboj_wrath = {
         name = "Wrath",
         text = {
-          "X0.75 Base Mult",
+          "X#1# Base Mult",
         },
       },
       bl_tboj_super_wrath = {
         name = "Super Wrath",
         text = {
-          "X0.75 Base",
+          "X#1# Base",
           "Chips and Mult"
         },
       },
@@ -554,49 +554,49 @@ return {
       bl_tboj_super_pride = {
         name = "Super Pride",
         text = {
-          "Must play 2 common ranks",
+          "Must play #1# common ranks",
           "with the previous hand"
         },
       },
       bl_tboj_lust = {
         name = "Lust",
         text = {
-          "Must play 2",
+          "Must play #1#",
           "or more suits"
         },
       },
       bl_tboj_super_lust = {
         name = "Super Lust",
         text = {
-          "Must play 3",
+          "Must play #1#",
           "or more suits"
         },
       },
       bl_tboj_greed = {
         name = "Greed",
         text = {
-          "-$2 per",
+          "-$#1# per",
           "hand played",
         },
       },
       bl_tboj_super_greed = {
         name = "Super Greed",
         text = {
-          "-$2 per discard",
+          "-$#1# per discard",
           "or hand played",
         },
       },
       bl_tboj_sloth = {
         name = "Sloth",
         text = {
-          "-1 Hand",
+          "-#1# Hand",
         },
       },
       bl_tboj_super_sloth = {
         name = "Super Sloth",
         text = {
-          "-1 Hand",
-          "-1 Discard"
+          "-#1# Hand",
+          "-#1# Discard"
         },
       },
       bl_tboj_clog = {
@@ -618,6 +618,14 @@ return {
         text = {
           "Applies all previously",
           "defeated Boss Blinds"
+        },
+      },
+      bl_tboj_delirium_bosses = {
+        name = "Delirium",
+        text = {
+          "Applies #1#",
+          "#2#",
+          "#3#"
         },
       },
       bl_tboj_mega_satan = {
@@ -2702,7 +2710,10 @@ return {
       tboj_hands_minus = "-#1# Hands",
       tboj_discards = "+#1# Discards",
       tboj_discards_minus = "-#1# Discards",
-      tboj_pack = "+#1# Booster Pack#2#"
+      tboj_pack = "+#1# Booster Pack#2#",
+      tboj_last_played_hand_singular = "Play a common rank with: #1#",
+      tboj_last_played_hand_var = "Play #1# common rank#2# with: #3#",
+      tboj_element_prevents_hand = "#1# prevents the hand from scoring"
     },
     v_text = {
         ch_c_tboj_daily_run = {"Play a random seed every day"},

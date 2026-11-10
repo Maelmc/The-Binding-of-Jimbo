@@ -8,17 +8,26 @@ SMODS.Blind {
   atlas = "boss_blinds",
   discovered = false,
   debuff = { },
-  config = {disabled = false},
-  set_blind = function(self)
-    local available = {}
-    for i, v in ipairs(G.playing_cards) do
-      available[i] = v
-    end
-    for _ = 1, 14 do
-      if #available == 0 then break end
-      local idx = pseudorandom('tboj_monstro', 1, #available)
-      local card = table.remove(available, idx)
-      card.ability.tboj_monstro = true
+  config = {amount = 14},
+  collection_loc_vars = function (self)
+    return {vars = {self.config.amount}}
+  end,
+  loc_vars = function (self)
+    return {vars = {self.config.amount}}
+  end,
+  calculate = function(self, blind, context)
+    if context.setting_blind then
+      local available = {}
+      for i, v in ipairs(G.playing_cards) do
+        available[i] = v
+      end
+      for _ = 1, blind.effect.amount do
+        if #available == 0 then break end
+        local idx = pseudorandom('tboj_monstro', 1, #available)
+        local card = table.remove(available, idx)
+        card.ability.tboj_monstro = true
+        SMODS.recalc_debuff(card)
+      end
     end
   end,
   defeat = function(self)

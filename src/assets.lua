@@ -298,6 +298,7 @@ SMODS.Sound({
       return 1
     end
   end,
+  sync = false,
   pitch = 1,
   volume = 0.8,
 })
@@ -310,6 +311,7 @@ SMODS.Sound({
       return 1
     end
   end,
+  sync = false,
   pitch = 1,
   volume = 0.8,
 })
@@ -325,6 +327,7 @@ SMODS.Sound({
       return 1
     end
   end,
+  sync = false,
   pitch = 1,
   volume = 0.8,
 })
@@ -343,6 +346,7 @@ SMODS.Sound({
       end
     end
   end,
+  sync = false,
   pitch = 1,
   volume = 0.8,
 })
@@ -367,6 +371,7 @@ SMODS.Sound({
       end
     end
   end,
+  sync = false,
   pitch = 1,
   volume = 0.8,
 })
