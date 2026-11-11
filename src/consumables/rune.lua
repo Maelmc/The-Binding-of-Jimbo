@@ -132,7 +132,7 @@ SMODS.Consumable {
   use = function(self, card, area, copier)
     for _, v in pairs(G.shop_jokers.cards) do
       if (v.ability.set == "Joker" or v.ability.set == "tboj_Active") and TBOJ.can_reroll(v) then
-        local _k = SMODS.poll_object({type = v.ability.set, seed = "tboj_d6" .. G.GAME.round_resets.ante, rarities = {TBOJ.rarity_to_text(v.config.center.rarity)}})
+        local _k = SMODS.poll_object({type = v.ability.set, seed = "tboj_d6" .. G.GAME.round_resets.ante, rarities = v.config.center.rarity and {TBOJ.rarity_to_text(v.config.center.rarity)} or nil})
         TBOJ.reroll(v, _k)
       end
     end
