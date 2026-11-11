@@ -162,7 +162,7 @@ SMODS.Joker {
       }
     end
 
-    if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+    if context.end_of_round and context.game_over == false and context.main_eval then
       local contained = false
       for _, v in pairs (context.scoring_hand) do
         if v:get_id() == G.GAME.current_round.tboj_death_list_card1.id then contained = true break end
@@ -182,10 +182,13 @@ SMODS.Joker {
             end
           }))
         end
-        SMODS.scale_card(card, {
-          ref_value = 'chips',
-          scalar_value = 'chip_mod',
-        })
+        if not context.blueprint then
+          SMODS.scale_card(card, {
+            ref_value = 'chips',
+            scalar_value = 'chip_mod',
+          })
+        end
+        return nil, true
       end
     end
   end,
