@@ -642,6 +642,13 @@ return {
           "her Ultra Harbingers",
         },
       },
+      bl_tboj_mom = {
+        name = "Mom",
+        text = {
+          "Destroys a random played",
+          "card before scoring",
+        },
+      },
     },
     Enhanced = {
       m_tboj_poop = {
@@ -2681,6 +2688,7 @@ return {
       tboj_right = "Right",
       tboj_jackpot_ex = "Jackpot!",
       tboj_blasphemous_ex = "Blasphemous!",
+      tboj_stomp_ex = "Stomp!",
 
       tboj_and = "and",
       tboj_credits_artist = "Artist: ",

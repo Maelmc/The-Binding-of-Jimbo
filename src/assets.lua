@@ -188,6 +188,21 @@ SMODS.Sound({
     path = "bone_heart.wav"
 })
 
+SMODS.Sound({
+    key = "mom_isaac",
+    path = "mom_isaac.wav"
+})
+
+SMODS.Sound({
+    key = "mom_grunt",
+    path = "mom_grunt.wav"
+})
+
+SMODS.Sound({
+    key = "mom_laugh",
+    path = "mom_laugh.wav"
+})
+
 -- Music
 SMODS.Sound({
   key = "planetarium_music",
@@ -197,7 +212,7 @@ SMODS.Sound({
 	end,
   sync = false,
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -215,7 +230,7 @@ SMODS.Sound({
     ['tboj_the_end_war_music'] = true,
   },
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -233,7 +248,7 @@ SMODS.Sound({
     ['tboj_the_end_war_music'] = true,
   },
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -251,7 +266,7 @@ SMODS.Sound({
     ['tboj_the_end_war_music'] = true,
   },
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -269,7 +284,7 @@ SMODS.Sound({
     ['tboj_the_end_war_music'] = true,
   },
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -287,7 +302,7 @@ SMODS.Sound({
     ['tboj_the_end_pestilence_music'] = true,
   },
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -300,7 +315,7 @@ SMODS.Sound({
   end,
   sync = false,
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -313,7 +328,7 @@ SMODS.Sound({
   end,
   sync = false,
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -329,7 +344,7 @@ SMODS.Sound({
   end,
   sync = false,
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -348,7 +363,7 @@ SMODS.Sound({
   end,
   sync = false,
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
 })
 
 SMODS.Sound({
@@ -373,5 +388,18 @@ SMODS.Sound({
   end,
   sync = false,
   pitch = 1,
-  volume = 0.8,
+  volume = 0.7,
+})
+
+SMODS.Sound({
+  key = "mom_fight_music",
+  path = "mom_fight_music.ogg",
+	select_music_track = function()
+    if G.GAME.blind and G.GAME.blind.name == "bl_tboj_mom" then
+      return 1
+    end
+	end,
+  sync = false,
+  pitch = 1,
+  volume = 0.7,
 })
