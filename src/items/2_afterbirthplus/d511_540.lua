@@ -216,9 +216,9 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.individual and context.cardarea == G.play then
-      if #context.full_hand == 3 then
+      if #context.scoring_hand == 3 then
         local all_three = true
-        for _, v in pairs (context.full_hand) do
+        for _, v in pairs (context.scoring_hand) do
           if v:get_id() ~= 3 then all_three = false break end
         end
         if all_three then

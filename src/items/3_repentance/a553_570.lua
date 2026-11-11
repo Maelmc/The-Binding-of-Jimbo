@@ -158,7 +158,7 @@ SMODS.Joker {
 SMODS.Joker {
   key = "paschal_candle",
   pos = {x = 11, y = 37 },
-  config = {extra = {chips = 0, chip_mod = 30}},
+  config = {extra = {chips = 0, chip_mod = 50}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.chip_mod, card.ability.extra.chips}}
   end,

@@ -616,7 +616,7 @@ return {
       bl_tboj_delirium = {
         name = "Delirium",
         text = {
-          "Applies all previously",
+          "Applies half of the previously",
           "defeated Boss Blinds"
         },
       },
@@ -929,7 +929,7 @@ return {
         text = {
           "Each played {C:attention}6{} gives",
           "{C:mult}+#1#{} Mult when scored.",
-          "If played hand is exactly",
+          "If {C:attention}poker hand{} is exactly",
           "{C:attention}three 6s{}, they each give",
           "{C:mult}+#1#{} and {C:white,X:mult}X#2#{} Mult",
           "when scored instead"
@@ -1555,7 +1555,7 @@ return {
         text = {
           "Each played {C:attention}3{} gives {C:mult}+#1#{} Mult,",
           "{C:chips}+#2#{} Chips or {C:money}$#3#{} when scored.",
-          "If played hand is exactly",
+          "If {C:attention}poker hand{} is exactly",
           "{C:attention}three 3s{}, they each give",
           "{C:attention}all three{} when scored instead"
         }
@@ -1689,20 +1689,26 @@ return {
         text = {
           "If played hand is a {C:attention}Pair{},",
           "gain {C:attention}+#1#{} hand size this round,",
-          "increases by {C:attention}#2#{} when",
-          "skipping a {C:attention}Blind"
+          "increases by {C:attention}#2#{} for each",
+          "{C:attention}Blind{} skipped this run"
         },
       },
       j_tboj_venus = {
         name = "Venus",
         text = {
-          "If played hand is a",
-          "{C:attention}Three of a Kind{}, played",
-          "{C:spades}Spades{} give {C:chips}+#1#{} Chips,",
-          "{C:hearts}Hearts{} give {C:white,X:mult}X#2#{} Mult,",
-          "{C:clubs}Clubs{} give {C:mult}+#3#{} Mult and",
-          "{C:diamonds}Diamonds{} give {C:money}$#4#{}",
-          "when scored"
+          {
+            "If played hand is a",
+            "{C:attention}Three of a Kind{}, played",
+            "{C:spades}Spades{} give {C:chips}+#1#{} Chips,",
+            "{C:hearts}Hearts{} give {C:white,X:mult}X#2#{} Mult,",
+            "{C:clubs}Clubs{} give {C:mult}+#3#{} Mult and",
+            "{C:diamonds}Diamonds{} give {C:money}$#4#{}",
+            "when scored"
+          } ,
+          {
+            "{C:attention}Wild Cards{} cannot",
+            "be debuffed"
+          }
         },
       },
       j_tboj_uranus = {

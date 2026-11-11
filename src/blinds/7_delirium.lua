@@ -648,26 +648,21 @@ SMODS.Blind {
   modifies_draw = true,
   loc_vars = function (self)
     local lines = {"", "", ""}
-    local count = 0
-    local total = 0
-    for _, _ in pairs(G.GAME.tboj_bosses_defeated) do
-      total = total + 1
-    end
-    for k, _ in pairs(G.GAME.tboj_bosses_defeated) do
-      count = count + 1
-      if count <= total / 3 then
+    local total = #G.GAME.current_round.tboj_delirium_picks
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
+      if i <= total / 3 then
         lines[1] = lines[1] .. localize{set = "Blind", key = k, type = "name_text"} .. ","
-        if count + 1 < total / 3 then
+        if i + 1 < total / 3 then
           lines[1] = lines[1] .. " "
         end
-      elseif count <= total / 3 * 2 then
+      elseif i <= total / 3 * 2 + 1 then -- +1 so the 2nd line takes 1 more than the third on ante 9, don't really care about above
         lines[2] = lines[2] .. localize{set = "Blind", key = k, type = "name_text"} .. ","
-        if count + 1 < total / 3 * 2 then
+        if i < total / 3 * 2 then
           lines[2] = lines[2] .. " "
         end
       else
         lines[3] = lines[3] .. localize{set = "Blind", key = k, type = "name_text"}
-        if count ~= total then
+        if i ~= total then
         lines[3] = lines[3] .. ", "
         end
       end
@@ -676,7 +671,7 @@ SMODS.Blind {
   end,
   calc_dollar_bonus = function(self, blind)
     local res = {}
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].calc_dollar_bonus and type(G.P_BLINDS[k].calc_dollar_bonus) == "function" then
         res[#res+1] = G.P_BLINDS[k]:calc_dollar_bonus(blind)
       end
@@ -690,7 +685,7 @@ SMODS.Blind {
     if not blind.disabled then
 
       if context.setting_blind then
-        for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+        for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
           if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].config then
             for kk, vv in pairs(G.P_BLINDS[k].config) do
               if blind.effect[kk] == nil then
@@ -705,7 +700,7 @@ SMODS.Blind {
       if context.debuff_hand then
         local res = {}
         local source = {}
-        for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+        for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
           if k ~= "bl_tboj_delirium" then
             if vanilla_bosses[k] and vanilla_bosses[k].debuff_hand then
               local temp = vanilla_bosses[k].debuff_hand(self, context.full_hand, context.scoring_hand, context.scoring_name, context.check)
@@ -756,7 +751,7 @@ SMODS.Blind {
 
       -- all other contexts
       local res = {}
-      for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+      for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
         if k ~= "bl_tboj_delirium" then
           if vanilla_bosses[k] and vanilla_bosses[k].calculate then
             res[#res+1] = vanilla_bosses[k].calculate(self, blind, context)
@@ -775,7 +770,7 @@ SMODS.Blind {
   --[[
   debuff_hand = function(self, cards, hand, handname, check)
     local res = false
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" then
         if vanilla_bosses[k] and vanilla_bosses[k].debuff_hand then
           res = vanilla_bosses[k].debuff_hand(self, cards, hand, handname, check)
@@ -788,7 +783,7 @@ SMODS.Blind {
     return res
   end,]]
   defeat = function(self)
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" then
         if vanilla_bosses[k] and vanilla_bosses[k].defeat then
           vanilla_bosses[k].defeat(self)
@@ -799,7 +794,7 @@ SMODS.Blind {
     end
   end,
   disable = function(self)
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" then
         if vanilla_bosses[k] and vanilla_bosses[k].disable then
           vanilla_bosses[k].disable(self)
@@ -810,7 +805,7 @@ SMODS.Blind {
     end
   end,
   drawn_to_hand = function(self)
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].drawn_to_hand and type(G.P_BLINDS[k].drawn_to_hand) == "function" then
         G.P_BLINDS[k]:drawn_to_hand()
       end
@@ -820,7 +815,7 @@ SMODS.Blind {
     local res = 1
     local res2 = 1
     local res3 = false
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].modify_hand and type(G.P_BLINDS[k].modify_hand) == "function" then
         local a, b, c = G.P_BLINDS[k]:modify_hand(cards, poker_hands, text, mult, hand_chips)
         res = res * a
@@ -831,7 +826,7 @@ SMODS.Blind {
     return res, res2, res3
   end,
   press_play = function(self)
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].press_play and type(G.P_BLINDS[k].press_play) == "function" then
         G.P_BLINDS[k]:press_play()
       end
@@ -839,7 +834,7 @@ SMODS.Blind {
   end,
   recalc_debuff = function(self, card, from_blind)
     local res = false
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].recalc_debuff and type(G.P_BLINDS[k].recalc_debuff) == "function" then
         res = res or G.P_BLINDS[k]:recalc_debuff(card, from_blind)
       end
@@ -849,7 +844,7 @@ SMODS.Blind {
   set_blind = function(self)
     local chips = G.GAME.blind.chips
     local mult = 1
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].set_blind and type(G.P_BLINDS[k].set_blind) == "function" then
         G.P_BLINDS[k]:set_blind()
       end
@@ -863,7 +858,7 @@ SMODS.Blind {
   end,
   stay_flipped = function (self, area, card)
     local res = false
-    for k, v in pairs(G.GAME.tboj_bosses_defeated) do
+    for i, k in pairs(G.GAME.current_round.tboj_delirium_picks) do
       if k ~= "bl_tboj_delirium" and G.P_BLINDS[k].stay_flipped and type(G.P_BLINDS[k].stay_flipped) == "function" then
         res = res or G.P_BLINDS[k]:stay_flipped(area, card)
       end

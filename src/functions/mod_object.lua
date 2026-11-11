@@ -41,6 +41,18 @@ local function reset_fruity_plum_suit()
   end
 end
 
+local function pick_delirium_bosses()
+  local picks = {}
+  G.GAME.current_round.tboj_delirium_picks = {}
+  for k, _ in pairs(G.GAME.tboj_bosses_defeated) do
+    if k ~= "bl_tboj_delirium" then picks[#picks+1] = k end
+  end
+  pseudoshuffle(picks, "tboj_delirium_picks")
+  for i = 1, math.floor(#picks/2) do
+    G.GAME.current_round.tboj_delirium_picks[i] = picks[i]
+  end
+end
+
 SMODS.current_mod.calculate = function(self, context)
   if G.GAME.modifiers.tboj_aprils_fool and context.buying_card then
     local _k = SMODS.poll_object({type = context.card.ability.set, seed = "tboj_aprils_fools" .. G.GAME.round_resets.ante}) --TBOJ.get_random_key({set = context.card.ability.set, seed = "tboj_aprils_fools" .. G.GAME.round_resets.ante})
@@ -95,12 +107,14 @@ SMODS.current_mod.calculate = function(self, context)
       end
     end
   end
+
+  -- Add defeated boss to defeated boss list
+  if context.end_of_round and context.beat_boss then
+    G.GAME.tboj_bosses_defeated[G.GAME.blind.config.blind.key] = true
+  end
 end
 
 function SMODS.current_mod.reset_game_globals(run_start)
-  reset_tboj_card("tboj_death_list_card")
-  reset_tboj_card("tboj_marked_card", 3, true)
-  reset_tboj_card("tboj_eye_of_the_occult_card")
   if run_start then
     G.GAME.tboj_bosses_defeated = {}
     G.GAME.tboj_last_full_hand = {}
@@ -108,9 +122,14 @@ function SMODS.current_mod.reset_game_globals(run_start)
     G.GAME.tboj_planetarium_rate = 0.01
     reset_fruity_plum_suit()
   end
+  reset_tboj_card("tboj_death_list_card")
+  reset_tboj_card("tboj_marked_card", 3, true)
+  reset_tboj_card("tboj_eye_of_the_occult_card")
+  pick_delirium_bosses()
 end
 
 function SMODS.current_mod.set_debuff(card)
+  if next(SMODS.find_card("j_tboj_venus")) then return "prevent_debuff" end
   if card.ability.tboj_monstro then return true end
   return false
 end

@@ -165,7 +165,7 @@ TBOJ.Active {
   key = "void",
   pos = { x = 11, y = 31 },
   cost = 7,
-  config = {extra = {max_charge = 4, curr_charge = 4}},
+  config = {extra = {max_charge = 3, curr_charge = 3}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
   end,

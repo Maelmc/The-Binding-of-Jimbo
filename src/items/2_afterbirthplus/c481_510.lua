@@ -30,7 +30,7 @@ TBOJ.Active {
   key = "eden_soul",
   pos = { x = 9, y = 32 },
   cost = 5,
-  config = {extra = {max_charge = 12, curr_charge = 0}},
+  config = {extra = {max_charge = 3, curr_charge = 0}},
   loc_vars = function(self, info_queue, card)
     return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge}}
   end,

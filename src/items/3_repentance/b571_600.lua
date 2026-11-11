@@ -176,7 +176,7 @@ SMODS.Joker {
   pos = {x = 4, y = 39 },
   config = { extra = { h_size = 1, per_skip = 1} },
   loc_vars = function(self, info_queue, card)
-    return { vars = {card.ability.extra.h_size, card.ability.extra.per_skip, card.ability.extra.h_size} }
+    return { vars = {card.ability.extra.h_size + G.GAME.skips * card.ability.extra.per_skip, card.ability.extra.per_skip} }
   end,
   rarity = 3,
   cost = 8,
@@ -186,20 +186,17 @@ SMODS.Joker {
   blueprint_compat = true,
   calculate = function(self, card, context)
     if context.before and context.scoring_name == "Pair" then
-      G.hand:change_size(card.ability.extra.h_size)
-      G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.h_size
+      G.hand:change_size(card.ability.extra.h_size + G.GAME.skips * card.ability.extra.per_skip)
+      G.GAME.round_resets.temp_handsize = (G.GAME.round_resets.temp_handsize or 0) + card.ability.extra.h_size + G.GAME.skips * card.ability.extra.per_skip
       return {
-        message = localize{type='variable', key='a_handsize', vars={card.ability.extra.h_size}}
+        message = localize{type='variable', key='a_handsize', vars={card.ability.extra.h_size + G.GAME.skips * card.ability.extra.per_skip}}
       }
     end
 
     if context.skip_blind and not context.blueprint then
-      SMODS.scale_card(card, {
-        ref_value = 'h_size',
-        scalar_value = 'per_skip',
-        message_key = 'a_handsize',
-      })
-      return nil, true
+      return {
+        message = localize("k_upgrade_ex")
+      }
     end
   end,
   attributes = {"tboj_planetarium", "space", "hand_type", "hand_size", "skip", "scaling"}
@@ -211,6 +208,7 @@ SMODS.Joker {
   pos = {x = 5, y = 39 },
   config = { extra = { chips = 30, mult = 7, xmult = 1.5, money = 2} },
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.m_wild
     return { vars = {card.ability.extra.chips, card.ability.extra.xmult, card.ability.extra.mult, card.ability.extra.money} }
   end,
   rarity = 3,

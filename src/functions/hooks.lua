@@ -462,12 +462,3 @@ function SMODS.is_showdown_ante(...)
     and G.GAME.round_resets.ante % G.GAME.win_ante == G.GAME.win_ante - 1)
     or is_showdown_ante_ref(...)
 end
-
--- Save all defeated bosses for Delirium
-local b_defeat = Blind.defeat
-function Blind:defeat(silent)
-  if self.config.blind.boss then
-    G.GAME.tboj_bosses_defeated[self.config.blind.key] = true
-  end
-  b_defeat(self, silent)
-end
