@@ -266,11 +266,12 @@ end
 
 -- Converts a card's ID to the corresponding value
 function TBOJ.id_to_value(id)
-  if id == 11 then return "Jack"
-  elseif id == 12 then return "Queen"
-  elseif id == 13 then return "King"
-  elseif id == 14 then return "Ace"
-  else return tostring(id)
+  id = tostring(id)
+  if id == "11" then return "Jack"
+  elseif id == "12" then return "Queen"
+  elseif id == "13" then return "King"
+  elseif id == "14" then return "Ace"
+  else return id
   end
 end
 

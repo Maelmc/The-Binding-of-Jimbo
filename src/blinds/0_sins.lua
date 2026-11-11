@@ -233,7 +233,7 @@ SMODS.Blind {
         local ranks = ""
         for k, v in pairs(G.GAME.modifiers.tboj_pride) do
           for i = 1, v do
-            ranks = ranks .. k .. ", "
+            ranks = ranks .. TBOJ.id_to_value(k) .. ", "
           end
         end
         ranks = string.sub(ranks, 1, #ranks - 2)
@@ -304,7 +304,7 @@ SMODS.Blind {
         local ranks = ""
         for k, v in pairs(G.GAME.modifiers.tboj_pride) do
           for i = 1, v do
-            ranks = ranks .. k .. ", "
+            ranks = ranks .. TBOJ.id_to_value(k) .. ", "
           end
         end
         ranks = string.sub(ranks, 1, #ranks - 2)
