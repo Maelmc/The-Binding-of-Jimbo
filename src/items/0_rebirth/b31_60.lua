@@ -71,8 +71,7 @@ TBOJ.Active {
 TBOJ.Active {
   key = "the_poop",
   pos = { x = 5, y = 2 },
-  --rarity = "Common",
-  cost = 3,
+  cost = 4,
   config = {extra = {max_highlighted = 1, max_charge = 1, curr_charge = 1}},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.m_tboj_poop
