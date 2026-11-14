@@ -2639,6 +2639,18 @@ return {
           "{C:attention}Planetarium{} Joker cards"
         },
       },
+      tboj_negative_active = {
+        name = "Negative",
+        text = {
+          "{C:dark_edition}+#1#{} Active slot",
+        },
+      },
+      tboj_negative_trinket = {
+        name = "Negative",
+        text = {
+          "{C:dark_edition}+#1#{} Trinket slot",
+        },
+      },
     }
   },
   misc = {

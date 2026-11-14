@@ -7,9 +7,7 @@ SMODS.Consumable {
   cost = 4,
   unlocked = true,
   loc_vars = function(self, info_queue, card)
-    if not card.edition or (card.edition and not card.edition.negative) then
-      info_queue[#info_queue+1] = G.P_CENTERS.e_negative
-    end
+    info_queue[#info_queue+1] = {set = 'Other', key = 'tboj_negative_trinket', vars = {1}}
     return {vars = {}}
   end,
   can_use = function(self, card)

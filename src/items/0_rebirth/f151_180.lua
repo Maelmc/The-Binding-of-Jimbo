@@ -155,6 +155,9 @@ TBOJ.Active {
   config = {extra = { cost = 1 }},
   loc_vars = function(self, info_queue, card)
     info_queue[#info_queue + 1] = G.P_CENTERS.spiderfly_tboj_pretty_fly
+    if not card.edition or (card.edition and not card.edition.negative) then
+      info_queue[#info_queue+1] = G.P_CENTERS.e_negative
+    end
     info_queue[#info_queue + 1] = G.P_CENTERS.j_tboj_a_dollar
     return {vars = {card.ability.extra.cost}}
   end,

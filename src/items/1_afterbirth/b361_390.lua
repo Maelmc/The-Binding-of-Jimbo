@@ -247,8 +247,9 @@ SMODS.Joker {
   pos = {x = 2, y = 25},
   config = {extra = {every = 2, current = 0}},
   loc_vars = function(self, info_queue, card)
-    info_queue[#info_queue+1] = G.P_CENTERS.m_tboj_poop
+    info_queue[#info_queue + 1] = { key = 'e_negative_consumable', set = 'Edition', config = { extra = 1 } }
     info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_bomb
+    info_queue[#info_queue+1] = G.P_CENTERS.m_tboj_poop
     return {vars = {card.ability.extra.every, card.ability.extra.current}}
   end,
   rarity = 2,

@@ -6,6 +6,7 @@ SMODS.Joker {
   soul_pos = {x = 4, y = 2},
   config = {extra = {to_draw = 50, drawn = 0, on_add = 3}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = { key = 'e_negative_consumable', set = 'Edition', config = { extra = 1 } }
     info_queue[#info_queue + 1] = G.P_CENTERS.c_tboj_black_heart
     return {vars = {card.ability.extra.on_add, card.ability.extra.to_draw, card.ability.extra.drawn}}
   end,
