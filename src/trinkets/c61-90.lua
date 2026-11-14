@@ -1,3 +1,30 @@
+-- The Left Hand
+-- Shiny Rock
+-- Safety Scissors
+-- Rainbow Worm
+TBOJ.Trinket {
+  key = "rainbow_worm",
+  pos = { x = 3, y = 4 },
+  cost = 6,
+  config = {extra = {repetitions = 1}},
+  enhancement_gate = "m_wild",
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.m_wild
+    return {vars = {card.ability.extra.repetitions}}
+  end,
+  calculate = function(self, card, context)
+    if context.repetition and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, "m_wild") then
+      return {
+        repetitions = card.ability.extra.repetitions
+      }
+    end
+  end,
+  attributes = {"tboj_worm", "retrigger", "enhancements"}
+}
+
+-- Tape Worm
+-- Lazy Worm
+
 -- Watch Battery
 -- Blasting Cap
 -- Stud Finder
@@ -7,6 +34,7 @@ TBOJ.Trinket {
   cost = 5,
   config = {extra = {num = 1, den = 5, increase = 1}},
   loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue+1] = G.P_CENTERS.m_stone
     local num, den = SMODS.get_probability_vars(card, card.ability.extra.num, card.ability.extra.den, "tboj_stud_finder")
     return {vars = {num, den, card.ability.extra.increase}}
   end,
@@ -16,7 +44,7 @@ TBOJ.Trinket {
       for _, removed_card in ipairs(context.removed) do
         if SMODS.has_enhancement(removed_card,"m_stone") then
           SMODS.scale_card(card, {
-            ref_value = 'num',        
+            ref_value = 'num',
             scalar_value = 'increase',
           })
         end

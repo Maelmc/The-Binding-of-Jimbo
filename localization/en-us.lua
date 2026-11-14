@@ -228,6 +228,20 @@ return {
           }
         }
       },
+      active_tboj_kidney_bean = {
+        name = "Kidney Bean",
+        text = {
+          {
+            "#1#/#2# {C:attention}charge",
+            "Must be fully charged to use",
+            "Recharges at end of round"
+          },
+          {
+            "Enhance {C:attention}#3#{} selected",
+            "card into a {C:attention}Wild Card"
+          }
+        }
+      },
       active_tboj_jar_of_flies = {
         name = "Jar of Flies",
         text = {
@@ -1133,6 +1147,14 @@ return {
           "Create a {C:spectral}Spectral{} card",
           "every {C:attention}#1# {C:inactive}[#2#]{} cards drawn",
           "during a {C:attention}Blind"
+        }
+      },
+      j_tboj_guppy_hairball = {
+        name = "Guppy's Hairball",
+        text = {
+          "This Joker gains {C:white,X:mult}X#1#{} Mult if",
+          "played hand contains a {C:attention}Jack",
+          "{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive} Mult)"
         }
       },
       j_tboj_meat = {
@@ -2290,6 +2312,13 @@ return {
           "{C:green}#1# in #2#{} chance to earn {C:money}$#3#{}",
           "whenever {C:money}money{} is earned",
           "{C:inactive,s:0.8}(Cannot trigger from {C:attention,s:0.8}Counterfeit Penny{C:inactive,s:0.8})"
+        }
+      },
+      trinket_tboj_rainbow_worm = {
+        name = "Rainbow Worm",
+        text = {
+          "Retrigger all played {C:attention}Wild Cards",
+          "used in scoring {C:attention}#1#{} additional time"
         }
       },
       trinket_tboj_stud_finder = {

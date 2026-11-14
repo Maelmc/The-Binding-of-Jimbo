@@ -93,6 +93,46 @@ SMODS.Joker {
 
 -- Blood Rights
 -- Guppy's Hairball
+SMODS.Joker {
+  key = "guppy_hairball",
+  pos = {x = 7, y = 12},
+  config = {extra = {Xmult = 1, Xmult_mod = 0.1}},
+  loc_vars = function(self, info_queue, card)
+    return {vars = {card.ability.extra.Xmult_mod, card.ability.extra.Xmult}}
+  end,
+  rarity = 2,
+  cost = 6,
+  atlas = "jokers",
+  perishable_compat = true,
+  eternal_compat = true,
+  blueprint_compat = true,
+  calculate = function(self, card, context)
+    if context.before and not context.blueprint then
+      for _, v in pairs(context.full_hand) do
+        if v:get_id() == 11 then
+          SMODS.scale_card(card, {
+            ref_value = 'Xmult',
+            scalar_value = 'Xmult_mod',
+          })
+          return nil, true
+        end
+      end
+    end
+
+    if context.joker_main then
+      return {
+        xmult = card.ability.extra.mult
+      }
+    end
+  end,
+  in_pool = function (self, args)
+    return TBOJ.in_pool(self, args)
+  end,
+  attributes = {"tboj_guppy", "jack", "scaling", "xmult"},
+}
+
+-- Abel
+-- SMB Super Fan
 
 -- 3 Dollar Bill
 -- Telepathy For Dummies

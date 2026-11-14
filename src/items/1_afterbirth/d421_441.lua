@@ -1,3 +1,45 @@
+-- Kidney Bean
+TBOJ.Active {
+  key = "kidney_bean",
+  pos = { x = 0, y = 28 },
+  cost = 5,
+  config = {extra = {max_highlighted = 1, max_charge = 1, curr_charge = 1}},
+  loc_vars = function(self, info_queue, card)
+    info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
+    return {vars = {card.ability.extra.curr_charge, card.ability.extra.max_charge, card.ability.extra.max_highlighted}}
+  end,
+  calculate = function(self, card, context)
+    TBOJ.eor_charge(card,context)
+  end,
+  can_use = function(self, card)
+    return card.ability.extra.curr_charge >= card.ability.extra.max_charge and G.hand and #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.max_highlighted
+  end,
+  use = function(self, card, area, copier)
+    TBOJ.juice_flip_highlighted(card)
+    for i = 1, #G.hand.highlighted do
+      G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.1,
+        func = function()
+          G.hand.highlighted[i]:set_ability("m_wild")
+          return true
+        end
+      }))
+    end
+    TBOJ.juice_flip_highlighted(card, true)
+  end,
+  keep_on_use = function(self, card)
+    return true
+  end,
+  in_pool = function(self)
+    return TBOJ.in_pool(self)
+  end,
+  attributes = {"enhancements", "modify_card"},
+}
+
+-- Glowing Hourglass
+-- Circle of Protection
+
 -- PJs
 -- Head of the Keeper
 SMODS.Joker {
